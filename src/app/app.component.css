@@ -1,0 +1,48 @@
+nav{
+	background-color: #0094CA;
+	text-align: right;
+	color: white;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 1rem;
+}
+header {
+	padding: 2rem;
+	background-color: white;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: left;
+	border-bottom: 1px solid #0094CA;
+}
+
+h2 {
+	margin: auto 4rem;
+	font-weight: normal;
+	color: #0094CA;
+}
+.example-container{
+	height: auto;
+}
+mat-drawer{
+	width: 25rem;
+}
+footer{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: white;
+	border-top: solid lightgray 1px;
+	color: #0094CA;
+	padding-top: 0.5rem;
+}
+.left, .center, .right{
+	margin: auto 1rem;
+	text-align: center;
+}
+footer a{
+	font-size: 1rem;
+}

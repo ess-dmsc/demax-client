@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0;}
+
+html, body {
+	height: 100vh;
+	font-family: Titillium, "Helvetica Neue", sans-serif }
+
+body {
+	color: #293035;
+	font: 16px/28px Titillium, Arial, sans-serif;
+	font-weight: 400;
+	margin: 0;
+}
+
+@font-face {
+	font-family: Titillium;
+	src: url(./assets/fonts/titillium-regular-webfont.woff);
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: Titillium;
+	src: url('./assets/fonts/titillium-regularitalic-webfont.woff');
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: Titillium;
+	src: url('./assets/fonts/titillium-semibold-webfont.woff');
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: Titillium;
+	src: url('./assets/fonts/titillium-bold-webfont.woff');
+	font-weight: 700;
+	font-style: normal
+}
+
+@font-face {
+	font-family: ess-icon;
+	src: url('./assets/fonts/ess-icon.ttf');
+	font-weight: 400;
+	font-style: normal;
+}
