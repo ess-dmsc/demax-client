@@ -9,6 +9,8 @@ import { ProposalService } from '../proposal.service';
 })
 
 export class ProposalDetailsComponent {
+    constructor(private proposalService: ProposalService) {
+    }
     @Input()
     proposal: Proposal;
 
@@ -19,8 +21,7 @@ export class ProposalDetailsComponent {
     @Input()
     deleteHandler: Function;
 
-    constructor(private proposalService: ProposalService) {
-    }
+
 
     createProposal(proposal: Proposal) {
         this.proposalService.createProposal(proposal).then((newProposal: Proposal) => {

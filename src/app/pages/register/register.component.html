@@ -1,9 +1,7 @@
-<app-toast [message]="toast.message"></app-toast>
-
 <div class="card">
 	<h4 class="card-header">Register</h4>
 	<div class="card-body">
-		<form [formGroup]="registerForm" (ngSubmit)="register()">
+		<form>
 			<div class="input-group" [ngClass]="setClassEmail()">
 				<div class="input-group-prepend">
           <span class="input-group-text">

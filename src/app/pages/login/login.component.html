@@ -83,7 +83,7 @@
 				<mat-card-subtitle>Sign in with your organizational account</mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-content>
-				<form [formGroup]="loginForm" (ngSubmit)="login()">
+				<form>
 					<table>
 						<tr>
 							<td>
@@ -102,7 +102,7 @@
 						</tr>
 						<tr>
 							<td>
-								<button mat-raised-button type="submit" [disabled]="!loginForm.valid"
+								<button mat-raised-button type="submit"
 								        color="primary">Login
 								</button>
 							</td>

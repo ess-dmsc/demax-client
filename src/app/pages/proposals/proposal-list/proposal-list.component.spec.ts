@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProposalListComponent } from './proposal-list.component';
+import { MaterialModule } from '../../../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UploadModule } from '../../../upload/upload.module';
+import { HttpModule } from '@angular/http';
 
 describe('ProposalListComponent', () => {
     let component: ProposalListComponent;
@@ -8,7 +12,8 @@ describe('ProposalListComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ ProposalListComponent ]
+            declarations: [ ProposalListComponent ],
+            imports: [ MaterialModule, FormsModule, ReactiveFormsModule, UploadModule, HttpModule ]
         })
         .compileComponents();
     }));
