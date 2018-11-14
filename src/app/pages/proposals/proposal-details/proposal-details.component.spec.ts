@@ -5,6 +5,7 @@ import { MaterialModule } from '../../../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadModule } from '../../../upload/upload.module';
 import { HttpModule } from '@angular/http';
+import { ProposalService } from '../proposal.service';
 
 describe('ProposalDetailsComponent', () => {
     let component: ProposalDetailsComponent;
@@ -13,7 +14,8 @@ describe('ProposalDetailsComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ ProposalDetailsComponent ],
-            imports: [ MaterialModule, FormsModule, ReactiveFormsModule, UploadModule, HttpModule ]
+            imports: [ MaterialModule, FormsModule, ReactiveFormsModule, UploadModule, HttpModule ],
+            providers: [ProposalService]
         })
         .compileComponents();
     }));
