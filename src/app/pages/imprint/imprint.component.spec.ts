@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MaterialModule} from '../../material/material.module';
 import { ImprintComponent } from './imprint.component';
 
 describe('ImprintComponent', () => {
@@ -8,7 +8,8 @@ describe('ImprintComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImprintComponent ]
+      declarations: [ ImprintComponent ],
+        imports: [MaterialModule]
     })
     .compileComponents();
   }));
