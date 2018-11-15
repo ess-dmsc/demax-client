@@ -1,28 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { LoginComponent } from './login.component';
-import { MaterialModule } from '../../material/material.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastComponent } from '../../components/toast/toast.component';
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+	let component: LoginComponent;
+	let fixture: ComponentFixture<LoginComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
-        imports: [ MaterialModule, BrowserAnimationsModule ]
-    })
-    .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [ LoginComponent ]
+		})
+		.compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(LoginComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	/*it('should create', () => {
+	  expect(component).toBeTruthy();
+	});
+	it('should display the string "Login" in h4', () => {
+	  const el = fixture.debugElement.query(By.css('h4')).nativeElement;
+	  expect(el.textContent).toContain('Login');
+	});*/
 });

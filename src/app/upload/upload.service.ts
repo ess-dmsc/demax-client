@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 
-const url = 'http://localhost:8080/api/upload';
+const url = 'http://localhost:8080/upload';
 
 @Injectable({
   providedIn: 'root'

@@ -83,32 +83,21 @@
 				<mat-card-subtitle>Sign in with your organizational account</mat-card-subtitle>
 			</mat-card-header>
 			<mat-card-content>
-				<form>
-					<table>
-						<tr>
-							<td>
-								<mat-form-field>
-									<input matInput placeholder="Email" name="email" formControlName="email" required>
-								</mat-form-field>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<mat-form-field>
-									<input matInput placeholder="Password" formControlName="password" type="password"
-									       name="password" required autofocus>
-								</mat-form-field>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<button mat-raised-button type="submit"
-								        color="primary">Login
-								</button>
-							</td>
-						</tr>
-					</table>
+
+				<form (ngSubmit)="submit()">
+					<div class="form-group col-3">
+						<label for="email">Email</label>
+						<input type="text" name="email" class="form-control" [(ngModel)]="email" />
+					</div>
+					<div class="form-group col-3">
+						<label for="password">Password</label>
+						<input type="password" name="password" class="form-control" [(ngModel)]="password" />
+					</div>
+					<div class="form-group col-3">
+						<button class="btn btn-primary" type="submit">Login</button>
+					</div>
 				</form>
+
 			</mat-card-content>
 			<mat-card-actions>
 				<a mat-raised-button routerLink="/register">Register</a>

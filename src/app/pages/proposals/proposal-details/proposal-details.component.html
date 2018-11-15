@@ -1,90 +1,105 @@
-<div *ngIf="proposal" class="row">
-	<div class="col-md-12">
-		<h2 *ngIf="proposal._id">Proposal Details</h2>
-		<h2 *ngIf="!proposal._id">New Proposal</h2>
-	</div>
-</div>
-<div *ngIf="proposal" class="row">
-	<form class="col-md-12">
-		<div class="form-group">
-			<label for="proposal-experiment_title">Experiment title</label>
-			<input class="form-control" id="proposal-experiment_title" name="proposal-experiment_title"
-			       [(ngModel)]="proposal.experiment_title"
-			       placeholder="Name"/>
-		</div>
-		<div class="form-group">
-			<label for="proposal-brief_summary">Brief summary</label>
-			<textarea class="form-control" id="proposal-brief_summary" name="proposal-brief_summary"
-			          [(ngModel)]="proposal.brief_summary"
-			          placeholder="Briefly describe your proposal"></textarea>
-		</div>
+<div class="wrapper">
 
-		<div class="form-group">
-			<label>Main proposer</label>
-			<label for="proposal-proposer-firstname"></label>
-			<input class="form-control" id="proposal-proposer-firstname" name="proposal-proposer-firstname"
-			       [(ngModel)]="proposal.proposer.firstname"
-			       placeholder="First name"/>
-		</div>
-		<div class="form-group">
-			<label for="proposal-proposer-lastname"></label>
-			<input class="form-control" id="proposal-proposer-lastname" name="proposal-proposer-lastname"
-			       [(ngModel)]="proposal.proposer.lastname"
-			       placeholder="Last name"/>
-		</div>
-		<div class="form-group">
-			<label for="proposal-proposer-email"></label>
-			<input class="form-control" id="proposal-proposer-email" name="proposal-proposer-email"
-			       [(ngModel)]="proposal.proposer.email"
-			       placeholder="Email"/>
-		</div>
-		<div class="form-group">
-			<label for="proposal-proposer-phone"></label>
-			<input class="form-control" id="proposal-proposer-phone" name="proposal-proposer-phone"
-			       [(ngModel)]="proposal.proposer.phone"
-			       placeholder="Phone"/>
-		</div>
-		<div class="form-group">
-			<label for="proposal-proposer-affiliation-industry"></label>
-			<input class="form-control" id="proposal-proposer-affiliation-industry"
-			       name="proposal-proposer-affiliation-industry"
-			       [(ngModel)]="proposal.proposer.affiliation.industry" placeholder="Industry"/>
-		</div>
-		<div class="form-group">
-			<label for="proposal-proposer-affiliation-employer"></label>
-			<input class="form-control" id="proposal-proposer-affiliation-employer"
-			       name="proposal-proposer-affiliation-employer"
-			       [(ngModel)]="proposal.proposer.affiliation.employer" placeholder="Employer name"/>
-		</div>
-		<div class="form-group">
-			<label for="need_by_date.motivation"></label>
-			<input class="form-control" id="need_by_date.motivation" name="need_by_date.motivation"
-			       [(ngModel)]="proposal.need_by_date.motivation"
-			       placeholder="Need by date"/>
-		</div>
-		<div class="form-group">
-			<label for="need_by_date.document"></label>
-			<app-upload id="need_by_date.document"></app-upload>
-			<div class="form-group">
-				<mat-form-field>
+
+	<main *ngIf="proposal">
+		<main-header>
+			<main-title *ngIf="proposal._id">Proposal Details</main-title>
+			<main-title *ngIf="!proposal._id">New Proposal</main-title>
+		</main-header>
+	</main>
+	<main *ngIf="proposal" class="row">
+		<main-header>
+			<main-title>General information</main-title>
+		</main-header>
+		<section>
+
+			<form>
+				<fieldset>
+					<mat-label for="proposal-experiment_title">Experiment title</mat-label>
+					<input matInput id="proposal-experiment_title" name="proposal-experiment_title"
+					       [(ngModel)]="proposal.experiment_title"
+					       placeholder="Experiment title"/>
+				</fieldset>
+				<fieldset>
+					<mat-label for="proposal-brief_summary">Brief summary</mat-label>
+					<textarea matTextareaAutosize id="proposal-brief_summary" name="proposal-brief_summary"
+					          [(ngModel)]="proposal.brief_summary"
+					          placeholder="Briefly describe your proposal"></textarea>
+				</fieldset>
+				<fieldset>
+					<mat-label for="proposal-proposer-firstname">Main proposer</mat-label>
+					<input matInput id="proposal-proposer-firstname" name="proposal-proposer-firstname"
+					       [(ngModel)]="proposal.proposer.firstname"
+					       placeholder="First name"/>
+				</fieldset>
+				<fieldset>
+					<label for="proposal-proposer-lastname"></label>
+					<input class="form-control" id="proposal-proposer-lastname" name="proposal-proposer-lastname"
+					       [(ngModel)]="proposal.proposer.lastname"
+					       placeholder="Last name"/>
+				</fieldset>
+				<fieldset>
+					<label for="proposal-proposer-email"></label>
+					<input class="form-control" id="proposal-proposer-email" name="proposal-proposer-email"
+					       [(ngModel)]="proposal.proposer.email"
+					       placeholder="Email"/>
+				</fieldset>
+				<fieldset>
+					<input type="file"/>
+				</fieldset>
+				<fieldset>
+					<label for="proposal-proposer-phone"></label>
+					<input class="form-control" id="proposal-proposer-phone" name="proposal-proposer-phone"
+					       [(ngModel)]="proposal.proposer.phone"
+					       placeholder="Phone"/>
+				</fieldset>
+				<fieldset>
+					<label for="proposal-proposer-affiliation-industry"></label>
+					<input class="form-control" id="proposal-proposer-affiliation-industry"
+					       name="proposal-proposer-affiliation-industry"
+					       [(ngModel)]="proposal.proposer.affiliation.industry" placeholder="Industry"/>
+				</fieldset>
+				<fieldset>
+					<label for="proposal-proposer-affiliation-employer"></label>
+					<input class="form-control" id="proposal-proposer-affiliation-employer"
+					       name="proposal-proposer-affiliation-employer"
+					       [(ngModel)]="proposal.proposer.affiliation.employer" placeholder="Employer name"/>
+				</fieldset>
+				<fieldset>
+					<label for="need_by_date.motivation"></label>
+					<input class="form-control" id="need_by_date.motivation" name="need_by_date.motivation"
+					       [(ngModel)]="proposal.need_by_date.motivation"
+					       placeholder="Need by date"/>
+				</fieldset>
+				<fieldset>
+					<label for="need_by_date.document"></label>
+					<app-upload id="need_by_date.document"></app-upload>
+				</fieldset>
+				<fieldset>
 					<select matNativeControl required>
 						<option value="DEMAX">DEMAX</option>
 						<option value="PREMP">PREMP</option>
 						<option value="FLUCO">FLUCO</option>
 						<option value="SULF">SULF</option>
 					</select>
-				</mat-form-field>
-			</div>
-			<div class="form-group">
-				<mat-checkbox>Crystallization</mat-checkbox>
-				<mat-checkbox>Biomass</mat-checkbox>
-				<mat-checkbox>Protein</mat-checkbox>
-				<mat-checkbox>Chemical</mat-checkbox>
-			</div>
-			<button class="btn btn-primary" *ngIf="!proposal._id" (click)="createProposal(proposal)">Create</button>
-			<button class="btn btn-info" *ngIf="proposal._id" (click)="updateProposal(proposal)">Update</button>
-			<button class="btn btn-danger" *ngIf="proposal._id" (click)="deleteProposal(proposal._id)">Delete</button>
-		</div>
-	</form>
+				</fieldset>
+				<fieldset>
+					<mat-checkbox>Crystallization</mat-checkbox>
+					<mat-checkbox>Biomass</mat-checkbox>
+					<mat-checkbox>Protein</mat-checkbox>
+					<mat-checkbox>Chemical</mat-checkbox>
+				</fieldset>
+				<fieldset>
+					<button class="btn btn-primary" *ngIf="!proposal._id" (click)="createProposal(proposal)">Create
+					</button>
+					<button class="btn btn-info" *ngIf="proposal._id" (click)="updateProposal(proposal)">Update</button>
+					<button class="btn btn-danger" *ngIf="proposal._id" (click)="deleteProposal(proposal._id)">Delete
+					</button>
 
+				</fieldset>
+
+			</form>
+		</section>
+
+	</main>
 </div>

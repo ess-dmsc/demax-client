@@ -1,15 +1,26 @@
-<div class="row">
+<main>
 	<div class="col-md-5">
-		<h2>My current proposals</h2>
-		<ul class="list-group">
-			<li class="list-group-item"
-			    *ngFor="let proposal of proposals"
-			    (click)="selectProposal(proposal)"
-			    [class.active]="proposal === selectedProposal">
-				{{proposal.experiment_title}}
-			</li>
-		</ul>
-		<button class="btn btn-warning" (click)="createNewProposal()">New</button>
+		<header>
+			<mat-card-title>
+				My current proposals
+			</mat-card-title>
+		</header>
+		<section>
+			<ul class="list-group">
+				<li class="list-group-item"
+				    *ngFor="let proposal of proposals"
+				    (click)="selectProposal(proposal)"
+				    [class.active]="proposal === selectedProposal">
+					{{proposal.experiment_title}}
+				</li>
+			</ul>
+		</section>
+		<div>
+			<button mat-button="primary" (click)="createNewProposal()">New</button>
+		</div>
+		<footer>
+
+		</footer>
 	</div>
 	<div class="col-md-5 col-md-offset-2">
 		<app-proposal-details
@@ -19,4 +30,4 @@
 				[deleteHandler]="deleteProposal">
 		</app-proposal-details>
 	</div>
-</div>
+</main>

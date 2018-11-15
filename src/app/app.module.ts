@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { AppConfigModule } from './app-config.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,34 +19,60 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProposalListComponent } from './pages/proposals/proposal-list/proposal-list.component';
 import { ProposalDetailsComponent } from './pages/proposals/proposal-details/proposal-details.component';
 import { ProposalService } from './pages/proposals/proposal.service';
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
+import { ToastComponent } from './components/toast/toast.component';
+import { FormlyModule } from '@ngx-formly/core';
+import { AuthGuard } from "./services/auth.guard";
+import { InjectionToken } from '@angular/core';
+
+export function tokenGetter() {
+	return localStorage.getItem('token');
+}
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ImprintComponent,
-        HomeComponent,
-        ContactComponent,
-        NotFoundComponent,
-        RegisterComponent,
-        LoginComponent,
-        ProposalListComponent,
-        ProposalDetailsComponent
-    ],
-    imports: [
-        AppRoutingModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        UploadModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        HttpModule,
-        MaterialModule,
-        JwtModule
-    ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    providers: [ ProposalService ],
-    bootstrap: [ AppComponent ]
+	declarations: [
+		AppComponent,
+		ImprintComponent,
+		HomeComponent,
+		ContactComponent,
+		NotFoundComponent,
+		RegisterComponent,
+		LoginComponent,
+		ProposalListComponent,
+		ProposalDetailsComponent,
+		ToastComponent
+	],
+	imports: [
+		AppConfigModule,
+		AppRoutingModule,
+		BrowserModule,
+		BrowserAnimationsModule,
+		UploadModule,
+		FormsModule,
+		FormlyModule.forRoot(),
+		InjectionToken,
+		ReactiveFormsModule,
+		HttpClientModule,
+		HttpModule,
+		MaterialModule,
+		JwtModule.forRoot({
+			config: {
+				tokenGetter: tokenGetter,
+				whitelistedDomains: ['localhost:4000'],
+				blacklistedRoutes: ['localhost:4000/api/auth']
+			}
+		})
+	],
+	providers: [
+		AuthService,
+		AuthGuard,
+		UserService,
+		ProposalService,
+		ToastComponent
+	],
+	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+	bootstrap: [ AppComponent ]
 })
 export class AppModule {
 }

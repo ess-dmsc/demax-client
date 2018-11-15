@@ -2,8 +2,7 @@ export class Proposal {
     _id?: string;
     experiment_title?: string;
     brief_summary?: string;
-    proposer?: {
-        role?: string;
+    main_proposer?: {
         firstname?: string;
         lastname?: string;
         email?: string;
@@ -18,6 +17,7 @@ export class Proposal {
             employer_phone?: string;
         }
     };
+    co_proposers: string[];
     need_by_date?: {
         motivation?: string;
         document?: string;

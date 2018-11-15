@@ -7,7 +7,7 @@ import { Http } from '@angular/http';
     providedIn: 'root'
 })
 export class ProposalService {
-    private proposalsUrl = '/api/proposals';
+    private proposalsUrl = '/proposals';
 
     constructor(private http: Http) {
     }
