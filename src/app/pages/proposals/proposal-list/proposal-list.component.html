@@ -1,31 +1,29 @@
-<main style="max-width: 700px; margin: 2rem auto; border: solid black 1px;">
-	<mat-card>
-		<mat-card-header>
-			<mat-card-title>
-				My current proposals
-			</mat-card-title>
-		</mat-card-header>
-		<mat-card-content>
-			<ul class="list-group">
-				<li class="list-group-item"
-				    *ngFor="let proposal of proposals"
-				    (click)="selectProposal(proposal)"
-				    [class.active]="proposal === selectedProposal">
-					{{proposal.experiment_title}}
-				</li>
-			</ul>
-		</mat-card-content>
-		<mat-card-actions>
-			<button mat-raised-button color="primary" (click)="createNewProposal()">New</button>
-		</mat-card-actions>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			My current proposals
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<ul class="list-group">
+			<li class="list-group-item"
+			    *ngFor="let proposal of proposals"
+			    (click)="selectProposal(proposal)"
+			    [class.active]="proposal === selectedProposal">
+				{{proposal.experiment_title}}
+			</li>
+		</ul>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button color="primary" (click)="createNewProposal()">New</button>
+	</mat-card-actions>
 
-	</mat-card>
-	<div class="col-md-5 col-md-offset-2">
-		<app-proposal-details
-				[proposal]="selectedProposal"
-				[createHandler]="addProposal"
-				[updateHandler]="updateProposal"
-				[deleteHandler]="deleteProposal">
-		</app-proposal-details>
-	</div>
-</main>
+</mat-card>
+<div class="col-md-5 col-md-offset-2">
+	<app-proposal-details
+			[proposal]="selectedProposal"
+			[createHandler]="addProposal"
+			[updateHandler]="updateProposal"
+			[deleteHandler]="deleteProposal">
+	</app-proposal-details>
+</div>

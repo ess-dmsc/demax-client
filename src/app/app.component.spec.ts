@@ -14,10 +14,10 @@ describe('AppComponent', () => {
 			declarations: [
 				AppComponent
 			],
-			providers: {
+			providers: [{
 				provide: APP_CONFIG,
 				useValue: APP_DI_CONFIG
-			}
+			}]
 		}).compileComponents();
 	}));
 
