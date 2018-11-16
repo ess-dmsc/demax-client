@@ -24,7 +24,6 @@ import { UserService } from './services/user.service';
 import { ToastComponent } from './components/toast/toast.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { AuthGuard } from "./services/auth.guard";
-import { InjectionToken } from '@angular/core';
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -51,7 +50,6 @@ export function tokenGetter() {
 		UploadModule,
 		FormsModule,
 		FormlyModule.forRoot(),
-		InjectionToken,
 		ReactiveFormsModule,
 		HttpClientModule,
 		HttpModule,

@@ -9,6 +9,7 @@ import { ProposalService } from '../proposal.service';
 })
 
 export class ProposalDetailsComponent {
+
     constructor(private proposalService: ProposalService) {
     }
     @Input()

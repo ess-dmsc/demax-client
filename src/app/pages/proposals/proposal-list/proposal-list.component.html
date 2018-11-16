@@ -1,11 +1,11 @@
-<main>
-	<div class="col-md-5">
-		<header>
+<main style="max-width: 700px; margin: 2rem auto; border: solid black 1px;">
+	<mat-card>
+		<mat-card-header>
 			<mat-card-title>
 				My current proposals
 			</mat-card-title>
-		</header>
-		<section>
+		</mat-card-header>
+		<mat-card-content>
 			<ul class="list-group">
 				<li class="list-group-item"
 				    *ngFor="let proposal of proposals"
@@ -14,14 +14,12 @@
 					{{proposal.experiment_title}}
 				</li>
 			</ul>
-		</section>
-		<div>
-			<button mat-button="primary" (click)="createNewProposal()">New</button>
-		</div>
-		<footer>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary" (click)="createNewProposal()">New</button>
+		</mat-card-actions>
 
-		</footer>
-	</div>
+	</mat-card>
 	<div class="col-md-5 col-md-offset-2">
 		<app-proposal-details
 				[proposal]="selectedProposal"

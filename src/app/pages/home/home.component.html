@@ -1,76 +1,72 @@
-<div class="card" style="width: 900px; margin: 0 auto;">
-	<h4 class="card-header">About</h4>
-	<div class="card-body">
-		<div class="home-wrapper">
-			<header>
-				<h2>Welcome to the DEMAX user portal for deuteration & crystallization support!</h2>
-			</header>
-			<form>
-				<fieldset>
-					Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
-					deuteration/crystallization proposal. General enquiries can be sent to: demax@esss.se or to a
-					<a href="/contacts"> subject matter experts</a>
-				</fieldset>
-				<fieldset>
-					<ul>
-						<li>
-							Proposals should be written in English, properly referenced, and prepared in the
-							<a href="http://localhost:8080/word/attachment">Word template</a>
-							(click to
-							download). Please keep to the 2 page limit, including Summary, Background (Science Case,
-							Practical
-							Consideration, References, Figures/Tables.
-						</li>
-						<li>
-							Access to DEMAX is granted on the basis of both a technical and a peer-review process.
+<div class="container" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 3rem;">
 
-						</li>
-						<li>
-							Proposals awarded during initial operations (2019-2022) will be free of charge. During
-							formal user
-							operations
-							(beyond 2023) we reserve the right to ask for partial financial contributions towards
-							consumables &
-							shipping
-							costs.
-						</li>
-						<li>
-							During initial operations we will not limit access to DEMAX based on ESS-membership. Beyond
-							this
-							period we
-							will respect the user access policy that will be applicable ESS-wide.
+	<mat-card style="max-width: 600px;">
+		<mat-card-header>
+			<div mat-card-avatar class="example-header-image"></div>
+			<mat-card-title>Welcome to the DEMAX user portal for deuteration & crystallization support!
+			</mat-card-title>
+		</mat-card-header>
+		<img mat-card-image src="../../../assets/media/crystal-diffraction-blue.png" alt="Photo of a Shiba Inu">
+		<mat-card-content>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button routerLink="/proposals">Create new proposal</button>
+			<button mat-raised-button routerLink="/contact">Contact</button>
+			<button mat-raised-button href="/word/attachment">Download proposal template</button>
+		</mat-card-actions>
+	</mat-card>
+	<mat-card style="max-width: 800px;">
+		<mat-card-header>
+			<div mat-card-avatar class="example-header-image"></div>
+			<mat-card-title>Guidelines
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<p>
+				Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
+				deuteration/crystallization proposal. General enquiries can be sent to: demax@esss.se or to a
+				<a href="/contacts"> subject matter experts</a>
+			</p>
+			<ul>
+				<li>
+					Proposals should be written in English, properly referenced, and prepared in the
+					<a href="http://localhost:8080/word/attachment">Word template</a>
+					(click to
+					download). Please keep to the 2 page limit, including Summary, Background (Science Case,
+					Practical
+					Consideration, References, Figures/Tables.
+				</li>
+				<li>
+					Access to DEMAX is granted on the basis of both a technical and a peer-review process.
 
-						</li>
-						<li>
-							Biological and chemical deuteration proposals are run as a service but users for protein
-							crystallization
-							are
-							welcome to come in person as well.
+				</li>
+				<li>
+					Proposals awarded during initial operations (2019-2022) will be free of charge. During
+					formal user
+					operations
+					(beyond 2023) we reserve the right to ask for partial financial contributions towards
+					consumables &
+					shipping
+					costs.
+				</li>
+				<li>
+					During initial operations we will not limit access to DEMAX based on ESS-membership. Beyond
+					this
+					period we
+					will respect the user access policy that will be applicable ESS-wide.
 
-						</li>
+				</li>
+				<li>
+					Biological and chemical deuteration proposals are run as a service but users for protein
+					crystallization
+					are
+					welcome to come in person as well.
 
-					</ul>
-				</fieldset>
+				</li>
 
-				<fieldset>
-					Users should note that the contributions by DEMAX should be acknowledged in any publications
-					containing
-					materials obtained from us. For particularly challenging projects that require above average
-					involvement
-					from
-					DEMAX, relevant DEMAX staff should be acknowledged through co-authorship of any subsequent
-					publications.
-				</fieldset>
-
-				<fieldset>
-					<mat-checkbox>I accept the Terms and Conditions</mat-checkbox>
-				</fieldset>
-				<fieldset>
-					<button mat-raised-button routerLink="/proposals">Create proposal</button>
-				</fieldset>
-			</form>
-
-
-		</div>
-	</div>
+			</ul>
+		</mat-card-content>
+		<mat-card-actions>
+		</mat-card-actions>
+	</mat-card>
 </div>
