@@ -1,3 +1,33 @@
+<div *ngIf="proposal" class="row">
+	<div class="col-md-12">
+		<h2 *ngIf="proposal._id">Proposal Details</h2>
+		<h2 *ngIf="!proposal._id">New Proposal</h2>
+	</div>
+</div>
+<div *ngIf="proposal" class="row">
+	<form class="col-md-12">
+		<div class="form-group">
+			<label for="contact-name">Name</label>
+			<input class="form-control" name="contact-name" [(ngModel)]="proposal.experimentTitle" placeholder="Name"/>
+		</div>
+		<div class="form-group">
+			<label for="contact-email">Email</label>
+			<input class="form-control" name="contact-email" [(ngModel)]="proposal.briefSummary" placeholder="support@mlab.com"/>
+		</div>
+		<div class="form-group">
+			<label for="contact-phone-mobile">Mobile</label>
+			<input class="form-control" name="contact-phone-mobile" [(ngModel)]="proposal.mainProposer" placeholder="1234567890"/>
+		</div>
+		<div class="form-group">
+			<label for="contact-phone-work">Work</label>
+			<input class="form-control" name="contact-phone-work" [(ngModel)]="proposal.coProposers" placeholder="0123456789"/>
+		</div>
+		<button class="btn btn-primary" *ngIf="!proposal._id" (click)="createProposal(proposal)">Create</button>
+		<button class="btn btn-info" *ngIf="proposal._id" (click)="updateProposal(proposal)">Update</button>
+		<button class="btn btn-danger" *ngIf="proposal._id" (click)="deleteProposal(proposal._id)">Delete</button>
+	</form>
+</div>
+
 <main *ngIf="proposal" style="padding:2rem;">
 	<mat-tab-group mat-align-tabs="center" *ngIf="proposal">
 		<mat-tab label="1. Characteristics">
@@ -12,11 +42,11 @@
 				Main proposer
 			</mat-label>
 			<mat-form-field>
-				<input matInput [(ngModel)]="proposal.proposer.firstname" placeholder="First name">
+				<input matInput [(ngModel)]="proposal.main_proposer.firstname" placeholder="First name">
 			</mat-form-field>
 			<mat-form-field>
 				<input matInput
-				       [(ngModel)]="proposal.proposer.lastname"
+				       [(ngModel)]="proposal.main_proposer.lastname"
 				       placeholder="Last name">
 			</mat-form-field>
 			<mat-form-field>

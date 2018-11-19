@@ -1,3 +1,5 @@
+import { NgtUniversalModule } from '@ng-toolkit/universal';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppConfigModule } from './app-config.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -10,15 +12,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from './material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { ImprintComponent } from './pages/imprint/imprint.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ContactComponent } from './pages/contact/contact.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
-import { ProposalListComponent } from './pages/proposals/proposal-list/proposal-list.component';
-import { ProposalDetailsComponent } from './pages/proposals/proposal-details/proposal-details.component';
-import { ProposalService } from './pages/proposals/proposal.service';
+import { ImprintComponent } from './imprint/imprint.component';
+import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './contact/contact.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { ProposalListComponent } from './proposal-list/proposal-list.component';
+import { ProposalDetailsComponent } from './proposal-details/proposal-details.component';
+import { ProposalService } from './proposal.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { ToastComponent } from './components/toast/toast.component';
@@ -42,10 +44,13 @@ export function tokenGetter() {
 		ProposalDetailsComponent,
 		ToastComponent
 	],
-	imports: [
+	imports:[
+ CommonModule,
+NgtUniversalModule,
+ 
 		AppConfigModule,
 		AppRoutingModule,
-		BrowserModule,
+		
 		BrowserAnimationsModule,
 		UploadModule,
 		FormsModule,
@@ -70,7 +75,6 @@ export function tokenGetter() {
 		ToastComponent
 	],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-	bootstrap: [ AppComponent ]
 })
 export class AppModule {
 }

@@ -41,27 +41,9 @@ export class ProposalListComponent implements OnInit {
 
 	createNewProposal() {
 		var proposal: Proposal = {
-			experiment_title: '',
-			brief_summary: '',
-			proposer: {
-				role: '',
-				firstname: '',
-				lastname: '',
-				email: '',
-				phone: '',
-				industry: '',
-				employer: '',
-			},
-			need_by_date: '',
-			motivation: '',
-			attachment: '',
-			facility: '',
-			deuteration_methods: {
-				crystallization: false,
-				biomass: false,
-				protein: false,
-				chemical: false
-			}
+			experimentTitle: '',
+			briefSummary: '',
+			mainProposer: ''
 		};
 		this.selectProposal(proposal);
 	}

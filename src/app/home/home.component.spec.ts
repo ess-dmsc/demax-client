@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '../../material/material.module';
+import { MaterialModule } from '../material/material.module';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
