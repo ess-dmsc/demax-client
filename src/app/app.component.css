@@ -21,11 +21,17 @@ h2 {
 	font-weight: normal;
 	color: #0094CA;
 }
-.example-container{
-	height: auto;
+.container{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
-mat-drawer{
-	width: 25rem;
+aside{
+	flex: 0.2;
+	border-right: 1px solid lightgray;
+}
+main{
+	flex: 0.8;
 }
 footer{
 	display: flex;
@@ -46,12 +52,52 @@ footer{
 footer a{
 	font-size: 1rem;
 }
-.page {
-	display: flex
+.sidebar {
+	margin: 0;
+	padding: 0;
+	width: 200px;
+	background-color: #f1f1f1;
+	position: fixed;
+	height: 100%;
+	overflow: auto;
 }
-.page__sidebar {
-	width: 300px;
+
+.sidebar a {
+	display: block;
+	color: black;
+	padding: 16px;
+	text-decoration: none;
 }
-.page__content {
-	flex: 1
+
+.sidebar a.active {
+	background-color: #0094CA;
+	color: white;
+}
+
+.sidebar a:hover:not(.active) {
+	background-color: #555;
+	color: white;
+}
+
+div.content {
+	margin-left: 200px;
+	padding: 1px 16px;
+	height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+	.sidebar {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	.sidebar a {float: left;}
+	div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+	.sidebar a {
+		text-align: center;
+		float: none;
+	}
 }

@@ -8,12 +8,11 @@ import { FormControl } from "@angular/forms";
 	templateUrl: './app.component.html',
 	styleUrls: [ './app.component.css' ]
 })
-export class AppComponent{
+export class AppComponent {
 	title = 'demax-client';
 	mode = new FormControl('over');
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig) {
-		console.log(this.appConfig.demaxBaseUrl);
 	}
 }

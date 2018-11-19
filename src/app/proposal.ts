@@ -3,6 +3,10 @@ export class Proposal {
 	experimentTitle?: string;
 	briefSummary?: string;
 	mainProposer?: string;
+	phone?: {
+		work: string;
+		mobile: string;
+	};
 	coProposers?: [
 		{
 			coProposers?: string

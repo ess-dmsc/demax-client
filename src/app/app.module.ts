@@ -62,8 +62,7 @@ NgtUniversalModule,
 		JwtModule.forRoot({
 			config: {
 				tokenGetter: tokenGetter,
-				whitelistedDomains: ['localhost:4000'],
-				blacklistedRoutes: ['localhost:4000/api/auth']
+				whitelistedDomains: ['localhost:4200', 'localhost:8080'],
 			}
 		})
 	],

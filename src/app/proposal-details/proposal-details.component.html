@@ -4,136 +4,18 @@
 		<h2 *ngIf="!proposal._id">New Proposal</h2>
 	</div>
 </div>
-<div *ngIf="proposal" class="row">
-	<form class="col-md-12">
-		<div class="form-group">
-			<label for="contact-name">Name</label>
-			<input class="form-control" name="contact-name" [(ngModel)]="proposal.experimentTitle" placeholder="Name"/>
-		</div>
-		<div class="form-group">
-			<label for="contact-email">Email</label>
-			<input class="form-control" name="contact-email" [(ngModel)]="proposal.briefSummary" placeholder="support@mlab.com"/>
-		</div>
-		<div class="form-group">
-			<label for="contact-phone-mobile">Mobile</label>
-			<input class="form-control" name="contact-phone-mobile" [(ngModel)]="proposal.mainProposer" placeholder="1234567890"/>
-		</div>
-		<div class="form-group">
-			<label for="contact-phone-work">Work</label>
-			<input class="form-control" name="contact-phone-work" [(ngModel)]="proposal.coProposers" placeholder="0123456789"/>
-		</div>
-		<button class="btn btn-primary" *ngIf="!proposal._id" (click)="createProposal(proposal)">Create</button>
-		<button class="btn btn-info" *ngIf="proposal._id" (click)="updateProposal(proposal)">Update</button>
-		<button class="btn btn-danger" *ngIf="proposal._id" (click)="deleteProposal(proposal._id)">Delete</button>
+<div *ngIf="proposal">
+	<form>
+		<mat-form-field>
+			<input matInput [(ngModel)]="proposal.experimentTitle" placeholder="Experiment title"/>
+		</mat-form-field>
+		<mat-form-field>
+			<textarea matInput [(ngModel)]="proposal.briefSummary" placeholder="Brief summary"></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<button mat-raised-button *ngIf="!proposal._id" (click)="createProposal(proposal)">Create</button>
+			<button mat-raised-button *ngIf="proposal._id" (click)="updateProposal(proposal)">Update</button>
+			<button *ngIf="proposal._id" (click)="deleteProposal(proposal._id)">Delete</button>
+		</mat-form-field>
 	</form>
 </div>
-
-<main *ngIf="proposal" style="padding:2rem;">
-	<mat-tab-group mat-align-tabs="center" *ngIf="proposal">
-		<mat-tab label="1. Characteristics">
-			<mat-form-field>
-				<input matInput [(ngModel)]="proposal.experiment_title" placeholder="Experiment title">
-			</mat-form-field>
-			<mat-form-field>
-				<textarea matInput [(ngModel)]="proposal.brief_summary"
-				          placeholder="Briefly describe your proposal"></textarea>
-			</mat-form-field>
-			<mat-label>
-				Main proposer
-			</mat-label>
-			<mat-form-field>
-				<input matInput [(ngModel)]="proposal.main_proposer.firstname" placeholder="First name">
-			</mat-form-field>
-			<mat-form-field>
-				<input matInput
-				       [(ngModel)]="proposal.main_proposer.lastname"
-				       placeholder="Last name">
-			</mat-form-field>
-			<mat-form-field>
-				<input matInput
-				       [(ngModel)]="proposal.proposer.email"
-				       placeholder="Email">
-			</mat-form-field>
-			<mat-form-field>
-				<input matInput
-				       [(ngModel)]="proposal.proposer.phone"
-				       placeholder="Phone">
-			</mat-form-field>
-			<mat-label>Affiliation</mat-label>
-			<mat-form-field>
-				<input matInput
-				       [(ngModel)]="proposal.proposer.industry"
-				       placeholder="Industry">
-			</mat-form-field>
-			<mat-form-field>
-				<input matInput
-				       [(ngModel)]="proposal.proposer.employer"
-				       placeholder="Employer">
-			</mat-form-field>
-			<mat-label style="display: block;">
-				Co-proposers
-			</mat-label>
-
-			<button mat-raised-button color="primary">
-				<mat-icon>add</mat-icon>
-				Add
-			</button>
-			<mat-form-field>
-				<input matInput
-				       [(ngModel)]="proposal.need_by_date"
-				       placeholder="Need by date">
-			</mat-form-field>
-			<mat-label>
-				Attachments
-			</mat-label>
-			<app-upload></app-upload>
-			<mat-form-field>
-				<mat-select placeholder="Select facility">
-					<mat-option value="DEMAX">DEMAX</mat-option>
-				</mat-select>
-			</mat-form-field>
-
-			<table style="margin: 1rem auto;">
-				<tr>
-					<td style="margin: 0 auto;">
-						<button mat-raised-button color="primary" (click)="updateProposal(proposal)">Save</button>
-					</td>
-					<td td style="margin: 0 auto;">
-						<button mat-raised-button color="accent" (click)="updateProposal(proposal)">Next</button>
-					</td>
-				</tr>
-			</table>
-		</mat-tab>
-		<mat-tab label="2. Deuteration details">
-
-		</mat-tab>
-		<mat-tab label="3. Submit proposal">
-			<mat-card>
-				<mat-card-header>
-					Generate and submit PDF
-				</mat-card-header>
-				<mat-card-content>
-					<form class="form-horizontal well" method="post" action="http://localhost:3000/pdf">
-						<div class="form-group"><label class="col-md-2 control-label">File Name</label>
-							<div class="col-md-10">
-								<div class="input-group"><input class="form-control" type="text" name="filename"
-								                                placeholder="File Name">
-									<div class="input-group-addon">.pdf</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group"><label class="col-md-2 control-label">Text</label>
-							<div class="col-md-10"><textarea class="form-control" name="content"
-							                                 placeholder="Write some text for on your PDF!"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10"><input class="btn btn-default" type="submit"
-							                                              value="Create PDF"></div>
-						</div>
-					</form>
-				</mat-card-content>
-			</mat-card>
-		</mat-tab>
-	</mat-tab-group>
-</main>

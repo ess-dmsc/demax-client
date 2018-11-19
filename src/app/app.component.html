@@ -1,6 +1,6 @@
 <nav>
 	<div class="left">
-		<div class="loggedIn"></div>
+		Logged in as: currentUser.email
 	</div>
 	<div class="right">
 		<div class="loggedIn">
@@ -20,6 +20,7 @@
 		</div>
 	</div>
 </nav>
+
 <header>
 	<a routerLink="/home">
 		<svg class="svg-logo" width="126px" height="68px" viewBox="0 0 105 57" version="1.1">
@@ -102,23 +103,23 @@
 		</svg>
 	</a>
 	<h2>
-		<a routerLink="/home" style="text-decoration: none; color: #0094CA;">
-			DEMAX User Portal
-		</a>
+		<a routerLink="/home" style="text-decoration: none; color: #0094CA;">DEMAX User Portal</a>
 	</h2>
 </header>
+<div class="sidebar">
+	<a routerLink="/home">Home</a>
+	<a routerLink="/proposals">Submit new proposal</a>
+	<a routerLink="/proposals">My proposals</a>
+	<mat-divider></mat-divider>
+	<a href="/word/attachment">Download proposal template</a>
+	<mat-divider></mat-divider>
+	<a href="">Account settings</a>
+	<a href="" onclick="auth.logout()">Logout</a>
+</div>
 
-<mat-sidenav-container class="example-container" *ngIf="shouldRun">
-	<mat-sidenav #sidenav>
-		<p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-	</mat-sidenav>
-
-	<mat-sidenav-content>
-		<p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-		<router-outlet></router-outlet>
-	</mat-sidenav-content>
-</mat-sidenav-container>
-
+<div class="content">
+	<router-outlet></router-outlet>
+</div>
 
 <footer class="footer">
 	<div class="left">
