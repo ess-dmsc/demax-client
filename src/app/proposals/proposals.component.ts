@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { HttpClient } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
 import { ToastComponent } from '../components/toast/toast.component';
 import { Proposal } from '../proposal';
@@ -8,6 +8,15 @@ import { Proposal } from '../proposal';
 @Component({
 	selector: 'app-proposals',
 	template: `
+		<style>
+			fieldset {
+				padding: 1rem;
+			}
+
+			input {
+				margin: 0.5rem;
+			}
+		</style>
 		<app-toast [message]="toast.message"></app-toast>
 
 		<mat-card>
@@ -21,88 +30,138 @@ import { Proposal } from '../proposal';
 			</mat-card-content>
 			<mat-card-content *ngIf="isEditing">
 				<form #form="ngForm" (ngSubmit)="editProposal(proposal)">
-					<mat-form-field>
-						<input matInput type="text" name="experimentTitle"
-						       [(ngModel)]="proposal.experimentTitle" placeholder="experimentTitle" required>
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput type="text" name="briefSummary" [(ngModel)]="proposal.briefSummary"
-						       placeholder="briefSummary" required>
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput type="text" name="mainProposer" [(ngModel)]="proposal.mainProposer"
-						       placeholder="mainProposer" required>
-					</mat-form-field>
-					<mat-form-field>
-						<button class="btn btn-sm btn-primary mr-2" type="submit" [disabled]="!form.form.valid">
-							<i class="fa fa-floppy-o"></i> Save
-						</button>
-						<button class="btn btn-sm btn-warning" (click)="cancelEditing()">
-							<i class="fa fa-times"></i> Cancel
-						</button>
-					</mat-form-field>
+					<input class="form-control" type="text" name="experimentTitle"
+					       [(ngModel)]="proposal.experimentTitle" placeholder="experimentTitle" required>
+					<input class="form-control" type="text" name="briefSummary" [(ngModel)]="proposal.briefSummary"
+					       placeholder="briefSummary" required>
+					<input class="form-control" type="text" name="mainProposer" [(ngModel)]="proposal.mainProposer"
+					       placeholder="mainProposer" required>
+					<button class="btn btn-sm btn-primary mr-2" type="submit" [disabled]="!form.form.valid">
+						<i class="fa fa-floppy-o"></i> Save
+					</button>
+					<button class="btn btn-sm btn-warning" (click)="cancelEditing()">
+						<i class="fa fa-times"></i> Cancel
+					</button>
 
 				</form>
 			</mat-card-content>
-			<mat-card-content *ngIf="!isEditing">
-				<ul>
-					<li *ngFor="let proposal of proposals">
-						<div>{{proposal._id}}</div>
-						<div>{{proposal.experimentTitle}}</div>
-						<div>{{proposal.mainProposer}}</div>
-						<div>
+			<mat-card-content *ngIf="!isEditing" style="width:100%;">
+				<table style="width:100%;">
+					<tr>
+						<td>ID</td>
+						<td>Title</td>
+						<td>Created</td>
+						<td>Options</td>
+					</tr>
+					<tr *ngFor="let proposal of proposals">
+						<td>{{proposal._id}}</td>
+						<td>{{proposal.experimentTitle}}</td>
+						<td>{{proposal.dateCreated}}</td>
+						<td>
 							<button class="btn btn-sm btn-primary" (click)="enableEditing(proposal)">
 								<i class="fa fa-pencil"></i> Edit
 							</button>
+						</td>
+						<td>
 							<button class="btn btn-sm btn-danger ml-1" (click)="deleteProposal(proposal)">
 								<i class="fa fa-trash"></i> Delete
 							</button>
-						</div>
-					</li>
-				</ul>
+						</td>
+					</tr>
+				</table>
 			</mat-card-content>
-			<mat-card-content *ngIf="!isEditing">
+			<mat-card-content *ngIf="!isEditing" style="max-width: 50%;">
 				<h4>Create new proposal</h4>
 				<form [formGroup]="addProposalForm" (ngSubmit)="addProposal()">
-					<mat-form-field>
-						<input matInput type="text" name="experimentTitle"
-						       formControlName="experimentTitle" placeholder="experimentTitle">
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput type="text" name="briefSummary"
-						       formControlName="briefSummary" placeholder="briefSummary">
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput type="text" name="mainProposer"
-						       formControlName="mainProposer" placeholder="mainProposer">
-					</mat-form-field>
-					<mat-form-field>
+					<fieldset>
+						<mat-label>1. Experiment title</mat-label>
+
+						<input class="form-control" type="text" name="experimentTitle"
+						       formControlName="experimentTitle">
+					</fieldset>
+					<mat-divider></mat-divider>
+
+					<fieldset>
+						<mat-label>2. Brief summary</mat-label>
+						<textarea class="form-control" name="briefSummary"
+						          formControlName="briefSummary"></textarea></fieldset>
+					<mat-divider></mat-divider>
+
+					<fieldset>
+						<mat-label>3. Main proposer</mat-label>
+						<input class="form-control" type="text" name="mainProposerFirstName"
+						       formControlName="mainProposerFirstName" placeholder="First name">
+						<input class="form-control" type="text" name="mainProposerLastName"
+						       formControlName="mainProposerLastName" placeholder="Last name">
+						<input class="form-control" type="text" name="mainProposerAffiliation"
+						       formControlName="mainProposerAffiliation" placeholder="Affiliation">
+						<input class="form-control" type="text" name="mainProposerPhone"
+						       formControlName="mainProposerPhone" placeholder="Phone">
+						<input class="form-control" type="text" name="mainProposerEmail"
+						       formControlName="mainProposerEmail" placeholder="Email">
+					</fieldset>
+					<mat-divider></mat-divider>
+					<fieldset>
+						<mat-label>4. Co-proposers(s)</mat-label>
+						<input class="form-control" type="text" name="mainProposerEmail"
+						       formControlName="mainProposerEmail" placeholder="Name">
+						<input class="form-control" type="text" name="mainProposerEmail"
+						       formControlName="mainProposerEmail" placeholder="Affiliation">
+						<button mat-raised-button>Add</button>
+					</fieldset>
+					<fieldset>
+						<mat-label>5. "Need-by-date"</mat-label>
+						<p> Motivate “need by” date (e.g. based on awarded beamtime, or described intention to apply)
+						</p>
+						<input class="form-control" type="text" name="needByDate" formControlName="needByDate"
+						       placeholder="needByDate">
+						<app-upload></app-upload>
+					</fieldset>
+					<fieldset>
+						<mat-divider></mat-divider>
 						<button mat-raised-button type="submit" style="background-color: lime;"
 						        [disabled]="!addProposalForm.valid">
-							<i class="fa fa-plus"></i> Submit
+							<i class="fa fa-plus"></i> Create proposal
 						</button>
-					</mat-form-field>
+					</fieldset>
 				</form>
 			</mat-card-content>
+			<mat-card-footer *ngIf="!isEditing">
+				In the next sections you will fill out the applicable area of support your proposal requires.
+				Select one, or as many as apply, from (A) Crystallization, (B) Biological Deuteration, (C) Chemical
+				Deuteration.
+			</mat-card-footer>
 		</mat-card>
-
 	`
 })
 export class ProposalsComponent implements OnInit {
-
+	filesToUpload: Array<File> = [];
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
 	isLoading = true;
 	isEditing = false;
 
 	addProposalForm: FormGroup;
-	experimentTitle = new FormControl('', Validators.required);
-	briefSummary = new FormControl('', Validators.required);
-	mainProposer = new FormControl('', Validators.required);
+	experimentTitle = new FormControl('');
+	briefSummary = new FormControl('');
+	mainProposerFirstName = new FormControl('');
+	mainProposerLastName = new FormControl('');
+	mainProposerAffiliation = new FormControl('');
+	mainProposerEmail = new FormControl('');
+	mainProposerPhone = new FormControl('');
+	coProposers = new FormControl('');
+	needByDate = new FormControl('');
+	needByDateAttachment = new FormControl('');
+	lab = new FormControl('');
+	crystallization = new FormControl('');
+	biomassDeuteration = new FormControl('');
+	proteinDeuteration = new FormControl('');
+	chemicalDeuteration = new FormControl('');
 
 	constructor(
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
+		private http: HttpClient,
 		public toast: ToastComponent
 	) {
 	}
@@ -112,8 +171,38 @@ export class ProposalsComponent implements OnInit {
 		this.addProposalForm = this.formBuilder.group({
 			experimentTitle: this.experimentTitle,
 			briefSummary: this.briefSummary,
-			mainProposer: this.mainProposer
+			mainProposerFirstName: this.mainProposerFirstName,
+			mainProposerLastName: this.mainProposerLastName,
+			mainProposerAffiliation: this.mainProposerLastName,
+			mainProposerPhone: this.mainProposerPhone,
+			mainProposerEmail: this.mainProposerEmail,
+			coProposers: this.coProposers,
+			needByDate: this.needByDate,
+			needByDateAttachment: this.needByDateAttachment,
+			lab: this.lab,
+			crystallization: this.crystallization,
+			chemicalDeuteration: this.chemicalDeuteration,
+			biomassDeuteration: this.biomassDeuteration,
+			proteinDeuteration: this.proteinDeuteration
 		});
+	}
+
+	upload() {
+		const formData: any = new FormData();
+		const files: Array<File> = this.filesToUpload;
+		console.log(files);
+
+		for(let i = 0; i < files.length; i++) {
+			formData.append("uploads[]", files[ i ], files[ i ][ 'name' ]);
+		}
+		console.log('form data variable :   ' + formData.toString());
+		this.http.post('http://localhost:8080/upload-multiple', formData)
+		.subscribe(files => console.log('files', files))
+	}
+
+	fileChangeEvent(fileInput: any) {
+		this.filesToUpload = <Array<File>>fileInput.target.files;
+		//this.product.photo = fileInput.target.files[0]['name'];
 	}
 
 	getProposals() {
@@ -129,7 +218,7 @@ export class ProposalsComponent implements OnInit {
 			res => {
 				this.proposals.push(res);
 				this.addProposalForm.reset();
-				this.toast.setMessage('item added successfully.', 'success');
+				this.toast.setMessage('proposal created successfully.', 'success');
 			},
 			error => console.log(error)
 		);
@@ -143,7 +232,7 @@ export class ProposalsComponent implements OnInit {
 	cancelEditing() {
 		this.isEditing = false;
 		this.proposal = new Proposal();
-		this.toast.setMessage('item editing cancelled.', 'warning');
+		this.toast.setMessage('proposal editing cancelled.', 'warning');
 		// reload the proposals to reset the editing
 		this.getProposals();
 	}
@@ -153,19 +242,19 @@ export class ProposalsComponent implements OnInit {
 			() => {
 				this.isEditing = false;
 				this.proposal = proposal;
-				this.toast.setMessage('item edited successfully.', 'success');
+				this.toast.setMessage('proposal updated successfully.', 'success');
 			},
 			error => console.log(error)
 		);
 	}
 
 	deleteProposal(proposal: Proposal) {
-		if(window.confirm('Are you sure you want to permanently delete this item?')) {
+		if(window.confirm('Are you sure you want to permanently delete this proposal?')) {
 			this.proposalService.deleteProposal(proposal).subscribe(
 				() => {
 					const pos = this.proposals.map(elem => elem._id).indexOf(proposal._id);
 					this.proposals.splice(pos, 1);
-					this.toast.setMessage('item deleted successfully.', 'success');
+					this.toast.setMessage('proposal deleted successfully.', 'success');
 				},
 				error => console.log(error)
 			);

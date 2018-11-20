@@ -25,6 +25,7 @@ import { UserService } from './services/user.service';
 import { ToastComponent } from './components/toast/toast.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { AuthGuard } from "./services/auth.guard";
+import{FooterComponent} from "./footer/footer.component";
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -34,6 +35,7 @@ export function tokenGetter() {
 	declarations: [
 		AppComponent,
 		ImprintComponent,
+		FooterComponent,
 		HomeComponent,
 		ContactComponent,
 		NotFoundComponent,
