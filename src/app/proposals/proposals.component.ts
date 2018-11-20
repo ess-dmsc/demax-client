@@ -33,9 +33,23 @@ import { Proposal } from '../proposal';
 					<input class="form-control" type="text" name="experimentTitle"
 					       [(ngModel)]="proposal.experimentTitle" placeholder="experimentTitle" required>
 					<input class="form-control" type="text" name="briefSummary" [(ngModel)]="proposal.briefSummary"
-					       placeholder="briefSummary" required>
-					<input class="form-control" type="text" name="mainProposer" [(ngModel)]="proposal.mainProposer"
-					       placeholder="mainProposer" required>
+					       placeholder="Brief summary">
+					<input class="form-control" type="text" name="mainProposerFirstName" [(ngModel)]="proposal.mainProposerFirstName"
+					       placeholder="First name">
+					<input class="form-control" type="text" name="mainProposerLastName" [(ngModel)]="proposal.mainProposerLastName"
+					       placeholder="Last name">
+					<input class="form-control" type="text" name="mainProposerAffiliation" [(ngModel)]="proposal.mainProposerAffiliation"
+					       placeholder="Affiliation">
+					<input class="form-control" type="text" name="mainProposerPhone" [(ngModel)]="proposal.mainProposerPhone"
+					       placeholder="Phone">
+					<input class="form-control" type="text" name="mainProposerEmail" [(ngModel)]="proposal.mainProposerEmail"
+					       placeholder="Email">
+					<input class="form-control" type="text" name="coProposers" [(ngModel)]="proposal.coProposers"
+					       placeholder="Co-proposer(s)">
+					<input class="form-control" type="text" name="lab" [(ngModel)]="proposal.lab"
+					       placeholder="lab">
+					<input class="form-control" type="text" name="needByDate" [(ngModel)]="proposal.needByDate"
+					       placeholder="'Need-by-date'">
 					<button class="btn btn-sm btn-primary mr-2" type="submit" [disabled]="!form.form.valid">
 						<i class="fa fa-floppy-o"></i> Save
 					</button>

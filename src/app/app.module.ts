@@ -24,8 +24,9 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { ToastComponent } from './components/toast/toast.component';
 import { FormlyModule } from '@ngx-formly/core';
-import { AuthGuard } from "./services/auth.guard";
-import{FooterComponent} from "./footer/footer.component";
+import { AuthGuardLogin } from "./services/auth-guard-login.service";
+import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
+import { LogoutComponent } from "./logout/logout.component";
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -35,22 +36,20 @@ export function tokenGetter() {
 	declarations: [
 		AppComponent,
 		ImprintComponent,
-		FooterComponent,
 		HomeComponent,
 		ContactComponent,
 		NotFoundComponent,
 		RegisterComponent,
 		LoginComponent,
+		LogoutComponent,
 		ProposalsComponent,
 		ToastComponent
 	],
-	imports:[
- CommonModule,
-NgtUniversalModule,
- 
+	imports: [
+		CommonModule,
+		NgtUniversalModule,
 		AppConfigModule,
 		AppRoutingModule,
-		
 		BrowserAnimationsModule,
 		UploadModule,
 		FormsModule,
@@ -62,13 +61,14 @@ NgtUniversalModule,
 		JwtModule.forRoot({
 			config: {
 				tokenGetter: tokenGetter,
-				whitelistedDomains: ['localhost:4200', 'localhost:8080'],
+				whitelistedDomains: [ 'localhost:4200', 'localhost:8080' ],
 			}
 		})
 	],
 	providers: [
 		AuthService,
-		AuthGuard,
+		AuthGuardAdmin,
+		AuthGuardLogin,
 		UserService,
 		ProposalService,
 		ToastComponent

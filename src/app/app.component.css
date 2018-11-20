@@ -75,3 +75,24 @@ div.content {
 		float: none;
 	}
 }
+footer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 100%;
+	position: revert;
+	bottom: 0;
+	background-color: white;
+	border-top: solid lightgray 1px;
+	color: #0094CA;
+	padding-top: 0.5rem;
+}
+
+.left, .right {
+	margin: auto 1rem;
+	text-align: center;
+}
+
+footer a {
+	font-size: 1rem;
+}
