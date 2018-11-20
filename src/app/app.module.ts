@@ -18,8 +18,7 @@ import { ContactComponent } from './contact/contact.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { ProposalListComponent } from './proposal-list/proposal-list.component';
-import { ProposalDetailsComponent } from './proposal-details/proposal-details.component';
+import { ProposalsComponent } from './proposals/proposals.component';
 import { ProposalService } from './proposal.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -40,8 +39,7 @@ export function tokenGetter() {
 		NotFoundComponent,
 		RegisterComponent,
 		LoginComponent,
-		ProposalListComponent,
-		ProposalDetailsComponent,
+		ProposalsComponent,
 		ToastComponent
 	],
 	imports:[

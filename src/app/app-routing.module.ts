@@ -7,7 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { HomeComponent } from './home/home.component';
-import { ProposalListComponent } from './proposal-list/proposal-list.component';
+import { ProposalsComponent } from "./proposals/proposals.component";
 
 
 const routes: Routes = [
@@ -17,7 +17,7 @@ const routes: Routes = [
 	{path: 'imprint', component: ImprintComponent},
 	{path: 'login', component: LoginComponent},
 	{path: 'register', component: RegisterComponent},
-	{path: 'proposals', component: ProposalListComponent},
+	{path: 'proposals', component: ProposalsComponent},
 	{path: '**', component: NotFoundComponent},
 ];
 

@@ -1,53 +1,39 @@
 import { Inject, Injectable } from '@angular/core';
-import { Proposal } from './proposal';
 import { HttpClient } from '@angular/common/http';
-import { Http } from '@angular/http';
-import { APP_CONFIG, AppConfig } from './app-config.module';
+import { Observable } from 'rxjs';
+import { Proposal } from './proposal';
+import { APP_CONFIG, AppConfig } from "./app-config.module";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProposalService {
-	private proposalsUrl = '/proposals';
 
-	constructor(@Inject(APP_CONFIG) private appConfig: AppConfig, private http: Http) {
+	constructor(@Inject(APP_CONFIG) private appConfig: AppConfig, private http: HttpClient) {
 	}
 
-	getProposals(): Promise<Proposal[]> {
-		return this.http.get(this.proposalsUrl)
-		.toPromise()
-		.then(response => response.json() as Proposal[])
-		.catch(this.handleError);
+	getProposals(): Observable<Proposal[]> {
+		return this.http.get<Proposal[]>('/proposals');
 	}
 
-	createProposal(newProposal: Proposal): Promise<Proposal> {
-		return this.http.post(this.proposalsUrl, newProposal)
-		.toPromise()
-		.then(response => response.json() as Proposal)
-		.catch(this.handleError);
+	countProposals(): Observable<number> {
+		return this.http.get<number>('/proposals/count');
 	}
 
-	// get("/api/proposals/:id") endpoint not used by Angular app
-
-	deleteProposal(delProposalId: String): Promise<String> {
-		return this.http.delete(this.proposalsUrl + '/' + delProposalId)
-		.toPromise()
-		.then(response => response.json() as String)
-		.catch(this.handleError);
+	addProposal(proposal: Proposal): Observable<Proposal> {
+		return this.http.post<Proposal>('/proposals', proposal);
 	}
 
-	updateProposal(putProposal: Proposal): Promise<Proposal> {
-		const putUrl = this.proposalsUrl + '/' + putProposal._id;
-		return this.http.put(putUrl, putProposal)
-		.toPromise()
-		.then(response => response.json() as Proposal)
-		.catch(this.handleError);
+	getProposal(proposal: Proposal): Observable<Proposal> {
+		return this.http.get<Proposal>(`/proposals/${proposal._id}`);
 	}
 
-	handleError(error: any): Promise<any> {
-		let errMsg = (error.message) ? error.message :
-			error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-		console.error(errMsg); // log to console
-		return Promise.reject(errMsg);
+	editProposal(proposal: Proposal): Observable<any> {
+		return this.http.put(`/proposals/${proposal._id}`, proposal, {responseType: 'text'});
 	}
+
+	deleteProposal(proposal: Proposal): Observable<any> {
+		return this.http.delete(`/proposals/${proposal._id}`, {responseType: 'text'});
+	}
+
 }
