@@ -133,6 +133,9 @@ import { Proposal } from '../proposal';
 					</fieldset>
 					<fieldset>
 						<mat-divider></mat-divider>
+						<p>In the next sections you will fill out the applicable area of support your proposal requires.
+				Select one, or as many as apply, from (A) Crystallization, (B) Biological Deuteration, (C) Chemical
+				Deuteration.</p>
 						<button mat-raised-button type="submit" style="background-color: lime;"
 						        [disabled]="!addProposalForm.valid">
 							<i class="fa fa-plus"></i> Create proposal
@@ -140,11 +143,6 @@ import { Proposal } from '../proposal';
 					</fieldset>
 				</form>
 			</mat-card-content>
-			<mat-card-footer *ngIf="!isEditing">
-				In the next sections you will fill out the applicable area of support your proposal requires.
-				Select one, or as many as apply, from (A) Crystallization, (B) Biological Deuteration, (C) Chemical
-				Deuteration.
-			</mat-card-footer>
 		</mat-card>
 	`
 })
