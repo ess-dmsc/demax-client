@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
 import { ToastComponent } from '../components/toast/toast.component';
@@ -18,7 +18,6 @@ import { Proposal } from '../proposal';
 			}
 		</style>
 		<app-toast [message]="toast.message"></app-toast>
-
 		<mat-card>
 			<mat-card-header>
 				<mat-card-title>
@@ -70,7 +69,6 @@ import { Proposal } from '../proposal';
 					<tr *ngFor="let proposal of proposals">
 						<td>{{proposal._id}}</td>
 						<td>{{proposal.experimentTitle}}</td>
-						<td>{{proposal.dateCreated}}</td>
 						<td>
 							<button class="btn btn-sm btn-primary" (click)="enableEditing(proposal)">
 								<i class="fa fa-pencil"></i> Edit
@@ -85,90 +83,399 @@ import { Proposal } from '../proposal';
 				</table>
 			</mat-card-content>
 			<mat-card-content *ngIf="!isEditing" style="max-width: 50%;">
-				<h4>Create new proposal</h4>
-				<form [formGroup]="addProposalForm" (ngSubmit)="addProposal()">
-					<fieldset>
-						<mat-label>1. Experiment title</mat-label>
+				<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+					<div class="generalInformation">
 
-						<input class="form-control" type="text" name="experimentTitle"
-						       formControlName="experimentTitle">
-					</fieldset>
-					<mat-divider></mat-divider>
+						<label>
+							Experiment title:
+							<input type="text" formControlName="experimentTitle" required>
+						</label>
 
-					<fieldset>
-						<mat-label>2. Brief summary</mat-label>
-						<textarea class="form-control" name="briefSummary"
-						          formControlName="briefSummary"></textarea></fieldset>
-					<mat-divider></mat-divider>
+						<label>
+							Brief summary:
+							<input type="text" formControlName="briefSummary">
+						</label>
+						<h3>Main proposer:</h3>
+						<label>
+							First name:
+							<input type="text" formControlName="mainProposerFirstName">
+						</label>
+						<label>
+							Last name:
+							<input type="text" formControlName="mainProposerLastName">
+						</label>
+						<label>
+							Affiliation:
+							<input type="text" formControlName="mainProposerAffiliation">
+						</label>
+						<label>
+							Phone:
+							<input type="text" formControlName="mainProposerPhone">
+						</label>
+						<label>
+							Email:
+							<input type="text" formControlName="mainProposerLastName">
+						</label>
 
-					<fieldset>
-						<mat-label>3. Main proposer</mat-label>
-						<input class="form-control" type="text" name="mainProposerFirstName"
-						       formControlName="mainProposerFirstName" placeholder="First name">
-						<input class="form-control" type="text" name="mainProposerLastName"
-						       formControlName="mainProposerLastName" placeholder="Last name">
-						<input class="form-control" type="text" name="mainProposerAffiliation"
-						       formControlName="mainProposerAffiliation" placeholder="Affiliation">
-						<input class="form-control" type="text" name="mainProposerPhone"
-						       formControlName="mainProposerPhone" placeholder="Phone">
-						<input class="form-control" type="text" name="mainProposerEmail"
-						       formControlName="mainProposerEmail" placeholder="Email">
-					</fieldset>
-					<mat-divider></mat-divider>
-					<fieldset>
-						<mat-label>4. Co-proposers(s)</mat-label>
-						<input class="form-control" type="text" name="mainProposerEmail"
-						       formControlName="mainProposerEmail" placeholder="Name">
-						<input class="form-control" type="text" name="mainProposerEmail"
-						       formControlName="mainProposerEmail" placeholder="Affiliation">
-						<button mat-raised-button>Add</button>
-					</fieldset>
-					<fieldset>
-						<mat-label>5. "Need-by-date"</mat-label>
-						<p> Motivate “need by” date (e.g. based on awarded beamtime, or described intention to apply)
-						</p>
-						<input class="form-control" type="text" name="needByDate" formControlName="needByDate"
-						       placeholder="needByDate">
-						<app-upload></app-upload>
-					</fieldset>
-					<fieldset>
-						<mat-divider></mat-divider>
-						<p>In the next sections you will fill out the applicable area of support your proposal requires.
-				Select one, or as many as apply, from (A) Crystallization, (B) Biological Deuteration, (C) Chemical
-				Deuteration.</p>
-						<button mat-raised-button type="submit" style="background-color: lime;"
-						        [disabled]="!addProposalForm.valid">
-							<i class="fa fa-plus"></i> Create proposal
-						</button>
-					</fieldset>
+						<div formArrayName="coProposers">
+							<h3>Co-Proposer(s)</h3>
+							<button (click)="addCoProposer()">Add Co-Proposer</button>
+
+							<div *ngFor="let firstName of coProposers.controls; let i=index">
+								<!-- The repeated alias template -->
+								<label>
+									Co-Proposer:
+									<input type="text" [formControlName]="i">
+								</label>
+							</div>
+						</div>
+						<label>
+							<input type="text" formControlName="needByDate">
+						</label>
+						<!--	<label>
+								<input type="file" formControlName="needByDateAttachment">
+							</label>
+							<label>
+								Select lab:
+								<select>
+									<option value="demax">DEMAX</option>
+								</select>
+							</label>
+							-->
+					</div>
+
+					<div formGroupName="crystallization" class="crystallization">
+						<h3>Crystallization</h3>
+						<label>
+							Name of molecule to be crystallized (e.g. superoxide dismutase):
+							<input type="text" formControlName="moleculeName">
+						</label>
+						<label>
+							FASTA sequence or Uniprot number:
+							<input type="text" formControlName="moleculeIdentifier">
+						</label>
+						<label>
+							Oligomerizarion state? (e.g. homodimer, tetramer etc.):
+							<input type="text" formControlName="oligomerizationState">
+						</label>
+						<!--<label>
+							PDB ID of crystal structure (upload reference as pdf):
+							<input type="file" formControlName="crystalStructureReferencePDF">
+						</label>-->
+						<label>
+							Does the protein have any co-factors or ligands required for crystallization? Specify:
+							<input type="text" formControlName="crystallizationRequirements">
+						</label>
+						<label>
+							Known crystallization precipitant composition (incl. buffer, salt, additives, pH):
+							<input type="text" formControlName="crystallizationPrecipitantComposition">
+						</label>
+						<label>
+							What crystallization method, volume, and temperature have you used in the past? (e.g. vapour
+							diffusion, 10 L drops, room temperature):
+							<input type="text" formControlName="previousCrystallizationExperience">
+						</label>
+						<label>
+							How long do your crystals take to appear?:
+							<input type="text" formControlName="estimatedCrystallizationProductionTime">
+						</label>
+						<label>
+							What is the typical size of your crystal (m x m x m):
+							<input type="text" formControlName="typicalCrystalSize">
+						</label>
+
+						<h3>Details from protein preparation</h3>
+
+						<label>
+							Typical yield (mg per liter of culture):
+							<input type="text" formControlName="typicalYieldMgPerLiter">
+						</label>
+						<label>
+							Storage conditions (e.g. stable at 4 C or frozen at -20 C):
+							<input type="text" formControlName="storageConditions">
+						</label>
+						<label>
+							Stability:
+							<input type="text" formControlName="stability">
+						</label>
+						<label>
+							What buffer is your protein in?:
+							<input type="text" formControlName="buffer">
+						</label>
+						<label>
+							Is your protein partially or fully deuterated?:
+							<input type="text" formControlName="levelOfDeuteration">
+						</label>
+						<label>
+							What protein concentration do you usually use for crystallization:
+							<input type="text" formControlName="typicalProteinConcentrationUsed">
+						</label>
+					</div>
+					<hr>
+					<h2>(B) BIOLOGICAL DEUTERATION</h2>
+					<div formGroupName="biomassDeuteration">
+						<h3>Biomass</h3>
+						<!--
+											<<<<<<label>Select Protein or Biomass (E. coli, yeast)</label>
+											<div>
+												<label> Protein
+						
+													<input type="radio" id="protein" name="protein" value="protein">
+												</label>
+												<label>Biomass
+													<input type="radio" id="biomass" name="biomass" value="biomass"></label>
+											</div>
+											<label>
+												Other:
+												<input type="text" name="other" id="other">
+											</label>
+											<div>
+												<label>No
+													<input type="radio" id="no" formControlName="organismProvidedByUser"
+														   name="organismProvidedByUser" value="false"></label>
+											</div>
+											<label>
+												Will user provide the organism for us to grow under deuterated conditions?
+											</label>
+											<div>
+												<label>
+													Yes
+													<input type="radio" id="yes" formControlName="organismProvidedByUser"
+														   name="organismProvidedByUser" value="true">
+												</label>
+											</div>
+											<div>
+												<label>No
+													<input type="radio" id="no" formControlName="organismProvidedByUser"
+														   name="organismProvidedByUser" value="false">
+												</label>
+											</div>-->
+						<label>
+							What is the organism?
+							<input type="text" formControlName="organismDetails">
+						</label>
+						<!--	<label>
+							Please attach a reference or protocol of culture conditions and media composition (formats accepted
+							Word
+							doc pdf)
+							<input type="file" formControlName="organismReferenceAttachment">
+						</label>
+						-->
+						<label>
+							How much material do you need?
+							<input type="text" formControlName="amountNeeded">
+						</label><label>
+						Indicate wet or dry mass:
+						<input type="text" formControlName="stateOfMaterial">
+					</label><label>
+						Justify amount:
+						<input type="text" formControlName="amountOfMaterialMotivation">
+					</label>
+						<!--<label>
+						Level of deuteration required:
+						<input type="radio" formControlName="deuterationLevelRequired">
+					</label>
+					-->
+						<label>
+							Justify level of D incorporation:
+							<input type="text" formControlName="deuterationLevelMotivation">
+						</label>
+					</div>
+					<div formGroupName="proteinDeuteration" class="proteinDeuteration">
+						<h3>Protein</h3>
+						<label>
+							Name of molecule to be deuterated (e.g. superoxide dismutase):
+							<input type="text" formControlName="moleculeName">
+						</label>
+						<label>
+							FASTA sequence or Uniprot number:
+							<input type="text" formControlName="moleculeIdentifier">
+						</label>
+						<label>
+							Molecular weight (kDA):
+							<input type="text" formControlName="molecularWeight">
+						</label>
+						<label>
+							Oligomerizarion state? (e.g. homodimer, tetramer etc.):
+							<input type="text" formControlName="oligomerizationState">
+						</label>
+						<label>
+							Does the protein have any co-factors or ligands required for expression? Specify:
+							<input type="text" formControlName="expressionRequirements">
+						</label>
+						<label>
+							Origin of molecules (e.g. human, E. coli, S. cerevisiae):
+							<input type="text" formControlName="moleculeOrigin">
+						</label>
+						<!--<label>
+							Will you provide an expression plasmid?
+							<input type="radio" formControlName="expressionPlasmidProvidedByUser">
+						</label>-->
+						<label>
+							If “yes”, please provide details (e.g. pET31b, C-terminal His-tag, Amp selection):
+							(If “no”, we will design & order a plasmid commercially)
+							<input type="text" formControlName="details">
+						</label>
+						<label>
+							How much material do you need:
+							<input type="text" formControlName="amountNeeded">
+						</label>
+						<label>
+							Justify amount:
+							<input type="text" formControlName="amountNeededMotivation">
+						</label>
+						<label>
+							Level of deuteration required
+							<input type="text" formControlName="deuterationLevelRequired">
+						</label>
+						<label>
+							Justify level of D incorporation:
+							<input type="text" formControlName="deuterationLevelMotivation">
+						</label>
+						<!--	<label>
+								Will you need DEMAX to purify the protein from deuterated biomass?
+								<input type="radio" formControlName="needsPurificationSupport">
+							</label>-->
+						<!--<label>
+							If “yes”, please attach reference or protocol as PDF
+							<input type="file" formControlName="needsPurificationSupportAttachment">
+						</label>-->
+						<label>
+							Has expression been done for the unlabeled protein?
+							<input type="text" formControlName="hasDoneUnlabeledProteinExpression">
+							<input type="text" placeholder="Typical yield">
+						</label>
+						<!--<label>
+							Have you been able to purify the unlabeled protein?
+							Please include chromatogram & image of SDS-PAGE in proposal.
+							<input type="radio" formControlName="hasPurifiedUnlabeledProtein">
+						</label>
+						<label>
+							Have you tried to deuterate the protein yourself, even in small scale?
+							<input type="radio" formControlName="hasProteinDeuterationExperience">
+						</label>-->
+					</div>
+
+					<div formGroupName="chemicalDeuteration" class="chemicalDeuteration">
+						<h2>(C) CHEMICAL DEUTERATION</h2>
+						<label>
+							Molecule/s to be deuterated (name):
+							<input type="text" formControlName="moleculeName">
+						</label>
+						<label>
+							Amount of material required (mass):
+							<input type="text" formControlName="amount">
+						</label>
+						<label>
+							Justify amount:
+							<input type="text" formControlName="amountMotivation">
+						</label>
+						<label>
+							Indicate percentage and location of deuteration:
+							<input type="text" formControlName="deuterationLocationAndPercentage">
+						</label>
+						<label>
+							Justify level of deuteration:
+							<input type="text" formControlName="deuterationLevelMotivation">
+						</label>
+						<!--	<label>
+								Attach chemical structure:
+								<input type="file" formControlName="chemicalStructure">
+							</label>
+							<label>
+								Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or others?
+								<input type="radio" formControlName="hasPreviousProductionExperience">
+							</label>
+							<label>
+								If “yes”, please provide protocol (attach a reference PDF if published):
+								<input type="file" formControlName="hasPreviousProductionExperienceAttachment">
+							</label>-->
+					</div>
+
+					<button type="submit" [disabled]="!proposalForm.valid">Submit</button>
 				</form>
 			</mat-card-content>
 		</mat-card>
 	`
 })
 export class ProposalsComponent implements OnInit {
-	filesToUpload: Array<File> = [];
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
 	isLoading = true;
 	isEditing = false;
 
-	addProposalForm: FormGroup;
-	experimentTitle = new FormControl('');
-	briefSummary = new FormControl('');
-	mainProposerFirstName = new FormControl('');
-	mainProposerLastName = new FormControl('');
-	mainProposerAffiliation = new FormControl('');
-	mainProposerEmail = new FormControl('');
-	mainProposerPhone = new FormControl('');
-	coProposers = new FormControl('');
-	needByDate = new FormControl('');
-	needByDateAttachment = new FormControl('');
-	lab = new FormControl('');
-	crystallization = new FormControl('');
-	biomassDeuteration = new FormControl('');
-	proteinDeuteration = new FormControl('');
-	chemicalDeuteration = new FormControl('');
+	proposalForm = this.formBuilder.group({
+		experimentTitle: [ '' ],
+		briefSummary: [ '' ],
+		mainProposerFirstName: [ '' ],
+		mainProposerLastName: [ '' ],
+		mainProposerAffiliation: [ '' ],
+		mainProposerEmail: [ '' ],
+		mainProposerPhone: [ '' ],
+		coProposers: this.formBuilder.array([
+			this.formBuilder.control('')
+		]),
+		needByDate: [ '' ],
+		needByDateAttachment: [ '' ],
+		lab: [ '' ],
+		crystallization: this.formBuilder.group({
+			moleculeName: [ '' ],
+			moleculeIdentifier: [ '' ],
+			molecularWeight: [ '' ],
+			oligomerizationState: [ '' ],
+			crystalStructureReferencePDF: [ '' ],
+			crystallizationRequirements: [ '' ],
+			crystallizationPrecipitantComposition: [ '' ],
+			previousCrystallizationExperience: [ '' ],
+			estimatedCrystallizationProductionTime: [ '' ],
+			typicalCrystalSize: [ '' ],
+			typicalYieldMgPerLiter: [ '' ],
+			storageConditions: [ '' ],
+			stability: [ '' ],
+			buffer: [ '' ],
+			levelOfDeuteration: [ '' ],
+			typicalProteinConcentrationUsed: [ '' ]
+		}),
+		biomassDeuteration: this.formBuilder.group({
+			organismProvidedByUser: false,
+			organismDetails: [ '' ],
+			organismReferenceAttachment: [ '' ],
+			amountNeeded: [ '' ],
+			stateOfMaterial: [ '' ],
+			amountOfMaterialMotivation: [ '' ],
+			deuterationLevelRequired: [ '' ],
+			deuterationLevelMotivation: [ '' ]
+		}),
+		proteinDeuteration: this.formBuilder.group({
+			moleculeName: [ '' ],
+			moleculeIdentifier: [ '' ],
+			molecularWeight: [ '' ],
+			oligomerizationState: [ '' ],
+			expressionRequirements: [ '' ],
+			moleculeOrigin: [ '' ],
+			expressionPlasmidProvidedByUser: [ '' ],
+			details: [ '' ],
+			amountNeeded: [ '' ],
+			amountNeededMotivation: [ '' ],
+			deuterationLevelRequired: [ '' ],
+			deuterationLevelMotivation: [ '' ],
+			needsPurificationSupport: [ '' ],
+			needsPurificationSupportAttachment: [ '' ],
+			hasDoneUnlabeledProteinExpression: [ '' ],
+			hasPurifiedUnlabeledProtein: [ '' ],
+			hasProteinDeuterationExperience: [ '' ]
+		}),
+		chemicalDeuteration: this.formBuilder.group({
+			moleculeName: [ '' ],
+			amount: [ '' ],
+			amountMotivation: [ '' ],
+			deuterationLocationAndPercentage: [ '' ],
+			deuterationLevelMotivation: [ '' ],
+			chemicalStructure: [ '' ],
+			hasPreviousProductionExperience: [ '' ],
+			hasPreviousProductionExperienceAttachment: [ '' ]
+		})
+	});
 
 	constructor(
 		private proposalService: ProposalService,
@@ -177,44 +484,25 @@ export class ProposalsComponent implements OnInit {
 		public toast: ToastComponent
 	) {
 	}
+	get coProposers() {
+		return this.proposalForm.get('coProposers') as FormArray;
+	}
+	addCoProposer() {
+		this.coProposers.push(this.formBuilder.control(''));
+	}
 
+	onSubmit() {
+		console.warn(this.proposalForm.value);
+		this.proposalService.addProposal(this.proposalForm.value).subscribe(
+			res => {
+				this.proposals.push(res);
+				this.proposalForm.reset();
+			},
+			error => console.log(error)
+		);
+	}
 	ngOnInit() {
 		this.getProposals();
-		this.addProposalForm = this.formBuilder.group({
-			experimentTitle: this.experimentTitle,
-			briefSummary: this.briefSummary,
-			mainProposerFirstName: this.mainProposerFirstName,
-			mainProposerLastName: this.mainProposerLastName,
-			mainProposerAffiliation: this.mainProposerLastName,
-			mainProposerPhone: this.mainProposerPhone,
-			mainProposerEmail: this.mainProposerEmail,
-			coProposers: this.coProposers,
-			needByDate: this.needByDate,
-			needByDateAttachment: this.needByDateAttachment,
-			lab: this.lab,
-			crystallization: this.crystallization,
-			chemicalDeuteration: this.chemicalDeuteration,
-			biomassDeuteration: this.biomassDeuteration,
-			proteinDeuteration: this.proteinDeuteration
-		});
-	}
-
-	upload() {
-		const formData: any = new FormData();
-		const files: Array<File> = this.filesToUpload;
-		console.log(files);
-
-		for(let i = 0; i < files.length; i++) {
-			formData.append("uploads[]", files[ i ], files[ i ][ 'name' ]);
-		}
-		console.log('form data variable :   ' + formData.toString());
-		this.http.post('http://localhost:8080/upload-multiple', formData)
-		.subscribe(files => console.log('files', files))
-	}
-
-	fileChangeEvent(fileInput: any) {
-		this.filesToUpload = <Array<File>>fileInput.target.files;
-		//this.product.photo = fileInput.target.files[0]['name'];
 	}
 
 	getProposals() {
@@ -226,10 +514,10 @@ export class ProposalsComponent implements OnInit {
 	}
 
 	addProposal() {
-		this.proposalService.addProposal(this.addProposalForm.value).subscribe(
+		this.proposalService.addProposal(this.proposalForm.value).subscribe(
 			res => {
 				this.proposals.push(res);
-				this.addProposalForm.reset();
+				this.proposalForm.reset();
 				this.toast.setMessage('proposal created successfully.', 'success');
 			},
 			error => console.log(error)
