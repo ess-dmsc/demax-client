@@ -6,16 +6,16 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UploadModule } from './upload/upload.module';
+import { UploadModule } from './components/upload/upload.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from './material/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { ImprintComponent } from './imprint/imprint.component';
-import { HomeComponent } from './home/home.component';
-import { ContactComponent } from './contact/contact.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { ImprintComponent } from './pages/imprint.component';
+import { HomeComponent } from './pages/home.component';
+import { ContactComponent } from './pages/contact.component';
+import { NotFoundComponent } from './pages/not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProposalsComponent } from './proposals/proposals.component';
@@ -26,7 +26,9 @@ import { ToastComponent } from './components/toast/toast.component';
 import { FormlyModule } from '@ngx-formly/core';
 import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
-import { LogoutComponent } from "./logout/logout.component";
+import { LogoutComponent } from "./components/logout/logout.component";
+import { ProposalListComponent } from './proposal-list/proposal-list.component';
+import { ProposalDetailComponent } from './proposal-detail/proposal-detail.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -43,7 +45,9 @@ export function tokenGetter() {
 		LoginComponent,
 		LogoutComponent,
 		ProposalsComponent,
-		ToastComponent
+		ToastComponent,
+		ProposalListComponent,
+		ProposalDetailComponent
 	],
 	imports: [
 		CommonModule,
