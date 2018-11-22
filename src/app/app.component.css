@@ -6,21 +6,7 @@ nav {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	padding: 0 1rem;
-}
-
-header {
-	padding: 2rem;
-	background-color: white;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: left;
-	border-bottom: 1px solid #0094CA;
-}
-
-h2 {
-	margin: auto 4rem;
-	font-weight: normal;
-	color: #0094CA;
+	overflow: auto;
 }
 
 .sidebar {

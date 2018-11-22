@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule} from '../material/material.module';
+import { MaterialModule} from '../ext/material.module';
 import { ImprintComponent } from './imprint.component';
 
 describe('ImprintComponent', () => {

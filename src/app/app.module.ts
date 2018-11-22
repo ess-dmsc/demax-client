@@ -10,14 +10,14 @@ import { UploadModule } from './components/upload/upload.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './ext/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ImprintComponent } from './pages/imprint.component';
 import { HomeComponent } from './pages/home.component';
 import { ContactComponent } from './pages/contact.component';
 import { NotFoundComponent } from './pages/not-found.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
 import { ProposalsComponent } from './proposals/proposals.component';
 import { ProposalService } from './proposal.service';
 import { AuthService } from './services/auth.service';
@@ -28,7 +28,7 @@ import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { ProposalListComponent } from './proposal-list/proposal-list.component';
-import { ProposalDetailComponent } from './proposal-detail/proposal-detail.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -46,8 +46,7 @@ export function tokenGetter() {
 		LogoutComponent,
 		ProposalsComponent,
 		ToastComponent,
-		ProposalListComponent,
-		ProposalDetailComponent
+		ProposalListComponent
 	],
 	imports: [
 		CommonModule,
@@ -61,6 +60,7 @@ export function tokenGetter() {
 		ReactiveFormsModule,
 		HttpClientModule,
 		HttpModule,
+		MaterialFileInputModule,
 		MaterialModule,
 		JwtModule.forRoot({
 			config: {

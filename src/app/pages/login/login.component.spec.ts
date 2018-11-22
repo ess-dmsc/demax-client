@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { LoginComponent } from './login.component';
-import { ToastComponent } from '../components/toast/toast.component';
+import { ToastComponent } from '../../components/toast/toast.component';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
