@@ -12,34 +12,26 @@ import { User } from '../models/user';
 		</style>
 		<app-toast [message]="toast.message"></app-toast>
 
-		<div class="card" *ngIf="!isLoading">
+		<div class="card">
 			<h4 class="card-header">Account settings</h4>
 			<div class="card-body">
 				<form #accountForm="ngForm" (ngSubmit)="save(user)">
 					<div class="input-group">
-						<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-user"></i>
-          </span>
-						</div>
-						<input class="form-control" type="text" name="firstName"
-						       [(ngModel)]="user.firstName" placeholder="First name" required>
+						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.firstName" placeholder="First name">
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-envelope"></i>
-          </span>
-						</div>
-						<input class="form-control" type="email" name="email"
-						       [(ngModel)]="user.email" placeholder="Email" required>
+						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.lastName" placeholder="Last name">
 					</div>
 					<div class="input-group">
-						<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-black-tie"></i>
-          </span>
-						</div>
+						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.employerName" placeholder="Affiliation name">
+					</div>
+					<div class="input-group">
+						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.phone" placeholder="Phone">
+					</div>
+					<div class="input-group">
+						<input class="form-control" type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+					</div>
+					<div class="input-group">
 						<select class="custom-select" name="role" [(ngModel)]="user.role">
 							<option value="" disabled>Role</option>
 							<option value="user">User</option>
@@ -57,7 +49,6 @@ import { User } from '../models/user';
 export class UserComponent implements OnInit {
 
 	user: User;
-	isLoading = true;
 
 	constructor(
 		private auth: AuthService,
@@ -73,8 +64,7 @@ export class UserComponent implements OnInit {
 	getUser() {
 		this.userService.getUser(this.auth.currentUser).subscribe(
 			data => this.user = data,
-			error => console.log(error),
-			() => this.isLoading = false
+			error => console.log(error)
 		);
 	}
 

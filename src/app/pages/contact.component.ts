@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
 		<style>
 			mat-card{
 				width: 300px;
+				padding: 1rem;
 			}
 			.wrapper{
 				display: flex;
 				justify-content: space-around;
+			}
+			td{
+				margin: 1rem auto;
 			}
 		</style>
 		<div class="wrapper">
@@ -21,12 +25,29 @@ import { Component, OnInit } from '@angular/core';
 					Protein crystallization & biodeuteration
 				</mat-card-subtitle>
 			</mat-card-header>
-			<img matCardImage src="../../assets/media/zoe-fisher.jpg">
 			<mat-card-content>
+				<img matCardImage src="../../assets/media/zoe-fisher.jpg">
+
 				<table>
 					<tr>
-						<td></td>
-						<td></td>
+						<td>Mail</td>
+						<td><a href="mailto:Zoe.Fisher@esss.se" class="spamspan">Zoe.Fisher@esss.se</a></td>
+					</tr>
+					<tr>
+						<td>
+							Phone
+						</td>
+						<td>
+							<a href="tel:%2B46468883250">+46 46 888 32 50</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mobile
+						</td>
+						<td>
+							<a href="tel:%2B46721792250">+46 72 179 22 50</a>
+						</td>
 					</tr>
 				</table>
 			</mat-card-content>
@@ -40,12 +61,28 @@ import { Component, OnInit } from '@angular/core';
 					Chemical & lipid/surfactant deuteration
 				</mat-card-subtitle>
 			</mat-card-header>
-			<img matCardImage src="../../assets/media/zoe-fisher.jpg">
 			<mat-card-content>
+				<img matCardImage src="../../assets/media/zoe-fisher.jpg">
 				<table>
 					<tr>
-						<td></td>
-						<td></td>
+						<td>Mail</td>
+						<td><a href="mailto:hanna.wacklin@esss.se">hanna.wacklin@esss.se</a></td>
+					</tr>
+					<tr>
+						<td>
+							Phone
+						</td>
+						<td>
+							<a href="tel:%2B46468883044">+46 46 888 30 44</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mobile
+						</td>
+						<td>
+							<a href="tel:%2B46721792044">+46 72 179 20 44</a>
+						</td>
 					</tr>
 				</table>
 			</mat-card-content>
@@ -59,12 +96,31 @@ import { Component, OnInit } from '@angular/core';
 					Chemical deuteration & organic synthesis
 				</mat-card-subtitle>
 			</mat-card-header>
-			<img matCardImage src="../../assets/media/zoe-fisher.jpg">
 			<mat-card-content>
+				<img matCardImage src="../../assets/media/zoe-fisher.jpg">
+
 				<table>
 					<tr>
-						<td></td>
-						<td></td>
+						<td>Mail</td>
+						<td>
+							<a href="mailto:Anna.Leung@esss.se" class="spamspan">Anna.Leung@esss.se</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Phone
+						</td>
+						<td>
+							<a href="tel:%2B46468883427">+46 46 888 34 27</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mobile
+						</td>
+						<td>
+							<a href="tel:%2B46721792427">+46 72 179 24 27</a>
+						</td>
 					</tr>
 				</table>
 			</mat-card-content>

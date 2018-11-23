@@ -94,11 +94,8 @@
 	<mat-divider></mat-divider>
 	<a routerLink="/contact">Contact</a>
 	<a href="http://localhost:8080/word/attachment">Download proposal template</a>
-	<mat-divider></mat-divider>
-	<a *ngIf="!auth.loggedIn" routerLink="/login">Login</a>
-	<a *ngIf="!auth.loggedIn" routerLink="/register">Register</a>
-	<a *ngIf="auth.loggedIn" routerLink="/user">Account settings</a>
-	<a *ngIf="auth.loggedIn" routerLink="/logout">Logout</a>
+	<mat-divider *ngIf="auth.loggedIn && auth.isAdmin"></mat-divider>
+	<a *ngIf="auth.loggedIn && auth.isAdmin" routerLink="/admin">Admin</a>
 </div>
 <div class="content">
 	<router-outlet></router-outlet>
