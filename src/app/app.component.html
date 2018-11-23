@@ -1,23 +1,13 @@
 <mat-toolbar *ngIf="auth.loggedIn">
-	<span>
-		_
+	<span class="example-fill-remaining-space">
 	</span>
 	<span class="example-fill-remaining-space"></span>
 	<span>
-			<div *ngIf="auth.loggedIn">
-				{{currentUser.email}}
-			</div>
-			<a *ngIf="!auth.loggedIn" routerLink="/login">Login</a>
-			<a *ngIf="!auth.loggedIn" routerLink="/register">Register</a>
-
-			<div *ngIf="auth.loggedIn">
-			<button mat-button [matMenuTriggerFor]="menu"><mat-icon>user</mat-icon></button>
-			<mat-menu #menu="matMenu" *ngIf="auth.loggedIn">
-				<a *ngIf="auth.loggedIn" routerLink="/user">Account settings</a>
-				<a *ngIf="auth.loggedIn" routerLink="/logout">Logout</a>
-			</mat-menu>
-			</div>
-		</span>
+		<a *ngIf="!auth.loggedIn" routerLink="/login">Login</a>
+		<a *ngIf="!auth.loggedIn" routerLink="/register">Register</a>
+		<a *ngIf="auth.loggedIn" routerLink="/user">Account settings</a>
+		<a *ngIf="auth.loggedIn" routerLink="/logout">Logout</a>
+	</span>
 </mat-toolbar>
 
 <header style="display: flex; flex-wrap: wrap; justify-content: space-between;">
@@ -110,7 +100,7 @@
 </header>
 <div class="sidebar">
 	<a routerLink="/home">Home</a>
-	<a *ngIf="auth.loggedIn" routerLink="/proposals">Proposals</a>
+	<a routerLink="/proposals">Proposals</a>
 	<mat-divider></mat-divider>
 	<a routerLink="/contact">Contact</a>
 	<a href="http://localhost:8080/word/attachment">Download proposal template</a>

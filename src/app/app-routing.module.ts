@@ -22,9 +22,9 @@ const routes: Routes = [
 	{path: 'login', component: LoginComponent},
 	{path: 'logout', component: LogoutComponent},
 	{path: 'notfound', component: NotFoundComponent},
-	{path: 'proposals', component: ProposalsComponent, canActivate: [ AuthGuardLogin ]},
+	{path: 'proposals', component: ProposalsComponent},
 	{path: 'register', component: RegisterComponent},
-	{path: 'user', component: UserComponent, canActivate: [ AuthGuardLogin ]},
+	{path: 'user', component: UserComponent},
 	{path: '**', redirectTo: '/notfound'}
 ];
 
