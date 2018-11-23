@@ -1,23 +1,20 @@
-nav {
-	background-color: #0094CA;
-	text-align: right;
-	color: white;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 0 1rem;
-	overflow: auto;
+.example-fill-remaining-space{
+	flex: 1 1 auto;
+}
+.footer{
+	position: fixed;
+	bottom: 0;
 }
 
 .sidebar {
 	margin: 0;
 	padding: 0;
 	width: 200px;
-	background-color: white;
+	background-color: #f1f1f1;
 	position: fixed;
 	height: 100%;
 	overflow: auto;
-	border-right: solid lightgray 1px;
+	border-right: 1px solid lightgray;
 }
 
 .sidebar a {
@@ -28,8 +25,8 @@ nav {
 }
 
 .sidebar a.active {
-	background-color: white;
-	color: black;
+	background-color: #4CAF50;
+	color: white;
 }
 
 .sidebar a:hover:not(.active) {
@@ -49,9 +46,7 @@ div.content {
 		height: auto;
 		position: relative;
 	}
-
 	.sidebar a {float: left;}
-
 	div.content {margin-left: 0;}
 }
 
@@ -60,25 +55,4 @@ div.content {
 		text-align: center;
 		float: none;
 	}
-}
-footer {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	width: 100%;
-	position: revert;
-	bottom: 0;
-	background-color: white;
-	border-top: solid lightgray 1px;
-	color: #0094CA;
-	padding-top: 0.5rem;
-}
-
-.left, .right {
-	margin: auto 1rem;
-	text-align: center;
-}
-
-footer a {
-	font-size: 1rem;
 }

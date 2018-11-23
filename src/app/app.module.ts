@@ -1,8 +1,7 @@
-import { NgtUniversalModule } from '@ng-toolkit/universal';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppConfigModule } from './app-config.module';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,12 +22,11 @@ import { ProposalService } from './proposal.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { ToastComponent } from './components/toast/toast.component';
-import { FormlyModule } from '@ngx-formly/core';
 import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
-import { ProposalListComponent } from './proposal-list/proposal-list.component';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { AdminComponent } from './pages/admin.component';
+import { UserComponent } from "./pages/user.component";
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -37,6 +35,7 @@ export function tokenGetter() {
 @NgModule({
 	declarations: [
 		AppComponent,
+		AdminComponent,
 		ImprintComponent,
 		HomeComponent,
 		ContactComponent,
@@ -46,21 +45,19 @@ export function tokenGetter() {
 		LogoutComponent,
 		ProposalsComponent,
 		ToastComponent,
-		ProposalListComponent
+		UserComponent
 	],
 	imports: [
-		CommonModule,
-		NgtUniversalModule,
-		AppConfigModule,
+		BrowserModule,
 		AppRoutingModule,
+		CommonModule,
+		AppConfigModule,
 		BrowserAnimationsModule,
 		UploadModule,
 		FormsModule,
-		FormlyModule.forRoot(),
 		ReactiveFormsModule,
 		HttpClientModule,
 		HttpModule,
-		MaterialFileInputModule,
 		MaterialModule,
 		JwtModule.forRoot({
 			config: {

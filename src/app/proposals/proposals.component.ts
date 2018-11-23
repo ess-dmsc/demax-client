@@ -12,8 +12,13 @@ import { Proposal } from '../proposal';
 			mat-form-field {
 				width: 80%;
 			}
-
-			mat
+			.step-3 table{
+				margin: 2rem auto;
+			}
+			.step-3 td{
+				padding: 2rem;
+				margin: 1rem auto;
+			}
 		</style>
 		<app-toast [message]="toast.message"></app-toast>
 		
@@ -82,6 +87,46 @@ import { Proposal } from '../proposal';
 		<section *ngIf="!isEditing">
 			<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
 				<mat-tab-group mat-align-tabs="center">
+					<mat-tab label="Create new proposal">
+						<mat-card>
+							<mat-card-header>
+								Proposal guidelines
+							</mat-card-header>
+							<mat-card-content>
+								<p> Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
+									deuteration/crystallization proposal. General enquiries can be sent to: <a
+											href="mailto:demax@esss.se">demax@esss.se</a>
+									or to one of the<a routerLink="/contact"> subject matter experts.</a></p>
+								<ul>
+									<li> Proposals should be written in English, properly referenced, and prepared in the <a
+											href="http://localhost:8080/word/attachment">Word template.</a> Please keep to the 2
+										page limit, including Summary, Background (Science Case, Practical Consideration, References,
+										Figures/Tables)
+									</li>
+									<li> Access to DEMAX is granted on the basis of both a technical and a peer-review process.</li>
+									<li> Proposals awarded during initial operations (2019-2022) will be free of charge. During formal
+										user
+										operations (beyond 2023) we reserve the right to ask for partial financial contributions towards
+										consumables
+										& shipping costs.
+									</li>
+									<li> During initial operations we will not limit access to DEMAX based on ESS-membership. Beyond
+										this
+										period
+										we
+										will respect the user access policy that will be applicable ESS-wide.
+									</li>
+									<li> Biological and chemical deuteration proposals are run as a service but users for protein
+										crystallization
+										are welcome to come in person as well.
+									</li>
+								</ul>
+							</mat-card-content>
+							<mat-card-actions>
+								
+							</mat-card-actions>
+						</mat-card>
+					</mat-tab>
 					<mat-tab label="1. General information">
 						<h2>General information</h2>
 						<mat-form-field>
@@ -449,7 +494,30 @@ import { Proposal } from '../proposal';
 
 					</mat-tab>
 					<mat-tab label="3. Review & submit">
-
+<table class="step-3">
+	<tr>
+		<td>
+			Upload your proposal here:
+		</td>
+		<td><app-upload></app-upload></td>
+	</tr>
+	<tr>
+		<td>
+			Generate PDF for review
+		</td>
+		<td>
+			<button mat-raised-button style="background-color: red;">Generate</button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button mat-raised-button>Back</button>
+		</td>
+		<td>
+			<button mat-raised-button style="background-color: #005CBF; color: white;">Submit proposal</button>
+		</td>
+	</tr>
+</table>
 					</mat-tab>
 				</mat-tab-group>
 

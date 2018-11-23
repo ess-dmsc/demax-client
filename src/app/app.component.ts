@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, AfterViewChecked, ChangeDetectorRef } from '
 import { AppConfig } from "./app-config.module";
 import { APP_CONFIG } from "./app-config.module";
 import { FormControl } from "@angular/forms";
+import { AuthService } from "./services/auth.service";
 
 @Component({
 	selector: 'app-root',
@@ -13,10 +14,15 @@ export class AppComponent implements AfterViewChecked {
 	mode = new FormControl('over');
 
 	constructor(
-		@Inject(APP_CONFIG) private appConfig: AppConfig) {
+		public auth: AuthService,
+		private changeDetector: ChangeDetectorRef,
+		@Inject(APP_CONFIG) private appConfig: AppConfig
+
+	) {
 	}
 
 	ngAfterViewChecked() {
+		this.changeDetector.detectChanges();
 	}
 
 
