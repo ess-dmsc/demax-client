@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserService } from './user.service';
 import { User } from '../models/user';
-
 import 'rxjs/add/operator/map';
 
 @Injectable({
@@ -16,6 +15,7 @@ export class AuthService {
 	currentUser: User = new User();
 
 	constructor(
+
 		private userService: UserService,
 		private router: Router,
 		private jwtHelper: JwtHelperService

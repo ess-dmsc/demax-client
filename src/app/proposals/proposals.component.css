@@ -1,0 +1,24 @@
+.proposal-list{
+	width: 100%;
+	margin: 2rem auto;
+}
+.createProposal{
+	width: 60%;
+	margin: 2rem auto;
+}
+
+.tab-4 tr{
+	padding: 1rem;
+}
+.tab-4 td{
+	padding: 1rem;
+	margin: 0 auto;
+}
+mat-form-field{
+	width: 80%;
+	margin: 1rem auto;
+}
+mat-card-footer{
+	display: flex;
+	justify-content: space-between;
+}

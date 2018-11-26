@@ -27,10 +27,11 @@ import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from './pages/admin.component';
 import { UserComponent } from "./pages/user.component";
+import { LoadingComponent} from "./components/loading/loading.component";
 
-export function tokenGetter() {
-	return localStorage.getItem('token');
-}
+export const tokenGetter = () => {
+	return localStorage.getItem('token')
+};
 
 @NgModule({
 	declarations: [
@@ -41,6 +42,7 @@ export function tokenGetter() {
 		ContactComponent,
 		NotFoundComponent,
 		RegisterComponent,
+		LoadingComponent,
 		LoginComponent,
 		LogoutComponent,
 		ProposalsComponent,

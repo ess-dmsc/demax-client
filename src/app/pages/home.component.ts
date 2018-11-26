@@ -42,7 +42,7 @@ import { AuthService } from "../services/auth.service";
 				</ul>
 			</mat-card-content>
 			<mat-card-actions>
-				<button mat-raised-button style="background-color: #005CBF; color: white;" routerLink="/proposals">Create new proposal</button>
+				<button mat-raised-button style="background-color: #005CBF; color: white;" routerLink="/proposal-detail">Create new proposal</button>
 				<button mat-raised-button style="background-color: red; color: white;" routerLink="/proposals">Edit existing proposal</button>
 			</mat-card-actions>
 			<mat-card-footer>
@@ -58,5 +58,4 @@ export class HomeComponent implements OnInit {
 
 	ngOnInit() {
 	}
-
 }

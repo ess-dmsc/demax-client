@@ -1,37 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastComponent } from '../components/toast/toast.component';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { User } from '../models/user';
+import { User } from "../models/user";
+import { ToastComponent } from "../components/toast/toast.component";
 
 @Component({
 	selector: 'app-user',
-	template: `
-		<style>
+	template:
+	`
+		<app-loading [condition]="isLoading"></app-loading>
 
-		</style>
 		<app-toast [message]="toast.message"></app-toast>
 
-		<div class="card">
+		<div class="card" *ngIf="!isLoading">
 			<h4 class="card-header">Account settings</h4>
 			<div class="card-body">
 				<form #accountForm="ngForm" (ngSubmit)="save(user)">
 					<div class="input-group">
-						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.firstName" placeholder="First name">
+						<div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-user"></i>
+          </span>
+						</div>
+						<input class="form-control" type="text" name="email"
+						       [(ngModel)]="user.email" placeholder="Email" required>
 					</div>
 					<div class="input-group">
-						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.lastName" placeholder="Last name">
+						<div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-envelope"></i>
+          </span>
+						</div>
+						<input class="form-control" type="email" name="phone"
+						       [(ngModel)]="user.phone" placeholder="Phone" required>
 					</div>
 					<div class="input-group">
-						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.employerName" placeholder="Affiliation name">
-					</div>
-					<div class="input-group">
-						<input class="form-control" type="text" name="firstName" [(ngModel)]="user.phone" placeholder="Phone">
-					</div>
-					<div class="input-group">
-						<input class="form-control" type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
-					</div>
-					<div class="input-group">
+						<div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-black-tie"></i>
+          </span>
+						</div>
 						<select class="custom-select" name="role" [(ngModel)]="user.role">
 							<option value="" disabled>Role</option>
 							<option value="user">User</option>
@@ -49,6 +57,7 @@ import { User } from '../models/user';
 export class UserComponent implements OnInit {
 
 	user: User;
+	isLoading = true;
 
 	constructor(
 		private auth: AuthService,
@@ -64,7 +73,8 @@ export class UserComponent implements OnInit {
 	getUser() {
 		this.userService.getUser(this.auth.currentUser).subscribe(
 			data => this.user = data,
-			error => console.log(error)
+			error => console.log(error),
+			() => this.isLoading = false
 		);
 	}
 
