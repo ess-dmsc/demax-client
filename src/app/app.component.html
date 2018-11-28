@@ -82,6 +82,7 @@
 	</a>
 	</span>
 	<span style="padding: 3rem;">
+		<p *ngIf="auth.loggedIn">Welcome, {{auth.currentUser.firstName}} {{auth.currentUser.lastName}}</p>
 		<a *ngIf="!auth.loggedIn" style="margin: auto 2rem;" routerLink="/login">Login</a>
 		<a *ngIf="!auth.loggedIn" style="margin: auto 2rem;" routerLink="/register">Register</a>
 		<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/user">Account settings</a>

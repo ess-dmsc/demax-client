@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { MaterialModule} from "../../ext/material.module";
 import { UserService } from '../../services/user.service';
 import { ToastComponent } from '../../components/toast/toast.component';
 
@@ -22,6 +22,15 @@ export class RegisterComponent implements OnInit {
 		Validators.required,
 		Validators.minLength(6)
 	]);
+	firstName = new FormControl('');
+	lastName = new FormControl('');
+	phone = new FormControl('');
+	employerSector = new FormControl('');
+	employerName = new FormControl('');
+	employerStreet = new FormControl('');
+	employerZipcode = new FormControl('');
+	employerCity = new FormControl('');
+	employerCountry = new FormControl('');
 	role = new FormControl('', [
 		Validators.required
 	]);

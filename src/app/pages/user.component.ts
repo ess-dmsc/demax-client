@@ -7,51 +7,65 @@ import { ToastComponent } from "../components/toast/toast.component";
 @Component({
 	selector: 'app-user',
 	template:
-	`
-		<app-loading [condition]="isLoading"></app-loading>
-
+		`
+		<style>
+		
+		mat-form-field {
+			width: 80%;
+		}
+		</style>
 		<app-toast [message]="toast.message"></app-toast>
-
-		<div class="card" *ngIf="!isLoading">
-			<h4 class="card-header">Account settings</h4>
-			<div class="card-body">
+		<mat-card style="width: 500px; margin: 2rem auto;">
+			<mat-card-header>
+				<mat-card-title>Account settings</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
 				<form #accountForm="ngForm" (ngSubmit)="save(user)">
-					<div class="input-group">
-						<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-user"></i>
-          </span>
-						</div>
-						<input class="form-control" type="text" name="email"
-						       [(ngModel)]="user.email" placeholder="Email" required>
-					</div>
-					<div class="input-group">
-						<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-envelope"></i>
-          </span>
-						</div>
-						<input class="form-control" type="email" name="phone"
-						       [(ngModel)]="user.phone" placeholder="Phone" required>
-					</div>
-					<div class="input-group">
-						<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-black-tie"></i>
-          </span>
-						</div>
-						<select class="custom-select" name="role" [(ngModel)]="user.role">
-							<option value="" disabled>Role</option>
-							<option value="user">User</option>
-							<option value="admin">Admin</option>
-						</select>
-					</div>
-					<button class="btn btn-primary" type="submit" [disabled]="!accountForm.form.valid">
-						<i class="fa fa-save"></i> Save
-					</button>
+					<mat-form-field>
+						<input matInput name="firstName" [(ngModel)]="user.firstName">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="lastName" [(ngModel)]="user.lastName">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="phone" [(ngModel)]="user.phone">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="email" [(ngModel)]="user.email">
+					</mat-form-field>
+					<mat-divider></mat-divider>
+
+					<mat-form-field>
+						<input matInput name="employerSector" [(ngModel)]="user.employerSector">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="employerName" [(ngModel)]="user.employerName">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="employerStreet" [(ngModel)]="user.employerStreet">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="employerZipcode" [(ngModel)]="user.employerZipcode">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="employerCity" [(ngModel)]="user.employerCity">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput name="employerCountry" [(ngModel)]="user.employerCountry">
+					</mat-form-field>
+					<mat-form-field>
+						<mat-select name="role" [(ngModel)]="user.role">
+							<mat-option value="" disabled>Role</mat-option>
+							<mat-option value="admin">Admin</mat-option>
+							<mat-option value="user">User</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<fieldset>
+					<button mat-raised-button type="submit">Save</button>
+					</fieldset>
 				</form>
-			</div>
-		</div>
+			</mat-card-content>
+		</mat-card>
 	`
 })
 export class UserComponent implements OnInit {
@@ -73,8 +87,7 @@ export class UserComponent implements OnInit {
 	getUser() {
 		this.userService.getUser(this.auth.currentUser).subscribe(
 			data => this.user = data,
-			error => console.log(error),
-			() => this.isLoading = false
+			error => console.log(error)
 		);
 	}
 

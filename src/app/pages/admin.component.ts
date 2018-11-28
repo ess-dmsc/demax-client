@@ -12,13 +12,14 @@ import { User} from "../models/user";
 	</style>
 	<app-toast [message]="toast.message"></app-toast>
 
-	<div class="card" *ngIf="!isLoading">
+	<div class="card">
 		<h4 class="card-header">Registered users ({{users.length}})</h4>
 		<div class="card-body">
 			<table class="table table-bordered">
 				<thead class="thead-light">
 				<tr>
-					<th scope="col">Username</th>
+					<th scope="col">First name</th>
+										<th scope="col">Last name</th>
 					<th scope="col">Email</th>
 					<th scope="col">Role</th>
 					<th scope="col">Actions</th>
@@ -31,7 +32,8 @@ import { User} from "../models/user";
 				</tbody>
 				<tbody>
 				<tr *ngFor="let user of users">
-					<td>{{user.username}}</td>
+					<td>{{user.firstName}}</td>
+					<td>{{user.lastName}}</td>
 					<td>{{user.email}}</td>
 					<td>{{user.role}}</td>
 					<td>

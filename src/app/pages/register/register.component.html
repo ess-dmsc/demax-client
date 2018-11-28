@@ -1,42 +1,75 @@
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card">
-	<h4 class="card-header">Register</h4>
-	<div class="card-body">
-		<form [formGroup]="registerForm" (ngSubmit)="register()">
-			<div class="input-group" [ngClass]="setClassEmail()">
-				<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-envelope"></i>
-          </span>
+<mat-card style="width: 600px; margin: 6rem 12rem;">
+	<form [formGroup]="registerForm" (ngSubmit)="register()">
+		<mat-card-header>
+			<mat-card-title>
+				Register
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content style="display: flex; flex-wrap: wrap; justify-content: center;">
+			<div style="margin: 2rem;">
+				<h4>Personal information</h4>
+
+				<div class="input-group">
+					<input class="form-control" type="text" name="firstName"
+					       formControlName="firstName" placeholder="First name">
 				</div>
-				<input class="form-control" type="email" name="email"
-				       formControlName="email" placeholder="Email">
-			</div>
-			<div class="input-group" [ngClass]="setClassPassword()">
-				<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-key"></i>
-          </span>
+				<div class="input-group">
+					<input class="form-control" type="text" name="lastName"
+					       formControlName="lastName" placeholder="Last name">
 				</div>
-				<input class="form-control" type="password" name="password"
-				       formControlName="password" placeholder="Password">
-			</div>
-			<div class="input-group">
-				<div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-black-tie"></i>
-          </span>
+				<div class="input-group">
+					<input class="form-control" type="text" name="phone"
+					       formControlName="phone" placeholder="Phone">
 				</div>
-				<select class="custom-select" name="role" formControlName="role">
-					<option value="" selected disabled>Role</option>
-					<option value="user">User</option>
-					<option value="admin">Admin</option>
-				</select>
+				<div class="input-group" [ngClass]="setClassEmail()">
+
+					<input class="form-control" type="email" name="email"
+					       formControlName="email" placeholder="Email">
+				</div>
+				<div class="input-group" [ngClass]="setClassPassword()">
+					<input class="form-control" type="password" name="password"
+					       formControlName="password" placeholder="Password">
+				</div>
 			</div>
-			<button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">
+			<div style="margin: 2rem;">
+				<h4>Affiliation</h4>
+				<div class="input-group">
+					<select class="form-control" type="text" name="employerSector"
+					        formControlName="employerSector">
+						<option value="" selected disabled>Sector</option>
+						<option value="Something">Something</option>
+						<option value="123456789">Something else</option>
+					</select>
+				</div>
+				<div class="input-group">
+					<input class="form-control" type="text" name="employerName"
+					       formControlName="employerName" placeholder="Employer">
+				</div>
+				<div class="input-group">
+					<input class="form-control" type="text" name="employerStreet"
+					       formControlName="employerStreet" placeholder="Street address">
+				</div>
+				<div class="input-group">
+					<input class="form-control" type="text" name="employerZipcode"
+					       formControlName="employerZipcode" placeholder="Zipcode">
+				</div>
+				<div class="input-group">
+					<input class="form-control" type="text" name="employerCity"
+					       formControlName="employerCity" placeholder="City">
+				</div>
+				<div class="input-group">
+					<input class="form-control" type="text" name="employerCountry"
+					       formControlName="employerCountry" placeholder="Country">
+				</div>
+			</div>
+		</mat-card-content>
+		<mat-card-actions style="text-align: center;">
+			<button class="btn btn-primary" type="submit">
 				<i class="fa fa-user-plus"></i> Register
 			</button>
-		</form>
-	</div>
-</div>
+		</mat-card-actions>
+
+	</form>
+</mat-card>

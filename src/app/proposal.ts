@@ -7,7 +7,15 @@ export class Proposal {
 	mainProposerAffiliation: string;
 	mainProposerEmail: string;
 	mainProposerPhone: string;
-	coProposers: string;
+	coProposers: [
+		{
+			firstName: string;
+			lastName: string;
+			affiliation: string;
+			phone: string;
+			email: string;
+		}
+		];
 	needByDate: string;
 	lab: string;
 	needByDateAttachment: string;

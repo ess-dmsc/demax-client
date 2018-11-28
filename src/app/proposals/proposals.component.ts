@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
 import { ToastComponent } from '../components/toast/toast.component';
 import { Proposal } from '../proposal';
+import { AuthService} from "../services/auth.service";
 
 @Component({
 	selector: 'app-proposals',
@@ -21,6 +22,7 @@ export class ProposalsComponent implements OnInit {
 	selectedIndex = 0;
 
 	selectTab(index: number): void {
+		event.preventDefault();
 		this.selectedIndex = index;
 	}
 
@@ -38,6 +40,18 @@ export class ProposalsComponent implements OnInit {
 		this.step--;
 	}
 
+	addProposalForm: FormGroup;
+	experimentTitle = new FormControl('');
+	briefSummary = new FormControl('');
+	mainProposerFirstName = new FormControl('');
+	mainProposerLastName = new FormControl('');
+	mainProposerAffiliation = new FormControl('');
+	mainProposerEmail = new FormControl('');
+	mainProposerPhone = new FormControl('');
+	needByDate = new FormControl('');
+	needByDateAttachment = new FormControl('');
+	lab = new FormControl('');
+
 	proposalForm = this.formBuilder.group({
 		experimentTitle: [ '' ],
 		briefSummary: [ '' ],
@@ -46,12 +60,12 @@ export class ProposalsComponent implements OnInit {
 		mainProposerAffiliation: [ '' ],
 		mainProposerEmail: [ '' ],
 		mainProposerPhone: [ '' ],
-		coProposers: this.formBuilder.array([
-			this.formBuilder.control('')
-		]),
 		needByDate: [ '' ],
 		needByDateAttachment: [ '' ],
 		lab: [ '' ],
+		coProposers: this.formBuilder.array([
+			this.formBuilder.control('')
+		]),
 		crystallization: this.formBuilder.group({
 			moleculeName: [ '' ],
 			moleculeIdentifier: [ '' ],
@@ -115,16 +129,9 @@ export class ProposalsComponent implements OnInit {
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
 		private http: HttpClient,
-		public toast: ToastComponent
+		public toast: ToastComponent,
+		public auth: AuthService
 	) {
-	}
-
-	get coProposers() {
-		return this.proposalForm.get('coProposers') as FormArray;
-	}
-
-	addCoProposer() {
-		this.coProposers.push(this.formBuilder.control(''));
 	}
 
 	onSubmit() {
@@ -140,6 +147,27 @@ export class ProposalsComponent implements OnInit {
 
 	ngOnInit() {
 		this.getProposals();
+		this.addProposalForm = this.formBuilder.group({
+			experimentTitle: this.experimentTitle,
+			briefSummary: this.briefSummary,
+			mainProposerFirstName: this.mainProposerFirstName,
+			mainProposerLastName: this.mainProposerLastName,
+			mainProposerAffiliation: this.mainProposerAffiliation,
+			mainProposerEmail: this.mainProposerEmail,
+			mainProposerPhone: this.mainProposerPhone,
+			needByDate: this.needByDate,
+			lab: this.lab
+		})
+
+	}
+
+	get coProposers() {
+		return this.proposalForm.get('coProposers') as FormArray;
+	}
+
+	addCoProposer() {
+		event.preventDefault();
+		this.coProposers.push(this.formBuilder.control(''));
 	}
 
 	getProposals() {
@@ -152,8 +180,8 @@ export class ProposalsComponent implements OnInit {
 
 	addProposal() {
 		this.proposalService.addProposal(this.proposalForm.value).subscribe(
-			res => {
-				this.proposals.push(res);
+			response => {
+				this.proposals.push(response);
 				this.proposalForm.reset();
 				this.isCreating = false;
 				this.toast.setMessage('proposal created successfully.', 'success');
@@ -180,9 +208,10 @@ export class ProposalsComponent implements OnInit {
 
 	cancelEditing() {
 		this.isEditing = false;
+		this.isCreating = false;
 		this.proposal = new Proposal();
 		this.toast.setMessage('proposal editing cancelled.', 'warning');
-		// reload the proposals to reset the editing
+// reload the proposals to reset the editing
 		this.getProposals();
 	}
 
@@ -190,6 +219,7 @@ export class ProposalsComponent implements OnInit {
 		this.proposalService.editProposal(proposal).subscribe(
 			() => {
 				this.isEditing = false;
+				this.isCreating = false;
 				this.proposal = proposal;
 				this.toast.setMessage('proposal updated successfully.', 'success');
 			},
@@ -197,11 +227,12 @@ export class ProposalsComponent implements OnInit {
 		);
 	}
 
-	deleteProposal(proposal: Proposal) {
+	deleteProposal(proposal: Proposal
+	) {
 		if(window.confirm('Are you sure you want to permanently delete this proposal?')) {
 			this.proposalService.deleteProposal(proposal).subscribe(
 				() => {
-					const pos = this.proposals.map(elem => elem._id).indexOf(proposal._id);
+					const pos = this.proposals.map(element => element._id).indexOf(proposal._id);
 					this.proposals.splice(pos, 1);
 					this.toast.setMessage('proposal deleted successfully.', 'success');
 				},
