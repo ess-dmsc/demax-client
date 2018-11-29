@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastComponent } from '../components/toast/toast.component';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User} from "../models/user";
@@ -10,7 +9,6 @@ import { User} from "../models/user";
 	<style>
 		
 	</style>
-	<app-toast [message]="toast.message"></app-toast>
 
 	<div class="card">
 		<h4 class="card-header">Registered users ({{users.length}})</h4>
@@ -54,7 +52,6 @@ export class AdminComponent implements OnInit {
 	isLoading = true;
 
 	constructor(public auth: AuthService,
-	            public toast: ToastComponent,
 	            private userService: UserService) { }
 
 	ngOnInit() {
@@ -72,8 +69,6 @@ export class AdminComponent implements OnInit {
 	deleteUser(user: User) {
 		if (window.confirm('Are you sure you want to delete ' + user.email + '?')) {
 			this.userService.deleteUser(user).subscribe(
-				data => this.toast.setMessage('user deleted successfully.', 'success'),
-				error => console.log(error),
 				() => this.getUsers()
 			);
 		}

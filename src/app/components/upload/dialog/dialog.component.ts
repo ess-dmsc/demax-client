@@ -4,71 +4,71 @@ import { UploadService } from '../upload.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
-    selector: 'app-dialog',
-    templateUrl: './dialog.component.html',
-    styleUrls: [ './dialog.component.css' ]
+	selector: 'app-dialog',
+	templateUrl: './dialog.component.html',
+	styleUrls: [ './dialog.component.css' ]
 })
 export class DialogComponent implements OnInit {
-    @ViewChild('file') file;
+	@ViewChild('file') file;
 
-    public files: Set<File> = new Set();
-    progress;
-    canBeClosed = true;
-    primaryButtonText = 'Upload';
-    showCancelButton = true;
-    uploading = false;
-    uploadSuccessful = false;
+	public files: Set<File> = new Set();
+	progress;
+	canBeClosed = true;
+	primaryButtonText = 'Upload';
+	showCancelButton = true;
+	uploading = false;
+	uploadSuccessful = false;
 
-    constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService) {
-    }
+	constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService) {
+	}
 
-    ngOnInit() {
-    }
+	ngOnInit() {
+	}
 
-    onFilesAdded() {
-        const files: { [ key: string ]: File } = this.file.nativeElement.files;
-        for (let key in files) {
-            if (!isNaN(parseInt(key))) {
-                this.files.add(files[ key ]);
-            }
-        }
-    }
+	onFilesAdded() {
+		const files: { [ key: string ]: File } = this.file.nativeElement.files;
+		for(let key in files) {
+			if(!isNaN(parseInt(key))) {
+				this.files.add(files[ key ]);
+			}
+		}
+	}
 
-    addFiles() {
-        this.file.nativeElement.click();
-    }
+	addFiles() {
+		this.file.nativeElement.click();
+	}
 
-    closeDialog() {
-        if (this.uploadSuccessful) {
-            return this.dialogRef.close();
-        }
+	closeDialog() {
+		if(this.uploadSuccessful) {
+			return this.dialogRef.close();
+		}
 
-        this.uploading = true;
+		this.uploading = true;
 
-        this.progress = this.uploadService.upload(this.files);
-        console.log(this.progress);
-        for (const key in this.progress) {
-            this.progress[ key ].progress.subscribe(val => console.log(val));
-        }
+		this.progress = this.uploadService.upload(this.files);
+		console.log(this.progress);
+		for(const key in this.progress) {
+			this.progress[ key ].progress.subscribe(val => console.log(val));
+		}
 
-        let allProgressObservables = [];
-        for (let key in this.progress) {
-            allProgressObservables.push(this.progress[ key ].progress);
-        }
-        this.primaryButtonText = 'Finish';
+		let allProgressObservables = [];
+		for(let key in this.progress) {
+			allProgressObservables.push(this.progress[ key ].progress);
+		}
+		this.primaryButtonText = 'Finish';
 
-        this.canBeClosed = false;
-        this.dialogRef.disableClose = true;
+		this.canBeClosed = false;
+		this.dialogRef.disableClose = true;
 
-        this.showCancelButton = false;
+		this.showCancelButton = false;
 
-        forkJoin(allProgressObservables).subscribe(end => {
-            this.canBeClosed = true;
-            this.dialogRef.disableClose = false;
+		forkJoin(allProgressObservables).subscribe(end => {
+			this.canBeClosed = true;
+			this.dialogRef.disableClose = false;
 
-            this.uploadSuccessful = true;
+			this.uploadSuccessful = true;
 
-            this.uploading = false;
-        });
-    }
+			this.uploading = false;
+		});
+	}
 }

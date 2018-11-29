@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppConfigModule } from './app-config.module';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Directive, NgModule, } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +21,6 @@ import { ProposalsComponent } from './proposals/proposals.component';
 import { ProposalService } from './proposal.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { ToastComponent } from './components/toast/toast.component';
 import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
@@ -29,10 +28,12 @@ import { AdminComponent } from './pages/admin.component';
 import { UserComponent } from "./pages/user.component";
 import { LoadingComponent} from "./components/loading/loading.component";
 import { TestingComponent } from "./pages/testing.component";
+import { MessageService }       from './services/message.service';
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
 };
+@Directive({ selector: '[ng2FileSelect]' })
 
 @NgModule({
 	declarations: [
@@ -48,7 +49,6 @@ export const tokenGetter = () => {
 		LogoutComponent,
 		ProposalsComponent,
 		TestingComponent,
-		ToastComponent,
 		UserComponent
 	],
 	imports: [
@@ -74,9 +74,9 @@ export const tokenGetter = () => {
 		AuthService,
 		AuthGuardAdmin,
 		AuthGuardLogin,
+		MessageService,
 		UserService,
-		ProposalService,
-		ToastComponent
+		ProposalService
 	],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })

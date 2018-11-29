@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
-import { ToastComponent } from '../components/toast/toast.component';
 import { Proposal } from '../proposal';
 import { AuthService} from "../services/auth.service";
 
@@ -129,7 +128,6 @@ export class ProposalsComponent implements OnInit {
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
 		private http: HttpClient,
-		public toast: ToastComponent,
 		public auth: AuthService
 	) {
 	}
@@ -184,7 +182,6 @@ export class ProposalsComponent implements OnInit {
 				this.proposals.push(response);
 				this.proposalForm.reset();
 				this.isCreating = false;
-				this.toast.setMessage('proposal created successfully.', 'success');
 			},
 			error => console.log(error)
 		);
@@ -202,7 +199,6 @@ export class ProposalsComponent implements OnInit {
 	cancelCreating() {
 		this.isCreating = false;
 		this.proposal = new Proposal();
-		this.toast.setMessage('Cancelled.', 'warning');
 		this.getProposals();
 	}
 
@@ -210,8 +206,6 @@ export class ProposalsComponent implements OnInit {
 		this.isEditing = false;
 		this.isCreating = false;
 		this.proposal = new Proposal();
-		this.toast.setMessage('proposal editing cancelled.', 'warning');
-// reload the proposals to reset the editing
 		this.getProposals();
 	}
 
@@ -221,7 +215,6 @@ export class ProposalsComponent implements OnInit {
 				this.isEditing = false;
 				this.isCreating = false;
 				this.proposal = proposal;
-				this.toast.setMessage('proposal updated successfully.', 'success');
 			},
 			error => console.log(error)
 		);
@@ -234,7 +227,6 @@ export class ProposalsComponent implements OnInit {
 				() => {
 					const pos = this.proposals.map(element => element._id).indexOf(proposal._id);
 					this.proposals.splice(pos, 1);
-					this.toast.setMessage('proposal deleted successfully.', 'success');
 				},
 				error => console.log(error)
 			);

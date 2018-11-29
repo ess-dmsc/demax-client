@@ -14,6 +14,7 @@ export class UploadComponent implements OnInit {
     }
 
     public openUploadDialog() {
+    	event.preventDefault();
         let dialogRef = this.dialog.open(DialogComponent, {width: '50%', height: '50%'});
     }
 
