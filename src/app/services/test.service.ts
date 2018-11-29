@@ -24,6 +24,8 @@ export class TestService {
 	// }
 
 	upload(file: File) {
+		const formData: FormData = new FormData();
+		formData.append('file', file, file.name);
 		if (!file) { return; }
 
 		// COULD HAVE WRITTEN:
@@ -35,7 +37,7 @@ export class TestService {
 		// Create the request object that POSTs the file to an upload endpoint.
 		// The `reportProgress` option tells HttpClient to listen and return
 		// XHR progress events.
-		const req = new HttpRequest('POST', '/upload', file, {
+		const req = new HttpRequest('POST', '/upload', formData, {
 			reportProgress: true
 		});
 

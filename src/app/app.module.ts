@@ -29,6 +29,7 @@ import { UserComponent } from "./pages/user.component";
 import { LoadingComponent} from "./components/loading/loading.component";
 import { TestingComponent } from "./pages/testing.component";
 import { MessageService }       from './services/message.service';
+import { HttpErrorHandler }     from './services/http-error-handler.service';
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
@@ -74,6 +75,7 @@ export const tokenGetter = () => {
 		AuthService,
 		AuthGuardAdmin,
 		AuthGuardLogin,
+		HttpErrorHandler,
 		MessageService,
 		UserService,
 		ProposalService

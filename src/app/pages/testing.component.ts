@@ -17,7 +17,9 @@ import { TestService } from "../services/test.service";
 			<p *ngIf="message">{{message}}</p>
 		</form>
 
-	`
+	`,
+	providers: [ TestService ]
+
 })
 export class TestingComponent {
 
