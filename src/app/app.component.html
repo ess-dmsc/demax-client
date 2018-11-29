@@ -97,6 +97,8 @@
 	<a href="http://localhost:8080/word/attachment">Download proposal template</a>
 	<mat-divider *ngIf="auth.loggedIn && auth.isAdmin"></mat-divider>
 	<a *ngIf="auth.loggedIn && auth.isAdmin" routerLink="/admin">Admin</a>
+	<a routerLink="/test">TestComponent</a>
+
 </div>
 <div class="content">
 	<router-outlet></router-outlet>

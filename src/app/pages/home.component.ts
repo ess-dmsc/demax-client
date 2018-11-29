@@ -49,6 +49,12 @@ import { AuthService } from "../services/auth.service";
 
 			</mat-card-footer>
 		</mat-card>
+		<mat-card>
+			<form action="/upload" enctype="multipart/form-data" method="post">
+				<input type="file" name="upload" multiple>
+				<input type="submit" value="Upload">
+			</form>
+		</mat-card>
 	`
 })
 export class HomeComponent implements OnInit {

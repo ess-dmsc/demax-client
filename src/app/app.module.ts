@@ -28,6 +28,7 @@ import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from './pages/admin.component';
 import { UserComponent } from "./pages/user.component";
 import { LoadingComponent} from "./components/loading/loading.component";
+import { TestingComponent } from "./pages/testing.component";
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
@@ -46,6 +47,7 @@ export const tokenGetter = () => {
 		LoginComponent,
 		LogoutComponent,
 		ProposalsComponent,
+		TestingComponent,
 		ToastComponent,
 		UserComponent
 	],

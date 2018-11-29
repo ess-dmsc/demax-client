@@ -12,6 +12,7 @@ import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from "./pages/admin.component";
 import { UserComponent } from "./pages/user.component";
+import { TestingComponent } from "./pages/testing.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
 	{path: 'notfound', component: NotFoundComponent},
 	{path: 'proposals', component: ProposalsComponent},
 	{path: 'register', component: RegisterComponent},
+	{path: 'test', component: TestingComponent},
 	{path: 'user', component: UserComponent},
 	{path: '**', redirectTo: '/notfound'}
 ];

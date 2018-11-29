@@ -13,7 +13,7 @@
       externals: [/(node_modules|main\..*\.js)/,],
       output: {
         libraryTarget: 'commonjs2',
-        path: path.join(__dirname, '../demax-server/public'),
+        path: path.join(__dirname, '../public'),
         filename: '[name].js'
       },
       module: {
