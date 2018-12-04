@@ -7,6 +7,15 @@ import { FormControl } from "@angular/forms";
 @Component({
 	selector: 'app-testing',
 	template: `
+		<style>
+			.custom-file-input {
+				border: solid black 1px;
+				background-color: #00BBFF;
+			}
+			#pbdIdReferenceAttachment{
+				box-shadow: 3px 3px 3px black;
+			}
+		</style>
 		<mat-card>
 			<mat-card-header>
 				<mat-card-title>TestComponent</mat-card-title>
@@ -30,9 +39,23 @@ import { FormControl } from "@angular/forms";
 						</mat-form-field>
 					</div>
 					<p *ngIf="message">{{message}}</p>
+
+					<div class="form-group">
+						<label for="pbdId">PDB ID of crystal structure</label>
+						<input type="text" class="form-control" id="pbdId">
+					</div>
+
+					<div class="form-group">
+						<label for="doi">If available, please provide a DOI - otherwise upload a reference in PDF
+							format</label>
+						<input type="text" class="form-control" id="doi">
+					</div>
+					<div class="form-group">
+						<input type="file" id="pbdIdReferenceAttachment">
+					</div>
 				</form>
 
-				{{date.value}}
+
 			</mat-card-content>
 		</mat-card>
 

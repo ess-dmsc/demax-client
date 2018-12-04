@@ -28,7 +28,7 @@ export class Proposal {
 		oligomerizationState?: string;
 		pbdId?: string;
 		doi?: string;
-		referenceAttachment?: string;
+		pbdIdReferenceAttachment?: string;
 		crystallizationRequirements?: string;
 		crystallizationPrecipitantComposition?: string;
 		previousCrystallizationExperience?: string;

@@ -245,6 +245,23 @@
 								<p>Oligomerizarion state? (e.g. homodimer, tetramer etc.)</p>
 								<textarea rows="4" cols="40" matInput formControlName="oligomerizationState"></textarea>
 							</mat-form-field>
+
+							<fieldset>
+								<p>PDB ID of crystal structure</p>
+								<textarea rows="4" cols="40" matInput formControlName="pbdId"></textarea>
+							</fieldset>
+
+							<p>If available, provide a DOI - otherwise upload a reference in PDF format</p>
+
+							<fieldset>
+								<input type="text" name="doi" formControlName="doi">
+							</fieldset>
+
+							<fieldset>
+								<p>Reference</p>
+								<input type="file" formControlName="pbdIdReferenceAttachment">
+							</fieldset>
+
 							<mat-form-field>
 								<p>Does the protein have any co-factors or ligands required for crystallization?
 									Specify:</p>

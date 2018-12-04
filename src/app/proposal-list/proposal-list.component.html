@@ -1,0 +1,23 @@
+<table style="width:100%;">
+	<tr>
+		<td>ID</td>
+		<td>Title</td>
+		<td>Lab</td>
+		<td>Options</td>
+	</tr>
+	<tr *ngFor="let proposal of proposals">
+		<td>{{proposal._id}}</td>
+		<td>{{proposal.experimentTitle}}</td>
+		<td>{{proposal.lab}}</td>
+		<td>
+			<button class="btn btn-sm btn-primary" (click)="enableEditing(proposal)">
+				<i class="fa fa-pencil"></i> Edit
+			</button>
+		</td>
+		<td>
+			<button class="btn btn-sm btn-danger ml-1" (click)="deleteProposal(proposal)">
+				<i class="fa fa-trash"></i> Delete
+			</button>
+		</td>
+	</tr>
+</table>

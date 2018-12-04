@@ -51,6 +51,7 @@ export class ProposalsComponent implements OnInit {
 	needByDateAttachment = new FormControl('');
 	lab = new FormControl('');
 
+
 	proposalForm = this.formBuilder.group({
 		experimentTitle: [ '' ],
 		briefSummary: [ '' ],
@@ -71,7 +72,9 @@ export class ProposalsComponent implements OnInit {
 			moleculeIdentifier: [ '' ],
 			molecularWeight: [ '' ],
 			oligomerizationState: [ '' ],
-			crystalStructureReferencePDF: [ '' ],
+			pbdId: [ '' ],
+			doi: [ '' ],
+			pbdIdReferenceAttachment: [ '' ],
 			crystallizationRequirements: [ '' ],
 			crystallizationPrecipitantComposition: [ '' ],
 			previousCrystallizationExperience: [ '' ],

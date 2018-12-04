@@ -1,0 +1,50 @@
+<form [formGroup]="proposalForm" (ngSubmit)="addProposal()" enctype="multipart/form-data">
+	<mat-accordion>
+		<mat-expansion-panel [expanded]="true">
+			<mat-expansion-panel-header>
+				<mat-panel-title>General information</mat-panel-title>
+			</mat-expansion-panel-header>
+			<mat-form-field><input matInput formControlName="experimentTitle" placeholder="Experiment title">
+			</mat-form-field>
+			<mat-form-field><textarea matInput rows="5" formControlName="briefSummary"
+			                          placeholder="Brief summary"></textarea>
+			</mat-form-field>
+		</mat-expansion-panel>
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>Main proposer</mat-panel-title>
+			</mat-expansion-panel-header>
+			<mat-form-field><input matInput formControlName="mainProposerFirstName" placeholder="First name"></mat-form-field>
+			<mat-form-field><input matInput formControlName="mainProposerLastName" placeholder="Last name"></mat-form-field>
+			<br>
+			<mat-form-field><input matInput formControlName="mainProposerPhone" placeholder="Phone"></mat-form-field>
+			<mat-form-field><input matInput formControlName="mainProposerEmail" placeholder="Email"></mat-form-field>
+			<br>
+			<mat-form-field><input matInput formControlName="mainProposerAffiliation" placeholder="Affiliation"></mat-form-field>
+		</mat-expansion-panel>
+		<mat-expansion-panel>
+			<mat-expansion-panel-header><mat-panel-title>Co-proposers</mat-panel-title></mat-expansion-panel-header>
+
+		</mat-expansion-panel>
+
+
+		<mat-expansion-panel>
+			<mat-expansion-panel-header><mat-panel-title>Scheduling</mat-panel-title></mat-expansion-panel-header>
+			<mat-form-field>
+				<input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="needByDate">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+			<input matInput formControlName="needByDateMotivation">
+			<label for="needByDateAttachment">Attach reference</label>
+			<div><input type="file" id="needByDateAttachment" #picked (click)="message=''" (change)="onPicked(picked)"></div>
+		</mat-expansion-panel>
+
+
+	</mat-accordion>
+
+	<mat-card>
+		<button mat-raised-button>Cancel</button>
+		<button mat-raised-button>Next</button>
+	</mat-card>
+</form>

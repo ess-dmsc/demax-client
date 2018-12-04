@@ -23,10 +23,7 @@ describe('AppComponent', () => {
 				AppComponent
 			],
 			providers: [
-				{
-					provide: APP_CONFIG,
-					useValue: APP_DI_CONFIG
-				},
+				{provide: APP_CONFIG, useValue: APP_DI_CONFIG},
 				{provide: AuthService, useValue: authServiceStub}
 			]
 		}).compileComponents();

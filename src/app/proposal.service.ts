@@ -13,7 +13,7 @@ export class ProposalService {
 	}
 
 	getProposals(): Observable<Proposal[]> {
-		return this.http.get<Proposal[]>('/proposals');
+		return this.http.get<Proposal[]>('http://localhost:8080/proposals');
 	}
 
 	countProposals(): Observable<number> {
@@ -21,7 +21,7 @@ export class ProposalService {
 	}
 
 	addProposal(proposal: Proposal): Observable<Proposal> {
-		return this.http.post<Proposal>('/proposals', proposal);
+		return this.http.post<Proposal>('http://localhost:8080/proposals', proposal);
 	}
 
 	getProposal(proposal: Proposal): Observable<Proposal> {
