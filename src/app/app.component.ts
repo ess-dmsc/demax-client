@@ -11,6 +11,7 @@ import { AuthService } from "./services/auth.service";
 })
 export class AppComponent implements AfterViewChecked {
 	title = 'demax-client';
+	opened: boolean;
 	mode = new FormControl('over');
 
 	constructor(

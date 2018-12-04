@@ -40,9 +40,18 @@ export class RegisterComponent implements OnInit {
 
 	ngOnInit() {
 		this.registerForm = this.formBuilder.group({
+			firstName: this.firstName,
+			lastName: this.lastName,
+			phone: this.phone,
 			email: this.email,
 			password: this.password,
-			role: this.role
+			role: this.role,
+			employerSector: this.employerSector,
+			employerName: this.employerName,
+			employerStreet: this.employerStreet,
+			employerZipcode: this.employerZipcode,
+			employerCity: this.employerCity,
+			employerCountry: this.employerCountry
 		});
 	}
 

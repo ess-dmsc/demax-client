@@ -42,5 +42,6 @@ describe('LogoutComponent', () => {
 		expect(authService.loggedIn).toBeTruthy();
 		authService.logout();
 		expect(authService.loggedIn).toBeFalsy();
+		
 	});
 });

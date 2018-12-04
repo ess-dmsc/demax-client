@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TestService } from "../services/test.service";
+import { AuthService } from "../services/auth.service";
+import { ProposalService } from "../proposal.service";
 
 @Component({
 	selector: 'app-testing',
@@ -16,7 +18,13 @@ import { TestService } from "../services/test.service";
 			</div>
 			<p *ngIf="message">{{message}}</p>
 		</form>
-
+		<h3>Pick a date</h3>
+		<mat-form-field>
+			<input matInput [matDatepicker]="picker" placeholder="Choose a date" id="date">
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
+		</mat-form-field>
+		{{matDatepicker}}
 	`,
 	providers: [ TestService ]
 
@@ -25,11 +33,12 @@ export class TestingComponent {
 
 	message: string;
 
-	constructor(private uploaderService: TestService) {
+	constructor(private uploaderService: TestService, public auth: AuthService, public proposalService: ProposalService) {
 	}
 
 	onPicked(input: HTMLInputElement) {
 		const file = input.files[ 0 ];
+		console.log(file.name);
 		if(file) {
 			this.uploaderService.upload(file).subscribe(
 				msg => {
@@ -42,3 +51,4 @@ export class TestingComponent {
 }
 
 
+//name="{{proposalService.currentProposal._id + '-' + auth.currentUser._id}}"

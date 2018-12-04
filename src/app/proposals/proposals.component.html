@@ -53,14 +53,13 @@
 				                       placeholder="email"></mat-form-field>
 				<mat-divider></mat-divider>
 				<h4>Scheduling</h4>
+				<input matInput [matDatepicker]="picker" placeholder="Choose a date">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
 				<mat-form-field>
 					<p>Motivate “need by” date (e.g. based on awarded beamtime, or described intention to apply):</p>
 					<input matInput [(ngModel)]="proposal.needByDate" name="needByDate">
 				</mat-form-field>
-				<fieldset>
-					<p>Beamtime proposal copy</p>
-					<app-upload></app-upload>
-				</fieldset>
 				<mat-divider></mat-divider>
 				<mat-form-field>
 					<p>Select which lab/instrument you wish to apply to:</p>
@@ -170,18 +169,6 @@
 								apply):</p>
 							<input matInput formControlName="needByDate" placeholder="">
 						</mat-form-field>
-						<fieldset>
-							<table style="padding: 1rem 3rem;">
-								<tr>
-									<td style="padding: 1rem 3rem;">
-										<p>Upload copy of beamtime proposal</p>
-									</td>
-									<td style="padding: 1rem 3rem;">
-										<app-upload></app-upload>
-									</td>
-								</tr>
-							</table>
-						</fieldset>
 						<br>
 						<mat-divider></mat-divider>
 						<br>
@@ -246,18 +233,6 @@
 								<textarea rows="4" cols="40" matInput
 								          formControlName="crystallizationRequirements"></textarea>
 							</mat-form-field>
-							<fieldset>
-								<table style="padding: 1rem 3rem;">
-									<tr>
-										<td style="padding: 1rem 3rem;">
-											<p>PDB ID of crystal structure (upload reference as pdf)</p>
-										</td>
-										<td style="padding: 1rem 3rem;">
-											<app-upload></app-upload>
-										</td>
-									</tr>
-								</table>
-							</fieldset>
 							<mat-form-field>
 								<p>Known crystallization precipitant composition (incl. buffer, salt, additives, pH)</p>
 								<textarea rows="4" cols="40" matInput
@@ -337,11 +312,6 @@
 									<p>What is the organism?</p>
 									<textarea rows="4" cols="40" matInput formControlName="organismDetails"></textarea>
 								</mat-form-field>
-								<fieldset>
-									<p>Please attach a reference or protocol of culture conditions and media composition
-										(formats accepted Word doc pdf)</p>
-									<app-upload></app-upload>
-								</fieldset>
 								<mat-form-field>
 									<p> How much material do you need?</p>
 									<textarea rows="4" cols="40" matInput formControlName="amountNeeded"></textarea>
@@ -438,10 +408,6 @@
 									<mat-radio-button value="yes">Yes</mat-radio-button>
 									<mat-radio-button value="no">No</mat-radio-button>
 								</mat-radio-group>
-								<fieldset>
-									<p>If “yes”, please attach reference or protocol as PDF</p>
-									<app-upload></app-upload>
-								</fieldset>
 								<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
 									<p>Has expression been done for the unlabeled protein?</p>
 									<mat-radio-button value="yes">Yes</mat-radio-button>
@@ -492,10 +458,6 @@
 								<textarea rows="4" cols="40" matInput
 								          formControlName="deuterationLevelMotivation"></textarea>
 							</mat-form-field>
-							<fieldset>
-								<p>Attach chemical structure:</p>
-								<app-upload></app-upload>
-							</fieldset>
 							<mat-radio-group formControlName="hasPreviousProductionExperience">
 								<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself
 									or
@@ -503,7 +465,6 @@
 								<mat-radio-button value="yes">Yes</mat-radio-button>
 								<mat-radio-button value="no">No</mat-radio-button>
 								<p> If “yes”, please provide protocol (attach a reference PDF if published):</p>
-								<app-upload></app-upload>
 							</mat-radio-group>
 						</div>
 					</mat-expansion-panel>
@@ -526,12 +487,6 @@
 				<mat-card>
 					<mat-card-content>
 						<table class="tab-4">
-							<tr>
-								<td><p>Upload your proposal here:</p></td>
-								<td>
-									<app-upload></app-upload>
-								</td>
-							</tr>
 							<tr>
 								<td><p>Generate PDF for review</p></td>
 								<td>
