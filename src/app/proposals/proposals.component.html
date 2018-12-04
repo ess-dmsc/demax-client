@@ -163,12 +163,30 @@
 						<br>
 						<mat-divider></mat-divider>
 						<br>
+
+
+
 						<h4>Scheduling</h4>
+						<p>What date do you need the samples?</p>
 						<mat-form-field>
-							<p>Motivate “need by” date (e.g. based on awarded beamtime, or described intention to
-								apply):</p>
-							<input matInput formControlName="needByDate" placeholder="">
+							<br>
+							<input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="needByDate">
+							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+							<mat-datepicker #picker></mat-datepicker>
 						</mat-form-field>
+						<br>
+						<mat-form-field>
+							<p>Please motivate the chosen date (e.g. based on awarded beamtime, or described intention to
+								apply):</p>
+							<input matInput formControlName="needByDateMotivation">
+						</mat-form-field>
+						<fieldset>
+							<p>Upload copy of beamtime proposal</p>
+							<input type="file" formControlName="needByDateAttachment" #picked (click)="message=''" (change)="onPicked(picked)">>
+						</fieldset>
+
+
+
 						<br>
 						<mat-divider></mat-divider>
 						<br>
@@ -189,7 +207,7 @@
 							Select one, or as many as apply, from (A) Crystallization, (B) Biological Deuteration, (C)
 							Chemical Deuteration.</p>
 					</mat-card-content>
-					<mat-card-actions style="text-align: center;">
+					<mat-card-actions style="text-align: center">
 						<button mat-raised-button style="background-color: #0094CA; margin: 1rem 2rem; color: white;"
 						        (click)="editProposal(proposal)">Save
 						</button>

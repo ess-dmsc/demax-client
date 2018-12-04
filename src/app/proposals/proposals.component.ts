@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { HttpClient } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
 import { Proposal } from '../proposal';
-import { AuthService} from "../services/auth.service";
+import { AuthService } from "../services/auth.service";
 
 @Component({
 	selector: 'app-proposals',
@@ -47,6 +47,7 @@ export class ProposalsComponent implements OnInit {
 	mainProposerEmail = new FormControl('');
 	mainProposerPhone = new FormControl('');
 	needByDate = new FormControl('');
+	needByDateMotivation = new FormControl('');
 	needByDateAttachment = new FormControl('');
 	lab = new FormControl('');
 
@@ -59,6 +60,7 @@ export class ProposalsComponent implements OnInit {
 		mainProposerEmail: [ '' ],
 		mainProposerPhone: [ '' ],
 		needByDate: [ '' ],
+		needByDateMotivation: [ '' ],
 		needByDateAttachment: [ '' ],
 		lab: [ '' ],
 		coProposers: this.formBuilder.array([
