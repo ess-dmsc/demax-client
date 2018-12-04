@@ -13,7 +13,6 @@ import { AuthService} from "../services/auth.service";
 export class ProposalsComponent implements OnInit {
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
-	isLoading = true;
 	isEditing = false;
 	isCreating = false;
 	panelOpenState = false;
