@@ -171,7 +171,6 @@ export class ProposalsComponent implements OnInit {
 		this.proposalService.getProposals().subscribe(
 			data => this.proposals = data,
 			error => console.log(error),
-			() => this.isLoading = false
 		);
 	}
 
