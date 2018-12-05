@@ -5,10 +5,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import { FormControl, FormGroup } from "@angular/forms";
 
-if (environment.production) {
-  enableProdMode();
+if(environment.production) {
+	enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(AppBrowserModule)
-  .catch(err => console.error(err));
+.catch(err => console.error(err));

@@ -53,31 +53,242 @@
 				                       placeholder="email"></mat-form-field>
 				<mat-divider></mat-divider>
 				<h4>Scheduling</h4>
-				<input matInput [matDatepicker]="picker" placeholder="Choose a date">
-				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-				<mat-datepicker #picker></mat-datepicker>
 				<mat-form-field>
-					<p>Motivate “need by” date (e.g. based on awarded beamtime, or described intention to apply):</p>
-					<input matInput [(ngModel)]="proposal.needByDate" name="needByDate">
+					<p>Please motivate the chosen date (e.g. based on awarded beamtime, or described intention to
+						apply):</p>
+					<input matInput [(ngModel)]="proposal.needByDateMotivation" name="needByDateMotivation">
 				</mat-form-field>
+				<fieldset>
+					<p>Upload copy of beamtime proposal</p>
+					<label>Attach reference</label>
+					<input type="file" name="{{proposal._id + '-needByDateAttachment'}}" #picked
+					       (click)="message=''"
+					       (change)="onPicked(picked)">
+				</fieldset>
+				<mat-form-field>
+					<input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="needByDate"
+					       name="needByDate">
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+				<br>
 				<mat-divider></mat-divider>
+				<br>
 				<mat-form-field>
 					<p>Select which lab/instrument you wish to apply to:</p>
 					<mat-select [(ngModel)]="proposal.lab" name="lab">
 						<mat-option value="DEMAX">DEMAX</mat-option>
 					</mat-select>
 				</mat-form-field>
+
 			</mat-card-content>
 			<mat-card-action>
 				<button mat-rasied-button (click)="cancelEditing()">Cancel</button>
 				<button mat-rasied-button type="submit">Save</button>
 			</mat-card-action>
 		</mat-card>
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>Biomass</mat-panel-title>
+			</mat-expansion-panel-header>
+			<fieldset>
+				<p> Will user provide the organism for us to grow under deuterated conditions?</p>
+				<mat-radio-group name="biomassDeuteration.organismProvidedByUser"
+				                 [(ngModel)]="proposal.biomassDeuteration.organismProvidedByUser">
+					<mat-radio-button value="yes">Yes</mat-radio-button>
+					<mat-radio-button value="no">No</mat-radio-button>
+				</mat-radio-group>
+			</fieldset>
+			<mat-form-field>
+				<p>What is the organism?</p>
+				<textarea rows="4" cols="40" matInput name="biomassDeuteration.organismDetails"
+				          [(ngModel)]="proposal.biomassDeuteration.organismDetails"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> How much material do you need?</p>
+				<textarea rows="4" cols="40" matInput name="biomassDeuteration.amountNeeded"
+				          [(ngModel)]="proposal.biomassDeuteration.amountNeeded"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> Indicate wet or dry mass:</p>
+				<textarea rows="4" cols="40" matInput name="biomassDeuteration.stateOfMaterial"
+				          [(ngModel)]="proposal.biomassDeuteration.stateOfMaterial"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> Justify amount:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="biomassDeuteration.amountOfMaterialMotivation"
+				          [(ngModel)]="proposal.biomassDeuteration.amountOfMaterialMotivation"></textarea>
+			</mat-form-field>
+			<mat-radio-group name="biomassDeuteration.deuterationLevelRequired"
+			                 [(ngModel)]="proposal.biomassDeuteration.deuterationLevelRequired">
+				<p> Level of deuteration required:</p>
+				<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)
+				</mat-radio-button>
+				<mat-radio-button value="full">Full (~99% with labeled carbon source)
+				</mat-radio-button>
+			</mat-radio-group>
+			<mat-form-field>
+				<p> Justify level of D incorporation:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="biomassDeuteration.deuterationLevelMotivation"
+				          [(ngModel)]="proposal.biomassDeuteration.deuterationLevelMotivation"></textarea>
+			</mat-form-field>
+
+		</mat-expansion-panel>
+
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>Protein</mat-panel-title>
+			</mat-expansion-panel-header>
+			<mat-form-field>
+				<p> Name of molecule to be deuterated (e.g. superoxide dismutase):</p>
+				<textarea rows="4" cols="40" matInput name="proteinDeuteration.moleculeName"
+				          [(ngModel)]="proposal.proteinDeuteration.moleculeName"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> FASTA sequence or Uniprot number:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="proteinDeuteration.moleculeIdentifier"
+				          [(ngModel)]="proposal.proteinDeuteration.moleculeIdentifier"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> Molecular weight (kDA):</p>
+				<textarea rows="4" cols="40" matInput name="proteinDeuteration.molecularWeight"
+				          [(ngModel)]="proposal.proteinDeuteration.molecularWeight"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> Oligomerizarion state? (e.g. homodimer, tetramer etc.):</p>
+				<textarea rows="4" cols="40" matInput
+				          name="proteinDeuteration.oligomerizationState"
+				          [(ngModel)]="proposal.proteinDeuteration.oligomerizationState"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> Does the protein have any co-factors or ligands required for expression?
+					Specify:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="proteinDeuteration.expressionRequirements"
+				          [(ngModel)]="proposal.proteinDeuteration.expressionRequirements"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> Origin of molecules (e.g. human, E. coli, S. cerevisiae):</p>
+				<textarea rows="4" cols="40" matInput name="proteinDeuteration.moleculeOrigin"
+				          [(ngModel)]="proposal.proteinDeuteration.moleculeOrigin"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p>If “yes”, please provide details (e.g. pET31b, C-terminal His-tag, Amp
+					selection):
+					(If “no”, we will design & order a plasmid commercially)</p>
+				<textarea rows="4" cols="40" matInput name="proteinDeuteration.details"
+				          [(ngModel)]="proposal.proteinDeuteration.details"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p> How much material do you need:</p>
+				<textarea rows="4" cols="40" matInput name="proteinDeuteration.amountNeeded"
+				          [(ngModel)]="proposal.proteinDeuteration.amountNeeded"></textarea>
+			</mat-form-field>
+			<mat-radio-group name="proteinDeuteration.expressionPlasmidProvidedByUser"
+			                 [(ngModel)]="proposal.proteinDeuteration.expressionPlasmidProvidedByUser">
+				<p>Will you provide an expression plasmid?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+			</mat-radio-group>
+			<mat-form-field>
+				<p>Justify amount:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="roteinDeuteration.amountNeededMotivation"
+				          [(ngModel)]="proposal.proteinDeuteration.amountNeededMotivation"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p>Level of deuteration required</p>
+				<textarea rows="4" cols="40" matInput
+				          name="proteinDeuteration.deuterationLevelRequired"
+				          [(ngModel)]="proposal.proteinDeuteration.deuterationLevelRequired"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p>Justify level of D incorporation:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="proteinDeuteration.deuterationLevelMotivation"
+				          [(ngModel)]="proposal.proteinDeuteration.deuterationLevelMotivation"></textarea>
+			</mat-form-field>
+			<mat-radio-group name="proteinDeuteration.needsPurificationSupport"
+			                 [(ngModel)]="proposal.proteinDeuteration.needsPurificationSupport">
+				<p>Will you need DEMAX to purify the protein from deuterated biomass?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+			</mat-radio-group>
+			<mat-radio-group name="proteinDeuteration.hasDoneUnlabeledProteinExpression"
+			                 [(ngModel)]="proposal.proteinDeuteration.hasDoneUnlabeledProteinExpression">
+				<p>Has expression been done for the unlabeled protein?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+				<input type="text" placeholder="Typical yield">
+			</mat-radio-group>
+			<mat-radio-group name="proteinDeuteration.hasPurifiedUnlabeledProtein"
+			                 [(ngModel)]="proposal.proteinDeuteration.hasPurifiedUnlabeledProtein">
+				<p> Have you been able to purify the unlabeled protein?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+				<p> Please include chromatogram & image of SDS-PAGE in proposal.proteinDeuteration.</p>
+			</mat-radio-group>
+			<mat-radio-group name="proteinDeuteration.hasProteinDeuterationExperience"
+			                 [(ngModel)]="proposal.proteinDeuteration.hasProteinDeuterationExperience">
+				<p>Have you tried to deuterate the protein yourself, even in small scale?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+				<input type="text" placeholder="Results?">
+			</mat-radio-group>
+		</mat-expansion-panel>
+
+
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>Chemical deuteration</mat-panel-title>
+				<mat-panel-description></mat-panel-description>
+			</mat-expansion-panel-header>
+			<mat-form-field>
+				<p>Molecule/s to be deuterated (name):</p>
+				<textarea rows="4" cols="40" matInput name="chemicalDeuteration.moleculeName"
+				          [(ngModel)]="proposal.chemicalDeuteration.moleculeName"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p>Amount of material required (mass):</p>
+				<textarea rows="4" cols="40" matInput name="chemicalDeuteration.amount"
+				          [(ngModel)]="proposal.chemicalDeuteration.amount"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p>Justify amount:</p>
+				<textarea rows="4" cols="40" matInput name="chemicalDeuteration.amountMotivation"
+				          [(ngModel)]="proposal.chemicalDeuteration.amountMotivation"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p>Indicate percentage and location of deuteration:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="chemicalDeuteration.deuterationLocationAndPercentage"
+				          [(ngModel)]="proposal.chemicalDeuteration.deuterationLocationAndPercentage"></textarea>
+			</mat-form-field>
+			<mat-form-field>
+				<p>Justify level of deuteration:</p>
+				<textarea rows="4" cols="40" matInput
+				          name="chemicalDeuteration.deuterationLevelMotivation"
+				          [(ngModel)]="proposal.chemicalDeuteration.deuterationLevelMotivation"></textarea>
+			</mat-form-field>
+			<mat-radio-group name="chemicalDeuteration.hasPreviousProductionExperience"
+			                 [(ngModel)]="proposal.chemicalDeuteration.hasPreviousProductionExperience">
+				<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself
+					or
+					others?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+				<p> If “yes”, please provide protocol (attach a reference PDF if published):</p>
+			</mat-radio-group>
+		</mat-expansion-panel>
 	</form>
 </section>
 
+
 <section *ngIf="isCreating" class="createProposal">
-	<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+	<form enctype="multipart/form-data" [formGroup]="proposalForm" (ngSubmit)="addProposal()">
 		<mat-tab-group [selectedIndex]="selectedIndex">
 			<mat-tab label="1. Proposal guidelines">
 				<p> Users are strongly encouraged to contact DEMAX staff prior to preparing and
@@ -138,53 +349,49 @@
 						<h4>Main proposer</h4>
 						<mat-form-field><input matInput formControlName="mainProposerFirstName"
 						                       placeholder="{{auth.currentUser.firstName}}"></mat-form-field>
-						<mat-form-field><input matInput formControlName="mainProposerLastName" placeholder="{{auth.currentUser.lastName}}">
+						<mat-form-field><input matInput formControlName="mainProposerLastName"
+						                       placeholder="{{auth.currentUser.lastName}}">
 						</mat-form-field>
 						<mat-form-field><input matInput formControlName="mainProposerAffiliation"
 						                       placeholder="{{auth.currentUser.employerName}}"></mat-form-field>
-						<mat-form-field><input matInput formControlName="mainProposerPhone" placeholder="{{auth.currentUser.phone}}">
+						<mat-form-field><input matInput formControlName="mainProposerPhone"
+						                       placeholder="{{auth.currentUser.phone}}">
 						</mat-form-field>
-						<mat-form-field><input matInput formControlName="mainProposerEmail" placeholder="{{auth.currentUser.email}}">
+						<mat-form-field><input matInput formControlName="mainProposerEmail"
+						                       placeholder="{{auth.currentUser.email}}">
 						</mat-form-field>
 						<br>
 						<mat-divider></mat-divider>
 						<br>
 						<h4>Co-Proposers</h4>
-						<mat-form-field>
-							<div formArrayName="coProposers" style="padding:3rem auto;">
-								<div *ngFor="let firstName of coProposers.controls; let i=index">
-									<mat-form-field><input matInput [formControlName]="i"></mat-form-field>
-								</div>
-								<button mat-button style="background-color: #005CBF; color: white;"
-								        (click)="addCoProposer()">Add Co-Proposer
-								</button>
-							</div>
-						</mat-form-field>
 						<br>
 						<mat-divider></mat-divider>
 						<br>
-
 
 
 						<h4>Scheduling</h4>
 						<p>What date do you need the samples?</p>
 						<mat-form-field>
 							<br>
-							<input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="needByDate">
+							<input matInput [matDatepicker]="picker" placeholder="Choose a date"
+							       formControlName="needByDate">
 							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 							<mat-datepicker #picker></mat-datepicker>
 						</mat-form-field>
 						<br>
 						<mat-form-field>
-							<p>Please motivate the chosen date (e.g. based on awarded beamtime, or described intention to
+							<p>Please motivate the chosen date (e.g. based on awarded beamtime, or described intention
+								to
 								apply):</p>
 							<input matInput formControlName="needByDateMotivation">
 						</mat-form-field>
 						<fieldset>
 							<p>Upload copy of beamtime proposal</p>
-							<input type="file" formControlName="needByDateAttachment" #picked (click)="message=''" (change)="onPicked(picked)">>
+							<label for="needByDateAttachment">Attach reference</label>
+							<input type="file" id="needByDateAttachment" name="needByDateAttachment" #picked
+							       (click)="message=''"
+							       (change)="onPicked(picked)">
 						</fieldset>
-
 
 
 						<br>
@@ -209,7 +416,7 @@
 					</mat-card-content>
 					<mat-card-actions style="text-align: center">
 						<button mat-raised-button style="background-color: #0094CA; margin: 1rem 2rem; color: white;"
-						        (click)="editProposal(proposal)">Save
+						        (click)="addProposal()">Save
 						</button>
 					</mat-card-actions>
 					<mat-card-footer>
@@ -505,7 +712,7 @@
 					</mat-expansion-panel>
 					<div style="text-align: center;">
 						<button mat-raised-button style="background-color: #0094CA; color: white;"
-						        (click)="editProposal(proposal)">Save
+						        (click)="addProposal()">Save
 						</button>
 					</div>
 					<div style="display: flex; justify-content: space-between;">

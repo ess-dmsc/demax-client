@@ -20,7 +20,7 @@ export class TestService {
 		formData.append('file', file, file.name);
 		if (!file) { return; }
 
-		const req = new HttpRequest('POST', '/upload', formData, {
+		const req = new HttpRequest('POST', '/api/upload', formData, {
 			reportProgress: true
 		});
 

@@ -4,11 +4,13 @@ import { HttpClient } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
 import { Proposal } from '../proposal';
 import { AuthService } from "../services/auth.service";
+import { TestService } from "../services/test.service";
 
 @Component({
 	selector: 'app-proposals',
 	templateUrl: './proposals.component.html',
-	styleUrls: [ './proposals.component.css' ]
+	styleUrls: [ './proposals.component.css' ],
+	providers: [TestService]
 })
 export class ProposalsComponent implements OnInit {
 	proposal = new Proposal();
@@ -16,6 +18,7 @@ export class ProposalsComponent implements OnInit {
 	isEditing = false;
 	isCreating = false;
 	panelOpenState = false;
+	message: string;
 
 	selectedIndex = 0;
 
@@ -39,18 +42,6 @@ export class ProposalsComponent implements OnInit {
 	}
 
 	addProposalForm: FormGroup;
-	experimentTitle = new FormControl('');
-	briefSummary = new FormControl('');
-	mainProposerFirstName = new FormControl('');
-	mainProposerLastName = new FormControl('');
-	mainProposerAffiliation = new FormControl('');
-	mainProposerEmail = new FormControl('');
-	mainProposerPhone = new FormControl('');
-	needByDate = new FormControl('');
-	needByDateMotivation = new FormControl('');
-	needByDateAttachment = new FormControl('');
-	lab = new FormControl('');
-
 
 	proposalForm = this.formBuilder.group({
 		experimentTitle: [ '' ],
@@ -64,9 +55,6 @@ export class ProposalsComponent implements OnInit {
 		needByDateMotivation: [ '' ],
 		needByDateAttachment: [ '' ],
 		lab: [ '' ],
-		coProposers: this.formBuilder.array([
-			this.formBuilder.control('')
-		]),
 		crystallization: this.formBuilder.group({
 			moleculeName: [ '' ],
 			moleculeIdentifier: [ '' ],
@@ -131,6 +119,7 @@ export class ProposalsComponent implements OnInit {
 	constructor(
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
+		private uploaderService: TestService,
 		private http: HttpClient,
 		public auth: AuthService
 	) {
@@ -150,15 +139,6 @@ export class ProposalsComponent implements OnInit {
 	ngOnInit() {
 		this.getProposals();
 		this.addProposalForm = this.formBuilder.group({
-			experimentTitle: this.experimentTitle,
-			briefSummary: this.briefSummary,
-			mainProposerFirstName: this.mainProposerFirstName,
-			mainProposerLastName: this.mainProposerLastName,
-			mainProposerAffiliation: this.mainProposerAffiliation,
-			mainProposerEmail: this.mainProposerEmail,
-			mainProposerPhone: this.mainProposerPhone,
-			needByDate: this.needByDate,
-			lab: this.lab
 		})
 
 	}
@@ -232,6 +212,19 @@ export class ProposalsComponent implements OnInit {
 					this.proposals.splice(pos, 1);
 				},
 				error => console.log(error)
+			);
+		}
+	}
+
+	onPicked(input: HTMLInputElement) {
+		const file = input.files[ 0 ];
+
+		if(file) {
+			this.uploaderService.upload(file).subscribe(
+				msg => {
+					input.name = file.name;
+					this.message = msg;
+				}
 			);
 		}
 	}

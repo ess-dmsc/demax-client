@@ -13,19 +13,20 @@ import { TestService } from "../services/test.service";
 	providers: [ TestService ]
 })
 
-export class ProposalComponent implements OnInit {
+export class ProposalComponent {
 	proposal = new Proposal();
 	message: string;
 
 	constructor(
 		private proposalService: ProposalService,
-		private formBuilder: FormBuilder,
+		private fb: FormBuilder,
 		public auth: AuthService,
 		private uploaderService: TestService
 	) {
 	}
 
-	proposalForm = this.formBuilder.group({
+
+	proposalForm = this.fb.group({
 		experimentTitle: [ '' ],
 		briefSummary: [ '' ],
 		mainProposerFirstName: [ '' ],
@@ -33,15 +34,75 @@ export class ProposalComponent implements OnInit {
 		mainProposerAffiliation: [ '' ],
 		mainProposerEmail: [ '' ],
 		mainProposerPhone: [ '' ],
-		coProposers: this.formBuilder.array([
-			this.formBuilder.control('')
+		coProposers: this.fb.array([
+			this.fb.control('')
 		]),
 		needByDate: [ '' ],
 		needByDateMotivation: [ '' ],
 		needByDateAttachment: [ '' ],
-		lab: [ '' ]
-	});
+		lab: [ '' ],
 
+		crystallization: this.fb.group({
+			moleculeName: [ '' ],
+			moleculeIdentifier: [ '' ],
+			molecularWeight: [ '' ],
+			oligomerizationState: [ '' ],
+			pbdId: [ '' ],
+			doi: [ '' ],
+			pbdIdReferenceAttachment: [ '' ],
+			crystallizationRequirements: [ '' ],
+			crystallizationPrecipitantComposition: [ '' ],
+			previousCrystallizationExperience: [ '' ],
+			estimatedCrystallizationProductionTime: [ '' ],
+			typicalCrystalSize: [ '' ],
+			typicalYieldMgPerLiter: [ '' ],
+			storageConditions: [ '' ],
+			stability: [ '' ],
+			buffer: [ '' ],
+			levelOfDeuteration: [ '' ],
+			typicalProteinConcentrationUsed: [ '' ]
+		}),
+		biomassDeuteration: this.fb.group({
+			organismProvidedByUser: false,
+			organismDetails: [ '' ],
+			organismReferenceAttachment: [ '' ],
+			amountNeeded: [ '' ],
+			stateOfMaterial: [ '' ],
+			amountOfMaterialMotivation: [ '' ],
+			deuterationLevelRequired: [ '' ],
+			deuterationLevelMotivation: [ '' ]
+		}),
+		proteinDeuteration: this.fb.group({
+			moleculeName: [ '' ],
+			moleculeIdentifier: [ '' ],
+			molecularWeight: [ '' ],
+			oligomerizationState: [ '' ],
+			expressionRequirements: [ '' ],
+			moleculeOrigin: [ '' ],
+			expressionPlasmidProvidedByUser: [ '' ],
+			details: [ '' ],
+			amountNeeded: [ '' ],
+			amountNeededMotivation: [ '' ],
+			deuterationLevelRequired: [ '' ],
+			deuterationLevelMotivation: [ '' ],
+			needsPurificationSupport: [ '' ],
+			needsPurificationSupportAttachment: [ '' ],
+			hasDoneUnlabeledProteinExpression: [ '' ],
+			hasPurifiedUnlabeledProtein: [ '' ],
+			hasProteinDeuterationExperience: [ '' ]
+		}),
+		chemicalDeuteration: this.fb.group({
+			moleculeName: [ '' ],
+			amount: [ '' ],
+			amountMotivation: [ '' ],
+			deuterationLocationAndPercentage: [ '' ],
+			deuterationLevelMotivation: [ '' ],
+			chemicalStructure: [ '' ],
+			hasPreviousProductionExperience: [ '' ],
+			hasPreviousProductionExperienceAttachment: [ '' ]
+		}),
+		proposalTemplate: [ '' ]
+	});
 
 	ngOnInit() {
 	}
@@ -52,11 +113,12 @@ export class ProposalComponent implements OnInit {
 
 	addCoProposer() {
 		event.preventDefault();
-		this.coProposers.push(this.formBuilder.control(''));
+		this.coProposers.push(this.fb.control(''));
 	}
 
 	addProposal() {
 		this.proposalService.addProposal(this.proposalForm.value).subscribe(
+			data =>
 			error => console.log(error)
 		);
 	}
