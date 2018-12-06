@@ -14,12 +14,12 @@
 			<td>{{proposal.experimentTitle}}</td>
 			<td>{{proposal.lab}}</td>
 			<td>
-				<button class="btn btn-sm btn-primary" (click)="enableEditing(proposal)">
+				<button class="btn btn-primary" (click)="enableEditing(proposal)">
 					<i class="fa fa-pencil"></i> Edit
 				</button>
 			</td>
 			<td>
-				<button class="btn btn-sm btn-danger ml-1" (click)="deleteProposal(proposal)">
+				<button class="btn btn-danger ml-1" (click)="deleteProposal(proposal)">
 					<i class="fa fa-trash"></i> Delete
 				</button>
 			</td>
@@ -283,9 +283,9 @@
 				<p> If “yes”, please provide protocol (attach a reference PDF if published):</p>
 			</mat-radio-group>
 		</mat-expansion-panel>
+		<a href="https://demax.esss.app/api/pdf/{{proposal._id}}">Click here to download a generated PDF</a>
 	</form>
 </section>
-
 
 <section *ngIf="isCreating" class="createProposal">
 	<form enctype="multipart/form-data" [formGroup]="proposalForm" (ngSubmit)="addProposal()">
@@ -727,28 +727,9 @@
 			</mat-tab>
 			<mat-tab label="4. Upload proposal & review">
 				<mat-card>
-					<mat-card-content>
-						<table class="tab-4">
-							<tr>
-								<td><p>Generate PDF for review</p></td>
-								<td>
-									<button mat-raised-button style="background-color: red; color: white;">Generate
-										PDF
-									</button>
-								</td>
-							</tr>
-						</table>
-					</mat-card-content>
-					<mat-card-actions>
-						<button mat-raised-button style="background-color: #005CBF; color: white;" type="submit">Submit
-							proposal
-						</button>
-					</mat-card-actions>
-					<mat-divider></mat-divider>
-					<mat-card-footer>
-						<button mat-raised-button style="background-color: indianred;" (click)="selectTab(2)">Back
-						</button>
-					</mat-card-footer>
+					<a href="http://localhost:8080/api/pdf/{{proposal._id}}"><button class="btn btn-danger" >Generate PDF for review</button></a>
+					<button class="btn btn-danger ml-1" type="submit">Submit proposal</button>
+					<button class="btn btn-danger ml-1" type="submit" (click)="selectTab(2)">Back</button>
 				</mat-card>
 			</mat-tab>
 		</mat-tab-group>

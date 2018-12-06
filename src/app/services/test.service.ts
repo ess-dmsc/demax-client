@@ -20,7 +20,7 @@ export class TestService {
 		formData.append('file', file, file.name);
 		if (!file) { return; }
 
-		const req = new HttpRequest('POST', '/api/upload', formData, {
+		const req = new HttpRequest('POST', 'https://demax.esss.app/api/upload', formData, {
 			reportProgress: true
 		});
 

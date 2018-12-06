@@ -10,7 +10,7 @@ import { TestService } from "../services/test.service";
 	selector: 'app-proposals',
 	templateUrl: './proposals.component.html',
 	styleUrls: [ './proposals.component.css' ],
-	providers: [TestService]
+	providers: [ TestService ]
 })
 export class ProposalsComponent implements OnInit {
 	proposal = new Proposal();
@@ -138,8 +138,7 @@ export class ProposalsComponent implements OnInit {
 
 	ngOnInit() {
 		this.getProposals();
-		this.addProposalForm = this.formBuilder.group({
-		})
+		this.addProposalForm = this.formBuilder.group({})
 
 	}
 
@@ -170,11 +169,18 @@ export class ProposalsComponent implements OnInit {
 		);
 	}
 
+	generatePdf(){
+		event.preventDefault();
+	}
+
 	enableCreating() {
 		this.isCreating = true;
 	}
 
-	enableEditing(proposal: Proposal) {
+	enableEditing(proposal
+		              :
+		              Proposal
+	) {
 		this.isEditing = true;
 		this.proposal = proposal;
 	}
@@ -216,7 +222,10 @@ export class ProposalsComponent implements OnInit {
 		}
 	}
 
-	onPicked(input: HTMLInputElement) {
+	onPicked(input
+		         :
+		         HTMLInputElement
+	) {
 		const file = input.files[ 0 ];
 
 		if(file) {
