@@ -1,5 +1,6 @@
 export class Proposal {
-	_id?: string;
+	proposalId?: string;
+	dateCreated?: string;
 	experimentTitle?: string;
 	briefSummary?: string;
 	mainProposerFirstName?: string;
@@ -19,7 +20,6 @@ export class Proposal {
 	needByDate?: string;
 	needByDateMotivation?: string;
 	lab?: string;
-	dateCreated?: string;
 	wantsCrystallization?: boolean;
 	wantsBiomassDeuteration?: boolean;
 	wantsProteinDeuteration?: boolean;

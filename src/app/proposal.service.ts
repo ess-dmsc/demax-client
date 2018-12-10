@@ -25,15 +25,15 @@ export class ProposalService {
 	}
 
 	getProposal(proposal: Proposal): Observable<Proposal> {
-		return this.http.get<Proposal>(`/api/proposals/${proposal._id}`);
+		return this.http.get<Proposal>(`/api/proposals/${proposal.proposalId}`);
 	}
 
 	editProposal(proposal: Proposal): Observable<any> {
-		return this.http.put(`/api/proposals/${proposal._id}`, proposal, {responseType: 'text'});
+		return this.http.put(`/api/proposals/${proposal.proposalId}`, proposal, {responseType: 'text'});
 	}
 
 	deleteProposal(proposal: Proposal): Observable<any> {
-		return this.http.delete(`/api/proposals/${proposal._id}`, {responseType: 'text'});
+		return this.http.delete(`/api/proposals/${proposal.proposalId}`, {responseType: 'text'});
 	}
 
 }

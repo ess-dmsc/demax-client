@@ -26,7 +26,7 @@ import { FormControl } from "@angular/forms";
 					<div>
 						<label for="picked">Attach reference</label>
 						<div>
-							<input type="file" id="picked" #picked (click)="message=''" (change)="onPicked(picked)">
+							<input type="file" id="picked" name="needByDateAttachment" #picked (click)="message=''" (change)="onPicked(picked)">
 						</div>
 						<br>
 						<mat-divider></mat-divider>
@@ -50,6 +50,7 @@ import { FormControl } from "@angular/forms";
 export class TestingComponent {
 	date = new FormControl(new Date());
 	message: string;
+	templateString: 'huffe';
 
 	constructor(private uploaderService: TestService, public auth: AuthService, public proposalService: ProposalService) {
 	}

@@ -18,6 +18,7 @@ export class TestService {
 	upload(file: File) {
 		const formData: FormData = new FormData();
 		formData.append('file', file, file.name);
+
 		if (!file) { return; }
 
 		const req = new HttpRequest('POST', 'api/file/upload', formData, {
