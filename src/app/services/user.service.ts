@@ -12,35 +12,35 @@ export class UserService {
 	constructor(private http: HttpClient) { }
 
 	register(user: User): Observable<User> {
-		return this.http.post<User>('https://demax.esss.app/api/register', user);
+		return this.http.post<User>('/api/users/register', user);
 	}
 
 	login(credentials): Observable<any> {
-		return this.http.post('https://demax.esss.app/api/login', credentials);
+		return this.http.post('/api/users/login', credentials);
 	}
 
 	getUsers(): Observable<User[]> {
-		return this.http.get<User[]>('https://demax.esss.app/api/users/all');
+		return this.http.get<User[]>('/api/users/all');
 	}
 
 	countUsers(): Observable<number> {
-		return this.http.get<number>('https://demax.esss.app/api/users/count');
+		return this.http.get<number>('/api/users/count');
 	}
 
 	addUser(user: User): Observable<User> {
-		return this.http.post<User>('https://demax.esss.app/api/users', user);
+		return this.http.post<User>('/api/users', user);
 	}
 
 	getUser(user: User): Observable<User> {
-		return this.http.get<User>(`https://demax.esss.app/api/users/${user._id}`);
+		return this.http.get<User>(`/api/users/${user._id}`);
 	}
 
 	editUser(user: User): Observable<any> {
-		return this.http.put(`https://demax.esss.app/api/users/${user._id}`, user, { responseType: 'text' });
+		return this.http.put(`/api/users/${user._id}`, user, { responseType: 'text' });
 	}
 
 	deleteUser(user: User): Observable<any> {
-		return this.http.delete(`https://demax.esss.app/api/users/${user._id}`, { responseType: 'text' });
+		return this.http.delete(`/api/users/${user._id}`, { responseType: 'text' });
 	}
 
 }

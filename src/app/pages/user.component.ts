@@ -13,11 +13,7 @@ import { User } from "../models/user";
 			width: 80%;
 		}
 		</style>
-		<mat-card style="width: 500px; margin: 2rem auto;">
-			<mat-card-header>
-				<mat-card-title>Account settings</mat-card-title>
-			</mat-card-header>
-			<mat-card-content>
+		<h3>Account settings</h3>
 				<form #accountForm="ngForm" (ngSubmit)="save(user)">
 					<mat-form-field>
 						<input matInput name="firstName" [(ngModel)]="user.firstName">
@@ -59,11 +55,9 @@ import { User } from "../models/user";
 						</mat-select>
 					</mat-form-field>
 					<fieldset>
-					<button mat-raised-button type="submit">Save</button>
+					<button class="btn btn-primary" type="submit">Save</button>
 					</fieldset>
 				</form>
-			</mat-card-content>
-		</mat-card>
 	`
 })
 export class UserComponent implements OnInit {

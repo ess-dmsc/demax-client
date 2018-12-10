@@ -13,8 +13,6 @@ import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from "./pages/admin.component";
 import { UserComponent } from "./pages/user.component";
 import { TestingComponent } from "./pages/testing.component";
-import { ProposalComponent } from "./proposal/proposal.component";
-import { ProposalListComponent } from "./proposal-list/proposal-list.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -25,8 +23,6 @@ const routes: Routes = [
 	{path: 'login', component: LoginComponent},
 	{path: 'logout', component: LogoutComponent},
 	{path: 'notfound', component: NotFoundComponent},
-	{path: 'proposal', component: ProposalComponent},
-	{path: 'proposal-list', component: ProposalListComponent},
 	{path: 'proposals', component: ProposalsComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'test', component: TestingComponent},

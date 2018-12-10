@@ -83,8 +83,8 @@
 
 			</mat-card-content>
 			<mat-card-action>
-				<button mat-rasied-button (click)="cancelEditing()">Cancel</button>
-				<button mat-rasied-button type="submit">Save</button>
+				<button class="btn btn-danger" (click)="cancelEditing()">Cancel</button>
+				<button class="btn btn-primary" type="submit">Save</button>
 			</mat-card-action>
 		</mat-card>
 		<mat-expansion-panel>
@@ -283,7 +283,21 @@
 				<p> If “yes”, please provide protocol (attach a reference PDF if published):</p>
 			</mat-radio-group>
 		</mat-expansion-panel>
-		<a href="https://demax.esss.app/api/pdf/{{proposal._id}}">Click here to download a generated PDF</a>
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>Upload proposal and review</mat-panel-title>
+			</mat-expansion-panel-header>
+			<mat-card>
+				<a class="btn btn-danger" href="http://localhost:8080/api/pdf/{{proposal._id}}">Click here to download a generated PDF</a>
+				<input type="file" name="{{proposal._id + '-needByDateAttachment'}}" #picked
+				        (click)="message=''"
+				        (change)="onPicked(picked)">
+				<mat-card-actions>
+					<button (click)="cancelEditing()">Cancel</button>
+					<button class="btn btn-primary" type="submit">Save</button>
+				</mat-card-actions>
+			</mat-card>
+		</mat-expansion-panel>
 	</form>
 </section>
 
@@ -716,18 +730,16 @@
 						</button>
 					</div>
 					<div style="display: flex; justify-content: space-between;">
-						<button mat-raised-button style="background-color: indianred;"
-						        (click)="selectTab(1)">Back
+						<button class="btn btn-danger" (click)="selectTab(1)">Back
 						</button>
-						<button mat-raised-button style="background-color: #005CBF; color: white;"
-						        (click)="selectTab(3)">Next
+						<button class="btn btn-primary" (click)="selectTab(3)">Next
 						</button>
 					</div>
 				</mat-accordion>
 			</mat-tab>
 			<mat-tab label="4. Upload proposal & review">
 				<mat-card>
-					<a href="http://localhost:8080/api/pdf/{{proposal._id}}"><button class="btn btn-danger" >Generate PDF for review</button></a>
+					<a class="btn btn-danger" href="http://localhost:8080/api/pdf/{{proposal._id}}">Click here to download a generated PDF</a>
 					<button class="btn btn-danger ml-1" type="submit">Submit proposal</button>
 					<button class="btn btn-danger ml-1" type="submit" (click)="selectTab(2)">Back</button>
 				</mat-card>

@@ -1,60 +1,57 @@
-.example-fill-remaining-space{
+.example-fill-remaining-space {
 	flex: 1 1 auto;
 }
-.footer{
+
+.footer {
 	position: fixed;
 	bottom: 0;
 }
 
-header{
+.navigation {
+	display: flex; flex-wrap: wrap; justify-content: space-between; background-color: #0094CA;
+}
+.navigation-right a{
+	color: white;
+	font-family: 'Titillium Web', sans-serif;
+	font-size: 1.5rem;
+}
+
+header {
 	border-bottom: solid #0094CA 1px;
-}
-.sidebar {
-	margin: 0;
-	padding: 0;
-	width: 200px;
-	background-color: #f1f1f1;
-	position: fixed;
-	height: 100%;
-	overflow: auto;
-	border-right: 1px solid lightgray;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 2rem;
 }
 
-.sidebar a {
+.container{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+aside{
+	flex: 0.1;
+}
+aside a{
+	width: 100%;
 	display: block;
-	color: black;
-	padding: 16px;
-	text-decoration: none;
 }
-
-.sidebar a.active {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.sidebar a:hover:not(.active) {
-	background-color: #0094CA;
-	color: white;
-}
-
-div.content {
-	margin-left: 200px;
-	padding: 1px 16px;
-	height: 1000px;
+main{
+	flex: 0.9;
 }
 
 @media screen and (max-width: 700px) {
-	.sidebar {
+	aside {
 		width: 100%;
 		height: auto;
 		position: relative;
 	}
-	.sidebar a {float: left;}
-	div.content {margin-left: 0;}
+	aside a {float: left;}
+
 }
 
 @media screen and (max-width: 400px) {
-	.sidebar a {
+	aside a {
 		text-align: center;
 		float: none;
 	}

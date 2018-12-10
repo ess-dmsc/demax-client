@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppConfigModule } from './app-config.module';
-import { CUSTOM_ELEMENTS_SCHEMA, Directive, NgModule, } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,13 +29,10 @@ import { LoadingComponent} from "./components/loading/loading.component";
 import { TestingComponent } from "./pages/testing.component";
 import { MessageService }       from './services/message.service';
 import { HttpErrorHandler }     from './services/http-error-handler.service';
-import { ProposalComponent } from './proposal/proposal.component';
-import { ProposalListComponent } from './proposal-list/proposal-list.component';
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
 };
-@Directive({ selector: '[ng2FileSelect]' })
 
 @NgModule({
 	declarations: [
@@ -51,9 +48,7 @@ export const tokenGetter = () => {
 		LogoutComponent,
 		ProposalsComponent,
 		TestingComponent,
-		UserComponent,
-		ProposalComponent,
-		ProposalListComponent
+		UserComponent
 	],
 	imports: [
 		BrowserModule,

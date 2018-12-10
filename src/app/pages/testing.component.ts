@@ -26,9 +26,7 @@ import { FormControl } from "@angular/forms";
 					<div>
 						<label for="picked">Attach reference</label>
 						<div>
-							<input type="file" id="picked" #picked
-							       (click)="message=''"
-							       (change)="onPicked(picked)">
+							<input type="file" id="picked" #picked (click)="message=''" (change)="onPicked(picked)">
 						</div>
 						<br>
 						<mat-divider></mat-divider>
@@ -41,7 +39,6 @@ import { FormControl } from "@angular/forms";
 					</div>
 					<p *ngIf="message">{{message}}</p>
 				</form>
-
 
 			</mat-card-content>
 		</mat-card>
