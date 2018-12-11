@@ -3,25 +3,24 @@ import {
 	HttpClient, HttpEvent, HttpEventType, HttpProgressEvent,
 	HttpRequest, HttpResponse, HttpErrorResponse
 } from '@angular/common/http';
-
-import { of } from 'rxjs';
+import { AuthService} from "./auth.service";
+import { Observable, of } from 'rxjs';
 import { catchError, last, map, tap } from 'rxjs/operators';
 
 import { MessageService } from './message.service';
-
 @Injectable()
 export class TestService {
 	constructor(
 		private http: HttpClient,
-		private messenger: MessageService) {}
+		private messenger: MessageService,
+		public auth: AuthService) {}
 
 	upload(file: File) {
 		const formData: FormData = new FormData();
 		formData.append('file', file, file.name);
-
 		if (!file) { return; }
 
-		const req = new HttpRequest('POST', 'api/file/upload', formData, {
+		const req = new HttpRequest('POST', `api/file/upload/`, formData, {
 			reportProgress: true
 		});
 

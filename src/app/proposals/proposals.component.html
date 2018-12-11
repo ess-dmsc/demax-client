@@ -31,7 +31,8 @@
 <section *ngIf="isEditing" class="createProposal">
 
 	<form (ngSubmit)="editProposal(proposal)">
-		<input type="file" name="file" (change)="onPicked(picked)">
+		<input type="file" id="picked" name="file" #picked (click)="message=''" (change)="onPicked(picked)">
+		<p *ngIf="message">{{message}}</p>
 		<mat-card>
 			<h4>
 				Proposal ID: {{proposal.proposalId}}

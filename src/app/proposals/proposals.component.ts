@@ -6,12 +6,13 @@ import { Proposal } from '../proposal';
 import { AuthService } from "../services/auth.service";
 import { TestService } from "../services/test.service";
 import { catchError, last, map, tap } from "rxjs/operators";
+import { MessageService} from "../services/message.service";
 
 @Component({
 	selector: 'app-proposals',
 	templateUrl: './proposals.component.html',
 	styleUrls: [ './proposals.component.css' ],
-	providers: [ TestService ]
+	providers: [ TestService, ProposalService ]
 })
 export class ProposalsComponent implements OnInit {
 	proposal = new Proposal();
@@ -140,7 +141,7 @@ export class ProposalsComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private uploaderService: TestService,
 		private http: HttpClient,
-		public auth: AuthService
+		public auth: AuthService,
 	) {
 	}
 
@@ -226,13 +227,13 @@ export class ProposalsComponent implements OnInit {
 
 	onPicked(input: HTMLInputElement) {
 		const file = input.files[ 0 ];
-		const formData: FormData = new FormData();
-		formData.append('file', file);
-		formData.append('proposal', this.proposal.proposalId)
 		if(file) {
-			const req = new HttpRequest('POST', 'api/file/upload', formData, {
-				reportProgress: true
-			});
+			this.uploaderService.upload(file).subscribe(
+				msg => {
+					input.value = null;
+					this.message = msg;
+				}
+			);
 		}
 	}
 

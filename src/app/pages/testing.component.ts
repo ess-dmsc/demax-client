@@ -3,7 +3,7 @@ import { TestService } from "../services/test.service";
 import { AuthService } from "../services/auth.service";
 import { ProposalService } from "../proposal.service";
 import { FormControl } from "@angular/forms";
-
+import { Proposal } from '../proposal';
 @Component({
 	selector: 'app-testing',
 	template: `
@@ -51,8 +51,10 @@ export class TestingComponent {
 	date = new FormControl(new Date());
 	message: string;
 	templateString: 'huffe';
+	private proposal: Proposal;
 
-	constructor(private uploaderService: TestService, public auth: AuthService, public proposalService: ProposalService) {
+	constructor(private uploaderService: TestService,
+	            public auth: AuthService) {
 	}
 
 	onPicked(input: HTMLInputElement) {
