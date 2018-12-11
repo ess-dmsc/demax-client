@@ -18,5 +18,5 @@ describe('DetailsUploadComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  
+
 });

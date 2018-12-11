@@ -31,7 +31,6 @@
 <section *ngIf="isEditing" class="createProposal">
 
 	<form (ngSubmit)="editProposal(proposal)">
-		<input type="file" id="picked" name="file" #picked (click)="message=''" (change)="onPicked(picked)">
 		<p *ngIf="message">{{message}}</p>
 		<mat-card>
 			<h4>
@@ -62,6 +61,9 @@
 						apply):</p>
 					<input matInput [(ngModel)]="proposal.needByDateMotivation" name="needByDateMotivation">
 				</mat-form-field>
+				<fieldset>
+					<input type="file" name="needByDateAttachment" #picked (click)="message=''" (change)="onPicked(picked)">
+				</fieldset>
 				<mat-form-field>
 					<input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="needByDate"
 					       name="needByDate">
@@ -86,8 +88,21 @@
 		</mat-card>
 		<mat-expansion-panel>
 			<mat-expansion-panel-header>
-				<mat-panel-title>Biomass</mat-panel-title>
+				<mat-panel-title>(B) BIOLOGICAL DEUTERATION</mat-panel-title>
 			</mat-expansion-panel-header>
+			<p><em>If the protein is to be purified by us, please remember to include a chromatogram from purification and a picture of SDS-PAGE that indicates MW and purity in your science case.</em></p>
+			<fieldset>
+				<p>Select (E. coli, yeast)</p>
+				<mat-checkbox>Protein</mat-checkbox>
+				<mat-checkbox>Biomass</mat-checkbox>
+				<mat-checkbox>Other</mat-checkbox>
+			</fieldset>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 			<fieldset>
 				<p> Will user provide the organism for us to grow under deuterated conditions?</p>
 				<mat-radio-group name="organismProvidedByUser"
@@ -286,6 +301,10 @@
 			</mat-expansion-panel-header>
 			<form-upload></form-upload>
 			<list-upload></list-upload>
+			<input type="file"  name="needByDateAttachment" #picked (click)="message=''" (change)="onPicked(picked)">
+			<input type="file" name="proposalTemplate" #picked (click)="message=''" (change)="onPicked(picked)">
+			<input type="file"  name="organismReferenceAttachment" #picked (click)="message=''" (change)="onPicked(picked)">
+
 		</mat-expansion-panel>
 		<mat-expansion-panel>
 			<mat-expansion-panel-header>

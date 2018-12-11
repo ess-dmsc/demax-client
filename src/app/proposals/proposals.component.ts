@@ -228,7 +228,7 @@ export class ProposalsComponent implements OnInit {
 	onPicked(input: HTMLInputElement) {
 		const file = input.files[ 0 ];
 		if(file) {
-			this.uploaderService.upload(file).subscribe(
+			this.proposalService.uploadFile(file, this.proposal, input).subscribe(
 				msg => {
 					input.value = null;
 					this.message = msg;
@@ -236,5 +236,6 @@ export class ProposalsComponent implements OnInit {
 			);
 		}
 	}
+
 
 }
