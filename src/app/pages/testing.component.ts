@@ -4,6 +4,7 @@ import { AuthService } from "../services/auth.service";
 import { ProposalService } from "../proposal.service";
 import { FormControl } from "@angular/forms";
 import { Proposal } from '../proposal';
+
 @Component({
 	selector: 'app-testing',
 	template: `
@@ -26,7 +27,8 @@ import { Proposal } from '../proposal';
 					<div>
 						<label for="picked">Attach reference</label>
 						<div>
-							<input type="file" id="picked" name="needByDateAttachment" #picked (click)="message=''" (change)="onPicked(picked)">
+							<input type="file" id="picked" name="needByDateAttachment" #picked (click)="message=''"
+							       (change)="onPicked(picked)">
 						</div>
 						<br>
 						<mat-divider></mat-divider>
@@ -39,7 +41,8 @@ import { Proposal } from '../proposal';
 					</div>
 					<p *ngIf="message">{{message}}</p>
 				</form>
-
+				<form-upload></form-upload>
+				<list-upload></list-upload>
 			</mat-card-content>
 		</mat-card>
 
@@ -53,8 +56,10 @@ export class TestingComponent {
 	templateString: 'huffe';
 	private proposal: Proposal;
 
-	constructor(private uploaderService: TestService,
-	            public auth: AuthService) {
+	constructor(
+		private uploaderService: TestService,
+		public auth: AuthService
+	) {
 	}
 
 	onPicked(input: HTMLInputElement) {

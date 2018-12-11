@@ -284,30 +284,18 @@
 			<mat-expansion-panel-header>
 				<mat-panel-title>Attachments</mat-panel-title>
 			</mat-expansion-panel-header>
-			<fieldset>
-				<input type="file" name="{{proposal.proposalId + '-needByDateAttachment'}}">
-				<input type="file" name="pbdIdReferenceAttachment">
-				<input type="file" name="organismReferenceAttachment">
-				<input type="file" name="needsPurificationSupportAttachment">
-				<input type="file" name="chemicalStructureAttachment">
-				<input type="file" name="proposalTemplate">
-			</fieldset>
+			<form-upload></form-upload>
+			<list-upload></list-upload>
 		</mat-expansion-panel>
 		<mat-expansion-panel>
 			<mat-expansion-panel-header>
 				<mat-panel-title>Upload proposal and review</mat-panel-title>
 			</mat-expansion-panel-header>
-			<mat-card>
-				<a class="btn btn-danger" href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Click here to
-					download a generated PDF</a>
-				<input type="file" name="{{proposal.proposalId + '-needByDateAttachment'}}" #picked
-				       (click)="message=''"
-				       (change)="onPicked(picked)">
-				<mat-card-actions>
-					<button (click)="cancelEditing()">Cancel</button>
-					<button class="btn btn-primary" type="submit">Save</button>
-				</mat-card-actions>
-			</mat-card>
+
+			<a class="btn btn-danger" style="margin: 2rem;" href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate PDF for review</a><br>
+			<button class="btn btn-danger" style="margin: 2rem;" (click)="cancelEditing()">Go back</button>
+			<button class="btn btn-primary" style="margin: 2rem;" type="submit">Submit proposal</button>
+
 		</mat-expansion-panel>
 	</form>
 </section>

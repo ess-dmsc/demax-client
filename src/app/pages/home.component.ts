@@ -42,18 +42,9 @@ import { AuthService } from "../services/auth.service";
 				</ul>
 			</mat-card-content>
 			<mat-card-actions>
-				<button mat-raised-button style="background-color: #005CBF; color: white;" routerLink="/proposal-detail">Create new proposal</button>
-				<button mat-raised-button style="background-color: red; color: white;" routerLink="/proposals">Edit existing proposal</button>
+				<button class="btn btn-primary" style="margin: 2rem 4rem;" routerLink="/proposal-detail">Create new proposal</button>
+				<button class="btn btn-danger" routerLink="/proposals">Edit existing proposal</button>
 			</mat-card-actions>
-			<mat-card-footer>
-
-			</mat-card-footer>
-		</mat-card>
-		<mat-card>
-			<form action="/upload" enctype="multipart/form-data" method="post">
-				<input type="file" name="upload" multiple>
-				<input type="submit" value="Upload">
-			</form>
 		</mat-card>
 	`
 })

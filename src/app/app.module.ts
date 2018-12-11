@@ -29,6 +29,9 @@ import { LoadingComponent} from "./components/loading/loading.component";
 import { TestingComponent } from "./pages/testing.component";
 import { MessageService }       from './services/message.service';
 import { HttpErrorHandler }     from './services/http-error-handler.service';
+import { DetailsUploadComponent } from "./upload/details-upload/details-upload.component";
+import { FormUploadComponent } from "./upload/form-upload/form-upload.component";
+import { ListUploadComponent } from "./upload/list-upload/list-upload.component";
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
@@ -48,6 +51,9 @@ export const tokenGetter = () => {
 		LogoutComponent,
 		ProposalsComponent,
 		TestingComponent,
+		DetailsUploadComponent,
+		FormUploadComponent,
+		ListUploadComponent,
 		UserComponent
 	],
 	imports: [
@@ -59,6 +65,7 @@ export const tokenGetter = () => {
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
+
 		HttpModule,
 		MaterialModule,
 		JwtModule.forRoot({
