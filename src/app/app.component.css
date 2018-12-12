@@ -4,9 +4,10 @@ body {margin: 0;
 
 .topnav {
 	overflow: hidden;
-	background-color: #0094CA;
+	background-color: #009EDD;
 	display: flex;
 	justify-content: space-between;
+	font-family: "Titillium Web", sans-serif;
 }
 
 .topnav a {
@@ -32,22 +33,6 @@ body {margin: 0;
 	flex: 1 1 auto;
 }
 
-.footer {
-	position: fixed;
-	bottom: 0;
-}
-
-.sidebar {
-	margin: 0;
-	padding: 0;
-	width: 200px;
-	background-color: #F1F1F1;
-	position: fixed;
-	height: 100%;
-	overflow: auto;
-}
-
-/* Sidebar links */
 .sidebar a {
 	display: block;
 	color: black;
@@ -55,97 +40,48 @@ body {margin: 0;
 	text-decoration: none;
 }
 
-/* Active/current link */
+.menuItem {
+	display: flex;
+	justify-content: space-evenly;
+}
+
 .sidebar a.active {
 	background-color: #4CAF50;
 	color: white;
 }
 
-/* Links on mouse-over */
 .sidebar a:hover:not(.active) {
 	background-color: #555;
 	color: white;
 }
 
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-div.content {
-	margin-left: 200px;
-	padding: 1px 16px;
-	height: 1000px;
+.example-container {
+	position: absolute;
+	top: 60px;
+	bottom: 60px;
+	left: 0;
+	right: 0;
 }
 
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
-@media screen and (max-width: 700px) {
-	.sidebar {
-		width: 100%;
-		height: auto;
-		position: relative;
-	}
-
-	.sidebar a {float: left;}
-
-	div.content {margin-left: 0;}
-}
-
-/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
-@media screen and (max-width: 400px) {
-	.sidebar a {
-		text-align: center;
-		float: none;
-	}
-}
-
-.navigation {
-	display: flex; flex-wrap: wrap; justify-content: space-between; background-color: #0094CA;
-}
-
-.navigation-right a {
-	color: white;
-	font-family: 'Titillium Web', sans-serif;
-	font-size: 1.5rem;
-}
-
-header {
-	border-bottom: solid #0094CA 1px;
+.example-sidenav {
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 2rem;
+	align-items: center;
+	justify-content: center;
+	width: 200px;
+	background: white;
+	margin-right: 1rem;
 }
 
-.container {
-	display: flex;
-	flex-wrap: wrap;
+.example-header {
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 3rem;
 }
 
-aside {
-	flex: 0.1;
-}
-
-aside a {
-	width: 100%;
-	display: block;
-	text-align: center;
-}
-
-main {
-	flex: 0.9;
-}
-
-@media screen and (max-width: 700px) {
-	aside {
-		width: 100%;
-		height: auto;
-		position: relative;
-	}
-
-	aside a {float: left;}
-
-}
-
-@media screen and (max-width: 400px) {
-	aside a {
-		text-align: center;
-		float: none;
-	}
+.example-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
