@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpRequest } from "@angular/common/http";
+import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
 import { Proposal } from '../proposal';
 import { AuthService } from "../services/auth.service";
@@ -20,6 +20,11 @@ export class ProposalsComponent implements OnInit {
 	isEditing = false;
 	panelOpenState = false;
 	message: string;
+
+	selectedFiles: FileList;
+	selectedInput: string;
+	currentFileUpload: File;
+	progress: { percentage: number } = { percentage: 0 };
 
 	selectedIndex = 0;
 
@@ -188,8 +193,14 @@ export class ProposalsComponent implements OnInit {
 		);
 	}
 
-	generatePdf() {
-		event.preventDefault();
+	hasGenerated = false;
+	hasMerged = false;
+
+	generate() {
+		this.hasGenerated = true;
+	}
+	merge(){
+		this.hasMerged = true;
 	}
 
 	enableEditing(proposal: Proposal) {
@@ -230,12 +241,25 @@ export class ProposalsComponent implements OnInit {
 		if(file) {
 			this.proposalService.uploadFile(file, this.proposal, input).subscribe(
 				msg => {
-					input.value = null;
 					this.message = msg;
 				}
 			);
 		}
 	}
 
+	selectFile(event) {
+		this.selectedFiles = event.target.files;
+		this.selectedInput = event.target.name.toString()
+		this.upload();
+	}
 
+	upload() {
+		this.progress.percentage = 0;
+
+		this.currentFileUpload = this.selectedFiles.item(0);
+		this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
+			console.log('File is completely uploaded!');
+		});
+		this.selectedFiles = undefined;
+	}
 }

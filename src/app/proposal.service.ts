@@ -1,5 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
+import {
+	HttpClient,
+	HttpErrorResponse,
+	HttpEvent,
+	HttpEventType,
+	HttpHeaders,
+	HttpRequest
+} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Proposal } from './proposal';
 import { APP_CONFIG, AppConfig } from "./app-config.module";
@@ -14,7 +21,8 @@ export class ProposalService {
 
 	constructor(@Inject(APP_CONFIG) private appConfig: AppConfig, private http: HttpClient,
 	            private messenger: MessageService,
-	            public auth: AuthService) {
+	            public auth: AuthService
+	) {
 	}
 
 	getProposals(): Observable<Proposal[]> {
@@ -40,14 +48,18 @@ export class ProposalService {
 	deleteProposal(proposal: Proposal): Observable<any> {
 		return this.http.delete(`/api/proposals/${proposal.proposalId}`, {responseType: 'text'});
 	}
-	uploadFile(file: File, proposal: Proposal, input: HTMLInputElement){
+
+	uploadFile(file: File, proposal: Proposal, input: HTMLInputElement) {
 		const formData: FormData = new FormData();
 		formData.append('file', file, proposal.proposalId + '_' + file.name);
 		formData.append('proposalId', proposal.proposalId);
 		formData.append('name', input.name);
-		if (!file) { return; }
+		console.log(input.name)
+		if(!file) {
+			return;
+		}
 
-		const req = new HttpRequest('POST', `api/file/upload/`, formData, {
+		const req = new HttpRequest('POST', `api/file/upload/${input.name}`, formData, {
 			reportProgress: true
 		});
 		return this.http.request(req).pipe(
@@ -59,7 +71,7 @@ export class ProposalService {
 	}
 
 	private getEventMessage(event: HttpEvent<any>, file: File) {
-		switch (event.type) {
+		switch(event.type) {
 			case HttpEventType.Sent:
 				return `Uploading file "${file.name}" of size ${file.size}.`;
 
@@ -74,6 +86,7 @@ export class ProposalService {
 				return `File "${file.name}" surprising upload event: ${event.type}.`;
 		}
 	}
+
 	private handleError(file: File) {
 		const userMessage = `${file.name} upload failed.`;
 
@@ -92,5 +105,36 @@ export class ProposalService {
 
 	private showProgress(message: string) {
 		this.messenger.add(message);
+	}
+
+	pushFileToStorage(file: File, proposal: Proposal, input: String) {
+		const formdata: FormData = new FormData();
+		formdata.append('file', file, proposal.proposalId + '_' + file.name);
+		formdata.append('proposalId', proposal.proposalId);
+		console.log(input);
+		if(!file) {
+			return;
+		}
+
+		const req = new HttpRequest('POST', `/api/file/upload/${input}`, formdata, {
+			reportProgress: true,
+			responseType: 'text'
+		});
+
+		return this.http.request(req).pipe(
+			map(event => this.getEventMessage(event, file)),
+			tap(message => this.showProgress(message)),
+			last(),
+			catchError(this.handleError(file))
+		);
+	}
+
+
+	getFiles(): Observable<any> {
+		return this.http.get('/api/file/all');
+	}
+
+	deleteFile(file: File): Observable<any> {
+		return this.http.delete('/api/file/' + file.name, {responseType: 'text'});
 	}
 }

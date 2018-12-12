@@ -84,6 +84,7 @@ export class Proposal {
 		hasPreparedMolecule?: string;
 		hasPreparedMoleculeProtocol?: string;
 	};
+	attachments: [];
 	needByDateAttachment?: string;
 	pbdIdReferenceAttachment?: string;
 	organismReferenceAttachment?: string;

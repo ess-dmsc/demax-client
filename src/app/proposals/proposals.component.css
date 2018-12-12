@@ -2,7 +2,7 @@
 	width: 100%;
 	margin: 2rem auto;
 }
-.createProposal{
+.editProposal{
 	width: 80%;
 	margin: 2rem auto;
 }
@@ -20,11 +20,10 @@ mat-radio-button{
 	margin: 0 auto;
 }
 mat-form-field{
-	width: 80%;
+	width: 60%;
 	margin: 1rem auto;
 }
-mat-card-footer{
-	display: flex;
-	justify-content: space-between;
-}
 
+button{
+	margin: 2rem;
+}
