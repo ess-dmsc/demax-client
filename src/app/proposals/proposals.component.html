@@ -2,30 +2,36 @@
 	There are no proposals in the database. Create a new proposal below.
 </section>
 <section *ngIf="!isEditing" class="proposal-list">
-	<table style="width:100%;">
-		<tr>
-			<td>ID</td>
-			<td>Title</td>
-			<td>Lab</td>
-			<td>Options</td>
-		</tr>
-		<tr *ngFor="let proposal of proposals">
-			<td>{{proposal.proposalId}}</td>
-			<td>{{proposal.experimentTitle}}</td>
-			<td>{{proposal.lab}}</td>
-			<td>
-				<button class="btn btn-primary" (click)="enableEditing(proposal)">
-					<i class="fa fa-pencil"></i> Edit
-				</button>
+	<table mat-table [dataSource]="proposals" class="mat-elevation-z8">
+
+		<ng-container matColumnDef="proposalId">
+			<th mat-header-cell *matHeaderCellDef> Proposal ID </th>
+			<td mat-cell *matCellDef="let proposal"> {{proposal.proposalId}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="experimentTitle">
+			<th mat-header-cell *matHeaderCellDef> Experiment title </th>
+			<td mat-cell *matCellDef="let proposal"> {{proposal.experimentTitle}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="lab">
+			<th mat-header-cell *matHeaderCellDef> Lab </th>
+			<td mat-cell *matCellDef="let proposal"> {{proposal.lab}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="options">
+			<th mat-header-cell *matHeaderCellDef> Options </th>
+			<td mat-cell *matCellDef="let proposal">
+				<button class="btn btn-primary" (click)="enableEditing(proposal)">Edit</button>
+				<button class="btn btn-danger" (click)="deleteProposal(proposal)">Delete</button>
 			</td>
-			<td>
-				<button class="btn btn-danger ml-1" (click)="deleteProposal(proposal)">
-					<i class="fa fa-trash"></i> Delete
-				</button>
-			</td>
-		</tr>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 	</table>
 </section>
+
 <button class="btn btn-primary" *ngIf="!isEditing" (click)="addProposal()">Create new proposal</button>
 
 <section *ngIf="isEditing" class="editProposal">
@@ -61,9 +67,8 @@
 					<mat-datepicker #picker></mat-datepicker>
 				</mat-form-field><br>
 				<mat-form-field>
-					<p>Please motivate the chosen date (e.g. based on awarded beamtime, or described intention to
-						apply):</p>
-					<textarea rows="8" cols="40" matInput [(ngModel)]="proposal.needByDateMotivation"
+					<textarea placeholder="Please motivate the chosen date (e.g. based on awarded beamtime, or described intention to
+						apply):" rows="8" cols="40" matInput [(ngModel)]="proposal.needByDateMotivation"
 					          name="needByDateMotivation"></textarea>
 				</mat-form-field>
 				<fieldset>
@@ -119,7 +124,8 @@
 					<input matInput type="text" placeholder="If available, provide a DOI - otherwise upload a reference in PDF format" name="crystallization."[(ngModel)]="doi">
 				</mat-form-field>
 				<fieldset>
-					<label class="btn btn-default"><input type="file" name="crystallization."[(ngModel)]="pbdIdReferenceAttachment"></label>
+					<label class="btn btn-default">
+						<input type="file" name="pbdIdReferenceAttachment" (change)="selectFile($event)"></label>
 				</fieldset>
 				<mat-form-field>
 					<textarea placeholder="Does the protein have any co-factors or ligands required for crystallization? Specify:" rows="6" cols="40" matInput name="crystallization."[(ngModel)]="crystallizationRequirements"></textarea>
@@ -195,7 +201,9 @@
 					<fieldset>
 						<p>Please attach a reference or protocol of culture conditions and media composition </p>
 						<p><em>(Accepted formats: PDF)</em></p>
-						<input type="file" name="organismReferenceDetails" (change)="selectFile($event)">
+						<label class="btn btn-default">
+						<input type="file" name="organismReferenceAttachment" (change)="selectFile($event)">
+						</label>
 					</fieldset>
 					<mat-form-field>
 						<p> How much material do you need?</p>
@@ -314,7 +322,9 @@
 					<fieldset>
 						<p>If “yes”, please attach purification reference or protocol
 						<p><em>(Accepted formats: PDF)</em></p>
+						<label class="btn btn-default">
 						<input type="file" name="needsPurificationSupportAttachment" (change)="selectFile($event)">
+						</label>
 					</fieldset>
 					<mat-radio-group name="proteinDeuteration.hasDoneUnlabeledProteinExpression"
 					                 [(ngModel)]="proposal.proteinDeuteration.hasDoneUnlabeledProteinExpression">
@@ -352,39 +362,32 @@
 			</mat-tab>
 			<mat-tab label="4. Chemical deuteration">
 				<mat-form-field>
-					<p>Molecule/s to be deuterated (name):</p>
-					<textarea rows="8" cols="40" matInput name="chemicalDeuteration.moleculeName"
+					<textarea placeholder="Molecule/s to be deuterated (name)" rows="8" cols="40" matInput name="chemicalDeuteration.moleculeName"
 					          [(ngModel)]="proposal.chemicalDeuteration.moleculeName"></textarea>
 				</mat-form-field>
 				<mat-form-field>
-					<p>Amount of material required (mass):</p>
-					<textarea rows="8" cols="40" matInput name="chemicalDeuteration.amount"
+					<textarea placeholder="Amount of material required (mass)" rows="8" cols="40" matInput name="chemicalDeuteration.amount"
 					          [(ngModel)]="proposal.chemicalDeuteration.amount"></textarea>
 				</mat-form-field>
 				<mat-form-field>
-					<p>Justify amount:</p>
-					<textarea rows="8" cols="40" matInput name="chemicalDeuteration.amountMotivation"
+					<textarea placeholder="Justify amount" rows="8" cols="40" matInput name="chemicalDeuteration.amountMotivation"
 					          [(ngModel)]="proposal.chemicalDeuteration.amountMotivation"></textarea>
 				</mat-form-field>
 				<mat-form-field>
-					<p>Indicate percentage and location of deuteration:</p>
-					<textarea rows="8" cols="40" matInput name="chemicalDeuteration.deuterationLocationAndPercentage"
+					<textarea placeholder="Indicate percentage and location of deuteration" rows="8" cols="40" matInput name="chemicalDeuteration.deuterationLocationAndPercentage"
 					          [(ngModel)]="proposal.chemicalDeuteration.deuterationLocationAndPercentage"></textarea>
 				</mat-form-field>
 				<mat-form-field>
-					<p>Justify level of deuteration:</p>
-					<textarea rows="8" cols="40" matInput name="chemicalDeuteration.deuterationLevelMotivation"
+					<textarea placeholder="Justify level of deuteration" rows="8" cols="40" matInput name="chemicalDeuteration.deuterationLevelMotivation"
 					          [(ngModel)]="proposal.chemicalDeuteration.deuterationLevelMotivation"></textarea>
 				</mat-form-field>
 				<fieldset>
-					<p>Attach chemical structure</p>
-					<p><em>(Accepted formats: PDF)</em></p>
+					<p>Attach chemical structure<br><em>(Accepted formats: PDF)</em></p>
+					<label class="btn btn-default">
 					<input type="file" name="chemicalStructureAttachment" (change)="selectFile($event)">
-					<a class="btn btn-success" (click)="upload()">Upload</a>
-
+					</label>
 				</fieldset>
-				<mat-radio-group name="chemicalDeuteration.hasPreviousProductionExperience"
-				                 [(ngModel)]="proposal.chemicalDeuteration.hasPreviousProductionExperience">
+				<mat-radio-group name="chemicalDeuteration.hasPreviousProductionExperience" [(ngModel)]="proposal.chemicalDeuteration.hasPreviousProductionExperience">
 					<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or others?</p>
 					<mat-radio-button value="yes">Yes</mat-radio-button>
 					<mat-radio-button value="no">No</mat-radio-button>
@@ -392,7 +395,9 @@
 				<fieldset>
 					<p> If “yes”, please provide protocol (attach a reference if published):</p>
 					<p><em>(Accepted formats: PDF)</em></p>
+					<label class="btn btn-default">
 					<input type="file" name="moleculePreparationReferenceArticle" (change)="selectFile($event)">
+					</label>
 				</fieldset>
 				<fieldset style="text-align: right;">
 					<button class="btn btn-success" type="submit">Save</button>
@@ -406,14 +411,25 @@
 					<br>
 				</fieldset>
 			</mat-tab>
-			<mat-tab label="5. Review and submit">
 
-				<a (click)="generate()" class="btn btn-danger"
-				   href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate PDF for review</a>
+			<mat-tab label="5. Review and submit">
+				<br>
+				<fieldset>
+					<p>Upload your proposal here<br><em>(Accepted formats: PDF)</em></p>
+					<input type="file" name="proposalTemplate" (change)="selectFile($event)">
+				</fieldset>
+				<br>
+				<list-upload></list-upload>
+				<br>
+				<fieldset>
+					<a (click)="generate()" class="btn btn-danger" href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate PDF for review</a>
+				</fieldset>
+				<br>
 				<fieldset>
 					<a *ngIf="this.hasGenerated === true" (click)="merge()" class="btn btn-danger"
 					   href="http://localhost:8080/api/pdf/merge/{{proposal.proposalId}}">Merge all PDFS</a><br>
 				</fieldset>
+				<br>
 				<fieldset>
 					<button class="btn btn-danger" (click)="selectTab(4)">Go back</button>
 					<button class="btn btn-primary" type="submit">Submit proposal</button>

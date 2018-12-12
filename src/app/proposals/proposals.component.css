@@ -1,6 +1,6 @@
 .proposal-list{
-	margin-left: 3rem;
-	margin-top: 3rem;
+	margin: 3rem;
+	margin: 3rem;
 }
 
 .editProposal{
@@ -32,3 +32,6 @@ button{
 	width: 300px;
 }
 
+table {
+	width: 80%;
+}

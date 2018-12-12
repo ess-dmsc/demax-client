@@ -7,6 +7,9 @@ import { AuthService } from "../services/auth.service";
 import { TestService } from "../services/test.service";
 import { catchError, last, map, tap } from "rxjs/operators";
 import { MessageService} from "../services/message.service";
+import { Observable } from "rxjs";
+import { UploadFileService } from "../components/upload/upload-file.service";
+import { MatDialog } from "@angular/material";
 
 @Component({
 	selector: 'app-proposals',
@@ -20,7 +23,7 @@ export class ProposalsComponent implements OnInit {
 	isEditing = false;
 	panelOpenState = false;
 	message: string;
-
+	displayedColumns: string[] = ['proposalId', 'experimentTitle', 'lab', 'options'];
 	selectedFiles: FileList;
 	selectedInput: string;
 	currentFileUpload: File;
@@ -147,6 +150,7 @@ export class ProposalsComponent implements OnInit {
 		private uploaderService: TestService,
 		private http: HttpClient,
 		public auth: AuthService,
+		public dialog: MatDialog
 	) {
 	}
 
@@ -163,6 +167,7 @@ export class ProposalsComponent implements OnInit {
 
 	ngOnInit() {
 		this.getProposals();
+		this.proposalService.getFiles();
 		this.addProposalForm = this.formBuilder.group({})
 
 	}
@@ -188,6 +193,7 @@ export class ProposalsComponent implements OnInit {
 			response => {
 				this.proposals.push(response);
 				this.proposalForm.reset();
+				this.getProposals();
 			},
 			error => console.log(error)
 		);
@@ -230,6 +236,7 @@ export class ProposalsComponent implements OnInit {
 				() => {
 					const pos = this.proposals.map(element => element.proposalId).indexOf(proposal.proposalId);
 					this.proposals.splice(pos, 1);
+					this.getProposals();
 				},
 				error => console.log(error)
 			);
@@ -261,5 +268,16 @@ export class ProposalsComponent implements OnInit {
 			console.log('File is completely uploaded!');
 		});
 		this.selectedFiles = undefined;
+	}
+
+	showFile = true;
+	fileUploads: Observable<string[]>;
+
+	showFiles(enable: boolean) {
+		this.showFile = enable;
+
+		if (enable) {
+			this.fileUploads = this.proposalService.getFiles();
+		}
 	}
 }

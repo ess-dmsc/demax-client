@@ -1,4 +1,4 @@
-import { AppBrowserModule } from '.././src/app/app.browser.module';
+import { AppBrowserModule } from './app/app.browser.module';
 import 'hammerjs';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 if(environment.production) {
 	enableProdMode();
 }
+
 
 platformBrowserDynamic().bootstrapModule(AppBrowserModule)
 .catch(err => console.error(err));

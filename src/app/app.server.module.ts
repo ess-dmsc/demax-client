@@ -9,6 +9,7 @@ import {NgModule} from '@angular/core';
     @NgModule({
  bootstrap: [AppComponent],
 
+
         imports:[
  BrowserModule.withServerTransition({appId: 'app-root'}),
  
