@@ -56,10 +56,10 @@
 <div *ngIf="!auth.loggedIn" style="
 background-image: url(../assets/media/blurred-lab-samples.jpg);
 background-repeat: no-repeat;
-background-origin: border-box;
-background-size: cover;">
-	<div style="padding: 18rem; text-align: right;">
-		<mat-tab-group dynamicHeight style="max-width: 600px; background-color: white; opacity: 0.9;
+background-size: contain;">
+	<header style="padding: 10rem;"></header>
+	<div style="padding: 15rem; text-align: right;">
+		<mat-tab-group dynamicHeight style="max-width: 500px; background-color: white; opacity: 0.9;
 border: solid lightgray 1px; border-radius: 1rem; box-shadow: 5px 4px 5px lightgray;">
 			<mat-tab label="Login">
 				<app-login></app-login>

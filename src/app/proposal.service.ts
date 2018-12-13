@@ -134,7 +134,7 @@ export class ProposalService {
 		return this.http.get('/api/file/all/');
 	}
 
-	deleteFile(file: File): Observable<any> {
-		return this.http.delete('/api/file/' + file.name, {responseType: 'text'});
+	deleteFile(proposal: Proposal, file: String): Observable<any> {
+		return this.http.delete(`/api/files/${proposal.proposalId}/${file}`);
 	}
 }

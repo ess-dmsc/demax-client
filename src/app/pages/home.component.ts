@@ -43,9 +43,11 @@ import { AuthService } from "../services/auth.service";
 						proposal</a>
 				</p>
 				<br>
-				<button mat-raised-button class="btn btn-success">
+				<a href="http://localhost:8080/word/attachment">
+					<button mat-raised-button class="btn btn-success">
 					<mat-icon>get_app</mat-icon>Download proposal template
 				</button>
+				</a>
 			</div>
 				<ul>
 					<li> Proposals should be written in English, properly referenced, and prepared in the <a

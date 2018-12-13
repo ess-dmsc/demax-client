@@ -6,7 +6,7 @@ import { Proposal } from '../proposal';
 import { AuthService } from "../services/auth.service";
 import { TestService } from "../services/test.service";
 import { catchError, last, map, tap } from "rxjs/operators";
-import { MessageService} from "../services/message.service";
+import { MessageService } from "../services/message.service";
 import { Observable } from "rxjs";
 import { UploadFileService } from "../components/upload/upload-file.service";
 import { MatDialog } from "@angular/material";
@@ -23,11 +23,11 @@ export class ProposalsComponent implements OnInit {
 	isEditing = false;
 	panelOpenState = false;
 	message: string;
-	displayedColumns: string[] = ['proposalId', 'experimentTitle', 'lab', 'options'];
+	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'options', 'pdf' ];
 	selectedFiles: FileList;
 	selectedInput: string;
 	currentFileUpload: File;
-	progress: { percentage: number } = { percentage: 0 };
+	progress: { percentage: number } = {percentage: 0};
 
 	selectedIndex = 0;
 
@@ -64,7 +64,16 @@ export class ProposalsComponent implements OnInit {
 		mainProposerAffiliation: [ '' ],
 		mainProposerEmail: [ '' ],
 		mainProposerPhone: [ '' ],
-
+		coProposers: this.formBuilder.array(
+			[
+				{
+					coProposerFirstName: '',
+					coProposerLastName: '',
+					coProposerPhone: [''],
+					coProposerEmail: [''],
+					coProposerAffiliation: ['']
+				}
+			]),
 		needByDate: [ '' ],
 		needByDateMotivation: [ '' ],
 
@@ -169,16 +178,6 @@ export class ProposalsComponent implements OnInit {
 		this.getProposals();
 		this.proposalService.getFiles();
 		this.addProposalForm = this.formBuilder.group({})
-
-	}
-
-	get coProposers() {
-		return this.proposalForm.get('coProposers') as FormArray;
-	}
-
-	addCoProposer() {
-		event.preventDefault();
-		this.coProposers.push(this.formBuilder.control(''));
 	}
 
 	getProposals() {
@@ -205,7 +204,8 @@ export class ProposalsComponent implements OnInit {
 	generate() {
 		this.hasGenerated = true;
 	}
-	merge(){
+
+	merge() {
 		this.hasMerged = true;
 	}
 
@@ -271,13 +271,6 @@ export class ProposalsComponent implements OnInit {
 	}
 
 	showFile = true;
-	fileUploads: Observable<string[]>;
+	attachments: Observable<string[]>;
 
-	showFiles(enable: boolean) {
-		this.showFile = enable;
-
-		if (enable) {
-			this.fileUploads = this.proposalService.getFiles();
-		}
-	}
 }

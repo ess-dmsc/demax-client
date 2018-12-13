@@ -1,6 +1,4 @@
 .proposal-list{
-	margin: 3rem;
-	margin: 3rem;
 }
 
 .editProposal{
@@ -33,5 +31,8 @@ button{
 }
 
 table {
-	width: 80%;
+	width: 100%;
+}
+mat-expansion-panel{
+	width: 100%;
 }
