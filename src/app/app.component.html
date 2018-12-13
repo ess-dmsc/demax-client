@@ -1,6 +1,7 @@
-<mat-toolbar class="topnav">
-	<span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72" height="39"
-	           viewBox="0 0 72 39"><title>Page 1</title>
+<mat-toolbar *ngIf="auth.loggedIn" class="topnav">
+	<span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	                                 width="72" height="39"
+	                                 viewBox="0 0 72 39"><title>Page 1</title>
 			<defs>
 				<path id="a" d="M0 38.865h71.903V.113H0z"/>
 			</defs>
@@ -29,36 +30,43 @@
 		</svg></span>
 	<span>
 		<a *ngIf="auth.loggedIn" href="/user">Welcome, {{auth.currentUser.firstName}} {{auth.currentUser.lastName}}</a>
-	<a *ngIf="!auth.loggedIn" style="margin: auto 2rem;" routerLink="/login">Login</a>
-	<a *ngIf="!auth.loggedIn" style="margin: auto 2rem;" routerLink="/register">Register</a>
 	<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/user">Settings</a>
 	<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/logout">Logout</a>
 	</span>
 </mat-toolbar>
 
-<ng-container>
+<ng-container *ngIf="auth.loggedIn">
 
-<mat-sidenav-container class="example-container sidebar">
-	<mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="options.value.fixed" [fixedTopGap]="options.value.top" [fixedBottomGap]="options.value.bottom">
-		<a routerLink="/home">Home</a>
-		<a routerLink="/proposals">Proposals</a>
-		<a routerLink="/contact">Contact</a>
-		<a href="http://localhost:8080/word/attachment">Proposal template</a>
-		<a routerLink="/admin">Admin</a>
-		<a routerLink="/test">TestComponent</a>
-	</mat-sidenav>
+	<mat-sidenav-container class="example-container sidebar">
+		<mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="options.value.fixed"
+		             [fixedTopGap]="options.value.top" [fixedBottomGap]="options.value.bottom">
+			<a routerLink="/home">Home</a>
+			<a routerLink="/proposals">Proposals</a>
+			<a routerLink="/contact">Contact</a>
+			<a href="http://localhost:8080/word/attachment">Proposal template</a>
+			<a routerLink="/admin">Admin</a>
+			<a routerLink="/test">TestComponent</a>
+		</mat-sidenav>
 
-	<mat-sidenav-content [formGroup]="options">
-		<router-outlet></router-outlet>
-	</mat-sidenav-content>
-</mat-sidenav-container>
-
-<mat-toolbar class="example-footer">
-
-	<span class="example-fill-remaining-space"></span>
-	<span>
-		<a mat-button routerLink="/imprint">Imprint</a>
-		<a mat-button routerLink="/contact">Contact</a>
-	</span>
-</mat-toolbar>
+		<mat-sidenav-content [formGroup]="options">
+			<router-outlet></router-outlet>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
 </ng-container>
+<div *ngIf="!auth.loggedIn" style="
+background-image: url(../assets/media/blurred-lab-samples.jpg);
+background-repeat: no-repeat;
+background-origin: border-box;
+background-size: cover;">
+	<div style="padding: 18rem; text-align: right;">
+		<mat-tab-group dynamicHeight style="max-width: 600px; background-color: white; opacity: 0.9;
+border: solid lightgray 1px; border-radius: 1rem; box-shadow: 5px 4px 5px lightgray;">
+			<mat-tab label="Login">
+				<app-login></app-login>
+			</mat-tab>
+			<mat-tab label="Register">
+				<app-register></app-register>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</div>

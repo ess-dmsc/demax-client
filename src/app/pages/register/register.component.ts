@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
 	styleUrls:['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+	message = 'Register';
 	registerForm: FormGroup;
 	email = new FormControl('', [
 		Validators.required,
@@ -30,9 +30,6 @@ export class RegisterComponent implements OnInit {
 	employerZipcode = new FormControl('');
 	employerCity = new FormControl('');
 	employerCountry = new FormControl('');
-	role = new FormControl('', [
-		Validators.required
-	]);
 
 	constructor(private formBuilder: FormBuilder,
 	            private router: Router,
@@ -45,7 +42,6 @@ export class RegisterComponent implements OnInit {
 			phone: this.phone,
 			email: this.email,
 			password: this.password,
-			role: this.role,
 			employerSector: this.employerSector,
 			employerName: this.employerName,
 			employerStreet: this.employerStreet,
@@ -64,6 +60,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 	register() {
+		this.message = 'Registered!'
 		this.userService.register(this.registerForm.value).subscribe(
 			res => {
 				this.router.navigate(['/login']);

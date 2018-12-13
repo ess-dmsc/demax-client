@@ -131,7 +131,7 @@ export class ProposalService {
 
 
 	getFiles(): Observable<any> {
-		return this.http.get('/api/file/all');
+		return this.http.get('/api/file/all/');
 	}
 
 	deleteFile(file: File): Observable<any> {
