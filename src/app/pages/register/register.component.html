@@ -1,25 +1,18 @@
-<div class="card">
-	<form [formGroup]="registerForm" (ngSubmit)="register()">
-		<mat-form-field>
-			<input matInput type="text" name="firstName" formControlName="firstName" placeholder="First name">
-		</mat-form-field>
-		<mat-form-field>
-			<input matInput type="text" name="lastName" formControlName="lastName" placeholder="Last name">
-		</mat-form-field>
-		<mat-form-field style="width: 80%;">
-			<input matInput type="text" name="phone" formControlName="phone" placeholder="Phone">
-		</mat-form-field><br>
-		<mat-form-field [ngClass]="setClassEmail()">
-			<input matInput type="email" name="email" formControlName="email" placeholder="Email">
-		</mat-form-field>
-		<mat-form-field [ngClass]="setClassPassword()">
-			<input matInput type="password" name="password" formControlName="password" placeholder="Password">
-		</mat-form-field>
-		<fieldset>
-			<button class="btn btn-primary" type="submit">
-				Register
-			</button>
-		</fieldset>
+<section>
+	<div class="card">
+		<form [formGroup]="registerForm" (ngSubmit)="register()">
+			<mat-form-field [ngClass]="setClassEmail()">
+				<input matInput type="email" name="email" formControlName="email" placeholder="Email">
+			</mat-form-field>
+			<mat-form-field [ngClass]="setClassPassword()">
+				<input matInput type="password" name="password" formControlName="password" placeholder="Password">
+			</mat-form-field>
+			<fieldset>
+				<button mat-raised-button color="primary" type="submit">
+					Register
+				</button>
+			</fieldset>
 
-	</form>
-</div>
+		</form>
+	</div>
+</section>

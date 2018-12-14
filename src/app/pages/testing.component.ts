@@ -4,6 +4,8 @@ import { AuthService } from "../services/auth.service";
 import { ProposalService } from "../proposal.service";
 import { FormControl } from "@angular/forms";
 import { Proposal } from '../proposal';
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
 	selector: 'app-testing',
@@ -58,7 +60,8 @@ export class TestingComponent {
 
 	constructor(
 		private uploaderService: TestService,
-		public auth: AuthService
+		public auth: AuthService,
+		private http: HttpClient
 	) {
 	}
 
@@ -73,6 +76,13 @@ export class TestingComponent {
 				}
 			);
 		}
+	}
+
+	getFiles(): Observable<any> {
+		return this.http.get(`http://localhost:8080/api/files/`);
+	}
+	deleteFile( file: String): Observable<any> {
+		return this.http.delete(`/api/files/`);
 	}
 }
 

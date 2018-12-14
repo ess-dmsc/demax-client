@@ -269,7 +269,4 @@ export class ProposalsComponent implements OnInit {
 		this.selectedFiles = undefined;
 	}
 
-	showFile = true;
-	attachments: Observable<string[]>;
-
 }

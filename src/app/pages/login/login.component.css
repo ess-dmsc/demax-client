@@ -1,20 +1,16 @@
 mat-form-field {
-	width: 50%;
-	margin: 1rem;
+	width: 60%;
 	display: block;
 }
 .card{
 	background-color: white;
 	border-radius: 1rem;
-	padding: 1.5rem;
+	padding: 2rem;
 	margin: 0 auto;
 }
 
 button{
-	padding: 1rem 2rem;
-	margin-left: 1rem;
-	margin-top: 1rem;
-	margin-bottom: 2rem;
+	width: 30%;
 }
 fieldset{
 	text-align: left;

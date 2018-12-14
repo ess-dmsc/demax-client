@@ -40,8 +40,6 @@ body {margin: 0;
 	justify-content: space-evenly;
 }
 
-
-
 .sidebar a:hover:not(.active) {
 	background-color: #009EDD;
 	color: white;
@@ -53,6 +51,24 @@ body {margin: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
+}
+
+.login-background {
+	width: 100vh;
+	height: 100vh;
+	display: flex;
+	justify-content: space-around;}
+
+mat-tab-group {
+	width: 400px;
+	position: fixed;
+	max-height: 320px;
+	margin: 30vh 10vh 30vh 90vh;
+	background-color: white;
+	opacity: 0.9;
+	border: solid lightgray 1px;
+	border-radius: 1rem;
+	box-shadow: 5px 4px 5px lightgray;
 }
 
 .example-sidenav {

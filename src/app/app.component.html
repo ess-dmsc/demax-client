@@ -2,7 +2,8 @@
 	<mat-toolbar *ngIf="auth.loggedIn" class="topnav">
 	<span>
 <a routerLink="/" class="top-logo" style="background-color: #009EDD;">
-		<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: 0.5rem;" height="50px" version="1.1" viewBox="0 0 105 57" width="95px"
+		<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: 0.5rem;" height="50px" version="1.1"
+		     viewBox="0 0 105 57" width="95px"
 		     xmlns="http://www.w3.org/2000/svg">
 		<defs>
 			<polygon id="path-1"
@@ -130,56 +131,17 @@
 <div *ngIf="!auth.loggedIn" style="
 background-image: url(../assets/media/blurred-lab-samples.jpg);
 background-repeat: no-repeat;
-background-size: contain;">
-	<header style="padding: 10rem;"></header>
-	<div style="padding: 15rem; text-align: right;">
-		<mat-tab-group dynamicHeight style="max-width: 500px; background-color: white; opacity: 0.9;border: solid lightgray 1px; border-radius: 1rem; box-shadow: 5px 4px 5px lightgray;">
-			<mat-tab label="Login">
-				<section>
-					<div class="card">
-						<div class="card-body">
-							<form [formGroup]="loginForm" (ngSubmit)="login()">
-								<mat-form-field class="input-group" [ngClass]="setClassEmail()">
-									<input matInput class="form-control" type="email" name="email"
-									       formControlName="email" placeholder="Email" autofocus>
-								</mat-form-field>
-								<mat-form-field class="input-group" [ngClass]="setClassPassword()">
-									<input matInput class="form-control" type="password" name="password"
-									       formControlName="password" placeholder="Password">
-								</mat-form-field>
-								<fieldset>
-									<button class="btn btn-primary" type="submit">Login</button>
-								</fieldset>
-							</form>
-						</div>
-					</div>
-				</section>
+background-size: cover;
+background-origin: content-box;">
+	<div class="login-background">
 
+		<mat-tab-group dynamicHeight>
+			<mat-tab label="Login">
+			<app-login></app-login>
 			</mat-tab>
 			<mat-tab label="Register">
-				<form [formGroup]="registerForm" (ngSubmit)="register()">
-					<mat-form-field>
-						<input matInput type="text" name="firstName" formControlName="firstName" placeholder="First name">
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput type="text" name="lastName" formControlName="lastName" placeholder="Last name">
-					</mat-form-field>
-					<mat-form-field style="width: 80%;">
-						<input matInput type="text" name="phone" formControlName="phone" placeholder="Phone">
-					</mat-form-field><br>
-					<mat-form-field [ngClass]="setClassEmail()">
-						<input matInput type="email" name="email" formControlName="email" placeholder="Email">
-					</mat-form-field>
-					<mat-form-field [ngClass]="setClassPassword()">
-						<input matInput type="password" name="password" formControlName="password" placeholder="Password">
-					</mat-form-field>
-					<fieldset>
-						<button class="btn btn-primary" type="submit">
-							Register
-						</button>
-					</fieldset>
-
-				</form>			</mat-tab>
+				<app-register></app-register>
+			</mat-tab>
 		</mat-tab-group>
 	</div>
 </div>
