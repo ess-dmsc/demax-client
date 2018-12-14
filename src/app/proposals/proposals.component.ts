@@ -76,12 +76,11 @@ export class ProposalsComponent implements OnInit {
 			]),
 		needByDate: [ '' ],
 		needByDateMotivation: [ '' ],
-
 		wantsCrystallization: false,
 		wantsBiomassDeuteration: false,
 		wantsProteinDeuteration: false,
+		wantsOtherDeuteration: false,
 		wantsChemicalDeuteration: false,
-
 		lab: [ '' ],
 		crystallization: this.formBuilder.group({
 			moleculeName: [ '' ],

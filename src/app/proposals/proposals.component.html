@@ -25,16 +25,16 @@
 		<ng-container matColumnDef="options">
 			<th mat-header-cell *matHeaderCellDef> Options </th>
 			<td mat-cell *matCellDef="let proposal">
-					<button class="btn btn-primary" (click)="enableEditing(proposal)">Edit</button>
-				<button class="btn btn-danger" (click)="deleteProposal(proposal)">Delete</button>
+					<button mat-flat-button color="primary" (click)="enableEditing(proposal)">Edit</button>
+				<button mat-flat-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
 			</td>
 		</ng-container>
 		<ng-container matColumnDef="pdf">
 			<th mat-header-cell *matHeaderCellDef>Download PDF</th>
 			<td mat-cell *matCellDef="let proposal">
 				<a href="/api/pdf/{{proposal.proposalId}}">
-					<button mat-raised-button class="btn btn-success">
-						<mat-icon>get_app</mat-icon>
+					<button mat-stroked-button class="btn btn-success">
+						<mat-icon>get_app</mat-icon> Download
 					</button>
 				</a>
 			</td>
@@ -43,8 +43,10 @@
 		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 	</table>
-	<mat-card style="padding: 3rem;">
-		<button mat-raised-button class="btn btn-success" *ngIf="!isEditing" (click)="addProposal()">Create new proposal</button>
+	<mat-card>
+		<button mat-raised-button color="primary" *ngIf="!isEditing" (click)="addProposal()">
+			<mat-icon>add</mat-icon>Create new proposal
+		</button>
 	</mat-card>
 </section>
 
@@ -97,16 +99,16 @@
 						<br>
 						Select one, or as many as apply, from the alternatives below.</p>
 					<br>
-					<mat-checkbox>Crystallization</mat-checkbox>
-					<mat-checkbox>Biological deuteration</mat-checkbox>
-					<mat-checkbox>Chemical deuteration</mat-checkbox>
+					<mat-checkbox [(ngModel)]="proposal.wantsCrystallization" name="proposal.wantsCrystallization">Crystallization</mat-checkbox>
+					<mat-checkbox [(ngModel)]="proposal.wantsBiomassDeuteration" name="proposal.wantsBiomassDeuteration">Biological deuteration (for biomass)</mat-checkbox>
+					<mat-checkbox [(ngModel)]="proposal.wantsProteinDeuteration" name="proposal.wantsProteinDeuteration">Biological deuteration (for proteins)</mat-checkbox>
+					<mat-checkbox [(ngModel)]="proposal.wantsOtherDeuteration" name="proposal.wantsOtherDeuteration">Biological deuteration (other)</mat-checkbox>
+					<mat-checkbox [(ngModel)]="proposal.wantsChemicalDeuteration" name="proposal.wantsChemicalDeuteration">Chemical deuteration</mat-checkbox>
 				</fieldset>
-				<mat-action-row style="display: flex; justify-content: center;">
-					<button mat-button class="btn btn-primary" type="submit">Save</button>
-				</mat-action-row>
-				<mat-action-row style="display: flex; justify-content: center;">
+				<mat-action-row>
 					<button mat-button class="btn btn-danger" (click)="cancelEditing()">Cancel</button>
 					<button mat-button class="btn btn-primary" (click)="selectTab(1)">Next</button>
+					<button mat-raised-button color="primary" type="submit">Save</button>
 				</mat-action-row>
 			</mat-tab>
 			<mat-tab label="2. Crystallization">
@@ -167,13 +169,11 @@
 				<mat-form-field>
 					<input placeholder="What protein concentration do you usually use for crystallization:" matInput name="crystallization."[(ngModel)]="typicalProteinConcentrationUsed">
 				</mat-form-field>
-				<mat-action-row style="display: flex; justify-content: center;">
-					<button mat-button class="btn btn-primary" type="submit">Save</button>
-				</mat-action-row>
-				<mat-divider></mat-divider>
-				<mat-action-row style="display: flex; justify-content: center;">
-					<button mat-raised-button class="btn btn-primary" (click)="selectTab(0)">Back</button>
-					<button mat-raised-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
+				<mat-action-row>
+					<button mat-button class="btn btn-danger" (click)="selectTab(2)">Skip</button>
+					<button mat-button class="btn btn-danger" (click)="selectTab(0)">Back</button>
+					<button mat-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
+					<button mat-raised-button color="primary" type="submit">Save</button>
 				</mat-action-row>
 			</mat-tab>
 			<mat-tab label="3. Biological deuteration">
@@ -240,8 +240,8 @@
 							<textarea rows="8" cols="40" matInput name="biomassDeuteration.deuterationLevelMotivation"
 							          [(ngModel)]="proposal.biomassDeuteration.deuterationLevelMotivation"></textarea>
 						</mat-form-field>
-						<mat-action-row style="display: flex; justify-content: center;">
-							<button mat-button class="btn btn-primary" type="submit">Save</button>
+						<mat-action-row>
+							<button mat-raised-button color="primary" type="submit">Save</button>
 						</mat-action-row>
 					</mat-expansion-panel>
 					<mat-expansion-panel>
@@ -328,14 +328,15 @@
 							<mat-radio-button value="no">No</mat-radio-button>
 							<input type="text" placeholder="Results?">
 						</mat-radio-group>
-						<mat-action-row style="display: flex; justify-content: center;">
+						<mat-action-row>
 							<button mat-button class="btn btn-primary" type="submit">Save</button>
 						</mat-action-row>
 					</mat-expansion-panel>
-					<mat-action-row style="display: flex; justify-content: center;">
-						<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
+					<mat-action-row>
 						<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
+						<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
 						<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
+						<button mat-raised-button color="primary" type="submit">Save</button>
 					</mat-action-row>
 				</mat-accordion>
 
@@ -382,16 +383,11 @@
 						<input type="file" name="moleculePreparationReferenceArticle" (change)="selectFile($event)">
 					</label>
 				</fieldset>
-				<mat-action-row style="display: flex; justify-content: center;">
-					<button mat-button class="btn btn-primary" type="submit">Save</button>
-				</mat-action-row>
-				<mat-divider></mat-divider>
 				<mat-action-row>
-					<br>
-					<button mat-button class="btn btn-danger" (click)="selectTab(3)">Back</button>
-					<button mat-button class="btn btn-danger" (click)="selectTab(5)">Skip</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(5)">Next</button>
-					<br>
+					<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
+					<button mat-button class="btn btn-danger" (click)="selectTab(2)">Back</button>
+					<button mat-button class="btn btn-primary" (click)="selectTab(4)">Next</button>
+					<button mat-raised-button color="primary" type="submit">Save</button>
 				</mat-action-row>
 			</mat-tab>
 
@@ -407,19 +403,17 @@
 				</fieldset>
 				<br>
 				<fieldset>
-					<a (click)="generate()" class="btn btn-danger" href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate PDF for review</a>
+					<a mat-raised-button color="warn" (click)="generate()" href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate PDF for review</a>
 				</fieldset>
 				<br>
 				<fieldset>
-					<a *ngIf="this.hasGenerated === true" (click)="merge()" class="btn btn-danger"
+					<a mat-raised-button color="warn" *ngIf="this.hasGenerated === true" (click)="merge()" class="btn btn-danger"
 					   href="http://localhost:8080/api/pdf/merge/{{proposal.proposalId}}">Merge all PDFS</a><br>
 				</fieldset>
 				<br>
-				<mat-action-row style="display: flex; justify-content: center;">
-					<button mat-button class="btn btn-primary" type="submit">Save</button>
-				</mat-action-row>
-				<mat-action-row style="display: flex; justify-content: left;">
-					<button mat-button class="btn btn-danger" (click)="selectTab(3)">Go back</button>
+				<mat-action-row>
+					<button mat-button (click)="selectTab(3)">Go back</button>
+					<button mat-raised-button color="primary" type="submit">Submit</button>
 				</mat-action-row>
 
 			</mat-tab>

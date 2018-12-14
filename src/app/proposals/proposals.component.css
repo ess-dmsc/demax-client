@@ -7,6 +7,7 @@
 }
 mat-checkbox{
 	margin: 2rem;
+	display: block;
 }
 mat-radio-button{
 	margin: 2rem;
@@ -35,4 +36,8 @@ table {
 }
 mat-expansion-panel{
 	width: 100%;
+}
+mat-action-row{
+	display: flex;
+	justify-content: center;
 }

@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './ext/material.module';
 import { APP_CONFIG, APP_DI_CONFIG } from "./app-config.module";
 import { AuthService } from "./services/auth.service";
-
+import{ FormsModule} from "@angular/forms";
 
 describe('AppComponent', () => {
 	let auth: AuthService;
@@ -17,7 +17,8 @@ describe('AppComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [
 				RouterTestingModule,
-				MaterialModule
+				MaterialModule,
+				FormsModule
 			],
 			declarations: [
 				AppComponent

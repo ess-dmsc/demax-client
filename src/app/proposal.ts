@@ -23,6 +23,7 @@ export class Proposal {
 	wantsCrystallization?: boolean;
 	wantsBiomassDeuteration?: boolean;
 	wantsProteinDeuteration?: boolean;
+	wantsOtherDeuteration?: boolean;
 	wantsChemicalDeuteration?: boolean;
 	crystallization?: {
 		moleculeName?: string;
@@ -84,7 +85,6 @@ export class Proposal {
 		hasPreparedMolecule?: string;
 		hasPreparedMoleculeProtocol?: string;
 	};
-	attachments: [];
 	needByDateAttachment?: string;
 	pbdIdReferenceAttachment?: string;
 	organismReferenceAttachment?: string;
@@ -92,5 +92,4 @@ export class Proposal {
 	chemicalStructureAttachment?: string;
 	proposalTemplate?: string;
 	generatedProposal?: string;
-	mergedPdfFile?: string;
 };
