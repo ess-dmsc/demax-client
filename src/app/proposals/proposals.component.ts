@@ -59,19 +59,24 @@ export class ProposalsComponent implements OnInit {
 		experimentTitle: [ '' ],
 		briefSummary: [ '' ],
 
-		mainProposerFirstName: [ '' ],
-		mainProposerLastName: [ '' ],
-		mainProposerAffiliation: [ '' ],
-		mainProposerEmail: [ '' ],
-		mainProposerPhone: [ '' ],
+		mainProposerFirstName: [ ' ' ],
+		mainProposerLastName: [ ' ' ],
+		mainProposerEmail: [ ' ' ],
+		mainProposerPhone: [ ' ' ],
+		mainProposerAffiliationName: [ '' ],
+		mainProposerAffiliationPhone: [ '' ],
+		mainProposerAffiliationStreet: [ '' ],
+		mainProposerAffiliationCity: [ '' ],
+		mainProposerAffiliationCountry: [ '' ],
+		country: [ '' ],
 		coProposers: this.formBuilder.array(
 			[
 				{
-					coProposerFirstName: '',
-					coProposerLastName: '',
-					coProposerPhone: [''],
-					coProposerEmail: [''],
-					coProposerAffiliation: ['']
+					firstName: [ ' ' ],
+					lastName: [ ' ' ],
+					email: [ ' ' ],
+					phone: [ ' ' ],
+					affiliation: [ '' ]
 				}
 			]),
 		needByDate: [ '' ],
@@ -81,6 +86,7 @@ export class ProposalsComponent implements OnInit {
 		wantsProteinDeuteration: false,
 		wantsOtherDeuteration: false,
 		wantsChemicalDeuteration: false,
+		linksWithIndustry: [ '' ],
 		lab: [ '' ],
 		crystallization: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -99,7 +105,8 @@ export class ProposalsComponent implements OnInit {
 			stability: [ '' ],
 			buffer: [ '' ],
 			levelOfDeuteration: [ '' ],
-			typicalProteinConcentrationUsed: [ '' ]
+			typicalProteinConcentrationUsed: [ '' ],
+			other: [ '' ]
 		}),
 		biomassDeuteration: this.formBuilder.group({
 			organismProvidedByUser: [ '' ],
@@ -111,9 +118,10 @@ export class ProposalsComponent implements OnInit {
 			deuterationLevelMotivation: [ '' ]
 		}),
 		bioSafety: this.formBuilder.group({
-			ioSafetyContainmentLevel: [ '' ],
+			bioSafetyContainmentLevel: [ '' ],
 			organismRisk: [ '' ],
-			organismRiskDetails: [ '' ]
+			organismRiskDetails: [ '' ],
+			other: []
 		}),
 		proteinDeuteration: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -123,15 +131,17 @@ export class ProposalsComponent implements OnInit {
 			expressionRequirements: [ '' ],
 			moleculeOrigin: [ '' ],
 			expressionPlasmidProvidedByUser: [ '' ],
-			details: [ '' ],
+			expressionPlasmidProvidedByUserDetails: [ '' ],
 			amountNeeded: [ '' ],
 			amountNeededMotivation: [ '' ],
 			deuterationLevelRequired: [ '' ],
 			deuterationLevelMotivation: [ '' ],
 			needsPurificationSupport: [ '' ],
 			hasDoneUnlabeledProteinExpression: [ '' ],
-			hasPurifiedUnlabeledProtein: [ '' ],
-			hasProteinDeuterationExperience: [ '' ]
+			hasDonePurification: [ '' ],
+			hasProteinPurificationExperience: [ '' ],
+			proteinDeuterationResults: [ '' ],
+			other: [ '' ]
 		}),
 		chemicalDeuteration: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -139,7 +149,6 @@ export class ProposalsComponent implements OnInit {
 			amountMotivation: [ '' ],
 			deuterationLocationAndPercentage: [ '' ],
 			deuterationLevelMotivation: [ '' ],
-			chemicalStructure: [ '' ],
 			hasPreviousProductionExperience: [ '' ],
 		}),
 		needByDateAttachment: [ '' ],
