@@ -1,4 +1,17 @@
+mat-form-field {
+	width: 60%;
+	display: block;
+}
 .card{
-	margin: 1rem auto;
-	width: 300px;
+	background-color: white;
+	border-radius: 1rem;
+	padding: 2rem;
+	margin: 0 auto;
+}
+
+button{
+	width: 30%;
+}
+fieldset{
+	text-align: left;
 }

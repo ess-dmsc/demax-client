@@ -20,6 +20,10 @@ export class Proposal{
 	needByDateAttachment?: string;
 	lab?: string;
 	dateCreated?: string;
+	wantsCrystallization?: boolean;
+	wantsBiomassDeuteration?: boolean;
+	wantsProteinDeuteration?: boolean;
+	wantsChemicalDeuteration?: boolean;
 	crystallization?: {
 		moleculeName?: string;
 		moleculeIdentifier?: string;
@@ -84,5 +88,7 @@ export class Proposal{
 		hasPreparedMolecule?: string;
 		hasPreparedMoleculeProtocol?: string
 	};
-	proposalTemplate?:string
+	proposalTemplate?: string;
+	generatedProposal?: string;
+	mergedProposal?: string
 };

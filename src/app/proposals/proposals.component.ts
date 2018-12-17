@@ -1,26 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
 import { Proposal } from '../proposal';
 import { AuthService } from "../services/auth.service";
 import { TestService } from "../services/test.service";
+import { catchError, last, map, tap } from "rxjs/operators";
+import { MessageService } from "../services/message.service";
+import { Observable } from "rxjs";
+import { UploadFileService } from "../components/upload/upload-file.service";
+import { MatDialog } from "@angular/material";
 
 @Component({
 	selector: 'app-proposals',
 	templateUrl: './proposals.component.html',
 	styleUrls: [ './proposals.component.css' ],
-	providers: [TestService]
+	providers: [ TestService, ProposalService ]
 })
 export class ProposalsComponent implements OnInit {
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
 	isEditing = false;
-	isCreating = false;
 	panelOpenState = false;
 	message: string;
+	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'options', 'pdf' ];
+	selectedFiles: FileList;
+	selectedInput: string;
+	currentFileUpload: File;
+	progress: { percentage: number } = {percentage: 0};
 
 	selectedIndex = 0;
+
 
 	selectTab(index: number): void {
 		event.preventDefault();
@@ -44,16 +54,41 @@ export class ProposalsComponent implements OnInit {
 	addProposalForm: FormGroup;
 
 	proposalForm = this.formBuilder.group({
+		dateCreated: [ '' ],
+
 		experimentTitle: [ '' ],
 		briefSummary: [ '' ],
-		mainProposerFirstName: [ '' ],
-		mainProposerLastName: [ '' ],
-		mainProposerAffiliation: [ '' ],
-		mainProposerEmail: [ '' ],
-		mainProposerPhone: [ '' ],
+
+		mainProposerFirstName: [ ' ' ],
+		mainProposerLastName: [ ' ' ],
+		mainProposerEmail: [ ' ' ],
+		mainProposerPhone: [ ' ' ],
+		mainProposerAffiliationName: [ '' ],
+		mainProposerAffiliationPhone: [ '' ],
+		mainProposerAffiliationStreet: [ '' ],
+		mainProposerAffiliationCity: [ '' ],
+		mainProposerAffiliationCountry: [ '' ],
+		country: [ '' ],
+		coProposers: this.formBuilder.array(
+			[
+				{
+					firstName: [ ' ' ],
+					lastName: [ ' ' ],
+					email: [ ' ' ],
+					phone: [ ' ' ],
+					affiliation: [ '' ]
+				}
+			]),
 		needByDate: [ '' ],
 		needByDateMotivation: [ '' ],
-		needByDateAttachment: [ '' ],
+		wantsCrystallization: false,
+		wantsBiomassDeuteration: false,
+		wantsProteinDeuteration: false,
+		wantsOtherDeuteration: false,
+		wantsChemicalDeuteration: false,
+		linksWithIndustry: false,
+		workTowardsStudentsDegree: false,
+		coProposerStudents: false,
 		lab: [ '' ],
 		crystallization: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -62,7 +97,6 @@ export class ProposalsComponent implements OnInit {
 			oligomerizationState: [ '' ],
 			pbdId: [ '' ],
 			doi: [ '' ],
-			pbdIdReferenceAttachment: [ '' ],
 			crystallizationRequirements: [ '' ],
 			crystallizationPrecipitantComposition: [ '' ],
 			previousCrystallizationExperience: [ '' ],
@@ -73,17 +107,23 @@ export class ProposalsComponent implements OnInit {
 			stability: [ '' ],
 			buffer: [ '' ],
 			levelOfDeuteration: [ '' ],
-			typicalProteinConcentrationUsed: [ '' ]
+			typicalProteinConcentrationUsed: [ '' ],
+			other: [ '' ]
 		}),
 		biomassDeuteration: this.formBuilder.group({
-			organismProvidedByUser: false,
+			organismProvidedByUser: [ '' ],
 			organismDetails: [ '' ],
-			organismReferenceAttachment: [ '' ],
 			amountNeeded: [ '' ],
 			stateOfMaterial: [ '' ],
 			amountOfMaterialMotivation: [ '' ],
 			deuterationLevelRequired: [ '' ],
 			deuterationLevelMotivation: [ '' ]
+		}),
+		bioSafety: this.formBuilder.group({
+			bioSafetyContainmentLevel: [ '' ],
+			organismRisk: [ '' ],
+			organismRiskDetails: [ '' ],
+			other: []
 		}),
 		proteinDeuteration: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -93,16 +133,17 @@ export class ProposalsComponent implements OnInit {
 			expressionRequirements: [ '' ],
 			moleculeOrigin: [ '' ],
 			expressionPlasmidProvidedByUser: [ '' ],
-			details: [ '' ],
+			expressionPlasmidProvidedByUserDetails: [ '' ],
 			amountNeeded: [ '' ],
 			amountNeededMotivation: [ '' ],
 			deuterationLevelRequired: [ '' ],
 			deuterationLevelMotivation: [ '' ],
 			needsPurificationSupport: [ '' ],
-			needsPurificationSupportAttachment: [ '' ],
 			hasDoneUnlabeledProteinExpression: [ '' ],
-			hasPurifiedUnlabeledProtein: [ '' ],
-			hasProteinDeuterationExperience: [ '' ]
+			hasDonePurification: [ '' ],
+			hasProteinPurificationExperience: [ '' ],
+			proteinDeuterationResults: [ '' ],
+			other: [ '' ]
 		}),
 		chemicalDeuteration: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -110,10 +151,16 @@ export class ProposalsComponent implements OnInit {
 			amountMotivation: [ '' ],
 			deuterationLocationAndPercentage: [ '' ],
 			deuterationLevelMotivation: [ '' ],
-			chemicalStructure: [ '' ],
 			hasPreviousProductionExperience: [ '' ],
-			hasPreviousProductionExperienceAttachment: [ '' ]
-		})
+		}),
+		needByDateAttachment: [ '' ],
+		pbdIdReferenceAttachment: [ '' ],
+		organismReferenceAttachment: [ '' ],
+		needsPurificationSupportAttachment: [ '' ],
+		chemicalStructureAttachment: [ '' ],
+		proposalTemplate: [ '' ],
+		generatedProposal: [ '' ],
+		mergedPdfFile: [ '' ],
 	});
 
 	constructor(
@@ -121,7 +168,8 @@ export class ProposalsComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private uploaderService: TestService,
 		private http: HttpClient,
-		public auth: AuthService
+		public auth: AuthService,
+		public dialog: MatDialog
 	) {
 	}
 
@@ -138,18 +186,8 @@ export class ProposalsComponent implements OnInit {
 
 	ngOnInit() {
 		this.getProposals();
-		this.addProposalForm = this.formBuilder.group({
-		})
-
-	}
-
-	get coProposers() {
-		return this.proposalForm.get('coProposers') as FormArray;
-	}
-
-	addCoProposer() {
-		event.preventDefault();
-		this.coProposers.push(this.formBuilder.control(''));
+		this.proposalService.getFiles();
+		this.addProposalForm = this.formBuilder.group({})
 	}
 
 	getProposals() {
@@ -164,14 +202,21 @@ export class ProposalsComponent implements OnInit {
 			response => {
 				this.proposals.push(response);
 				this.proposalForm.reset();
-				this.isCreating = false;
+				this.getProposals();
 			},
 			error => console.log(error)
 		);
 	}
 
-	enableCreating() {
-		this.isCreating = true;
+	hasGenerated = false;
+	hasMerged = false;
+
+	generate() {
+		this.hasGenerated = true;
+	}
+
+	merge() {
+		this.hasMerged = true;
 	}
 
 	enableEditing(proposal: Proposal) {
@@ -179,15 +224,8 @@ export class ProposalsComponent implements OnInit {
 		this.proposal = proposal;
 	}
 
-	cancelCreating() {
-		this.isCreating = false;
-		this.proposal = new Proposal();
-		this.getProposals();
-	}
-
 	cancelEditing() {
 		this.isEditing = false;
-		this.isCreating = false;
 		this.proposal = new Proposal();
 		this.getProposals();
 	}
@@ -196,20 +234,19 @@ export class ProposalsComponent implements OnInit {
 		this.proposalService.editProposal(proposal).subscribe(
 			() => {
 				this.isEditing = false;
-				this.isCreating = false;
 				this.proposal = proposal;
 			},
 			error => console.log(error)
 		);
 	}
 
-	deleteProposal(proposal: Proposal
-	) {
+	deleteProposal(proposal: Proposal) {
 		if(window.confirm('Are you sure you want to permanently delete this proposal?')) {
 			this.proposalService.deleteProposal(proposal).subscribe(
 				() => {
-					const pos = this.proposals.map(element => element._id).indexOf(proposal._id);
+					const pos = this.proposals.map(element => element.proposalId).indexOf(proposal.proposalId);
 					this.proposals.splice(pos, 1);
+					this.getProposals();
 				},
 				error => console.log(error)
 			);
@@ -218,14 +255,29 @@ export class ProposalsComponent implements OnInit {
 
 	onPicked(input: HTMLInputElement) {
 		const file = input.files[ 0 ];
-
 		if(file) {
-			this.uploaderService.upload(file).subscribe(
+			this.proposalService.uploadFile(file, this.proposal, input).subscribe(
 				msg => {
-					input.name = file.name;
 					this.message = msg;
 				}
 			);
 		}
 	}
+
+	selectFile(event) {
+		this.selectedFiles = event.target.files;
+		this.selectedInput = event.target.name.toString()
+		this.upload();
+	}
+
+	upload() {
+		this.progress.percentage = 0;
+
+		this.currentFileUpload = this.selectedFiles.item(0);
+		this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
+			console.log('File is completely uploaded!');
+		});
+		this.selectedFiles = undefined;
+	}
+
 }

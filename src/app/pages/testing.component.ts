@@ -3,6 +3,9 @@ import { TestService } from "../services/test.service";
 import { AuthService } from "../services/auth.service";
 import { ProposalService } from "../proposal.service";
 import { FormControl } from "@angular/forms";
+import { Proposal } from '../proposal';
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
 	selector: 'app-testing',
@@ -26,8 +29,7 @@ import { FormControl } from "@angular/forms";
 					<div>
 						<label for="picked">Attach reference</label>
 						<div>
-							<input type="file" id="picked" #picked
-							       (click)="message=''"
+							<input type="file" id="picked" name="needByDateAttachment" #picked (click)="message=''"
 							       (change)="onPicked(picked)">
 						</div>
 						<br>
@@ -41,8 +43,8 @@ import { FormControl } from "@angular/forms";
 					</div>
 					<p *ngIf="message">{{message}}</p>
 				</form>
-
-
+				<form-upload></form-upload>
+				<list-upload></list-upload>
 			</mat-card-content>
 		</mat-card>
 
@@ -53,8 +55,14 @@ import { FormControl } from "@angular/forms";
 export class TestingComponent {
 	date = new FormControl(new Date());
 	message: string;
+	templateString: 'huffe';
+	private proposal: Proposal;
 
-	constructor(private uploaderService: TestService, public auth: AuthService, public proposalService: ProposalService) {
+	constructor(
+		private uploaderService: TestService,
+		public auth: AuthService,
+		private http: HttpClient
+	) {
 	}
 
 	onPicked(input: HTMLInputElement) {
@@ -68,6 +76,13 @@ export class TestingComponent {
 				}
 			);
 		}
+	}
+
+	getFiles(): Observable<any> {
+		return this.http.get(`http://localhost:8080/api/files/`);
+	}
+	deleteFile( file: String): Observable<any> {
+		return this.http.delete(`/api/files/`);
 	}
 }
 

@@ -1,26 +1,35 @@
 export class Proposal {
-	_id?: string;
+	proposalId?: string;
+	dateCreated?: string;
 	experimentTitle?: string;
 	briefSummary?: string;
 	mainProposerFirstName?: string;
 	mainProposerLastName?: string;
-	mainProposerAffiliation?: string;
 	mainProposerEmail?: string;
 	mainProposerPhone?: string;
+	mainProposerAffiliationName?: string;
+	mainProposerAffiliationPhone?: string;
+	mainProposerAffiliationStreet?: string;
+	mainProposerAffiliationCity?: string;
+	mainProposerAffiliationCountry?: string;
 	coProposers?: [
 		{
-			coProposerFirstName?: string;
-			coProposerLastName?: string;
-			coProposerEmail?: string;
-			coProposerPhone?: string;
-			coProposerAffiliation?: string;
+			firstName?: string;
+			lastName?: string;
+			email?: string;
+			phone?: string;
+			affiliation?: string;
 		}
 		];
 	needByDate?: string;
 	needByDateMotivation?: string;
-	needByDateAttachment?: string;
 	lab?: string;
-	dateCreated?: string;
+	linksWithIndustry?: boolean;
+	wantsCrystallization?: boolean;
+	wantsBiomassDeuteration?: boolean;
+	wantsProteinDeuteration?: boolean;
+	wantsOtherDeuteration?: boolean;
+	wantsChemicalDeuteration?: boolean;
 	crystallization?: {
 		moleculeName?: string;
 		moleculeIdentifier?: string;
@@ -28,7 +37,6 @@ export class Proposal {
 		oligomerizationState?: string;
 		pbdId?: string;
 		doi?: string;
-		pbdIdReferenceAttachment?: string;
 		crystallizationRequirements?: string;
 		crystallizationPrecipitantComposition?: string;
 		previousCrystallizationExperience?: string;
@@ -40,14 +48,14 @@ export class Proposal {
 		buffer?: string;
 		levelOfDeuteration?: string;
 		typicalProteinConcentrationUsed?: string;
+		other?: string;
 	};
 	biomassDeuteration?: {
-		organismProvidedByUser?: string;
+		organismProvidedByUser?: boolean;
 		organismDetails?: string;
-		organismReferenceAttachment?: string;
 		amountNeeded?: string;
 		amountNeededMotivation?: string;
-		deuterationLevelRequired?: string;
+		deuterationLevelRequired?: boolean;
 		deuterationLevelMotivation?: string;
 	};
 	proteinDeuteration?: {
@@ -57,23 +65,24 @@ export class Proposal {
 		oligomerizationState?: string;
 		expressionRequirements?: string;
 		moleculeOrigin?: string;
-		expressionPlasmidProvidedByUser?: string;
+		expressionPlasmidProvidedByUser?: boolean;
 		expressionPlasmidProvidedByUserDetails?: string;
 		amountNeeded?: string;
 		amountNeededMotivation?: string;
 		deuterationLevelRequired?: string;
 		deuterationLevelMotivation?: string;
 		needsPurificationSupport?: string;
-		needsPurificationSupportAttachment?: string;
 		hasDoneUnlabeledProteinExpression?: string;
-		hasDonePurification?: string;
+		hasDonePurification?: boolean;
 		hasProteinPurificationExperience?: string;
 		proteinDeuterationResults?: string;
+		other?: boolean;
 	};
 	bioSafety?: {
 		bioSafetyContainmentLevel?: string;
-		organismRisk?: string;
+		organismRisk?: boolean;
 		organismRiskDetails?: string;
+		other?: string;
 	};
 	chemicalDeuteration?: {
 		moleculeName?: string;
@@ -81,9 +90,17 @@ export class Proposal {
 		amountMotivation?: string;
 		deuterationLocationAndPercentege?: string;
 		deuterationLevelMotivation?: string;
-		chemicalStructureAttachment?: string;
 		hasPreparedMolecule?: string;
 		hasPreparedMoleculeProtocol?: string;
 	};
+	submitted?: boolean;
+	other?: boolean;
+	needByDateAttachment?: string;
+	pbdIdReferenceAttachment?: string;
+	organismReferenceAttachment?: string;
+	needsPurificationSupportAttachment?: string;
+	chemicalStructureAttachment?: string;
 	proposalTemplate?: string;
+	generatedProposal?: string;
+	mergedProposal: string;
 };

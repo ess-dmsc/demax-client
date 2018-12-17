@@ -1,23 +1,31 @@
-.example-fill-remaining-space{
-	flex: 1 1 auto;
-}
-.footer{
-	position: fixed;
-	bottom: 0;
+body {margin: 0;
+	font-family: 'Titillium Web', sans-serif;
 }
 
-header{
-	border-bottom: solid #0094CA 1px;
+.topnav {
+	overflow: hidden;
+	background-color: #009EDD;
+	display: flex;
+	justify-content: space-between;
+	font-family: "Titillium Web", sans-serif;
 }
-.sidebar {
-	margin: 0;
-	padding: 0;
-	width: 200px;
-	background-color: #f1f1f1;
-	position: fixed;
-	height: 100%;
-	overflow: auto;
-	border-right: 1px solid lightgray;
+
+.topnav a {
+	float: left;
+	color: #F2F2F2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.topnav a:hover {
+	background-color: white;
+	color: #009EDD;
+}
+
+.example-fill-remaining-space {
+	flex: 1 1 auto;
 }
 
 .sidebar a {
@@ -27,35 +35,64 @@ header{
 	text-decoration: none;
 }
 
-.sidebar a.active {
-	background-color: #4CAF50;
-	color: white;
+.menuItem {
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .sidebar a:hover:not(.active) {
-	background-color: #0094CA;
+	background-color: #009EDD;
 	color: white;
 }
 
-div.content {
-	margin-left: 200px;
-	padding: 1px 16px;
-	height: 1000px;
+.example-container {
+	position: absolute;
+	top: 60px;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
-@media screen and (max-width: 700px) {
-	.sidebar {
-		width: 100%;
-		height: auto;
-		position: relative;
-	}
-	.sidebar a {float: left;}
-	div.content {margin-left: 0;}
+.login-background {
+	width: 100vh;
+	height: 100vh;
+	display: flex;
+	justify-content: space-around;}
+
+mat-tab-group {
+	width: 400px;
+	position: fixed;
+	max-height: 320px;
+	margin: 30vh 10vh 30vh 90vh;
+	background-color: white;
+	opacity: 0.9;
+	border: solid lightgray 1px;
+	border-radius: 1rem;
+	box-shadow: 5px 4px 5px lightgray;
 }
 
-@media screen and (max-width: 400px) {
-	.sidebar a {
-		text-align: center;
-		float: none;
-	}
+.example-sidenav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 200px;
+	background: white;
+	margin-right: 1rem;
+	top: 60px;
+	bottom: 0;
+	left: 0;
+}
+
+.example-header {
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 3rem;
+}
+
+.example-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }

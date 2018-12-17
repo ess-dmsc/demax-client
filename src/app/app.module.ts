@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppConfigModule } from './app-config.module';
-import { CUSTOM_ELEMENTS_SCHEMA, Directive, NgModule, } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,13 +29,13 @@ import { LoadingComponent} from "./components/loading/loading.component";
 import { TestingComponent } from "./pages/testing.component";
 import { MessageService }       from './services/message.service';
 import { HttpErrorHandler }     from './services/http-error-handler.service';
-import { ProposalComponent } from './proposal/proposal.component';
-import { ProposalListComponent } from './proposal-list/proposal-list.component';
+import { ListUploadComponent } from "./components/upload/list-upload/list-upload.component";
+import { FormUploadComponent } from "./components/upload/form-upload/form-upload.component";
+import { DetailsUploadComponent } from "./components/upload/details-upload/details-upload.component";
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
 };
-@Directive({ selector: '[ng2FileSelect]' })
 
 @NgModule({
 	declarations: [
@@ -46,14 +46,15 @@ export const tokenGetter = () => {
 		ContactComponent,
 		NotFoundComponent,
 		RegisterComponent,
+		ListUploadComponent,
+		FormUploadComponent,
+		DetailsUploadComponent,
 		LoadingComponent,
 		LoginComponent,
 		LogoutComponent,
 		ProposalsComponent,
 		TestingComponent,
-		UserComponent,
-		ProposalComponent,
-		ProposalListComponent
+		UserComponent
 	],
 	imports: [
 		BrowserModule,
@@ -64,6 +65,7 @@ export const tokenGetter = () => {
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
+
 		HttpModule,
 		MaterialModule,
 		JwtModule.forRoot({

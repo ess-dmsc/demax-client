@@ -1,12 +1,17 @@
 .proposal-list{
-	width: 100%;
-	margin: 2rem auto;
-}
-.createProposal{
-	width: 80%;
-	margin: 2rem auto;
 }
 
+.editProposal{
+	margin-left: 2rem;
+	margin-top: 2rem;
+}
+mat-checkbox{
+	margin: 2rem;
+	display: block;
+}
+mat-radio-button{
+	margin: 2rem;
+}
 .tab-4 tr{
 	padding: 1rem;
 }
@@ -15,11 +20,24 @@
 	margin: 0 auto;
 }
 mat-form-field{
-	width: 80%;
+	width: 60%;
 	margin: 1rem auto;
 }
-mat-card-footer{
-	display: flex;
-	justify-content: space-between;
+
+button{
+	margin: 2rem;
+}
+.smallFormField{
+	width: 300px;
 }
 
+table {
+	width: 100%;
+}
+mat-expansion-panel{
+	width: 100%;
+}
+mat-action-row{
+	display: flex;
+	justify-content: center;
+}

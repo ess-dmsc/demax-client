@@ -4,57 +4,115 @@ import { AuthService } from "../services/auth.service";
 @Component({
 	selector: 'app-home',
 	template: `
-		<mat-card style="max-width: 900px; margin: 0;">
-			<mat-card-header>
-				<mat-card-title>Welcome to the DEMAX user portal for deuteration & crystallization
-					support!
-				</mat-card-title>
+		<style>
+			.wrapper {
+				margin: 3rem;
+			}
 
-			</mat-card-header>
-			<mat-card-content>
-				<p> Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
-					deuteration/crystallization proposal. General enquiries can be sent to: <a
-							href="mailto:demax@esss.se">demax@esss.se</a>
+			.jumbotron {
+				padding: 3rem;
+				width: 80%;
+			}
+
+			.card-group {
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			.card {
+				border: 0.5px solid lightgray;
+				padding: 3rem;
+				width: 40%;
+				margin: 3rem;
+			}
+		</style>
+		<div class="wrapper">
+
+			<div class="jumbotron">
+				<h1 class="display-4">Welcome</h1>
+				<p class="lead">to the DEMAX user portal for deuteration & crystallization support!</p>
+				<hr class="my-4">
+				<p>Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
+					deuteration/crystallization proposal.
+					<br>General enquiries can be sent to:
+					<a href="mailto:demax@esss.se">demax@esss.se</a>
 					or to one of the<a routerLink="/contact"> subject matter experts.</a></p>
-				<ul>
-					<li> Proposals should be written in English, properly referenced, and prepared in the <a
-							href="http://localhost:8080/word/attachment">Word template.</a> Please keep to the 2
-						page limit, including Summary, Background (Science Case, Practical Consideration, References,
-						Figures/Tables)
-					</li>
-					<li> Access to DEMAX is granted on the basis of both a technical and a peer-review process.</li>
-					<li> Proposals awarded during initial operations (2019-2022) will be free of charge. During formal
-						user
-						operations (beyond 2023) we reserve the right to ask for partial financial contributions towards
-						consumables
-						& shipping costs.
-					</li>
-					<li> During initial operations we will not limit access to DEMAX based on ESS-membership. Beyond
-						this
-						period
-						we
-						will respect the user access policy that will be applicable ESS-wide.
-					</li>
-					<li> Biological and chemical deuteration proposals are run as a service but users for protein
-						crystallization
-						are welcome to come in person as well.
-					</li>
-				</ul>
-			</mat-card-content>
-			<mat-card-actions>
-				<button mat-raised-button style="background-color: #005CBF; color: white;" routerLink="/proposal-detail">Create new proposal</button>
-				<button mat-raised-button style="background-color: red; color: white;" routerLink="/proposals">Edit existing proposal</button>
-			</mat-card-actions>
-			<mat-card-footer>
 
-			</mat-card-footer>
-		</mat-card>
-		<mat-card>
-			<form action="/upload" enctype="multipart/form-data" method="post">
-				<input type="file" name="upload" multiple>
-				<input type="submit" value="Upload">
-			</form>
-		</mat-card>
+				<p class="lead">
+					<a class="btn btn-primary btn-lg" href="#" role="button" routerLink="/proposals">Create new
+						proposal</a>
+				</p>
+				<br>
+				<a href="http://localhost:8080/word/attachment">
+					<button mat-raised-button class="btn btn-success">
+						<mat-icon>get_app</mat-icon>
+						Download proposal template
+					</button>
+				</a>
+			</div>
+			
+			<mat-card>
+			<ul>
+				<li> Proposals should be written in English, properly referenced, and prepared in the <a
+						href="http://localhost:8080/word/attachment">Word template.</a> Please keep to the 2
+					page limit, including Summary, Background (Science Case, Practical Consideration, References,
+					Figures/Tables)
+				</li>
+				<li> Access to DEMAX is granted on the basis of both a technical and a peer-review process.</li>
+				<li> Proposals awarded during initial operations (2019-2022) will be free of charge. During formal
+					user
+					operations (beyond 2023) we reserve the right to ask for partial financial contributions towards
+					consumables
+					& shipping costs.
+				</li>
+				<li> During initial operations we will not limit access to DEMAX based on ESS-membership. Beyond
+					this
+					period
+					we
+					will respect the user access policy that will be applicable ESS-wide.
+				</li>
+				<li> Biological and chemical deuteration proposals are run as a service but users for protein
+					crystallization
+					are welcome to come in person as well.
+				</li>
+				<li>
+					Proposals awarded during initial operations (2019-2021) will be free of charge. During formal user operations (beyond 2023) we reserve the right to ask for partial financial contributions towards consumables & shipping costs.
+					Options
+				</li>
+			</ul>
+				<mat-action-row>
+					<mat-checkbox style="margin: 2rem;">I acknowledge the terms and conditions above</mat-checkbox>
+					<br>
+					<button style="margin: 2rem;" mat-raised-button color="primary">Create new proposal</button>
+				</mat-action-row>
+			</mat-card>
+			<mat-card>
+				<mat-action-row>
+					<h4>Upcoming deadlines</h4>
+				</mat-action-row>
+				<table mat-table [dataSource]="cycles" class="mat-elevation-z8" style="width: 100%;">>
+
+					<ng-container matColumnDef="cycleId">
+						<th mat-header-cell *matHeaderCellDef> Cycle ID</th>
+						<td mat-cell *matCellDef="let cycle"> {{cycle.cycleId}}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="date">
+						<th mat-header-cell *matHeaderCellDef> Date </th>
+						<td mat-cell *matCellDef="let cycle"> {{cycle.date}}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="review">
+						<th mat-header-cell *matHeaderCellDef> Review</th>
+						<td mat-cell *matCellDef="let cycle"> {{cycle.review}}</td>
+					</ng-container>
+					
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+				</table>
+			</mat-card>
+		</div>
+
 	`
 })
 export class HomeComponent implements OnInit {
@@ -62,6 +120,26 @@ export class HomeComponent implements OnInit {
 	constructor(public auth: AuthService) {
 	}
 
+	displayedColumns: string[] = [ 'cycleId', 'date', 'review' ];
+
 	ngOnInit() {
 	}
+
+	cycles: object[] = [
+		{
+			cycleId: '001',
+			date: '2018-02-01',
+			review: '2018-03-01'
+		},
+		{
+			cycleId: '002',
+			date: '2018-04-01',
+			review: '2018-05-01'
+		},
+		{
+			cycleId: '003',
+			date: '2018-05-01',
+			review: '2018-06-01'
+		}
+	];
 }
