@@ -8,7 +8,7 @@ import {
 	HttpRequest
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Proposal } from './proposal';
+import { Proposal } from './models/proposal';
 import { APP_CONFIG, AppConfig } from "./app-config.module";
 import { catchError, last, map, tap } from "rxjs/operators";
 import { MessageService } from "./services/message.service";

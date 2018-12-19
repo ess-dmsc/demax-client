@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TestService } from "../services/test.service";
 import { AuthService } from "../services/auth.service";
 import { ProposalService } from "../proposal.service";
-import { FormControl } from "@angular/forms";
-import { Proposal } from '../proposal';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from "@angular/forms";
+import { Proposal } from '../models/proposal';
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
@@ -19,50 +19,109 @@ import { HttpClient } from "@angular/common/http";
 			#pbdIdReferenceAttachment {
 				box-shadow: 3px 3px 3px black;
 			}
+
+			mat-form-field {
+				margin: 1rem;
+			}
 		</style>
-		<mat-card>
-			<mat-card-header>
-				<mat-card-title>TestComponent</mat-card-title>
-			</mat-card-header>
-			<mat-card-content>
-				<form enctype="multipart/form-data" method="post">
-					<div>
-						<label for="picked">Attach reference</label>
-						<div>
-							<input type="file" id="picked" name="needByDateAttachment" #picked (click)="message=''"
-							       (change)="onPicked(picked)">
-						</div>
-						<br>
-						<mat-divider></mat-divider>
-						<br>
-						<mat-form-field>
-							<input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date">
-							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-							<mat-datepicker #picker></mat-datepicker>
-						</mat-form-field>
+		<mat-card style="width: 50%; margin: 2rem auto;">
+			<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+				<mat-action-row><h4>Test form</h4></mat-action-row>
+				<mat-form-field>
+					<input matInput formControlName="email" placeholder="Email">
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput formControlName="message" placeholder="Message">
+				</mat-form-field>
+				<div formArrayName="coProposers">
+					<div *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
+						<mat-card style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+						<span>
+							
+									<mat-form-field style="display: inline; width: 50%;">
+										<input matInput formControlName="firstName" placeholder="First name">
+									</mat-form-field>
+									<mat-form-field style="display: inline; width: 50%;">
+										<input matInput formControlName="lastName" placeholder="Last name">
+									</mat-form-field>
+									<mat-form-field>
+										<input matInput formControlName="email" placeholder="Email">
+									</mat-form-field>
+									<mat-form-field>
+										<input matInput formControlName="affiliation" placeholder="Affiliation">
+									</mat-form-field>
+													</span>
+
+							<span>
+																		<button (click)="deleteCoProposer(i)">Delete</button>
+
+								</span>
+						</mat-card>
+
 					</div>
-					<p *ngIf="message">{{message}}</p>
-				</form>
-				<form-upload></form-upload>
-				<list-upload></list-upload>
-			</mat-card-content>
+				</div>
+
+				<button (click)="addCoProposer()">Add Co-Proposer</button>
+
+
+				<mat-form-field style="width: 50%;">
+					<input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date">
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+				<mat-action-row>
+					<button mat-raised-button class="btn btn-success" type="submit">Submit</button>
+				</mat-action-row>
+			</form>
 		</mat-card>
 
 	`,
 	providers: [ TestService ]
 
 })
-export class TestingComponent {
+export class TestingComponent implements OnInit {
 	date = new FormControl(new Date());
 	message: string;
-	templateString: 'huffe';
-	private proposal: Proposal;
+	myForm: FormGroup;
 
 	constructor(
 		private uploaderService: TestService,
 		public auth: AuthService,
-		private http: HttpClient
+		private http: HttpClient,
+		private fb: FormBuilder
 	) {
+	}
+
+	onSubmit() {
+		console.log(this.myForm.value)
+	}
+
+	ngOnInit() {
+		this.myForm = this.fb.group({
+			email: '',
+			message: '',
+			coProposers: this.fb.array([])
+		})
+	}
+
+	get coProposerForms() {
+		return this.myForm.get('coProposers') as FormArray
+	}
+
+	addCoProposer() {
+		event.preventDefault();
+		const coProposer = this.fb.group({
+			firstName: [],
+			lastName: [],
+			email: [],
+			affiliation: []
+		})
+
+		this.coProposerForms.push(coProposer);
+	}
+
+	deleteCoProposer(i) {
+		this.coProposerForms.removeAt(i)
 	}
 
 	onPicked(input: HTMLInputElement) {
@@ -81,10 +140,11 @@ export class TestingComponent {
 	getFiles(): Observable<any> {
 		return this.http.get(`http://localhost:8080/api/files/`);
 	}
-	deleteFile( file: String): Observable<any> {
+
+	deleteFile(file: String):
+		Observable<any> {
 		return this.http.delete(`/api/files/`);
 	}
+
+
 }
-
-
-//name="{{proposalService.currentProposal._id + '-' + auth.currentUser._id}}"

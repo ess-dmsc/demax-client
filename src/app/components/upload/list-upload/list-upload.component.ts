@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UploadFileService } from '../upload-file.service';
-import { Proposal } from "../../../proposal";
+import { Proposal } from "../../../models/proposal";
 import { HttpClient } from "@angular/common/http";
 
 @Component({

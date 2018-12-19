@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
 import { ProposalService } from '../proposal.service';
-import { Proposal } from '../proposal';
+import { Proposal } from '../models/proposal';
 import { AuthService } from "../services/auth.service";
 import { TestService } from "../services/test.service";
 import { catchError, last, map, tap } from "rxjs/operators";
@@ -54,42 +54,40 @@ export class ProposalsComponent implements OnInit {
 	addProposalForm: FormGroup;
 
 	proposalForm = this.formBuilder.group({
+		proposalId: [''],
 		dateCreated: [ '' ],
-
 		experimentTitle: [ '' ],
 		briefSummary: [ '' ],
-
 		mainProposerFirstName: [ ' ' ],
 		mainProposerLastName: [ ' ' ],
 		mainProposerEmail: [ ' ' ],
 		mainProposerPhone: [ ' ' ],
 		mainProposerAffiliationName: [ '' ],
-		mainProposerAffiliationPhone: [ '' ],
 		mainProposerAffiliationStreet: [ '' ],
+		mainProposerAffiliationZipCode: [ '' ],
 		mainProposerAffiliationCity: [ '' ],
 		mainProposerAffiliationCountry: [ '' ],
-		country: [ '' ],
 		coProposers: this.formBuilder.array(
 			[
 				{
-					firstName: [ ' ' ],
-					lastName: [ ' ' ],
-					email: [ ' ' ],
-					phone: [ ' ' ],
-					affiliation: [ '' ]
+					coProposerFirstName: [ ' ' ],
+					coProposerLastName: [ ' ' ],
+					coProposerEmail: [ ' ' ],
+					coProposerPhone: [ ' ' ],
+					coProposerAffiliation: [ '' ]
 				}
 			]),
 		needByDate: [ '' ],
 		needByDateMotivation: [ '' ],
+		lab: [ '' ],
+		linksWithIndustry: false,
+		coProposerStudents: false,
+		workTowardsStudentsDegree: false,
 		wantsCrystallization: false,
 		wantsBiomassDeuteration: false,
 		wantsProteinDeuteration: false,
 		wantsOtherDeuteration: false,
 		wantsChemicalDeuteration: false,
-		linksWithIndustry: false,
-		workTowardsStudentsDegree: false,
-		coProposerStudents: false,
-		lab: [ '' ],
 		crystallization: this.formBuilder.group({
 			moleculeName: [ '' ],
 			moleculeIdentifier: [ '' ],
@@ -111,19 +109,13 @@ export class ProposalsComponent implements OnInit {
 			other: [ '' ]
 		}),
 		biomassDeuteration: this.formBuilder.group({
-			organismProvidedByUser: [ '' ],
+			organismProvidedByUser: false,
 			organismDetails: [ '' ],
 			amountNeeded: [ '' ],
 			stateOfMaterial: [ '' ],
 			amountOfMaterialMotivation: [ '' ],
 			deuterationLevelRequired: [ '' ],
 			deuterationLevelMotivation: [ '' ]
-		}),
-		bioSafety: this.formBuilder.group({
-			bioSafetyContainmentLevel: [ '' ],
-			organismRisk: [ '' ],
-			organismRiskDetails: [ '' ],
-			other: []
 		}),
 		proteinDeuteration: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -132,18 +124,25 @@ export class ProposalsComponent implements OnInit {
 			oligomerizationState: [ '' ],
 			expressionRequirements: [ '' ],
 			moleculeOrigin: [ '' ],
-			expressionPlasmidProvidedByUser: [ '' ],
+			expressionPlasmidProvidedByUser: false,
 			expressionPlasmidProvidedByUserDetails: [ '' ],
 			amountNeeded: [ '' ],
 			amountNeededMotivation: [ '' ],
 			deuterationLevelRequired: [ '' ],
 			deuterationLevelMotivation: [ '' ],
-			needsPurificationSupport: [ '' ],
-			hasDoneUnlabeledProteinExpression: [ '' ],
-			hasDonePurification: [ '' ],
-			hasProteinPurificationExperience: [ '' ],
+			needsPurificationSupport: false,
+			hasDoneUnlabeledProteinExpression: false,
+			typicalYield: [''],
+			hasDonePurification: false,
+			hasProteinPurificationExperience: false,
 			proteinDeuterationResults: [ '' ],
 			other: [ '' ]
+		}),
+		bioSafety: this.formBuilder.group({
+			bioSafetyContainmentLevel: [''],
+			organismRisk: false,
+			organismRiskDetails: [''],
+			other: ['']
 		}),
 		chemicalDeuteration: this.formBuilder.group({
 			moleculeName: [ '' ],
@@ -151,16 +150,21 @@ export class ProposalsComponent implements OnInit {
 			amountMotivation: [ '' ],
 			deuterationLocationAndPercentage: [ '' ],
 			deuterationLevelMotivation: [ '' ],
-			hasPreviousProductionExperience: [ '' ],
+			hasPreparedMolecule: [ '' ],
+			hasPreparedMoleculeProtocol: [''],
+			other: ['']
 		}),
+		submitted: false,
+		other: [''],
 		needByDateAttachment: [ '' ],
 		pbdIdReferenceAttachment: [ '' ],
 		organismReferenceAttachment: [ '' ],
 		needsPurificationSupportAttachment: [ '' ],
 		chemicalStructureAttachment: [ '' ],
+		moleculePreparationReferenceArticle:[''],
 		proposalTemplate: [ '' ],
 		generatedProposal: [ '' ],
-		mergedPdfFile: [ '' ],
+		mergedProposal: [ '' ],
 	});
 
 	constructor(

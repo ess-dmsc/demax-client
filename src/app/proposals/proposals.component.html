@@ -52,6 +52,7 @@
 	</mat-card>
 </section>
 
+
 <section *ngIf="isEditing" class="editProposal">
 	<form (ngSubmit)="editProposal(proposal)">
 		<mat-tab-group [(selectedIndex)]="selectedIndex">
@@ -80,7 +81,22 @@
 				<mat-form-field class="smallFormField"><input matInput [(ngModel)]="proposal.mainProposerEmail"
 				                                              name="mainProposerEmail" placeholder="email">
 				</mat-form-field>
-				<h4>Affiliation</h4>
+				<mat-form-field class="smallFormField"><input matInput [(ngModel)]="proposal.mainProposerAffiliationName"
+				                                              name="mainProposerEmail" placeholder="Employer">
+				</mat-form-field>
+				<mat-form-field class="smallFormField"><input matInput [(ngModel)]="proposal.mainProposerAffiliationStreet"
+				                                              name="mainProposerEmail" placeholder="Street">
+				</mat-form-field>
+				<mat-form-field class="smallFormField"><input matInput [(ngModel)]="proposal.mainProposerAffiliationZipCode"
+				                                              name="mainProposerEmail" placeholder="Zipcode">
+				</mat-form-field>
+				<mat-form-field class="smallFormField"><input matInput [(ngModel)]="proposal.mainProposerAffiliationCity"
+				                                              name="mainProposerEmail" placeholder="City">
+				</mat-form-field>
+				<mat-form-field class="smallFormField"><input matInput [(ngModel)]="proposal.mainProposerAffiliationCountry"
+				                                              name="mainProposerEmail" placeholder="Country">
+				</mat-form-field>
+
 				<mat-radio-group [(ngModel)]="proposal.linksWithIndustry" name="proposal.linksWithIndustry">
 					<p>Links with industry?</p>
 					<mat-radio-button value="true">Yes</mat-radio-button>
@@ -91,7 +107,7 @@
 					<mat-radio-button value="true">Yes</mat-radio-button>
 					<mat-radio-button value="false">No</mat-radio-button>
 				</mat-radio-group>
-				<mat-radio-group *ngIf="proposal.coProposerStudents === true" [disabled] [(ngModel)]="proposal.workTowardsStudentsDegree" name="proposal.workTowardsStudentsDegree">
+				<mat-radio-group [(ngModel)]="proposal.workTowardsStudentsDegree" name="proposal.workTowardsStudentsDegree">
 					<p>Does the proposal work towards a students degree?</p>
 					<mat-radio-button value="true">Yes</mat-radio-button>
 					<mat-radio-button value="false">No</mat-radio-button>
