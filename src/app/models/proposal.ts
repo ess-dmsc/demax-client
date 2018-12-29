@@ -24,9 +24,9 @@ export class Proposal {
 	needByDate?: string;
 	needByDateMotivation?: string;
 	lab?: string;
-	linksWithIndustry?: boolean;
-	coProposerStudents?: boolean;
-	workTowardsStudentsDegree?: boolean;
+	linksWithIndustry?: string;
+	coProposerStudents?: string;
+	workTowardsStudentsDegree?: string;
 	wantsCrystallization?: boolean;
 	wantsBiomassDeuteration?: boolean;
 	wantsProteinDeuteration?: boolean;
@@ -53,7 +53,7 @@ export class Proposal {
 		other?: string;
 	};
 	biomassDeuteration?: {
-		organismProvidedByUser?: boolean;
+		organismProvidedByUser?: string;
 		organismDetails?: string;
 		amountNeeded?: string;
 		amountNeededMotivation?: string;
@@ -68,23 +68,23 @@ export class Proposal {
 		oligomerizationState?: string;
 		expressionRequirements?: string;
 		moleculeOrigin?: string;
-		expressionPlasmidProvidedByUser?: boolean;
+		expressionPlasmidProvidedByUser?: string;
 		expressionPlasmidProvidedByUserDetails?: string;
 		amountNeeded?: string;
 		amountNeededMotivation?: string;
 		deuterationLevelRequired?: string;
 		deuterationLevelMotivation?: string;
 		needsPurificationSupport?: string;
-		hasDoneUnlabeledProteinExpression?: boolean;
+		hasDoneUnlabeledProteinExpression?: string;
 		typicalYield?: string;
-		hasDonePurification?: boolean;
+		hasDonePurification?: string;
 		hasProteinPurificationExperience?: string;
 		proteinDeuterationResults?: string;
-		other?: boolean;
+		other?: string;
 	};
 	bioSafety?: {
 		bioSafetyContainmentLevel?: string;
-		organismRisk?: boolean;
+		organismRisk?: string;
 		organismRiskDetails?: string;
 		other?: string;
 	};
@@ -98,7 +98,7 @@ export class Proposal {
 		hasPreparedMoleculeProtocol?: string;
 		other?: string;
 	};
-	submitted?: boolean;
+	submitted?: string;
 	other?: string;
 	needByDateAttachment?: string;
 	pbdIdReferenceAttachment?: string;
