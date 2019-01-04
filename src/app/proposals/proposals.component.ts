@@ -9,7 +9,7 @@ import { catchError, last, map, tap } from "rxjs/operators";
 import { MessageService } from "../services/message.service";
 import { Observable } from "rxjs";
 import { UploadFileService } from "../components/upload/upload-file.service";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatStep } from "@angular/material";
 
 @Component({
 	selector: 'app-proposals',
