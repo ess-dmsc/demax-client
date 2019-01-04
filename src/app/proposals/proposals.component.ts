@@ -54,7 +54,6 @@ export class ProposalsComponent implements OnInit {
 	addProposalForm: FormGroup;
 
 	proposalForm = this.formBuilder.group({
-		proposalId: [''],
 		dateCreated: [ '' ],
 		experimentTitle: [ '' ],
 		briefSummary: [ '' ],

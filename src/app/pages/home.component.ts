@@ -11,24 +11,15 @@ import { AuthService } from "../services/auth.service";
 
 			.jumbotron {
 				padding: 3rem;
-				width: 80%;
+				width: 800px;
 			}
-
-			.card-group {
-				display: flex;
-				flex-wrap: wrap;
-			}
-
-			.card {
-				border: 0.5px solid lightgray;
-				padding: 3rem;
-				width: 40%;
-				margin: 3rem;
+			table{
+				width: 300px;
 			}
 		</style>
-		<div class="wrapper">
+		<div class="wrapper" style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
 
-			<div class="jumbotron">
+			<div class="jumbotron jumbotron-fluid">
 				<h1 class="display-4">Welcome</h1>
 				<p class="lead">to the DEMAX user portal for deuteration & crystallization support!</p>
 				<hr class="my-4">
@@ -50,7 +41,27 @@ import { AuthService } from "../services/auth.service";
 					</button>
 				</a>
 			</div>
-			
+			<mat-card>
+				<table mat-table [dataSource]="cycles" class="mat-elevation-z8" style="width: 100%;">
+					<ng-container matColumnDef="cycleId">
+						<th mat-header-cell *matHeaderCellDef> Cycle ID</th>
+						<td mat-cell *matCellDef="let cycle"> {{cycle.cycleId}}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="date">
+						<th mat-header-cell *matHeaderCellDef> Date </th>
+						<td mat-cell *matCellDef="let cycle"> {{cycle.date}}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="review">
+						<th mat-header-cell *matHeaderCellDef> Review</th>
+						<td mat-cell *matCellDef="let cycle"> {{cycle.review}}</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+				</table>
+			</mat-card>
 			<mat-card>
 			<ul>
 				<li> Proposals should be written in English, properly referenced, and prepared in the <a
@@ -86,31 +97,7 @@ import { AuthService } from "../services/auth.service";
 					<button style="margin: 2rem;" mat-raised-button color="primary">Create new proposal</button>
 				</mat-action-row>
 			</mat-card>
-			<mat-card>
-				<mat-action-row>
-					<h4>Upcoming deadlines</h4>
-				</mat-action-row>
-				<table mat-table [dataSource]="cycles" class="mat-elevation-z8" style="width: 100%;">>
-
-					<ng-container matColumnDef="cycleId">
-						<th mat-header-cell *matHeaderCellDef> Cycle ID</th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.cycleId}}</td>
-					</ng-container>
-
-					<ng-container matColumnDef="date">
-						<th mat-header-cell *matHeaderCellDef> Date </th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.date}}</td>
-					</ng-container>
-
-					<ng-container matColumnDef="review">
-						<th mat-header-cell *matHeaderCellDef> Review</th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.review}}</td>
-					</ng-container>
-					
-					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-				</table>
-			</mat-card>
+			
 		</div>
 
 	`
