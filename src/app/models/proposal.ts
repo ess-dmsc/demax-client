@@ -1,4 +1,5 @@
 export class Proposal{
+	proposalId: string;
 	experimentTitle?: string;
 	briefSummary?: string;
 	mainProposerFirstName?: string;
