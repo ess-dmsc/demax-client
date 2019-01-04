@@ -84,7 +84,7 @@ export class Proposal {
 	};
 	bioSafety?: {
 		bioSafetyContainmentLevel?: string;
-		organismRisk?: boolean;
+		organismRisk?: string;
 		organismRiskDetails?: string;
 		other?: string;
 	};
@@ -98,7 +98,7 @@ export class Proposal {
 		hasPreparedMoleculeProtocol?: string;
 		other?: string;
 	};
-	submitted?: boolean;
+	submitted?: string;
 	other?: string;
 	needByDateAttachment?: string;
 	pbdIdReferenceAttachment?: string;
