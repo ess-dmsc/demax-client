@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
 		</style>
 		<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap; padding: 5rem 2rem;">
 			<div style="width: 30rem; border: solid lightgray 1px;">
-				<img src="../../assets/media/zoe-fisher.jpg" width="200" alt="Card image cap">
+				<img src="https://confluence.esss.lu.se/download/thumbnails/31753519/zoe.png?version=1&modificationDate=1425910949837&api=v2" alt="Card image cap">
 					<h4>Dr. Zoë Fisher</h4>
 					<p>Protein crystallization & biodeuteration</p>
 				<ul class="list-group list-group-flush">
@@ -26,7 +26,7 @@ import { Component, OnInit } from '@angular/core';
 				</ul>
 			</div>
 			<div style="width: 30rem; border: solid lightgray 1px;">
-				<img src="../../assets/media/zoe-fisher.jpg" width="200" alt="Card image cap">
+				<img src="https://confluence.esss.lu.se/download/thumbnails/41845148/user-avatar.png?version=3&modificationDate=1481116770986&api=v2" width="200" alt="Card image cap">
 				<div class="card-body">
 					<h4>Dr. Hanna Wacklin-Knecht</h4>
 					<p>Chemical & lipid/surfactant deuteration</p>
@@ -39,7 +39,7 @@ import { Component, OnInit } from '@angular/core';
 			</div>
 
 			<div style="width: 30rem; border: solid lightgray 1px;">
-				<img src="../../assets/media/zoe-fisher.jpg" width="200" alt="Card image cap">
+				<img src="https://confluence.esss.lu.se/download/thumbnails/41845148/Hanna.jpeg?version=2&modificationDate=1546521405212&api=v2" width="200" alt="Card image cap">
 				<div class="card-body">
 					<h4>Dr. Anna Leung</h4>
 					<p>Chemical deuteration & organic synthesis</p>

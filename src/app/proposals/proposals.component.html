@@ -68,36 +68,30 @@
 				</mat-form-field>
 				<h4>Main proposer</h4>
 				<mat-form-field class="smallFormField">
-					<input matInput name="mainProposerFirstName" [(ngModel)]="proposal.mainProposerFirstName || auth.currentUser.firstName" placeholder="First name">
+					<input matInput name="proposal.mainProposer.firstName" [(ngModel)]="proposal.mainProposer.firstName || auth.currentUser.firstName" placeholder="First name">
 				</mat-form-field>
 				<mat-form-field class="smallFormField">
-					<input matInput name="mainProposerLastName" [(ngModel)]="proposal.mainProposerLastName || auth.currentUser.lastName" placeholder="Last name">
+					<input matInput name="proposal.mainProposer.lastName" [(ngModel)]="proposal.mainProposer.lastName || auth.currentUser.lastName" placeholder="Last name">
 				</mat-form-field>
 				<br>
 				<mat-form-field class="smallFormField">
-					<input matInput [(ngModel)]="proposal.mainProposerPhone || auth.currentUser.phone" name="mainProposerPhone" placeholder="phone">
+					<input matInput [(ngModel)]="proposal.mainProposer.phone || auth.currentUser.phone" name="proposal.mainProposer.phone" placeholder="phone">
 				</mat-form-field>
 				<mat-form-field class="smallFormField">
-					<input matInput [(ngModel)]="proposal.mainProposerEmail || auth.currentUser.email" name="mainProposerEmail" placeholder="email">
+					<input matInput [(ngModel)]="proposal.mainProposer.email || auth.currentUser.email" name="proposal.mainProposer.email" placeholder="email">
 				</mat-form-field>
 				<br>
 				<h5>Affiliation</h5>
 				<mat-form-field class="smallFormField">
-					<input matInput [(ngModel)]="proposal.mainProposerAffiliationName" name="mainProposerAffiliationName" placeholder="Employer">
+					<input matInput [(ngModel)]="proposal.mainProposer.sector" name="proposal.mainProposer.sector" placeholder="Employer">
 				</mat-form-field>
 				<br>
 				<mat-form-field class="smallFormField">
-					<input matInput [(ngModel)]="proposal.mainProposerAffiliationStreet" name="mainProposerAffiliationStreet" placeholder="Street">
+					<input matInput [(ngModel)]="proposal.mainProposer.affiliation" name="proposal.mainProposer.affiliation" placeholder="Street">
 				</mat-form-field>
 				<br>
 				<mat-form-field class="smallFormField">
-					<input matInput [(ngModel)]="proposal.mainProposerAffiliationZipCode" name="mainProposerAffiliationZipCode" placeholder="Zipcode">
-				</mat-form-field>
-				<mat-form-field class="smallFormField">
-					<input matInput [(ngModel)]="proposal.mainProposerAffiliationCity" name="mainProposerAffiliationCity" placeholder="City">
-				</mat-form-field><br>
-				<mat-form-field class="smallFormField">
-					<input matInput [(ngModel)]="proposal.mainProposerAffiliationCountry" name="mainProposerAffiliationCountry" placeholder="Country">
+					<input matInput [(ngModel)]="proposal.mainProposer.title" name="proposal.mainProposer.title" placeholder="Zipcode">
 				</mat-form-field>
 
 				<mat-radio-group [(ngModel)]="proposal.linksWithIndustry" name="proposal.linksWithIndustry">
@@ -115,13 +109,11 @@
 					<mat-radio-button value="true">Yes</mat-radio-button>
 					<mat-radio-button value="false">No</mat-radio-button>
 				</mat-radio-group>
-
 				<br>
 
 				<h4>Final delivery date</h4>
-				<mat-form-field class="smallFormField"><input matInput [matDatepicker]="picker" style="width: 30%;"
-				                                              placeholder="Choose a date" [(ngModel)]="needByDate"
-				                                              name="needByDate">
+				<mat-form-field class="smallFormField">
+					<input matInput [matDatepicker]="picker" style="width: 30%;" placeholder="Choose a date" [(ngModel)]="needByDate" name="needByDate">
 					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 					<mat-datepicker #picker></mat-datepicker>
 				</mat-form-field>
@@ -419,8 +411,7 @@
 								       (change)="selectFile($event)">
 							</label>
 						</fieldset>
-						<mat-radio-group name="proteinDeuteration.hasDoneUnlabeledProteinExpression"
-						                 [(ngModel)]="proposal.proteinDeuteration.hasDoneUnlabeledProteinExpression">
+						<mat-radio-group  [(ngModel)]="proposal.proteinDeuteration.hasDoneUnlabeledProteinExpression" name="proposal.proteinDeuteration.hasDoneUnlabeledProteinExpression">
 							<p>Has expression been done for the unlabeled protein?</p>
 							<mat-radio-button value="yes">Yes</mat-radio-button>
 							<mat-radio-button value="no">No</mat-radio-button>
@@ -428,14 +419,13 @@
 						<mat-form-field>
 							<input matInput type="text" placeholder="Typical yield" [(ngModel)]="proposal.proteinDeuteration.typicalYield">
 						</mat-form-field>
-						<mat-radio-group name="proteinDeuteration.hasPurifiedUnlabeledProtein"
-						                 [(ngModel)]="proposal.proteinDeuteration.hasPurifiedUnlabeledProtein">
+						<mat-radio-group [(ngModel)]="proposal.proteinDeuteration.hasPurifiedUnlabeledProtein" name="proteinDeuteration.hasPurifiedUnlabeledProtein">
 							<p> Have you been able to purify the unlabeled protein?</p>
 							<mat-radio-button value="yes">Yes</mat-radio-button>
 							<mat-radio-button value="no">No</mat-radio-button>
 							<p><em>Please include chromatogram & image of SDS-PAGE in proposal</em></p>
 						</mat-radio-group>
-						<mat-radio-group name="proteinDeuteration.hasProteinDeuterationExperience" [(ngModel)]="proposal.proteinDeuteration.hasProteinDeuterationExperience">
+						<mat-radio-group [(ngModel)]="proposal.proteinDeuteration.hasProteinDeuterationExperience" name="proteinDeuteration.hasProteinDeuterationExperience">
 							<p>Have you tried to deuterate the protein yourself, even in small scale?</p>
 							<mat-radio-button value="yes">Yes</mat-radio-button>
 							<mat-radio-button value="no">No</mat-radio-button>
@@ -448,12 +438,12 @@
 						</mat-action-row>
 					</mat-expansion-panel>
 					<h4>Biosafety</h4>
-					<mat-radio-group name="proposal.bioSafety.bioSafetyContainmentLevel" [(ngModel)]="proposal.bioSafety.bioSafetyContainmentLevel">
+					<mat-radio-group [(ngModel)]="proposal.bioSafety.bioSafetyContainmentLevel" name="proposal.bioSafety.bioSafetyContainmentLevel">
 						<p>Which biosafety containment level is required to work with your sample?</p>
 						<mat-radio-button value="l1">L1</mat-radio-button>
 						<mat-radio-button value="l2">L2</mat-radio-button>
 					</mat-radio-group>
-					<mat-radio-group name="proposal.bioSafety.organismRisk" [(ngModel)]="proposal.bioSafety.organismRisk">
+					<mat-radio-group [(ngModel)]="proposal.bioSafety.organismRisk" name="proposal.bioSafety.organismRisk">
 						<p>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the environment?</p>
 						<mat-radio-button value="yes">Yes</mat-radio-button>
 						<mat-radio-button value="no">No</mat-radio-button>
