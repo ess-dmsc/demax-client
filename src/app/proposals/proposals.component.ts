@@ -62,7 +62,7 @@ export class ProposalsComponent implements OnInit {
 			lastName: [''],
 			email: [''],
 			phone: [''],
-			affiliation: [''],
+			employer: [''],
 			sector: [''],
 			title: [''],
 		}),
@@ -279,5 +279,15 @@ export class ProposalsComponent implements OnInit {
 		});
 		this.selectedFiles = undefined;
 	}
-
+	/*
+	deleteFile(){
+		this.proposalService.deleteFile(file).subscribe(
+			() => {
+				const newFileArray = this.files.map(element => element.proposalId).indexOf(proposal.proposalId);
+				this.files.splice(newFileArray, 1);
+				this.getProposals();
+			},
+			error => console.log(error)
+		);
+	}*/
 }

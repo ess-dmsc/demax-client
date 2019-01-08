@@ -41,7 +41,8 @@ import { AuthService } from "../services/auth.service";
 					</button>
 				</a>
 			</div>
-			<mat-card>
+			<div style="width: 300px;">
+				<mat-action-row>Upcoming deadlines</mat-action-row>
 				<table mat-table [dataSource]="cycles" class="mat-elevation-z8" style="width: 100%;">
 					<ng-container matColumnDef="cycleId">
 						<th mat-header-cell *matHeaderCellDef> Cycle ID</th>
@@ -61,7 +62,7 @@ import { AuthService } from "../services/auth.service";
 					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 				</table>
-			</mat-card>
+			</div>
 			<mat-card>
 			<ul>
 				<li> Proposals should be written in English, properly referenced, and prepared in the <a
@@ -90,11 +91,15 @@ import { AuthService } from "../services/auth.service";
 					Proposals awarded during initial operations (2019-2021) will be free of charge. During formal user operations (beyond 2023) we reserve the right to ask for partial financial contributions towards consumables & shipping costs.
 					Options
 				</li>
+				
+				<p>*<em>Users should note that the contributions by DEMAX should be acknowledged in any publications containing materials obtained from us. For particularly challenging projects that require above average involvement from DEMAX, relevant DEMAX staff should be acknowledged through co-authorship of any subsequent publications.
+				</em></p>
 			</ul>
 				<mat-action-row>
 					<mat-checkbox style="margin: 2rem;">I acknowledge the terms and conditions above</mat-checkbox>
-					<br>
-					<button style="margin: 2rem;" mat-raised-button color="primary">Create new proposal</button>
+					<button mat-raised-button color="primary" routerLink="/proposals">
+						Create new proposal
+					</button>
 				</mat-action-row>
 			</mat-card>
 			

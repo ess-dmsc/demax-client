@@ -1,11 +1,11 @@
 <ng-container *ngIf="auth.loggedIn">
 	<mat-toolbar *ngIf="auth.loggedIn" class="topnav">
 	<span>
-<a routerLink="/" class="top-logo" style="background-color: #009EDD;">
+<a routerLink="/home" class="top-logo" style="background-color: #009EDD;">
 	<h2>DEMAX User Portal</h2>
 			</a>	</span>
 		<span>
-		<a *ngIf="auth.loggedIn" href="/user">Welcome, {{auth.currentUser.firstName}} {{auth.currentUser.lastName}}</a>
+		<a *ngIf="auth.loggedIn" routerLink="/home">Welcome, {{auth.currentUser.firstName}} {{auth.currentUser.lastName}}</a>
 	<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/user">Settings</a>
 	<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/logout">Logout</a>
 	</span>
@@ -18,7 +18,6 @@
 			<a routerLink="/contact">Contact</a>
 			<a href="http://localhost:8080/word/attachment">Proposal template</a>
 			<a routerLink="/admin">Admin</a>
-			<a routerLink="/test">TestComponent</a>
 		</mat-sidenav>
 
 		<mat-sidenav-content>

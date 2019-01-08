@@ -1,61 +1,111 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { User} from "../models/user";
+import { User } from "../models/user";
+import { ProposalService } from "../proposal.service";
+import { Proposal } from "../models/proposal";
 
 @Component({
 	selector: 'app-admin',
-	template:`
-	<style>
-		
-	</style>
+	template: `
+		<style>
 
-	<div class="card">
-		<h4 class="card-header">Registered users ({{users.length}})</h4>
-		<div class="card-body">
-			<table class="table table-bordered">
-				<thead class="thead-light">
-				<tr>
-					<th scope="col">First name</th>
-										<th scope="col">Last name</th>
-					<th scope="col">Email</th>
-					<th scope="col">Role</th>
-					<th scope="col">Actions</th>
-				</tr>
-				</thead>
-				<tbody *ngIf="users.length === 0">
-				<tr>
-					<td colspan="4">There are no registered users.</td>
-				</tr>
-				</tbody>
-				<tbody>
-				<tr *ngFor="let user of users">
-					<td>{{user.firstName}}</td>
-					<td>{{user.lastName}}</td>
-					<td>{{user.email}}</td>
-					<td>{{user.role}}</td>
-					<td>
-						<button class="btn btn-sm btn-danger" (click)="deleteUser(user)"
-						        [disabled]="auth.currentUser._id === user._id">
-							<i class="fa fa-trash"></i> Delete
-						</button>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+		</style>
+
+		<div class="card">
+			<h4 class="card-header">Registered users ({{users.length}})</h4>
+			<div class="card-body">
+				<table class="table table-bordered">
+					<thead class="thead-light">
+					<tr>
+						<th scope="col">First name</th>
+						<th scope="col">Last name</th>
+						<th scope="col">Email</th>
+						<th scope="col">Role</th>
+						<th scope="col">Actions</th>
+					</tr>
+					</thead>
+					<tbody *ngIf="users.length === 0">
+					<tr>
+						<td colspan="4">There are no registered users.</td>
+					</tr>
+					</tbody>
+					<tbody>
+					<tr *ngFor="let user of users">
+						<td>{{user.firstName}}</td>
+						<td>{{user.lastName}}</td>
+						<td>{{user.email}}</td>
+						<td>{{user.role}}</td>
+						<td>
+							<button class="btn btn-sm btn-danger" (click)="deleteUser(user)"
+							        [disabled]="auth.currentUser._id === user._id">
+								<i class="fa fa-trash"></i> Delete
+							</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</div>`
+		<div class="card">
+			<h4 class="card-header">All proposals ({{proposals.length}})</h4>
+			<div class="card-body">
+				<table class="table table-bordered">
+					<thead class="thead-light">
+					<tr>
+						<th scope="col">Proposal ID</th>
+						<th scope="col">Experiment title</th>
+						<th scope="col">Main proposer</th>
+						<th scope="col">Score</th>
+						<th scope="col">Actions</th>
+					</tr>
+					</thead>
+					<tbody *ngIf="proposals.length === 0">
+					<tr>
+						<td colspan="4">There are no proposals.</td>
+					</tr>
+					</tbody>
+					<tbody>
+					<tr *ngFor="let proposal of proposals">
+						<td>{{proposal.proposalId}}</td>
+						<td>{{proposal.experimentTitle}}</td>
+						<td>{{proposal.mainProposer.email}}</td>
+						<td></td>
+						<td>
+							<button class="btn btn-sm btn-danger" (click)="deleteProposal(proposal)">
+								<i class="fa fa-trash"></i> Delete
+							</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>`
 })
 export class AdminComponent implements OnInit {
 
+	proposals: Proposal[] = [];
 	users: User[] = [];
 	isLoading = true;
 
-	constructor(public auth: AuthService,
-	            private userService: UserService) { }
+	constructor(
+		public auth: AuthService,
+		private userService: UserService,
+		private proposalService: ProposalService
+	) {
+	}
 
 	ngOnInit() {
 		this.getUsers();
+		this.getProposals();
+	}
+
+	getProposals() {
+		this.proposalService.getProposals().subscribe(
+			data => this.proposals = data,
+			error => console.log(error),
+			() => this.isLoading = false
+		)
 	}
 
 	getUsers() {
@@ -67,9 +117,17 @@ export class AdminComponent implements OnInit {
 	}
 
 	deleteUser(user: User) {
-		if (window.confirm('Are you sure you want to delete ' + user.email + '?')) {
+		if(window.confirm('Are you sure you want to delete ' + user.email + '?')) {
 			this.userService.deleteUser(user).subscribe(
 				() => this.getUsers()
+			);
+		}
+	}
+
+	deleteProposal(proposal: Proposal) {
+		if(window.confirm('Are you sure you want to delete ' + proposal.mainProposer.email + '?')) {
+			this.proposalService.deleteProposal(proposal).subscribe(
+				() => this.getProposals()
 			);
 		}
 	}

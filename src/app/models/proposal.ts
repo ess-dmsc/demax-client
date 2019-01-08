@@ -7,7 +7,7 @@ export class Proposal {
 		lastName?: string;
 		email?: string;
 		phone?: string;
-		affiliation?: string;
+		employer?: string;
 		sector?: string;
 		title?: string;
 	};
@@ -23,11 +23,12 @@ export class Proposal {
 	needByDateAttachment?: string;
 	lab?: string;
 	linksWithIndustry?: string;
+	coProposerStudents?: string;
 	workTowardsStudentsDegree?: string;
-	wantsCrystallization?: boolean;
-	wantsBiomassDeuteration?: boolean;
-	wantsProteinDeuteration?: boolean;
-	wantsChemicalDeuteration?: boolean;
+	wantsCrystallization?: string;
+	wantsBiomassDeuteration?: string;
+	wantsProteinDeuteration?: string;
+	wantsChemicalDeuteration?: string;
 	crystallization?: {
 		moleculeName?: string;
 		moleculeIdentifier?: string;
@@ -102,5 +103,4 @@ export class Proposal {
 	needsPurificationSupportAttachment?: string;
 	chemicalStructureAttachment?: string;
 	moleculePreparationReferenceArticle?: string;
-
 };

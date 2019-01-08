@@ -32,6 +32,7 @@ import { HttpErrorHandler }     from './services/http-error-handler.service';
 import { ListUploadComponent } from "./components/upload/list-upload/list-upload.component";
 import { FormUploadComponent } from "./components/upload/form-upload/form-upload.component";
 import { DetailsUploadComponent } from "./components/upload/details-upload/details-upload.component";
+import { NewProposalComponent} from "./pages/new-proposal.component";
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
@@ -52,6 +53,7 @@ export const tokenGetter = () => {
 		LoadingComponent,
 		LoginComponent,
 		LogoutComponent,
+		NewProposalComponent,
 		ProposalsComponent,
 		TestingComponent,
 		UserComponent
