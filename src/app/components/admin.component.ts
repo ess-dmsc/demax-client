@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from "../models/user";
-import { ProposalService } from "../proposal.service";
+import { ProposalService } from "../services/proposal.service";
 import { Proposal } from "../models/proposal";
 
 @Component({

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MaterialModule} from "../../ext/material.module";
+import { MaterialModule} from "../../external/material.module";
 import { UserService } from '../../services/user.service';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
-	styleUrls:['./register.component.css']
+	styleUrls:[ './register.component.css']
 })
 export class RegisterComponent implements OnInit {
 	message = 'Register';

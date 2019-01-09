@@ -8,31 +8,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from './ext/material.module';
+import { MaterialModule } from './external/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { ImprintComponent } from './pages/imprint.component';
-import { HomeComponent } from './pages/home.component';
-import { ContactComponent } from './pages/contact.component';
-import { NotFoundComponent } from './pages/not-found.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
+import { ImprintComponent } from './components/imprint.component';
+import { HomeComponent } from './components/home.component';
+import { ContactComponent } from './components/contact.component';
+import { NotFoundComponent } from './components/not-found.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 import { ProposalsComponent } from './proposals/proposals.component';
-import { ProposalService } from './proposal.service';
+import { ProposalService } from './services/proposal.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
-import { AdminComponent } from './pages/admin.component';
-import { UserComponent } from "./pages/user.component";
+import { AdminComponent } from './components/admin.component';
+import { UserComponent } from "./components/user.component";
 import { LoadingComponent} from "./components/loading/loading.component";
-import { TestingComponent } from "./pages/testing.component";
+import { TestingComponent } from "./components/testing.component";
 import { MessageService }       from './services/message.service';
 import { HttpErrorHandler }     from './services/http-error-handler.service';
 import { ListUploadComponent } from "./components/upload/list-upload/list-upload.component";
 import { FormUploadComponent } from "./components/upload/form-upload/form-upload.component";
 import { DetailsUploadComponent } from "./components/upload/details-upload/details-upload.component";
-import { NewProposalComponent} from "./pages/new-proposal.component";
+import { NewProposalComponent} from "./components/new-proposal.component";
+import { ProposalComponent } from './proposal/proposal.component';
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
@@ -56,7 +57,8 @@ export const tokenGetter = () => {
 		NewProposalComponent,
 		ProposalsComponent,
 		TestingComponent,
-		UserComponent
+		UserComponent,
+		ProposalComponent
 	],
 	imports: [
 		BrowserModule,

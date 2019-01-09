@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { ContactComponent } from './pages/contact.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { NotFoundComponent } from './pages/not-found.component';
-import { ImprintComponent } from './pages/imprint.component';
-import { HomeComponent } from './pages/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { ContactComponent } from './components/contact.component';
+import { RegisterComponent } from './components/register/register.component';
+import { NotFoundComponent } from './components/not-found.component';
+import { ImprintComponent } from './components/imprint.component';
+import { HomeComponent } from './components/home.component';
 import { ProposalsComponent } from "./proposals/proposals.component";
 import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
-import { AdminComponent } from "./pages/admin.component";
-import { UserComponent } from "./pages/user.component";
-import { TestingComponent } from "./pages/testing.component";
+import { AdminComponent } from "./components/admin.component";
+import { UserComponent } from "./components/user.component";
+import { TestingComponent } from "./components/testing.component";
+import { ProposalComponent } from "./proposal/proposal.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
 	{path: 'register', component: RegisterComponent},
 	{path: 'test', component: TestingComponent},
 	{path: 'user', component: UserComponent},
-	{path: '**', redirectTo: '/notfound'}
+	{path: 'proposal', component: ProposalComponent},
+	{path: '**', redirectTo: '/notfound'},
 ];
 
 @NgModule({

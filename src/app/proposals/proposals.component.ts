@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
-import { ProposalService } from '../proposal.service';
+import { ProposalService } from '../services/proposal.service';
 import { Proposal } from '../models/proposal';
 import { AuthService } from "../services/auth.service";
-import { TestService } from "../services/test.service";
 import { catchError, last, map, tap } from "rxjs/operators";
 import { MessageService } from "../services/message.service";
 import { Observable } from "rxjs";
@@ -15,7 +14,7 @@ import { MatDialog, MatStep } from "@angular/material";
 	selector: 'app-proposals',
 	templateUrl: './proposals.component.html',
 	styleUrls: [ './proposals.component.css' ],
-	providers: [ TestService, ProposalService ]
+	providers: [ ProposalService ]
 })
 export class ProposalsComponent implements OnInit {
 	proposal = new Proposal();
@@ -166,7 +165,6 @@ export class ProposalsComponent implements OnInit {
 	constructor(
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
-		private uploaderService: TestService,
 		private http: HttpClient,
 		public auth: AuthService,
 		public dialog: MatDialog

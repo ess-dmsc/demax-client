@@ -3,12 +3,12 @@ import { By } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MaterialModule } from "../../ext/material.module";
+import { MaterialModule } from "../../external/material.module";
 import { UserService } from '../../services/user.service';
 import { RegisterComponent } from './register.component';
 import { APP_CONFIG, APP_DI_CONFIG } from "../../app-config.module";
 import { AuthService } from "../../services/auth.service";
-import { ProposalService } from "../../proposal.service";
+import { ProposalService } from "../../services/proposal.service";
 import { HttpClient } from "@angular/common/http";
 import { RouterTestingModule } from "@angular/router/testing";
 

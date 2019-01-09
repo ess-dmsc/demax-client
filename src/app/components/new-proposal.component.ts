@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProposalService } from "../services/proposal.service";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
 	selector: 'app-new-proposal',
@@ -43,9 +45,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewProposalComponent implements OnInit {
 
-	constructor() { }
+	constructor(private proposalService: ProposalService, private formBuilder: FormBuilder) { }
 
 	ngOnInit() {
+		this.addProposalForm = this.formBuilder.group({
+
+		})
+	}
+
+	addProposalForm: FormGroup;
+	experimentTitle = new FormControl('', Validators.required);
+	briefSummary = new FormControl('', Validators.required);
+
+	addProposal() {
+		this.proposalService.addProposal(this.addProposalForm.value);
 	}
 
 }

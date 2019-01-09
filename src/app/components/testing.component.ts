@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TestService } from "../services/test.service";
 import { AuthService } from "../services/auth.service";
-import { ProposalService } from "../proposal.service";
+import { ProposalService } from "../services/proposal.service";
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from "@angular/forms";
 import { Proposal } from '../models/proposal';
 import { Observable } from "rxjs";
@@ -75,9 +74,7 @@ import { HttpClient } from "@angular/common/http";
 			</form>
 		</mat-card>
 
-	`,
-	providers: [ TestService ]
-
+	`
 })
 export class TestingComponent implements OnInit {
 	date = new FormControl(new Date());
@@ -85,7 +82,6 @@ export class TestingComponent implements OnInit {
 	myForm: FormGroup;
 
 	constructor(
-		private uploaderService: TestService,
 		public auth: AuthService,
 		private http: HttpClient,
 		private fb: FormBuilder
@@ -122,19 +118,6 @@ export class TestingComponent implements OnInit {
 
 	deleteCoProposer(i) {
 		this.coProposerForms.removeAt(i)
-	}
-
-	onPicked(input: HTMLInputElement) {
-		const file = input.files[ 0 ];
-		console.log(file.name);
-		if(file) {
-			this.uploaderService.upload(file).subscribe(
-				msg => {
-					input.value = null;
-					this.message = msg;
-				}
-			);
-		}
 	}
 
 	getFiles(): Observable<any> {

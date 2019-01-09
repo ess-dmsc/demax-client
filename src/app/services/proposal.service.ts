@@ -8,11 +8,11 @@ import {
     HttpRequest
 } from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Proposal} from './models/proposal';
-import {APP_CONFIG, AppConfig} from "./app-config.module";
+import {Proposal} from '../models/proposal';
+import {APP_CONFIG, AppConfig} from "../app-config.module";
 import {catchError, last, map, tap} from "rxjs/operators";
-import {MessageService} from "./services/message.service";
-import {AuthService} from "./services/auth.service";
+import {MessageService} from "./message.service";
+import {AuthService} from "./auth.service";
 
 @Injectable({
     providedIn: 'root'

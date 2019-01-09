@@ -1,11 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './ext/material.module';
+import { MaterialModule } from './external/material.module';
 import { APP_CONFIG, APP_DI_CONFIG } from "./app-config.module";
 import { AuthService } from "./services/auth.service";
-import { RegisterComponent } from "./pages/register/register.component";
-import { LoginComponent } from "./pages/login/login.component";
+import { RegisterComponent } from "./components/register/register.component";
+import { LoginComponent } from "./components/login/login.component";
 import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('AppComponent', () => {

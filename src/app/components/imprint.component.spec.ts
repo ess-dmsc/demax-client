@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule} from '../ext/material.module';
+import { MaterialModule} from '../external/material.module';
 import { ImprintComponent } from './imprint.component';
 
 

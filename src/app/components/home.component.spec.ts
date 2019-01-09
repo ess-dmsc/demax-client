@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '../ext/material.module';
+import { MaterialModule } from '../external/material.module';
 import { HomeComponent } from './home.component';
 import { AuthService } from "../services/auth.service";
 import { APP_CONFIG, APP_DI_CONFIG } from "../app-config.module";
