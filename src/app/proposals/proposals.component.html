@@ -306,8 +306,7 @@
 						<mat-expansion-panel-header>For biomass</mat-expansion-panel-header>
 						<fieldset>
 							<p> Will user provide the organism for us to grow under deuterated conditions?</p>
-							<mat-radio-group name="organismProvidedByUser"
-							                 [(ngModel)]="proposal.biomassDeuteration.organismProvidedByUser">
+							<mat-radio-group name="organismProvidedByUser" [(ngModel)]="proposal.biomassDeuteration.organismProvidedByUser">
 								<mat-radio-button value="yes">Yes</mat-radio-button>
 								<mat-radio-button value="no">No</mat-radio-button>
 							</mat-radio-group>
@@ -364,148 +363,15 @@
 						<mat-expansion-panel-header>
 							<mat-panel-title>For proteins</mat-panel-title>
 						</mat-expansion-panel-header>
-						<mat-form-field>
-							<input placeholder="Name of molecule to be deuterated (e.g. superoxide dismutase)" matInput
-							       name="proteinDeuteration.moleculeName"
-							       [(ngModel)]="proposal.proteinDeuteration.moleculeName">
-						</mat-form-field>
-						<mat-form-field>
-							<input placeholder="FASTA sequence or Uniprot number" matInput
-							       name="proteinDeuteration.moleculeIdentifier"
-							       [(ngModel)]="proposal.proteinDeuteration.moleculeIdentifier">
-						</mat-form-field>
-						<mat-form-field>
-							<input placeholder="Molecular weight (kDA)" matInput
-							       name="proteinDeuteration.molecularWeight"
-							       [(ngModel)]="proposal.proteinDeuteration.molecularWeight">
-						</mat-form-field>
-						<mat-form-field>
-							<input matInput name="proteinDeuteration.oligomerizationState"
-							       [(ngModel)]="proposal.proteinDeuteration.oligomerizationState"
-							       placeholder="Oligomerization state? (e.g. homodimer, tetramer etc.)">
-						</mat-form-field>
-						<mat-form-field>
-							<textarea
-									placeholder="Does the protein have any co-factors or ligands required for expression?Specify"
-									rows="6" cols="40" matInput name="proteinDeuteration.expressionRequirements"
-									[(ngModel)]="proposal.proteinDeuteration.expressionRequirements"></textarea>
-						</mat-form-field>
-						<mat-form-field>
-							<input placeholder="Origin of molecules (e.g. human, E. coli, S. cerevisiae)" matInput
-							       name="proteinDeuteration.moleculeOrigin"
-							       [(ngModel)]="proposal.proteinDeuteration.moleculeOrigin">
-						</mat-form-field>
-						<mat-radio-group name="proteinDeuteration.expressionPlasmidProvidedByUser"
-						                 [(ngModel)]="proposal.proteinDeuteration.expressionPlasmidProvidedByUser">
-							<p>Will you provide an expression plasmid?</p>
-							<mat-radio-button value="yes">Yes</mat-radio-button>
-							<mat-radio-button value="no">No</mat-radio-button>
-						</mat-radio-group>
-						<mat-form-field>
-							<p>If “yes”, please provide details (e.g. pET31b, C-terminal His-tag, Amp selection), (If
-								“no”, we will design & order a plasmid commercially)</p>
-							<textarea rows="8" cols="40" matInput name="proteinDeuteration.details"
-							          [(ngModel)]="proposal.proteinDeuteration.expressionPlasmidProvidedByUserDetails"></textarea>
-						</mat-form-field>
-						<mat-form-field>
-							<input placeholder="How much material do you need?" matInput
-							       name="proteinDeuteration.amountNeeded"
-							       [(ngModel)]="proposal.proteinDeuteration.amountNeeded">
-						</mat-form-field>
-						<mat-form-field>
-							<textarea placeholder="Justify amount" rows="8" cols="40" matInput
-							          name="proteinDeuteration.amountNeededMotivation"
-							          [(ngModel)]="proposal.proteinDeuteration.amountNeededMotivation"></textarea>
-						</mat-form-field>
-
-						<mat-radio-group [(ngModel)]="proposal.proteinDeuteration.deuterationLevelRequired"
-						                 name="proteinDeuteration.deuterationLevelRequired">
-							<p>Level of deuteration required</p>
-							<br>
-							<mat-radio-button value="partial">Partial (25-30% H/D exchange)</mat-radio-button>
-							<mat-radio-button value="full">Full</mat-radio-button>
-						</mat-radio-group>
-
-						<mat-form-field>
-							<textarea placeholder="Justify level of D incorporation" rows="6" cols="40" matInput
-							          name="proteinDeuteration.deuterationLevelMotivation"
-							          [(ngModel)]="proposal.proteinDeuteration.deuterationLevelMotivation"></textarea>
-						</mat-form-field>
-
-						<mat-radio-group name="proteinDeuteration.needsPurificationSupport"
-						                 [(ngModel)]="proposal.proteinDeuteration.needsPurificationSupport">
-							<p>Will you need DEMAX to purify the protein from deuterated biomass?</p>
-							<mat-radio-button value="yes">Yes</mat-radio-button>
-							<mat-radio-button value="no">No</mat-radio-button>
-						</mat-radio-group>
-						<fieldset>
-							<mat-label>If “yes”, please attach purification reference or protocol</mat-label>
-							<br>
-							<p><em>(Accepted formats: PDF)</em></p>
-							<label class="btn btn-default">
-								<input type="file" name="needsPurificationSupportAttachment"
-								       (change)="selectFile($event)">
-							</label>
-						</fieldset>
-						<fieldset>
-							<p>Has expression been done for the unlabeled protein?</p>
-							<mat-radio-group name="proteinDeuteration.hasDoneUnlabeledProteinExpression"
-							                 [(ngModel)]="proposal.proteinDeuteration.hasDoneUnlabeledProteinExpression">
-								<mat-radio-button value="yes">Yes</mat-radio-button>
-								<mat-radio-button value="no">No</mat-radio-button>
-							</mat-radio-group>
-						</fieldset>
-
-						<mat-form-field>
-							<input matInput type="text" placeholder="Typical yield"
-							       [(ngModel)]="proposal.proteinDeuteration.typicalYield">
-						</mat-form-field>
-						<mat-radio-group [(ngModel)]="proposal.proteinDeuteration.hasPurifiedUnlabeledProtein"
-						                 name="proteinDeuteration.hasPurifiedUnlabeledProtein">
-							<p> Have you been able to purify the unlabeled protein?</p>
-							<mat-radio-button value="yes">Yes</mat-radio-button>
-							<mat-radio-button value="no">No</mat-radio-button>
-							<p><em>Please include chromatogram & image of SDS-PAGE in proposal</em></p>
-						</mat-radio-group>
-						<mat-radio-group [(ngModel)]="proposal.proteinDeuteration.hasProteinDeuterationExperience"
-						                 name="proteinDeuteration.hasProteinDeuterationExperience">
-							<p>Have you tried to deuterate the protein yourself, even in small scale?</p>
-							<mat-radio-button value="yes">Yes</mat-radio-button>
-							<mat-radio-button value="no">No</mat-radio-button>
-						</mat-radio-group>
-						<mat-form-field>
-							<input matInput type="text" placeholder="Results?"
-							       [(ngModel)]="proposal.proteinDeuteration.proteinDeuterationResults">
-						</mat-form-field>
-						<mat-action-row>
-							<button mat-raised-button color="primary" type="submit">Save</button>
-						</mat-action-row>
 					</mat-expansion-panel>
-					<br>
-					<h4>Biosafety</h4>
-					<mat-radio-group [(ngModel)]="proposal.bioSafety.bioSafetyContainmentLevel"
-					                 name="proposal.bioSafety.bioSafetyContainmentLevel">
-						<p>Which biosafety containment level is required to work with your sample?</p>
-						<mat-radio-button value="l1">L1</mat-radio-button>
-						<mat-radio-button value="l2">L2</mat-radio-button>
-					</mat-radio-group>
-					<mat-radio-group [(ngModel)]="proposal.bioSafety.organismRisk"
-					                 name="proposal.bioSafety.organismRisk">
-						<p>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the
-							environment?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-					<mat-form-field>
-						<input matInput placeholder="If you chose “yes”, please provide details:"
-						       [(ngModel)]="proposal.bioSafety.organismRiskDetails">
-					</mat-form-field>
+
 					<mat-action-row>
 						<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
 						<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
 						<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
 						<button mat-raised-button color="primary" type="submit">Save</button>
 					</mat-action-row>
+
 				</mat-accordion>
 
 			</mat-tab>

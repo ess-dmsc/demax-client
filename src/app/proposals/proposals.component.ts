@@ -137,7 +137,7 @@ export class ProposalsComponent implements OnInit {
 		}),
 		bioSafety: this.formBuilder.group({
 			bioSafetyContainmentLevel: [''],
-			organismRisk: false,
+			organismRisk: [''],
 			organismRiskDetails: [''],
 			other: ['']
 		}),
