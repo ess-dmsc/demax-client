@@ -30,7 +30,7 @@ import { AuthService } from "../services/auth.service";
 					or to one of the<a routerLink="/contact"> subject matter experts.</a></p>
 
 				<p class="lead">
-					<a class="btn btn-primary btn-lg" href="#" role="button" routerLink="/proposals">Create new
+					<a class="btn btn-primary btn-lg" href="#" role="button" routerLink="/proposal">Create new
 						proposal</a>
 				</p>
 				<br>
@@ -97,7 +97,7 @@ import { AuthService } from "../services/auth.service";
 			</ul>
 				<mat-action-row>
 					<mat-checkbox style="margin: 2rem;">I acknowledge the terms and conditions above</mat-checkbox>
-					<button mat-raised-button color="primary" routerLink="/proposals">
+					<button mat-raised-button color="primary" routerLink="/proposal">
 						Create new proposal
 					</button>
 				</mat-action-row>
