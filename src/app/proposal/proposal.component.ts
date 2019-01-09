@@ -5,46 +5,55 @@ import { HttpClient } from "@angular/common/http";
 import { AuthService } from "../services/auth.service";
 import { MatDialog } from "@angular/material";
 import { Proposal } from "../models/proposal";
-import { MaterialModule} from "../external/material.module";
+import { MaterialModule } from "../external/material.module";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-proposal',
 	template: `
 		<mat-card style="width: 50%; margin: 2rem auto;">
-			<form [formGroup]="proposalForm" (ngSubmit)="onSubmit()">
+			<form [formGroup]="proposalForm">
 				<mat-action-row><h4>Test form</h4></mat-action-row>
 				<mat-form-field>
-					<input matInput formControlName="mainProposer.email" placeholder="Email">
+					<input matInput formControlName="experimentTitle" placeholder="Experiment title">
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput formControlName="mainProposer.phone" placeholder="Phone">
+					<textarea matInput formControlName="briefSummary" placeholder="Brief summary"></textarea>
 				</mat-form-field>
+				<div formGroupName="mainProposer">
+					<mat-form-field>
+						<input matInput formControlName="email" placeholder="Email">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput formControlName="phone" placeholder="Phone">
+					</mat-form-field>
+				</div>
+
 				<div formArrayName="coProposers">
 					<div *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
 						<mat-card style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 						<span>
-							
-									<mat-form-field style="display: inline; width: 50%;">
-										<input matInput formControlName="firstName" placeholder="First name">
-									</mat-form-field>
-									<mat-form-field style="display: inline; width: 50%;">
-										<input matInput formControlName="lastName" placeholder="Last name">
-									</mat-form-field>
-									<mat-form-field>
-										<input matInput formControlName="affiliation" placeholder="Affiliation">
-									</mat-form-field>
-													</span>
+							<mat-form-field style="display: inline; width: 50%;">
+								<input matInput formControlName="firstName" placeholder="First name">
+							</mat-form-field>
+							<mat-form-field style="display: inline; width: 50%;">
+								<input matInput formControlName="lastName" placeholder="Last name">
+							</mat-form-field>
+							<mat-form-field>
+								<input matInput formControlName="affiliation" placeholder="Affiliation">
+							</mat-form-field>
+						</span>
 
 							<span>
-																		<button (click)="deleteCoProposer(i)">Delete</button>
-
-								</span>
+								<button (click)="deleteCoProposer(i)">Delete</button>
+							</span>
 						</mat-card>
 
 					</div>
 				</div>
 
 				<button (click)="addCoProposer()">Add Co-Proposer</button>
+				<button (click)="addProposal()">Submit</button>
 			</form>
 		</mat-card>
 	`
@@ -60,7 +69,8 @@ export class ProposalComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private http: HttpClient,
 		public auth: AuthService,
-		public dialog: MatDialog
+		public dialog: MatDialog,
+		private router: Router
 	) {
 	}
 
@@ -91,7 +101,22 @@ export class ProposalComponent implements OnInit {
 	}
 
 	addProposal() {
-		this.proposalService.addProposal(this.proposalForm.value)
+		this.proposalService.addProposal(this.proposalForm.value).subscribe(response => {
+			this.proposalForm.reset()
+			this.router.navigate(['/proposals'])
+		})
+	}
+
+
+	addCoProposer() {
+		event.preventDefault();
+		const coProposer = this.formBuilder.group({
+			firstName: [],
+			lastName: [],
+			affiliation: []
+		})
+		this.coProposerForms.push(coProposer);
+
 	}
 
 	createCoProposer(): FormGroup {
@@ -102,9 +127,12 @@ export class ProposalComponent implements OnInit {
 		});
 	}
 
-	addCoProposer(): void {
-		this.coProposers = this.proposalForm.get('coProposers') as FormArray;
-		this.coProposers.push(this.createCoProposer());
+	deleteCoProposer(i) {
+		this.coProposerForms.removeAt(i)
+	}
+
+	get coProposerForms() {
+		return this.proposalForm.get('coProposers') as FormArray
 	}
 
 }
