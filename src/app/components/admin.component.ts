@@ -9,84 +9,103 @@ import { Proposal } from "../models/proposal";
 	selector: 'app-admin',
 	template: `
 		<style>
+			button {
+				margin: 0 1rem;
+			}
 
+			table {
+				width: 100%;
+			}
 		</style>
+		<br>
+		<br>
+		<mat-card>
+			<h4>Registered users: {{users.length}}</h4>
+		</mat-card>
+		<section>
+			<table mat-table [dataSource]="users" class="mat-elevation-z8">
+				<ng-container matColumnDef="firstName">
+					<th mat-header-cell *matHeaderCellDef>First name</th>
+					<td mat-cell *matCellDef="let user"> {{user.firstName}}</td>
+				</ng-container>
 
-		<div class="card">
-			<h4 class="card-header">Registered users ({{users.length}})</h4>
-			<div class="card-body">
-				<table class="table table-bordered">
-					<thead class="thead-light">
-					<tr>
-						<th scope="col">First name</th>
-						<th scope="col">Last name</th>
-						<th scope="col">Email</th>
-						<th scope="col">Role</th>
-						<th scope="col">Actions</th>
-					</tr>
-					</thead>
-					<tbody *ngIf="users.length === 0">
-					<tr>
-						<td colspan="4">There are no registered users.</td>
-					</tr>
-					</tbody>
-					<tbody>
-					<tr *ngFor="let user of users">
-						<td>{{user.firstName}}</td>
-						<td>{{user.lastName}}</td>
-						<td>{{user.email}}</td>
-						<td>{{user.role}}</td>
-						<td>
-							<button class="btn btn-sm btn-danger" (click)="deleteUser(user)"
-							        [disabled]="auth.currentUser._id === user._id">
-								<i class="fa fa-trash"></i> Delete
+				<ng-container matColumnDef="lastName">
+					<th mat-header-cell *matHeaderCellDef>Last name</th>
+					<td mat-cell *matCellDef="let user"> {{user.lastName}}</td>
+				</ng-container>
+				<ng-container matColumnDef="phone">
+					<th mat-header-cell *matHeaderCellDef>Phone</th>
+					<td mat-cell *matCellDef="let user"> {{user.phone}}</td>
+				</ng-container>
+				<ng-container matColumnDef="email">
+					<th mat-header-cell *matHeaderCellDef>Email</th>
+					<td mat-cell *matCellDef="let user"> {{user.email}}</td>
+				</ng-container>
+				<ng-container matColumnDef="role">
+					<th mat-header-cell *matHeaderCellDef>Role</th>
+					<td mat-cell *matCellDef="let user"> {{user.role}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="options">
+					<th mat-header-cell *matHeaderCellDef> Options</th>
+					<td mat-cell *matCellDef="let user">
+						<button class="btn btn-sm btn-danger" (click)="deleteUser(user)">
+							Delete
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedUserColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedUserColumns;"></tr>
+			</table>
+		</section>
+		<br>
+		<br>
+		<mat-card>
+			<h4>Submitted proposals: {{proposals.length}}</h4>
+
+		</mat-card>
+		<section>
+			<table mat-table [dataSource]="proposals" class="mat-elevation-z8">
+
+				<ng-container matColumnDef="proposalId">
+					<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
+					<td mat-cell *matCellDef="let proposal"> {{proposal.proposalId}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="experimentTitle">
+					<th mat-header-cell *matHeaderCellDef> Experiment title</th>
+					<td mat-cell *matCellDef="let proposal"> {{proposal.experimentTitle}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="options">
+					<th mat-header-cell *matHeaderCellDef> Options</th>
+					<td mat-cell *matCellDef="let proposal">
+						<a href="/api/pdf/{{proposal.proposalId}}">
+							<button class="btn btn-sm btn-success">
+								Download
 							</button>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="card">
-			<h4 class="card-header">All proposals ({{proposals.length}})</h4>
-			<div class="card-body">
-				<table class="table table-bordered">
-					<thead class="thead-light">
-					<tr>
-						<th scope="col">Proposal ID</th>
-						<th scope="col">Experiment title</th>
-						<th scope="col">Main proposer</th>
-						<th scope="col">Score</th>
-						<th scope="col">Actions</th>
-					</tr>
-					</thead>
-					<tbody *ngIf="proposals.length === 0">
-					<tr>
-						<td colspan="4">There are no proposals.</td>
-					</tr>
-					</tbody>
-					<tbody>
-					<tr *ngFor="let proposal of proposals">
-						<td>{{proposal.proposalId}}</td>
-						<td>{{proposal.experimentTitle}}</td>
-						<td>{{proposal.mainProposer.email}}</td>
-						<td></td>
-						<td>
-							<button class="btn btn-sm btn-danger" (click)="deleteProposal(proposal)">
-								<i class="fa fa-trash"></i> Delete
-							</button>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>`
+						</a>
+						<button class="btn btn-sm btn-danger" (click)="deleteProposal(proposal)">
+							Delete
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedProposalColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedProposalColumns;"></tr>
+			</table>
+		</section>
+	`
 })
 export class AdminComponent implements OnInit {
 
-	proposals: Proposal[] = [];
 	users: User[] = [];
+	proposals: Proposal[] = [];
+
 	isLoading = true;
+	displayedUserColumns: string[] = [ 'firstName', 'lastName', 'phone', 'email', 'role', 'options' ];
+	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'options' ]
 
 	constructor(
 		public auth: AuthService,

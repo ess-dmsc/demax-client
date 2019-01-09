@@ -11,14 +11,83 @@ import { Router } from "@angular/router";
 @Component({
 	selector: 'app-proposal',
 	template: `
-		<style></style>
-		<mat-tab-group>
+		<style>
+			mat-card {
+				margin: 5rem;
+				padding: 5rem;
+			}
 
-		</mat-tab-group>
-		<mat-card style="width: 50%; margin: 2rem auto;">
+			mat-checkbox {
+				margin: 2rem;
+				display: block;
+			}
+
+			mat-radio-group {
+				display: block;
+			}
+
+			mat-radio-button {
+				margin: 2rem;
+			}
+
+			mat-form-field {
+				width: 60%;
+				margin: 1rem auto;
+			}
+
+			.smallFormField {
+				width: 300px;
+			}
+
+			mat-form-field {}
+		</style>
+		<mat-card *ngIf="!hasReadTos">
+			<mat-card-header>
+				<mat-card-title>Proposal guidelines</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<p>Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
+					deuteration/crystallization proposal.</p>
+				<p>General enquiries can be sent to: <a href="mailto:demax@esss.se">demax@esss.se</a> or to one of the<a
+						routerLink="/contact"> subject matter experts.</a></p>
+				<ul>
+					<li> Proposals should be written in English, properly referenced, and prepared in the <a
+							href="http://localhost:8080/word/attachment">Word template.</a> Please keep to the 2 page
+						limit, including Summary, Background (Science Case, Practical Consideration, References,
+						Figures/Tables)
+					</li>
+					<li> Access to DEMAX is granted on the basis of both a technical and a peer-review process.</li>
+					<li> Proposals awarded during initial operations (2019-2022) will be free of charge. During formal
+						user operations (beyond 2023) we reserve the right to ask for partial financial contributions
+						towards consumables & shipping costs.
+					</li>
+					<li> During initial operations we will not limit access to DEMAX based on ESS-membership. Beyond
+						this period we will respect the user access policy that will be applicable ESS-wide.
+					</li>
+					<li> Biological and chemical deuteration proposals are run as a service but users for protein
+						crystallization are welcome to come in person as well.
+					</li>
+					<li>Proposals awarded during initial operations (2019-2021) will be free of charge. During formal
+						user operations (beyond 2023) we reserve the right to ask for partial financial contributions
+						towards consumables & shipping costs. Options
+					</li>
+					<p>*<em>Users should note that the contributions by DEMAX should be acknowledged in any publications
+						containing materials obtained from us. For particularly challenging projects that require above
+						average involvement from DEMAX, relevant DEMAX staff should be acknowledged through
+						co-authorship of any subsequent publications.</em></p>
+				</ul>
+				<mat-card-actions>
+					<mat-checkbox style="margin: 2rem;">I acknowledge the information above</mat-checkbox>
+				</mat-card-actions>
+				<mat-card-footer>
+					<button mat-raised-button color="primary" (click)="confirm()">Create new proposal</button>
+				</mat-card-footer>
+			</mat-card-content>
+		</mat-card>
+		<mat-card *ngIf="hasReadTos">
 			<form [formGroup]="proposalForm">
 				<mat-action-row>
-					<h4>Test form</h4>
+					<h3>1. General information</h3>
 				</mat-action-row>
 				<mat-form-field>
 					<input matInput formControlName="experimentTitle" placeholder="Experiment title">
@@ -26,26 +95,27 @@ import { Router } from "@angular/router";
 				<mat-form-field>
 					<textarea matInput formControlName="briefSummary" placeholder="Brief summary"></textarea>
 				</mat-form-field>
-				<mat-action-row>Main proposer</mat-action-row>
+				<mat-action-row><h4>Main proposer</h4></mat-action-row>
 				<div formGroupName="mainProposer">
-					<mat-form-field>
+					<mat-form-field class="smallFormField">
 						<input matInput formControlName="firstName" placeholder="First name">
 					</mat-form-field>
-					<mat-form-field>
+					<mat-form-field class="smallFormField">
 						<input matInput formControlName="lastName" placeholder="Last name">
 					</mat-form-field>
-					<mat-form-field>
+					<br>
+					<mat-form-field class="smallFormField">
 						<input matInput formControlName="email" placeholder="Email">
 					</mat-form-field>
-					<mat-form-field>
+					<mat-form-field class="smallFormField">
 						<input matInput formControlName="phone" placeholder="Phone">
 					</mat-form-field>
-					<mat-action-row>Affiliation</mat-action-row>
+					<mat-label><h4>Affiliation</h4></mat-label>
 					<div>
-						<mat-form-field>
+						<mat-form-field class="smallFormField">
 							<input matInput formControlName="title" placeholder="Job title">
 						</mat-form-field>
-						<mat-form-field>
+						<mat-form-field class="smallFormField">
 							<input matInput formControlName="employer" placeholder="Employer">
 						</mat-form-field>
 						<mat-form-field>
@@ -55,25 +125,22 @@ import { Router } from "@angular/router";
 				</div>
 
 				<div formArrayName="coProposers">
+					<h4>Co-proposers</h4>
 					<div *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
-						<mat-card>
-							<mat-form-field>
+							<mat-form-field class="smallFormField">
 								<input matInput formControlName="firstName" placeholder="First name">
 							</mat-form-field>
-							<mat-form-field>
+							<mat-form-field class="smallFormField">
 								<input matInput formControlName="lastName" placeholder="Last name">
 							</mat-form-field>
-							<mat-form-field>
-								<input matInput formControlName="affiliation" placeholder="Affiliation">
-							</mat-form-field>
-								<button mat-raised-button color="warn" (click)="deleteCoProposer(i)">Delete</button>
-						</mat-card>
-						
+							<button mat-raised-button color="warn" (click)="deleteCoProposer(i)">Delete</button>
 					</div>
 					<mat-action-row>
 						<button mat-raised-button color="primary" (click)="addCoProposer()">Add Co-Proposer</button>
 					</mat-action-row>
 				</div>
+				<br>
+				<br>
 				<mat-radio-group formControlName="linksWithIndustry">
 					<p>Links with industry</p>
 					<mat-radio-button value="yes">Yes</mat-radio-button>
@@ -90,13 +157,15 @@ import { Router } from "@angular/router";
 					<mat-radio-button value="no">No</mat-radio-button>
 				</mat-radio-group>
 				<fieldset>
-					<p>In the next sections you will fill out the applicable area of support your proposal requires. Select one, or as many as apply, from the alternatives below.</p>
-					<mat-checkbox formControlName="wantsCrystallization" >Crystallization</mat-checkbox>
-					<mat-checkbox formControlName="wantsBiologicalDeuteration">Biological deuteration</mat-checkbox>
-					<mat-checkbox formControlName="wantsChemicalDeuteration">Chemical deuteration</mat-checkbox>
+					<p>In the next sections you will fill out the applicable area of support your proposal requires.
+						Select one, or as many as apply, from the alternatives below.</p>
+					<mat-checkbox formControlName="wantsCrystallization">A) Crystallization</mat-checkbox>
+					<mat-checkbox formControlName="wantsBiologicalDeuteration">B) Biological deuteration</mat-checkbox>
+					<mat-checkbox formControlName="wantsChemicalDeuteration">C) Chemical deuteration</mat-checkbox>
 				</fieldset>
-
-				<button (click)="addProposal()">Submit</button>
+				<mat-action-row>
+					<button mat-raised-button color="primary" (click)="addProposal()">Continue</button>
+				</mat-action-row>
 			</form>
 		</mat-card>
 	`
@@ -106,6 +175,7 @@ export class ProposalComponent implements OnInit {
 	proposalForm: FormGroup;
 	coProposers: FormArray;
 	selectedIndex = 0;
+	hasReadTos = false;
 
 	step = 0;
 
@@ -181,6 +251,10 @@ export class ProposalComponent implements OnInit {
 	selectTab(index: number): void {
 		event.preventDefault();
 		this.selectedIndex = index;
+	}
+
+	confirm() {
+		this.hasReadTos = true;
 	}
 
 }
