@@ -26,20 +26,3 @@
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 </ng-container>
-<div *ngIf="!auth.loggedIn" style="
-background-image: url(../assets/media/blurred-lab-samples.jpg);
-background-repeat: no-repeat;
-background-size: cover;
-background-origin: content-box;">
-	<div class="login-background">
-
-		<mat-tab-group dynamicHeight>
-			<mat-tab label="Login">
-				<app-login></app-login>
-			</mat-tab>
-			<mat-tab label="Register">
-				<app-register></app-register>
-			</mat-tab>
-		</mat-tab-group>
-	</div>
-</div>
