@@ -41,28 +41,6 @@ import { AuthService } from "../services/auth.service";
 					</button>
 				</a>
 			</div>
-			<div style="width: 300px;">
-				<mat-action-row>Upcoming deadlines</mat-action-row>
-				<table mat-table [dataSource]="cycles" class="mat-elevation-z8" style="width: 100%;">
-					<ng-container matColumnDef="cycleId">
-						<th mat-header-cell *matHeaderCellDef> Cycle ID</th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.cycleId}}</td>
-					</ng-container>
-
-					<ng-container matColumnDef="date">
-						<th mat-header-cell *matHeaderCellDef> Date </th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.date}}</td>
-					</ng-container>
-
-					<ng-container matColumnDef="review">
-						<th mat-header-cell *matHeaderCellDef> Review</th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.review}}</td>
-					</ng-container>
-
-					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-				</table>
-			</div>
 			<mat-card>
 			<ul>
 				<li> Proposals should be written in English, properly referenced, and prepared in the <a
@@ -112,26 +90,9 @@ export class HomeComponent implements OnInit {
 	constructor(public auth: AuthService) {
 	}
 
-	displayedColumns: string[] = [ 'cycleId', 'date', 'review' ];
+
 
 	ngOnInit() {
 	}
 
-	cycles: object[] = [
-		{
-			cycleId: '001',
-			date: '2018-02-01',
-			review: '2018-03-01'
-		},
-		{
-			cycleId: '002',
-			date: '2018-04-01',
-			review: '2018-05-01'
-		},
-		{
-			cycleId: '003',
-			date: '2018-05-01',
-			review: '2018-06-01'
-		}
-	];
 }

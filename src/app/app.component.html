@@ -11,8 +11,7 @@
 	</span>
 	</mat-toolbar>
 	<mat-sidenav-container class="example-container sidebar">
-		<mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="false"
-		             fixedTopGap="0" fixedBottomGap="0">
+		<mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="false" fixedTopGap="0" fixedBottomGap="0">
 			<a routerLink="/home">Home</a>
 			<a routerLink="/proposals">Proposals</a>
 			<a routerLink="/contact">Contact</a>
@@ -26,3 +25,20 @@
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 </ng-container>
+<div *ngIf="!auth.loggedIn" style="
+background-image: url(../assets/media/blurred-lab-samples.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+background-origin: content-box;">
+	<div class="login-background">
+
+		<mat-tab-group dynamicHeight>
+			<mat-tab label="Login">
+				<app-login></app-login>
+			</mat-tab>
+			<mat-tab label="Register">
+				<app-register></app-register>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</div>
