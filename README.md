@@ -1,16 +1,18 @@
 # demax-client
 
-This repository constitutes the frontend part of the DEMAX User Portal. 
+This repository constitutes the frontend part of the DEMAX User Office website.  This system will be used for submission and management of deuteration proposals at DEMAX. It is built with the angular CLI in TypeScript
 A live version of the system (irregularly updated) can be found at https://demax.esss.app
 
 The backend repository can be found <a href="https://github.com/ess-dmsc/demax-server">here.</a>
 
-## Local development installation
+## Getting started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 1. [Node.js](https://nodejs.org)
 
-### Installation
+### Installing
 1. ```git clone https://github.com/ess-dmsc/demax-client.git```
 2. ```cd demax-client```
 3. ```npm install --save```
@@ -23,3 +25,31 @@ Backend communication is defined in [proxy.conf.json](https://github.com/ess-dms
 and is set to port 8080, which is the port at which [demax-backend](https://github.com/ess-dmsc/demax-server) is listening.
 
 To set up the backend, simply follow the instructions of the <a href="https://github.com/ess-dmsc/demax-server">demax-server repository</a>
+
+## Running the tests
+
+### Unit tests
+```ng test```
+
+ng test starts the Angular karma test suite that runs all unit tests defined in .spec.ts files.
+
+## Deployment
+
+*To be completed*
+
+## Contributing
+
+*Todo*
+Please read <a href="">CONTRIBUTING.md</a> for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors
+
+* Jeremias Hillerberg
+
+## License
+
+This project is licensed under the BSD-2 License - see the <a href="">LICENSE.md</a> file for details
+
+## Acknowledgements
+
+* Hat tip to anyone whose code was used
