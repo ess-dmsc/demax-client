@@ -127,13 +127,13 @@ import { Router } from "@angular/router";
 				<div formArrayName="coProposers">
 					<h4>Co-proposers</h4>
 					<div *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
-							<mat-form-field class="smallFormField">
-								<input matInput formControlName="firstName" placeholder="First name">
-							</mat-form-field>
-							<mat-form-field class="smallFormField">
-								<input matInput formControlName="lastName" placeholder="Last name">
-							</mat-form-field>
-							<button mat-raised-button color="warn" (click)="deleteCoProposer(i)">Delete</button>
+						<mat-form-field class="smallFormField">
+							<input matInput formControlName="firstName" placeholder="First name">
+						</mat-form-field>
+						<mat-form-field class="smallFormField">
+							<input matInput formControlName="lastName" placeholder="Last name">
+						</mat-form-field>
+						<button mat-raised-button color="warn" (click)="deleteCoProposer(i)">Delete</button>
 					</div>
 					<mat-action-row>
 						<button mat-raised-button color="primary" (click)="addCoProposer()">Add Co-Proposer</button>
@@ -219,7 +219,6 @@ export class ProposalComponent implements OnInit {
 			this.router.navigate([ '/proposals' ])
 		})
 	}
-
 
 	addCoProposer() {
 		event.preventDefault();
