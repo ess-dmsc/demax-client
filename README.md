@@ -47,7 +47,7 @@ This command builds a production version using the Ahead-of-time compilation. Ah
 ## Contributing
 
 *Todo*
-Please read <a href="">CONTRIBUTING.md</a> for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
@@ -55,7 +55,7 @@ Please read <a href="">CONTRIBUTING.md</a> for details on our code of conduct, a
 
 ## License
 
-This project is licensed under the BSD-2 License - see the <a href="">LICENSE.md</a> file for details
+This project is licensed under the BSD-2 License - see the [LICENSE.md](LICENSE) file for details
 
 ## Acknowledgements
 
