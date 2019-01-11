@@ -240,6 +240,7 @@ export class ProposalComponent implements OnInit {
 	}
 
 	deleteCoProposer(i) {
+		console.log(i)
 		this.coProposerForms.removeAt(i)
 	}
 
