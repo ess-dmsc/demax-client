@@ -21,7 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Run
 ```npm run dev```
 
-Npm run dev initiates a local angular development server listening to port 4200.
+Npm run dev initiates an Angular local angular development server on port 4200.
 Backend communication is defined in [proxy.conf.json](https://github.com/ess-dmsc/demax-client/blob/master/proxy.conf.json) 
 and is set to port 8080, which is the port at which [demax-backend](https://github.com/ess-dmsc/demax-server) is listening.
 
@@ -32,11 +32,17 @@ To set up the backend, simply follow the instructions of the <a href="https://gi
 ### Unit tests
 ```ng test```
 
-ng test starts the Angular karma test suite that runs all unit tests defined in .spec.ts files.
+ng test starts the Angular karma test suite that runs all unit tests defined in all files ending with '.spec.ts'
 
 ## Deployment
 
-*To be completed*
+```ng build --prod```
+
+This command creates new folder, 'dist/', and builds a production version of the code in that folder. During compilation, all TypeScript files are compiled into JavaScript and all HTML-files merged into a single index.html.
+
+```ng build --prod --aot```
+
+This command builds a production version using the Ahead-of-time compilation. Ahead-of-time compilation compiles all code (TypeScript, HTML and CSS/SCSS) into one single JavaScript file that is later downloaded and displayed by browser clients - no browser-side compilation needed.
 
 ## Contributing
 
