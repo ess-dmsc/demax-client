@@ -1,9 +1,10 @@
 # demax-client
 
-This repository constitutes the frontend part of the DEMAX User Office website.  This system will be used for submission and management of deuteration proposals at DEMAX. It is built with the angular CLI in TypeScript
-A live version of the system (irregularly updated) can be found at https://demax.esss.app
+This repository constitutes the frontend part of the DEMAX User Office website. The backend repository can be found <a href="https://github.com/ess-dmsc/demax-server">here.</a>
+The DEMAX User Office will be used for submission and management of deuteration proposals.
+This system is built in TypeScript with Angular CLI.
 
-The backend repository can be found <a href="https://github.com/ess-dmsc/demax-server">here.</a>
+A live version of the system (irregularly updated) can be found at https://demax.esss.app
 
 ## Getting started
 
