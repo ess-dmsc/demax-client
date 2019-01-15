@@ -13,4 +13,4 @@ RUN npm install
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN npx ng build
-CMD ["ng", "serve"]
+CMD ["npm", "start"]
