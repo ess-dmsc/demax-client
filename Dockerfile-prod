@@ -14,5 +14,5 @@ WORKDIR /usr/src/app
 RUN npm install
 COPY . /usr/src/app
 RUN ng build
-EXPOSE 80
+EXPOSE 4200
 CMD ["ng", "serve"]
