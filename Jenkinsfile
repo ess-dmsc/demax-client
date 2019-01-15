@@ -1,4 +1,4 @@
 node('docker') {stage('Checkout'){checkout scm}
                 stage('Unit Test User Office '){
-                sh "docker build  Dockerfile-test  -t uo"
+                sh "docker build  "./Dockerfile-test"  -t uo"
                 sh 'docker run  -t uo npm test'}}
