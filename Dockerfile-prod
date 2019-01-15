@@ -12,5 +12,6 @@ RUN npm install -g @angular/cli
 COPY package.json /usr/src/app/package.json
 WORKDIR /usr/src/app
 RUN npm install
+COPY . /usr/src/app
 RUN ng build
 CMD ["ng", "serve"]
