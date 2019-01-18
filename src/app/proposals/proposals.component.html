@@ -174,17 +174,11 @@
 					<mat-checkbox [(ngModel)]="proposal.wantsCrystallization" name="proposal.wantsCrystallization">
 						Crystallization
 					</mat-checkbox>
-					<mat-checkbox [(ngModel)]="proposal.wantsBiomassDeuteration"
-					              name="proposal.wantsBiomassDeuteration">Biological deuteration (for biomass)
+					<mat-checkbox [(ngModel)]="proposal.wantsBiologicalDeuteration" name="proposal.wantsBiomassDeuteration">
+						Biological deuteration
 					</mat-checkbox>
-					<mat-checkbox [(ngModel)]="proposal.wantsProteinDeuteration"
-					              name="proposal.wantsProteinDeuteration">Biological deuteration (for proteins)
-					</mat-checkbox>
-					<mat-checkbox [(ngModel)]="proposal.wantsOtherDeuteration" name="proposal.wantsOtherDeuteration">
-						Biological deuteration (other)
-					</mat-checkbox>
-					<mat-checkbox [(ngModel)]="proposal.wantsChemicalDeuteration"
-					              name="proposal.wantsChemicalDeuteration">Chemical deuteration
+					<mat-checkbox [(ngModel)]="proposal.wantsChemicalDeuteration" name="proposal.wantsChemicalDeuteration">
+						Chemical deuteration
 					</mat-checkbox>
 				</fieldset>
 				<mat-action-row>
@@ -195,19 +189,14 @@
 			</mat-tab>
 			<mat-tab label="2. Crystallization">
 				<mat-form-field>
-					<input matInput name="crystallization.moleculeName"
-					       [(ngModel)]="proposal.crystallization.moleculeName"
-					       placeholder="Name of molecule to be crystallized (e.g. superoxide dismutase)">
+					<input matInput name="crystallization.moleculeName" [(ngModel)]="proposal.crystallization.moleculeName" placeholder="Name of molecule to be crystallized (e.g. superoxide dismutase)">
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput placeholder="FASTA sequence or Uniprot number"
-					       name="crystallization.moleculeIdentifier"
-					       [(ngModel)]="proposal.crystallization.moleculeIdentifier">
+					<input matInput placeholder="FASTA sequence or Uniprot number" name="crystallization.moleculeIdentifier" [(ngModel)]="proposal.crystallization.moleculeIdentifier">
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput placeholder="Oligomerizarion state? (e.g. homodimer, tetramer etc.)"
-					       name="crystallization.oligomerizationState"
-					       [(ngModel)]="proposal.crystallization.oligomerizationState">
+					<input matInput placeholder="Oligomerizarion state?" name="crystallization.oligomerizationState" [(ngModel)]="proposal.crystallization.oligomerizationState">
+					<mat-hint>(e.g. homodimer, tetramer etc.)</mat-hint>
 				</mat-form-field>
 				<mat-form-field>
 					<input matInput placeholder="PDB ID of crystal structure" name="crystallization.pbdId"

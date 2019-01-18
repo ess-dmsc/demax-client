@@ -1,7 +1,0 @@
-{
-  "universal": {
-    "project": "demax-client",
-    "skipInstall": false,
-    "directory": "."
-  }
-}

@@ -36,130 +36,116 @@ export class ProposalsComponent implements OnInit {
 		this.selectedIndex = index;
 	}
 
-	step = 0;
-
-	setStep(index: number) {
-		this.step = index;
-	}
-
-	nextStep() {
-		this.step++;
-	}
-
-	prevStep() {
-		this.step--;
-	}
-
 	addProposalForm: FormGroup;
 
 	proposalForm = this.formBuilder.group({
-		dateCreated: [''],
-		experimentTitle: [''],
-		briefSummary: [''],
+		dateCreated: [ '' ],
+		experimentTitle: [ '', Validators.required ],
+		briefSummary: [ '', Validators.required ],
 		mainProposer: this.formBuilder.group({
-			firstName: [''],
-			lastName: [''],
-			email: [''],
-			phone: [''],
-			employer: [''],
-			sector: [''],
-			title: [''],
+			firstName: [ '', Validators.required ],
+			lastName: [ '', Validators.required ],
+			email: [ '', Validators.required ],
+			phone: [ '', Validators.required ],
+			employer: [ '', Validators.required ],
+			sector: [ '', Validators.required ],
+			title: [ '', Validators.required ],
 		}),
 		coProposers: this.formBuilder.array(
 			[
 				{
-					firstName: [' '],
-					lastName: [' '],
-					affiliation: [' ']
+					firstName: [ ' ' ],
+					lastName: [ ' ' ],
+					affiliation: [ ' ' ]
 				}
 			]),
-		needByDate: [''],
-		needByDateMotivation: [''],
-		needByDateAttachment: [''],
-		lab: [''],
-		linksWithIndustry: [''],
-		coProposerStudents: [''],
-		workTowardsStudentsDegree: [''],
+		needByDate: [ '', Validators.required ],
+		needByDateMotivation: [ '', Validators.required ],
+		needByDateAttachment: [ '', Validators.required ],
+		lab: [ '', Validators.required ],
+		linksWithIndustry: [ '', Validators.required ],
+		coProposerStudents: [ '', Validators.required ],
+		workTowardsStudentsDegree: [ '', Validators.required ],
 		wantsCrystallization: false,
 		wantsBiomassDeuteration: false,
 		wantsProteinDeuteration: false,
 		wantsOtherDeuteration: false,
 		wantsChemicalDeuteration: false,
 		crystallization: this.formBuilder.group({
-			moleculeName: [''],
-			moleculeIdentifier: [''],
-			molecularWeight: [''],
-			oligomerizationState: [''],
-			pbdId: [''],
-			doi: [''],
-			crystallizationRequirements: [''],
-			crystallizationPrecipitantComposition: [''],
-			previousCrystallizationExperience: [''],
-			estimatedCrystallizationProductionTime: [''],
-			typicalCrystalSize: [''],
-			typicalYieldMgPerLiter: [''],
-			storageConditions: [''],
-			stability: [''],
-			buffer: [''],
-			levelOfDeuteration: [''],
-			typicalProteinConcentrationUsed: [''],
-			other: ['']
+			moleculeName: [ '' ],
+			moleculeIdentifier: [ '' ],
+			molecularWeight: [ '' ],
+			oligomerizationState: [ '' ],
+			pbdId: [ '' ],
+			doi: [ '' ],
+			crystallizationRequirements: [ '' ],
+			crystallizationPrecipitantComposition: [ '' ],
+			previousCrystallizationExperience: [ '' ],
+			estimatedCrystallizationProductionTime: [ '' ],
+			typicalCrystalSize: [ '' ],
+			typicalYieldMgPerLiter: [ '' ],
+			storageConditions: [ '' ],
+			stability: [ '' ],
+			buffer: [ '' ],
+			levelOfDeuteration: [ '' ],
+			typicalProteinConcentrationUsed: [ '' ],
+			other: [ '' ]
 		}),
 		biomassDeuteration: this.formBuilder.group({
-			organismProvidedByUser: [''],
-			organismDetails: [''],
-			amountNeeded: [''],
-			stateOfMaterial: [''],
-			amountOfMaterialMotivation: [''],
-			deuterationLevelRequired: [''],
-			deuterationLevelMotivation: ['']
+			organismProvidedByUser: [ '' ],
+			organismDetails: [ '' ],
+			amountNeeded: [ '' ],
+			stateOfMaterial: [ '' ],
+			amountOfMaterialMotivation: [ '' ],
+			deuterationLevelRequired: [ '' ],
+			deuterationLevelMotivation: [ '' ]
 		}),
 		proteinDeuteration: this.formBuilder.group({
-			moleculeName: [''],
-			moleculeIdentifier: [''],
-			molecularWeight: [''],
-			oligomerizationState: [''],
-			expressionRequirements: [''],
-			moleculeOrigin: [''],
-			expressionPlasmidProvidedByUser: [''],
-			expressionPlasmidProvidedByUserDetails: [''],
-			amountNeeded: [''],
-			amountNeededMotivation: [''],
-			deuterationLevelRequired: [''],
-			deuterationLevelMotivation: [''],
-			needsPurificationSupport: [''],
-			hasDoneUnlabeledProteinExpression: [''],
-			typicalYield: [''],
-			hasDonePurification: [''],
-			hasProteinPurificationExperience: [''],
-			proteinDeuterationResults: [''],
-			other: ['']
+			moleculeName: [ '' ],
+			moleculeIdentifier: [ '' ],
+			molecularWeight: [ '' ],
+			oligomerizationState: [ '' ],
+			expressionRequirements: [ '' ],
+			moleculeOrigin: [ '' ],
+			expressionPlasmidProvidedByUser: [ '' ],
+			expressionPlasmidProvidedByUserDetails: [ '' ],
+			amountNeeded: [ '' ],
+			amountNeededMotivation: [ '' ],
+			deuterationLevelRequired: [ '' ],
+			deuterationLevelMotivation: [ '' ],
+			needsPurificationSupport: [ '' ],
+			hasDoneUnlabeledProteinExpression: [ '' ],
+			typicalYield: [ '' ],
+			hasDonePurification: [ '' ],
+			hasProteinPurificationExperience: [ '' ],
+			proteinDeuterationResults: [ '' ],
+			other: [ '' ]
 		}),
 		bioSafety: this.formBuilder.group({
-			bioSafetyContainmentLevel: [''],
-			organismRisk: [''],
-			organismRiskDetails: [''],
-			other: ['']
+			bioSafetyContainmentLevel: [ '' ],
+			organismRisk: [ '' ],
+			organismRiskDetails: [ '' ],
+			other: [ '' ]
 		}),
 		chemicalDeuteration: this.formBuilder.group({
-			moleculeName: [''],
-			amount: [''],
-			amountMotivation: [''],
-			deuterationLocationAndPercentage: [''],
-			deuterationLevelMotivation: [''],
-			hasPreparedMolecule: [''],
-			hasPreparedMoleculeProtocol: [''],
-			other: ['']
+			moleculeName: [ '' ],
+			amount: [ '' ],
+			amountMotivation: [ '' ],
+			deuterationLocationAndPercentage: [ '' ],
+			deuterationLevelMotivation: [ '' ],
+			hasPreparedMolecule: [ '' ],
+			hasPreparedMoleculeProtocol: [ '' ],
+			other: [ '' ]
 		}),
-		other: [''],
-		pbdIdReferenceAttachment: [''],
-		organismReferenceAttachment: [''],
-		needsPurificationSupportAttachment: [''],
-		chemicalStructureAttachment: [''],
-		moleculePreparationReferenceArticle: [''],
-		proposalTemplate: [''],
-		generatedProposal: [''],
-		mergedProposal: [''],
+		other: [ '' ],
+		pbdIdReferenceAttachment: [ '' ],
+		organismReferenceAttachment: [ '' ],
+		needsPurificationSupportAttachment: [ '' ],
+		chemicalStructureAttachment: [ '' ],
+		moleculePreparationReferenceArticle: [ '' ],
+		proposalTemplate: [ '' ],
+		generatedProposal: [ '' ],
+		mergedProposal: [ '' ],
 	});
 
 	constructor(
@@ -277,6 +263,7 @@ export class ProposalsComponent implements OnInit {
 		});
 		this.selectedFiles = undefined;
 	}
+
 	/*
 	deleteFile(){
 		this.proposalService.deleteFile(file).subscribe(
