@@ -13,8 +13,7 @@ export class AppComponent implements AfterViewChecked {
 	title = 'demax-client';
 	opened: boolean;
 	mode = new FormControl('over');
-	production = environment.production;
-
+	
 	constructor(
 		public auth: AuthService,
 		private changeDetector: ChangeDetectorRef,
