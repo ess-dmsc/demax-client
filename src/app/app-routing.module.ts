@@ -14,11 +14,13 @@ import { AdminComponent } from "./components/admin.component";
 import { UserComponent } from "./components/user.component";
 import { TestingComponent } from "./components/testing.component";
 import { ProposalComponent } from "./proposal/proposal.component";
+import { GuidelinesComponent } from "./components/guidelines/guidelines.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
 	{path: 'admin', component: AdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'contact', component: ContactComponent},
+	{path: 'guidelines', component: GuidelinesComponent},
 	{path: 'home', component: HomeComponent},
 	{path: 'imprint', component: ImprintComponent},
 	{path: 'login', component: LoginComponent},

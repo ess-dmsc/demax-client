@@ -13,11 +13,14 @@
 	<mat-sidenav-container class="example-container sidebar">
 		<mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="false" fixedTopGap="0" fixedBottomGap="0">
 			<a routerLink="/home">Home</a>
-			<a routerLink="/proposals">Proposals</a>
-			<a routerLink="/contact">Contact</a>
-			<a href="http://localhost:8080/word/attachment">Proposal template</a>
-			<a routerLink="/admin">Admin</a>
+			<mat-divider></mat-divider>
 			<a routerLink="/proposal">Create new proposal</a>
+			<a routerLink="/proposals">My proposals</a>
+			<a href="http://localhost:8080/word/attachment">Proposal template</a>
+			<a routerLink="/guidelines">Proposal guidelines</a>
+			<mat-divider></mat-divider>
+			<a routerLink="/contact">Contact</a>
+			<a routerLink="/admin">Admin</a>
 		</mat-sidenav>
 
 		<mat-sidenav-content>

@@ -1,0 +1,310 @@
+<mat-card *ngIf="!hasReadTos">
+	<mat-card-header>
+		<mat-card-title>Proposal guidelines</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<p>Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
+			deuteration/crystallization proposal.</p>
+		<p>General enquiries can be sent to: <a href="mailto:demax@esss.se">demax@esss.se</a> or to one of the<a
+				routerLink="/contact"> subject matter experts.</a></p>
+		<ul>
+			<li> Proposals should be written in English, properly referenced, and prepared in the <a
+					href="http://localhost:8080/word/attachment">Word template.</a> Please keep to the 2 page
+				limit, including Summary, Background (Science Case, Practical Consideration, References,
+				Figures/Tables)
+			</li>
+			<li> Access to DEMAX is granted on the basis of both a technical and a peer-review process.</li>
+			<li> Proposals awarded during initial operations (2019-2022) will be free of charge. During formal
+				user operations (beyond 2023) we reserve the right to ask for partial financial contributions
+				towards consumables & shipping costs.
+			</li>
+			<li> During initial operations we will not limit access to DEMAX based on ESS-membership. Beyond
+				this period we will respect the user access policy that will be applicable ESS-wide.
+			</li>
+			<li> Biological and chemical deuteration proposals are run as a service but users for protein
+				crystallization are welcome to come in person as well.
+			</li>
+			<li>Proposals awarded during initial operations (2019-2021) will be free of charge. During formal
+				user operations (beyond 2023) we reserve the right to ask for partial financial contributions
+				towards consumables & shipping costs. Options
+			</li>
+			<p>*<em>Users should note that the contributions by DEMAX should be acknowledged in any publications
+				containing materials obtained from us. For particularly challenging projects that require above
+				average involvement from DEMAX, relevant DEMAX staff should be acknowledged through
+				co-authorship of any subsequent publications.</em></p>
+		</ul>
+		<mat-card-actions>
+			<mat-checkbox style="margin: 2rem;">I acknowledge the information above</mat-checkbox>
+		</mat-card-actions>
+		<mat-card-footer>
+			<button mat-raised-button color="primary" (click)="confirm()">Create new proposal</button>
+		</mat-card-footer>
+	</mat-card-content>
+</mat-card>
+<form [formGroup]="proposalForm">
+	<mat-tab-group *ngIf="hasReadTos">
+		<mat-tab label="1. General information">
+			<mat-card>
+				<mat-action-row>
+					<h3>1. General information</h3>
+				</mat-action-row>
+				<mat-form-field>
+					<input matInput formControlName="experimentTitle" placeholder="Experiment title">
+					<mat-hint align="start">Some hint</mat-hint>
+				</mat-form-field>
+				<mat-form-field>
+					<textarea matInput formControlName="briefSummary" placeholder="Brief summary"></textarea>
+				</mat-form-field>
+				<mat-action-row><h4>Main proposer</h4></mat-action-row>
+				<div formGroupName="mainProposer">
+					<mat-form-field class="smallFormField">
+						<input matInput formControlName="firstName" placeholder="First name">
+					</mat-form-field>
+					<mat-form-field class="smallFormField">
+						<input matInput formControlName="lastName" placeholder="Last name">
+					</mat-form-field>
+					<br>
+					<mat-form-field class="smallFormField">
+						<input matInput formControlName="email" placeholder="Email">
+					</mat-form-field>
+					<mat-form-field class="smallFormField">
+						<input matInput formControlName="phone" placeholder="Phone">
+					</mat-form-field>
+					<mat-label><h4>Affiliation</h4></mat-label>
+					<div>
+						<mat-form-field class="smallFormField">
+							<input matInput formControlName="title" placeholder="Job title">
+						</mat-form-field>
+						<mat-form-field class="smallFormField">
+							<input matInput formControlName="employer" placeholder="Employer">
+						</mat-form-field>
+						<mat-form-field>
+							<input matInput formControlName="sector" placeholder="Sector">
+						</mat-form-field>
+					</div>
+				</div>
+
+				<div formArrayName="coProposers">
+					<h4>Co-proposers</h4>
+					<div *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
+						<mat-form-field class="smallFormField">
+							<input matInput formControlName="firstName" placeholder="First name">
+						</mat-form-field>
+						<mat-form-field class="smallFormField">
+							<input matInput formControlName="lastName" placeholder="Last name">
+						</mat-form-field>
+						<button mat-raised-button color="warn" (click)="deleteCoProposer(i)">Delete</button>
+					</div>
+					<mat-action-row>
+						<button mat-raised-button color="primary" (click)="addCoProposer()">Add Co-Proposer
+						</button>
+					</mat-action-row>
+				</div>
+				<br>
+				<br>
+				<mat-radio-group formControlName="linksWithIndustry">
+					<p>Links with industry</p>
+					<mat-radio-button value="yes">Yes</mat-radio-button>
+					<mat-radio-button value="no">No</mat-radio-button>
+				</mat-radio-group>
+				<mat-radio-group formControlName="coProposerStudents">
+					<p>Are any of the co-proposers students?</p>
+					<mat-radio-button value="yes">Yes</mat-radio-button>
+					<mat-radio-button value="no">No</mat-radio-button>
+				</mat-radio-group>
+				<mat-radio-group formControlName="workTowardsStudentsDegree">
+					<p>Does the proposal work towards a students degree?</p>
+					<mat-radio-button value="yes">Yes</mat-radio-button>
+					<mat-radio-button value="no">No</mat-radio-button>
+				</mat-radio-group>
+				<fieldset>
+					<p>In the next sections you will fill out the applicable area of support your proposal
+						requires.
+						Select one, or as many as apply, from the alternatives below.</p>
+					<mat-checkbox formControlName="wantsCrystallization">A) Crystallization</mat-checkbox>
+					<mat-checkbox formControlName="wantsBiologicalDeuteration">B) Biological deuteration
+					</mat-checkbox>
+					<mat-checkbox formControlName="wantsChemicalDeuteration">C) Chemical deuteration
+					</mat-checkbox>
+				</fieldset>
+				<mat-action-row>
+					<button mat-button color="primary" (click)="addProposal()">Save</button>
+					<button mat-button class="btn btn-danger" routerLink="/home">Cancel</button>
+					<button mat-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
+				</mat-action-row>
+			</mat-card>
+		</mat-tab>
+		<mat-tab label="2. Crystallization">
+			<div formGroupName="crystallization">
+
+				<mat-form-field>
+					<input matInput formControlName="moleculeName"
+					       placeholder="Name of molecule to be crystallized (e.g. superoxide dismutase)">
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput placeholder="FASTA sequence or Uniprot number" formControlName="moleculeIdentifier">
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput placeholder="Oligomerizarion state?" formControlName="oligomerizationState">
+					<mat-hint>(e.g. homodimer, tetramer etc.)</mat-hint>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput placeholder="PDB ID of crystal structure" formControlName="pbdId">
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput placeholder="If open access, please provide a primary reference DOI" type="text"
+					       formControlName="doi">
+				</mat-form-field>
+				<fieldset>
+					<mat-label>If the reference isn't publicly available, please upload a copy here</mat-label>
+					<p>(Accepted formats: PDF)</p>
+					<label class="btn btn-default">
+						<input type="file" (change)="selectFile($event)"></label>
+				</fieldset>
+				<mat-form-field>
+					<textarea
+							placeholder="Does the protein have any co-factors or ligands required for crystallization? Specify:"
+							rows="6" cols="40" matInput formControlName="crystallizationRequirements"></textarea>
+				</mat-form-field>
+				<mat-form-field>
+					<textarea
+							placeholder="Known crystallization precipitant composition (incl. buffer, salt, additives, pH)"
+							rows="6" cols="40" matInput
+							formControlName="crystallizationPrecipitantComposition"></textarea>
+				</mat-form-field>
+				<mat-form-field>
+					<textarea
+							placeholder="What crystallization method, volume, and temperature have you used in the past?(e.g.vapour diffusion, 10 &#181;L drops, room temperature)"
+							rows="8" cols="60" matInput formControlName="previousCrystallizationExperience"></textarea>
+				</mat-form-field>
+				<mat-form-field>
+					<input placeholder="How long do your crystals take to appear?" matInput
+					       formControlName="estimatedCrystallizationProductionTime">
+				</mat-form-field>
+				<mat-form-field>
+					<input placeholder="What is the typical size of your crystal (&#181;m x &#181;m x &#181;m)" matInput
+					       formControlName="typicalCrystalSize">
+				</mat-form-field>
+				<mat-divider></mat-divider>
+				<h4>Details from protein preparation</h4>
+				<mat-form-field>
+					<input placeholder="Typical yield (mg per liter of culture)" matInput
+					       formControlName="typicalYieldMgPerLiter">
+				</mat-form-field>
+				<mat-form-field>
+					<input placeholder="Storage conditions (e.g. stable at 4 &#176;C or frozen at -20 &#176;C)" matInput
+					       formControlName="storageConditions">
+				</mat-form-field>
+				<mat-form-field>
+					<input placeholder="Stability" matInput formControlName="stability">
+				</mat-form-field>
+				<mat-form-field>
+					<input placeholder="What buffer is your protein in?" matInput formControlName="buffer">
+				</mat-form-field>
+				<mat-form-field>
+					<input placeholder="Is your protein partially or fully deuterated?" matInput
+					       formControlName="levelOfDeuteration">
+				</mat-form-field>
+				<mat-form-field>
+					<input placeholder="What protein concentration do you usually use for crystallization:" matInput
+					       formControlName="typicalProteinConcentrationUsed">
+				</mat-form-field>
+				<mat-action-row>
+					<button mat-button class="btn btn-danger" (click)="selectTab(2)">Skip</button>
+					<button mat-button class="btn btn-danger" (click)="selectTab(0)">Back</button>
+					<button mat-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
+					<button mat-raised-button color="primary" type="submit">Save</button>
+				</mat-action-row>
+			</div>
+		</mat-tab>
+		<mat-tab label="3. Biological deuteration">
+			<div style="padding: 3rem;">
+				<p><em>If the protein is to be purified by us, please remember to include a chromatogram from
+					purification <br>and a picture of SDS-PAGE that indicates MW and purity in your science
+					case.</em></p>
+				<fieldset>
+					<p>Select (E. coli, yeast)</p>
+					<mat-checkbox>Protein</mat-checkbox>
+					<mat-checkbox>Biomass</mat-checkbox>
+					<mat-checkbox>Other</mat-checkbox>
+				</fieldset>
+			</div>
+			<mat-accordion class="example-headers-align">
+				<div formGroupName="biomassDeuteration">
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>For biomass</mat-expansion-panel-header>
+						<fieldset>
+							<p> Will user provide the organism for us to grow under deuterated conditions?</p>
+							<mat-radio-group formControlName="organismProvidedByUser">
+								<mat-radio-button value="yes">Yes</mat-radio-button>
+								<mat-radio-button value="no">No</mat-radio-button>
+							</mat-radio-group>
+						</fieldset>
+						<mat-form-field>
+							<p>What is the organism?</p>
+							<textarea rows="8" cols="40" matInput
+							          formControlName="organismDetails"></textarea>
+						</mat-form-field>
+						<fieldset>
+							<mat-label>Please attach a reference or protocol of culture conditions and media
+								composition
+							</mat-label>
+							<br>
+							<p><em>(Accepted formats: PDF)</em></p>
+							<label class="btn btn-default">
+								<input type="file" name="organismReferenceAttachment" (change)="selectFile($event)">
+							</label>
+
+						</fieldset>
+						<mat-form-field>
+							<p> How much material do you need?</p>
+							<textarea rows="8" cols="40" matInput formControlName="amountNeeded"></textarea>
+						</mat-form-field>
+						<mat-form-field>
+							<p> Indicate wet or dry mass:</p>
+							<textarea rows="8" cols="40" matInput formControlName="stateOfMaterial"></textarea>
+						</mat-form-field>
+						<mat-form-field>
+							<p> Justify amount:</p>
+							<textarea rows="8" cols="40" matInput formControlName="amountOfMaterialMotivation"></textarea>
+						</mat-form-field>
+						<mat-radio-group formControlName="deuterationLevelRequired">
+							<p> Level of deuteration required:</p>
+							<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)
+							</mat-radio-button>
+							<mat-radio-button value="full">Full (~99% with labeled carbon source)
+							</mat-radio-button>
+						</mat-radio-group>
+						<mat-form-field>
+							<p> Justify level of D incorporation:</p>
+							<textarea rows="8" cols="40" matInput formControlName="deuterationLevelMotivation"></textarea>
+						</mat-form-field>
+						<mat-action-row>
+							<button mat-raised-button color="primary" type="submit">Save</button>
+						</mat-action-row>
+					</mat-expansion-panel>
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title>For proteins</mat-panel-title>
+						</mat-expansion-panel-header>
+					</mat-expansion-panel>
+
+					<mat-action-row>
+						<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
+						<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
+						<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
+						<button mat-raised-button color="primary" type="submit">Save</button>
+					</mat-action-row>
+
+
+				</div>
+				<div formGroupName="proteinDeuteration"></div>
+			</mat-accordion>
+			<div formGroupName="bioSafety"></div>
+		</mat-tab>
+		<mat-tab label="4. Chemical deuteration">
+			<div formGroupName="chemicalDeuteration"></div>
+		</mat-tab>
+		<mat-tab label="5. Review and submit"></mat-tab>
+	</mat-tab-group>
+</form>

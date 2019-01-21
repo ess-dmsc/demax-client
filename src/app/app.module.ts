@@ -34,6 +34,7 @@ import { FormUploadComponent } from "./components/upload/form-upload/form-upload
 import { DetailsUploadComponent } from "./components/upload/details-upload/details-upload.component";
 import { NewProposalComponent} from "./components/new-proposal.component";
 import { ProposalComponent } from './proposal/proposal.component';
+import { GuidelinesComponent } from './components/guidelines/guidelines.component';
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
@@ -58,7 +59,8 @@ export const tokenGetter = () => {
 		ProposalsComponent,
 		TestingComponent,
 		UserComponent,
-		ProposalComponent
+		ProposalComponent,
+		GuidelinesComponent
 	],
 	imports: [
 		BrowserModule,

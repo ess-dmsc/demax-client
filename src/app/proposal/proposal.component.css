@@ -1,0 +1,28 @@
+mat-card {
+	margin: 5rem;
+	padding: 5rem;
+}
+
+mat-checkbox {
+	margin: 2rem;
+	display: block;
+}
+
+mat-radio-group {
+	display: block;
+}
+
+mat-radio-button {
+	margin: 2rem;
+}
+
+mat-form-field {
+	width: 60%;
+	margin: 1rem auto;
+}
+
+.smallFormField {
+	width: 300px;
+}
+
+mat-form-field {}
