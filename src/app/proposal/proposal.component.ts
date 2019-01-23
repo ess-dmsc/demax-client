@@ -115,7 +115,6 @@ export class ProposalComponent implements OnInit {
 				deuterationLocationAndPercentage: '',
 				deuterationLevelMotivation: '',
 				hasPreparedMolecule: '',
-				hasPreparedMoleculeProtocol: '',
 				other: ''
 			}),
 			other: '',

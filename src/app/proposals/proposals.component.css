@@ -1,5 +1,9 @@
 .proposal-list{
 }
+mat-card {
+	margin: 5rem;
+	padding: 5rem;
+}
 
 .editProposal{
 	margin-left: 2rem;
