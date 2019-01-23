@@ -363,6 +363,29 @@
 
 				</mat-accordion>
 
+				<h4>Biosafety</h4>
+
+				<fieldset>
+					<p>Which biosafety containment level is required to work with your sample?</p>
+					<mat-radio-group name="bioSafetyContainmentLevel" [(ngModel)]="proposal.bioSafety.bioSafetyContainmentLevel">
+						<mat-radio-button value="l1">L1</mat-radio-button>
+						<mat-radio-button value="l2">L2</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+
+				<fieldset>
+					<p>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the environment?</p>
+					<mat-radio-group name="organismRisk" [(ngModel)]="proposal.bioSafety.organismRisk">
+						<mat-radio-button value="yes">Yes</mat-radio-button>
+						<mat-radio-button value="no">No</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+
+				<mat-form-field>
+					<input matInput placeholder="If you chose “yes”, please provide details:"
+					       [(ngModel)]="proposal.bioSafety.organismRiskDetails">
+				</mat-form-field>
+
 			</mat-tab>
 			<mat-tab label="4. Chemical deuteration">
 				<mat-form-field>
