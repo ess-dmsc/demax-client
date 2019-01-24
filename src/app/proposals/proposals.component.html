@@ -362,7 +362,7 @@
 
 				<div style="padding: 3rem;">
 					<p><em>If the protein is to be purified by us, please remember to include a chromatogram from
-						purification <br>and a picture of SDS-PAGE that indicates MW and purity in your science
+						purification and a picture of SDS-PAGE that indicates MW and purity in your science
 						case.</em></p>
 					<fieldset>
 						<p>Select (E. coli, yeast)</p>
@@ -567,8 +567,6 @@
 						{{progress.percentage}}%
 					</div>
 				</div>
-
-
 				<label class="btn btn-default">
 					<input type="file" (change)="selectFile($event)">
 				</label>
@@ -582,18 +580,15 @@
 						<td><a style="padding: 0.5rem;" class="btn-success" href="http://localhost:8080/api/file/{{file}}">Download</a></td>
 					</tr>
 				</div>
-
 				<fieldset>
 					<a mat-raised-button color="warn" (click)="generate()"
 					   href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate Deuteration proposal</a>
 				</fieldset>
-				<br>
 				<fieldset>
 					<a mat-raised-button color="warn" (click)="merge()" class="btn btn-danger"
 					   href="http://localhost:8080/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with
-						proposal</a><br>
+						proposal</a>
 				</fieldset>
-				<br>
 				<mat-action-row>
 					<button mat-button (click)="selectTab(3)">Go back</button>
 					<button mat-raised-button color="primary" type="submit">Submit</button>
