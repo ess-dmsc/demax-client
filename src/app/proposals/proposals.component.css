@@ -1,8 +1,8 @@
 .proposal-list{
 }
 mat-card {
-	margin: 5rem;
-	padding: 5rem;
+	margin: 2rem 5rem;
+	padding: 2rem;
 }
 
 .editProposal{
@@ -31,9 +31,8 @@ mat-form-field{
 	width: 60%;
 	margin: 1rem auto;
 }
-
 button{
-	margin: 2rem;
+	margin: 1em;
 }
 .smallFormField{
 	width: 300px;
@@ -42,9 +41,7 @@ button{
 table {
 	width: 100%;
 }
-mat-expansion-panel{
-	width: 100%;
-}
+
 mat-action-row{
 	display: flex;
 	justify-content: center;

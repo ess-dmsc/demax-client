@@ -29,6 +29,7 @@ import { MessageService }       from './services/message.service';
 import { HttpErrorHandler }     from './services/http-error-handler.service';
 import { ProposalComponent } from './proposal/proposal.component';
 import { GuidelinesComponent } from './components/guidelines/guidelines.component';
+import { EditProposalComponent } from './edit-proposal/edit-proposal.component';
 
 export const tokenGetter = () => {
 	return localStorage.getItem('token')
@@ -48,7 +49,8 @@ export const tokenGetter = () => {
 		TestingComponent,
 		UserComponent,
 		ProposalComponent,
-		GuidelinesComponent
+		GuidelinesComponent,
+		EditProposalComponent
 	],
 	imports: [
 		BrowserModule,

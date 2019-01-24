@@ -14,6 +14,7 @@ import { UserComponent } from "./components/user.component";
 import { TestingComponent } from "./components/testing.component";
 import { ProposalComponent } from "./proposal/proposal.component";
 import { GuidelinesComponent } from "./components/guidelines/guidelines.component";
+import { EditProposalComponent } from "./edit-proposal/edit-proposal.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
 	{path: 'register', component: RegisterComponent},
 	{path: 'test', component: TestingComponent},
 	{path: 'user', component: UserComponent},
+	{path: 'proposal/:proposalId', component: EditProposalComponent},
 	{path: 'proposal', component: ProposalComponent},
 ];
 
