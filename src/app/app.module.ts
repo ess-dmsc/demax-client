@@ -13,7 +13,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ImprintComponent } from './components/imprint.component';
 import { HomeComponent } from './components/home.component';
 import { ContactComponent } from './components/contact.component';
-import { NotFoundComponent } from './components/not-found.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProposalsComponent } from './proposals/proposals.component';
@@ -25,7 +24,6 @@ import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from './components/admin.component';
 import { UserComponent } from "./components/user.component";
-import { LoadingComponent} from "./components/loading/loading.component";
 import { TestingComponent } from "./components/testing.component";
 import { MessageService }       from './services/message.service';
 import { HttpErrorHandler }     from './services/http-error-handler.service';
@@ -43,9 +41,7 @@ export const tokenGetter = () => {
 		ImprintComponent,
 		HomeComponent,
 		ContactComponent,
-		NotFoundComponent,
 		RegisterComponent,
-		LoadingComponent,
 		LoginComponent,
 		LogoutComponent,
 		ProposalsComponent,

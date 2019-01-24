@@ -49,27 +49,6 @@ export class ProposalService {
         return this.http.delete(`/api/proposals/${proposal.proposalId}`, {responseType: 'text'});
     }
 
-    uploadFile(file: File, proposal: Proposal, input: HTMLInputElement) {
-        const formData: FormData = new FormData();
-        formData.append('file', file, proposal.proposalId + '_' + file.name);
-        formData.append('proposalId', proposal.proposalId);
-        formData.append('name', input.name);
-        console.log(input.name)
-        if (!file) {
-            return;
-        }
-
-        const req = new HttpRequest('POST', `api/file/upload/${input.name}`, formData, {
-            reportProgress: true
-        });
-        return this.http.request(req).pipe(
-            map(event => this.getEventMessage(event, file)),
-            tap(message => this.showProgress(message)),
-            last(),
-            catchError(this.handleError(file))
-        );
-    }
-
     private getEventMessage(event: HttpEvent<any>, file: File) {
         switch (event.type) {
             case HttpEventType.Sent:
@@ -133,7 +112,7 @@ export class ProposalService {
         return this.http.get('/api/file/all/');
     }
 
-    deleteFile(proposal: Proposal, file: String): Observable<any> {
-        return this.http.delete(`/api/files/${proposal.proposalId}/${file}`);
-    }
+	deleteFile(file: File): Observable<any> {
+		return this.http.delete(`/api/file/${file}`, {responseType: 'text'});
+	}
 }

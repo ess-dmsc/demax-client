@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { ContactComponent } from './components/contact.component';
 import { RegisterComponent } from './components/register/register.component';
-import { NotFoundComponent } from './components/not-found.component';
 import { ImprintComponent } from './components/imprint.component';
 import { HomeComponent } from './components/home.component';
 import { ProposalsComponent } from "./proposals/proposals.component";
@@ -25,13 +24,11 @@ const routes: Routes = [
 	{path: 'imprint', component: ImprintComponent},
 	{path: 'login', component: LoginComponent},
 	{path: 'logout', component: LogoutComponent},
-	{path: 'notfound', component: NotFoundComponent},
 	{path: 'proposals', component: ProposalsComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'test', component: TestingComponent},
 	{path: 'user', component: UserComponent},
 	{path: 'proposal', component: ProposalComponent},
-	{path: '**', redirectTo: '/notfound'},
 ];
 
 @NgModule({

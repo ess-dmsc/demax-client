@@ -559,89 +559,29 @@
 						<input type="file" name="proposalTemplate" (change)="selectFile($event)">
 					</label>
 				</fieldset>
-				<fieldset>
-					<h4>Attachments</h4>
-					<table>
-						<thead>
-						<td><h5>Document type</h5></td>
-						<td><h5>Filename</h5></td>
-						<td><h5>Upload new</h5></td>
-						</thead>
-						<tr>
-							<td>Proposal template</td>
-							<td>{{proposal.proposalTemplate}}</td>
-							<td>
-								<label class="btn btn-default">
-									<input type="file" name="proposalTemplate" (change)="selectFile($event)">
-								</label></td>
-						</tr>
-						<tr>
-							<td>Need-by-date attachment</td>
-							<td>{{proposal.needByDateAttachment}}</td>
-							<td>
-								<label class="btn btn-default">
-									<input type="file" name="needByDateAttachment" (change)="selectFile($event)">
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td>PBD Id reference</td>
-							<td>{{proposal.pbdIdReferenceAttachment}}</td>
-							<td>
-								<label class="btn btn-default">
-									<input type="file" name="pbdIdReferenceAttachment"
-									       (change)="selectFile($event)"></label>
 
-							</td>
-						</tr>
-						<tr>
-							<td>Organism reference attachment</td>
-							<td>{{proposal.organismReferenceAttachment}}</td>
-							<td>
-								<label class="btn btn-default">
-									<input type="file" name="organismReferenceAttachment" (change)="selectFile($event)">
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td>Protein purification attachment</td>
-							<td>{{proposal.needsPurificationSupportAttachment}}</td>
-							<td>
-								<label class="btn btn-default">
-									<input type="file" name="needsPurificationSupportAttachment"
-									       (change)="selectFile($event)">
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td>Chemical structure attachment</td>
-							<td>{{proposal.chemicalStructureAttachment}}</td>
-							<td>
-								<label class="btn btn-default">
-									<input type="file" name="chemicalStructureAttachment" (change)="selectFile($event)">
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td>Molecule preparation protocol</td>
-							<td>{{proposal.moleculePreparationReferenceArticle}}</td>
-							<td>
-								<label class="btn btn-default">
-									<input type="file" name="moleculePreparationReferenceArticle"
-									       (change)="selectFile($event)">
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td>Generated proposal</td>
-							<td>{{proposal.generatedProposal}}</td>
-							<td>
+				<div *ngIf="currentFileUpload" class="progress">
+					<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+					     attr.aria-valuenow="{{progress.percentage}}"
+					     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+						{{progress.percentage}}%
+					</div>
+				</div>
 
-							</td>
-						</tr>
-					</table>
-				</fieldset>
 
+				<label class="btn btn-default">
+					<input type="file" (change)="selectFile($event)">
+				</label>
+
+				<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+				<div>
+					<tr *ngFor="let file of fileUploads | async" style="margin: 1rem;">
+						<td><img src="../../../assets/logos/pdf.png" alt="{{file.name}}" width="80"></td>
+						<td class="panel-body"><a href="http://localhost:8080/api/file/{{file}}">{{file}}</a></td>
+						<td><button style="padding: 0.5rem;" (click)="deleteFile(file, proposal)" class="btn-danger">Delete</button></td>
+						<td><a style="padding: 0.5rem;" class="btn-success" href="http://localhost:8080/api/file/{{file}}">Download</a></td>
+					</tr>
+				</div>
 
 				<fieldset>
 					<a mat-raised-button color="warn" (click)="generate()"

@@ -24,6 +24,7 @@ export class ProposalsComponent implements OnInit {
 	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'options', 'pdf' ];
 	selectedFiles: FileList;
 	selectedInput: string;
+	fileUploads: Observable<string[]>;
 	currentFileUpload: File;
 	progress: { percentage: number } = {percentage: 0};
 
@@ -170,7 +171,7 @@ export class ProposalsComponent implements OnInit {
 
 	ngOnInit() {
 		this.getProposals();
-		this.proposalService.getFiles();
+		this.fileUploads = this.proposalService.getFiles();
 		this.addProposalForm = this.formBuilder.group({})
 	}
 
@@ -237,17 +238,6 @@ export class ProposalsComponent implements OnInit {
 		}
 	}
 
-	onPicked(input: HTMLInputElement) {
-		const file = input.files[ 0 ];
-		if(file) {
-			this.proposalService.uploadFile(file, this.proposal, input).subscribe(
-				msg => {
-					this.message = msg;
-				}
-			);
-		}
-	}
-
 	selectFile(event) {
 		this.selectedFiles = event.target.files;
 		this.selectedInput = event.target.name.toString()
@@ -262,17 +252,16 @@ export class ProposalsComponent implements OnInit {
 			console.log('File is completely uploaded!');
 		});
 		this.selectedFiles = undefined;
+		this.fileUploads = this.proposalService.getFiles();
 	}
 
-	/*
-	deleteFile(){
-		this.proposalService.deleteFile(file).subscribe(
-			() => {
-				const newFileArray = this.files.map(element => element.proposalId).indexOf(proposal.proposalId);
-				this.files.splice(newFileArray, 1);
-				this.getProposals();
-			},
-			error => console.log(error)
-		);
-	}*/
+	deleteFile(file: File) {
+		event.preventDefault();
+			this.proposalService.deleteFile(file).subscribe(
+				() => {
+					this.fileUploads = this.proposalService.getFiles();
+				},
+				error => console.log(error)
+			);
+	}
 }
