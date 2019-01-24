@@ -29,10 +29,6 @@ import { LoadingComponent} from "./components/loading/loading.component";
 import { TestingComponent } from "./components/testing.component";
 import { MessageService }       from './services/message.service';
 import { HttpErrorHandler }     from './services/http-error-handler.service';
-import { ListUploadComponent } from "./components/upload/list-upload/list-upload.component";
-import { FormUploadComponent } from "./components/upload/form-upload/form-upload.component";
-import { DetailsUploadComponent } from "./components/upload/details-upload/details-upload.component";
-import { NewProposalComponent} from "./components/new-proposal.component";
 import { ProposalComponent } from './proposal/proposal.component';
 import { GuidelinesComponent } from './components/guidelines/guidelines.component';
 
@@ -49,13 +45,9 @@ export const tokenGetter = () => {
 		ContactComponent,
 		NotFoundComponent,
 		RegisterComponent,
-		ListUploadComponent,
-		FormUploadComponent,
-		DetailsUploadComponent,
 		LoadingComponent,
 		LoginComponent,
 		LogoutComponent,
-		NewProposalComponent,
 		ProposalsComponent,
 		TestingComponent,
 		UserComponent,

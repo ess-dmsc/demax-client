@@ -26,9 +26,11 @@ export class Proposal {
 	coProposerStudents?: string;
 	workTowardsStudentsDegree?: string;
 	wantsCrystallization?: string;
-	wantsBiomassDeuteration?: string;
-	wantsProteinDeuteration?: string;
-	wantsChemicalDeuteration?: string;
+	wantsBiologicalDeuteration?: boolean;
+	wantsBiomassDeuteration?: boolean;
+	wantsProteinDeuteration?: boolean;
+	wantsOtherDeuteration?: boolean;
+	wantsChemicalDeuteration?: boolean;
 	crystallization?: {
 		moleculeName?: string;
 		moleculeIdentifier?: string;

@@ -7,7 +7,6 @@ import { AuthService } from "../services/auth.service";
 import { catchError, last, map, tap } from "rxjs/operators";
 import { MessageService } from "../services/message.service";
 import { Observable } from "rxjs";
-import { UploadFileService } from "../components/upload/upload-file.service";
 import { MatDialog, MatStep } from "@angular/material";
 
 @Component({
@@ -67,6 +66,7 @@ export class ProposalsComponent implements OnInit {
 		coProposerStudents: [ '', Validators.required ],
 		workTowardsStudentsDegree: [ '', Validators.required ],
 		wantsCrystallization: false,
+		wantsBiologicalDeuteration: false,
 		wantsBiomassDeuteration: false,
 		wantsProteinDeuteration: false,
 		wantsOtherDeuteration: false,
