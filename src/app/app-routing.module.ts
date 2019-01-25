@@ -29,7 +29,6 @@ const routes: Routes = [
 	{path: 'register', component: RegisterComponent},
 	{path: 'test', component: TestingComponent},
 	{path: 'user', component: UserComponent},
-	{path: 'proposal/:proposalId', component: EditProposalComponent},
 	{path: 'proposal', component: ProposalComponent},
 ];
 

@@ -50,3 +50,10 @@ fieldset{
 	display: block;
 	margin: 2rem;
 }
+label{
+	width: 40%;
+	margin: 1rem;
+	display: block;
+	text-align: left;
+	padding: 1rem;
+}

@@ -69,7 +69,7 @@
 					          name="briefSummary"
 					          [(ngModel)]="proposal.briefSummary"
 					          placeholder="Brief summary"
-					          rows="8" cols="40"></textarea>
+					          rows="4" cols="40"></textarea>
 					</mat-form-field>
 
 
@@ -87,6 +87,7 @@
 						       [(ngModel)]="proposal.mainProposer.lastName"
 						       placeholder="Last name">
 					</mat-form-field>
+					<br>
 					<mat-form-field class="smallFormField">
 						<input matInput
 						       name="proposal.mainProposer.phone"
@@ -100,8 +101,7 @@
 						       placeholder="email">
 					</mat-form-field>
 
-
-					<h5>Affiliation</h5>
+					<p>Affiliation</p>
 
 					<mat-form-field class="smallFormField">
 						<input matInput
@@ -121,7 +121,6 @@
 						       [(ngModel)]="proposal.mainProposer.title"
 						       placeholder="Job title">
 					</mat-form-field>
-
 
 					<h4>Co-proposers</h4>
 
@@ -166,52 +165,50 @@
 					</mat-radio-group>
 
 					<h4>Final delivery date</h4>
-					<mat-form-field class="smallFormField">
+					<mat-form-field>
 						<input matInput
 						       name="proposal.needByDate"
 						       [(ngModel)]="proposal.needByDate"
 						       [matDatepicker]="picker"
-						       style="width: 30%;"
 						       placeholder="Choose a date">
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 						<mat-datepicker #picker></mat-datepicker>
 					</mat-form-field>
 					<mat-form-field>
-						<p>Please motivate the chosen date (e.g. based on awarded beamtime, or described intention to
-							apply)</p>
+						<p>Please motivate the chosen date<br><em>
+							<small>(e.g. based on awarded beamtime, or described intention to apply)</small>
+						</em></p>
 						<textarea matInput
 						          name="needByDateMotivation"
 						          [(ngModel)]="proposal.needByDateMotivation"
-						          rows="8" cols="40"></textarea>
+						          rows="4" cols="40"></textarea>
 					</mat-form-field>
-					<fieldset>
-						<p>Attach a copy of the beamtime proposal, draft or intended submission <em>(Accepted formats:
-							PDF)</em></p>
-						<label class="btn btn-default">
-							<input name="needByDateAttachment"
-							       type="file"
-							       (change)="selectFile($event)">
-						</label>
-					</fieldset>
+					<p>Attach a copy of the beamtime proposal, draft or intended submission:<br><strong style="color: red;">Accepted formats: PDF</strong></p>
+					<label class="btn btn-default">
+						<input name="needByDateAttachment"
+						       style="width: 100%;"
+						       type="file"
+						       (change)="selectFile($event)">
+					</label>
 					<mat-form-field>
-						<p>If there is anything else you would like us to know, please enter it below</p>
-						<input matInput
-						       name="proposal.other"
-						       [(ngModel)]="proposal.other">
+						<p>If there is anything else you would like us to know, please enter it below:</p>
+						<textarea matInput
+						          name="proposal.other"
+						          [(ngModel)]="proposal.other"
+						          rows="4" cols="40"></textarea>
 					</mat-form-field>
-					<fieldset>
-						<p>In the next sections you will fill out the applicable area of support your proposal requires.
-							Select one, or as many as apply, from the alternatives below.</p>
-						<mat-checkbox [(ngModel)]="proposal.wantsCrystallization" name="proposal.wantsCrystallization">
-							Crystallization
-						</mat-checkbox>
-						<mat-checkbox [(ngModel)]="proposal.wantsBiologicalDeuteration"
-						              name="proposal.wantsBiologicalDeuteration">Biological deuteration
-						</mat-checkbox>
-						<mat-checkbox [(ngModel)]="proposal.wantsChemicalDeuteration"
-						              name="proposal.wantsChemicalDeuteration">Chemical deuteration
-						</mat-checkbox>
-					</fieldset>
+					<p>In the next sections you will fill out the applicable area of support your proposal requires.<br>Select
+						one, or as many as apply, from the alternatives below.</p>
+
+					<mat-checkbox [(ngModel)]="proposal.wantsCrystallization" name="proposal.wantsCrystallization">
+						Crystallization
+					</mat-checkbox>
+					<mat-checkbox [(ngModel)]="proposal.wantsBiologicalDeuteration"
+					              name="proposal.wantsBiologicalDeuteration">Biological deuteration
+					</mat-checkbox>
+					<mat-checkbox [(ngModel)]="proposal.wantsChemicalDeuteration"
+					              name="proposal.wantsChemicalDeuteration">Chemical deuteration
+					</mat-checkbox>
 
 					<mat-action-row>
 						<button mat-button class="btn btn-danger" (click)="cancelEditing()">Cancel</button>
@@ -223,126 +220,147 @@
 			<mat-tab label="2. Crystallization" [disabled]="!proposal.wantsCrystallization">
 				<mat-card>
 
+					<p>Required information to include in the “Practical Considerations” section of your proposal:</p>
+					<ul>
+						<li>SDS-PAGE</li>
+						<li>Chromatogram of protein purification to indicate yield & purity</li>
+						<li>Photo of crystal</li>
+					</ul>
+
 					<mat-form-field>
-						<input matInput name="crystallization.moleculeName"
+						<p>Name of molecule to be crystallized:<br><em><small>(e.g. superoxide dismutase)</small></em></p>
+						<input matInput
+						       name="crystallization.moleculeName"
 						       [(ngModel)]="proposal.crystallization.moleculeName"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="Name of molecule to be crystallized (e.g. superoxide dismutase)">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 					<mat-form-field>
-						<input matInput name="crystallization.moleculeIdentifier"
+						<p>FASTA sequence or Uniprot number:</p>
+						<input matInput
+						       name="crystallization.moleculeIdentifier"
 						       [(ngModel)]="proposal.crystallization.moleculeIdentifier"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="FASTA sequence or Uniprot number">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 					<mat-form-field>
-						<input matInput name="crystallization.oligomerizationState"
+						<p>Molecular weight <small>(kDA)</small>:</p>
+						<input matInput
+						       name="crystallization.molecularWeight"
+						       [(ngModel)]="proposal.crystallization.molecularWeight"
+						       [disabled]="!proposal.wantsCrystallization">
+					</mat-form-field>
+					<mat-form-field>
+						<p>Oligomerization state:<br><em><small>(e.g. homodimer, tetramer etc.)</small></em></p>
+						<input matInput
+						       name="crystallization.oligomerizationState"
 						       [(ngModel)]="proposal.crystallization.oligomerizationState"
+						       [disabled]="!proposal.wantsCrystallization">
+					</mat-form-field>
+					<mat-form-field>
+						<p>PDB ID of crystal structure:</p>
+						<input matInput
+						       name="crystallization.pbdId"
+						       [(ngModel)]="proposal.crystallization.pbdId"
+						       [disabled]="!proposal.wantsCrystallization">
+					</mat-form-field>
+					<mat-form-field>
+						<p>If the reference is publicly available, please provide the DOI or an accessible link:</p>
+						<input matInput
+						       name="crystallization.doi"
+						       [(ngModel)]="proposal.crystallization.doi"
+						       [disabled]="!proposal.wantsCrystallization">
+					</mat-form-field>
+					<p>If the reference isn't publicly available, please upload a copy:<br><strong style="color: red;">Accepted formats: PDF</strong></p>
+					<label class="btn btn-default">
+						<input name="pbdIdReferenceAttachment"
 						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="Oligomerizarion state?">
-						<mat-hint>(e.g. homodimer, tetramer etc.)</mat-hint>
+						       style="width: 100%;"
+						       type="file"
+						       (change)="selectFile($event)">
+					</label>
+					<mat-form-field>
+						<p>Does the protein have any co-factors or ligands required for crystallization? Specify:</p>
+						<textarea matInput
+						          name="crystallization.crystallizationRequirements"
+						          [(ngModel)]="proposal.crystallization.crystallizationRequirements"
+						          [disabled]="!proposal.wantsCrystallization"
+						          rows="4" cols="40"></textarea>
 					</mat-form-field>
 					<mat-form-field>
-						<input matInput name="crystallization.pbdId" [(ngModel)]="proposal.crystallization.pbdId"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="PDB ID of crystal structure">
+						<p>Known crystallization precipitant composition:<br><em><small>(incl. buffer, salt, additives, pH)</small></em></p>
+						<textarea matInput
+						          name="crystallization.crystallizationPrecipitantComposition"
+						          [(ngModel)]="proposal.crystallization.crystallizationPrecipitantComposition"
+						          [disabled]="!proposal.wantsCrystallization"
+						          rows="4" cols="40"></textarea>
 					</mat-form-field>
 					<mat-form-field>
-						<input matInput name="crystallization.doi" [(ngModel)]="proposal.crystallization.doi"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="If open access, please provide a primary reference DOI" type="text">
-					</mat-form-field>
-					<fieldset>
-						<mat-label>If the reference isn't publicly available, please upload a copy here</mat-label>
-						<p>(Accepted formats: PDF)</p>
-						<label class="btn btn-default">
-							<input name="pbdIdReferenceAttachment"
-							       [disabled]="!proposal.wantsCrystallization"
-							       (change)="selectFile($event)"
-							       type="file">
-						</label>
-					</fieldset>
-					<mat-form-field>
-					<textarea matInput
-					          name="crystallization.crystallizationRequirements"
-					          [(ngModel)]="proposal.crystallization.crystallizationRequirements"
-					          [disabled]="!proposal.wantsCrystallization"
-					          placeholder="Does the protein have any co-factors or ligands required for crystallization? Specify:"
-					          rows="6" cols="40"></textarea>
+						<p>What crystallization method, volume, and temperature have you used in the past?<br><em><small>(e.g. vapour diffusion, 10 &#181;L drops, room temperature)</small></em></p>
+						<textarea matInput
+						          name="crystallization.previousCrystallizationExperience"
+						          [(ngModel)]="proposal.crystallization.previousCrystallizationExperience"
+						          [disabled]="!proposal.wantsCrystallization"
+						          rows="4" cols="60"></textarea>
 					</mat-form-field>
 					<mat-form-field>
-					<textarea matInput name="crystallization.crystallizationPrecipitantComposition"
-					          [(ngModel)]="proposal.crystallization.crystallizationPrecipitantComposition"
-					          [disabled]="!proposal.wantsCrystallization"
-					          placeholder="Known crystallization precipitant composition (incl. buffer, salt, additives, pH)"
-					          rows="6" cols="40"></textarea>
-					</mat-form-field>
-					<mat-form-field>
-					<textarea matInput name="crystallization.previousCrystallizationExperience"
-					          [(ngModel)]="proposal.crystallization.previousCrystallizationExperience"
-					          [disabled]="!proposal.wantsCrystallization"
-					          placeholder="What crystallization method, volume, and temperature have you used in the past?(e.g.vapour diffusion, 10 &#181;L drops, room temperature)"
-					          rows="8" cols="60"></textarea>
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput name="crystallization.estimatedCrystallizationProductionTime"
+						<p>How long do your crystals take to appear?</p>
+						<input matInput
+						       name="crystallization.estimatedCrystallizationProductionTime"
 						       [(ngModel)]="proposal.crystallization.estimatedCrystallizationProductionTime"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="How long do your crystals take to appear?">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 					<mat-form-field>
+						<p>What is the typical size of your crystal?<br><em><small>( &#181;m x &#181;m x &#181;m )</small></em></p>
 						<input matInput
 						       name="crystallization.typicalCrystalSize"
 						       [(ngModel)]="proposal.crystallization.typicalCrystalSize"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="What is the typical size of your crystal (&#181;m x &#181;m x &#181;m)">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 
-					<mat-divider></mat-divider>
+					<br>
 
 					<h4>Details from protein preparation</h4>
 
 					<mat-form-field>
+						<p>Typical yield:<br><em><small>(mg per liter of culture)</small></em></p>
 						<input matInput
 						       name="crystallization.typicalYieldMgPerLiter"
 						       [(ngModel)]="proposal.crystallization.typicalYieldMgPerLiter"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="Typical yield (mg per liter of culture)">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 					<mat-form-field>
+						<p>Storage conditions:<br><em><small>(e.g. stable at 4 &#176;C or frozen at -20 &#176;C)</small></em></p>
 						<input matInput
 						       name="crystallization.storageConditions"
 						       [(ngModel)]="proposal.crystallization.storageConditions"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="Storage conditions (e.g. stable at 4 &#176;C or frozen at -20 &#176;C)">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 					<mat-form-field>
+						<p>Stability:</p>
 						<input matInput
 						       name="crystallization.stability"
 						       [disabled]="!proposal.wantsCrystallization"
-						       [(ngModel)]="proposal.crystallization.stability"
-						       placeholder="Stability">
+						       [(ngModel)]="proposal.crystallization.stability">
 					</mat-form-field>
 					<mat-form-field>
+						<p>What buffer is your protein in?</p>
 						<input matInput
 						       name="crystallization.buffer"
 						       [(ngModel)]="proposal.crystallization.buffer"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="What buffer is your protein in?">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 					<mat-form-field>
+						<p>Is your protein partially or fully deuterated?</p>
 						<input matInput
 						       name="crystallization.levelOfDeuteration"
 						       [(ngModel)]="proposal.crystallization.levelOfDeuteration"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="Is your protein partially or fully deuterated?">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 					<mat-form-field>
+						<p>What protein concentration do you usually use for crystallization?</p>
 						<input matInput
 						       name="crystallization.typicalProteinConcentrationUsed"
 						       [(ngModel)]="proposal.crystallization.typicalProteinConcentrationUsed"
-						       [disabled]="!proposal.wantsCrystallization"
-						       placeholder="What protein concentration do you usually use for crystallization:">
+						       [disabled]="!proposal.wantsCrystallization">
 					</mat-form-field>
 
 					<mat-action-row>
@@ -358,26 +376,29 @@
 			<mat-tab label="3. Biological deuteration" [disabled]="!proposal.wantsBiologicalDeuteration">
 				<mat-card>
 
-						<p><em>If the protein is to be purified by us, please remember to include a chromatogram from
-							purification and a picture of SDS-PAGE that indicates MW and purity in your science
-							case.</em></p>
-						<fieldset>
-							<p>Select (E. coli, yeast)</p>
-							<mat-checkbox name="proposal.wantsBiomassDeuteration"
-							              [(ngModel)]="proposal.wantsBiomassDeuteration">Biomass
-							</mat-checkbox>
-							<mat-checkbox name="proposal.wantsProteinDeuteration"
-							              [(ngModel)]="proposal.wantsProteinDeuteration">Protein
-							</mat-checkbox>
-							<mat-checkbox name="proposal.wantsOtherDeuteration"
-							              [(ngModel)]="proposal.wantsOtherDeuteration">Other
-							</mat-checkbox>
-						</fieldset>
-				</mat-card>
-					<mat-accordion class="example-headers-align">
-						<mat-card>
+					<p>If the protein is to be purified by us, please remember to include a chromatogram from purification and a picture of SDS-PAGE that indicates MW and purity in your science case.</p>
 
-						<mat-expansion-panel [disabled]="!proposal.wantsBiomassDeuteration">
+						<p>Select one, or as many as apply, from the alternatives below.</p>
+
+						<mat-checkbox name="proposal.wantsBiomassDeuteration"
+						              [(ngModel)]="proposal.wantsBiomassDeuteration">Biomass <small>(yeast)</small>
+						</mat-checkbox>
+						<mat-checkbox name="proposal.wantsProteinDeuteration"
+						              [(ngModel)]="proposal.wantsProteinDeuteration">Protein <em><small>(E. coli)</small></em>
+						</mat-checkbox>
+						<mat-checkbox name="proposal.wantsOtherDeuteration"
+						              [(ngModel)]="proposal.wantsOtherDeuteration">Other
+						</mat-checkbox>
+					<mat-form-field *ngIf="proposal.wantsOtherDeuteration">
+						<input matInput
+						       name="proposal.biomassDeuteration.other"
+						       [(ngModel)]="proposal.biomassDeuteration.other"
+						       placeholder="Please explain:">
+					</mat-form-field>
+				</mat-card>
+					<mat-card>
+
+						<mat-expansion-panel [disabled]="!proposal.wantsBiomassDeuteration" [expanded]="proposal.wantsBiomassDeuteration">
 							<mat-expansion-panel-header><h4>For biomass</h4></mat-expansion-panel-header>
 							<fieldset>
 								<mat-radio-group name="organismProvidedByUser"
@@ -451,29 +472,53 @@
 							</mat-action-row>
 
 						</mat-expansion-panel>
-						</mat-card>
+					</mat-card>
 
-<mat-card>
+					<mat-card>
 
-						<mat-expansion-panel [disabled]="!proposal.wantsProteinDeuteration">
+						<mat-expansion-panel [disabled]="!proposal.wantsProteinDeuteration" [expanded]="proposal.wantsProteinDeuteration">
 							<mat-expansion-panel-header>
 								<mat-panel-title><h4>For proteins</h4></mat-panel-title>
 							</mat-expansion-panel-header>
 						</mat-expansion-panel>
-</mat-card>
+					</mat-card>
 
-						<mat-action-row>
-							<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
-							<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
-							<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
-							<button mat-raised-button color="primary" type="submit">Save</button>
-						</mat-action-row>
+					<mat-card>
+						<h4>Biosafety</h4>
+							<mat-radio-group name="proposal.bioSafety.bioSafetyContainmentLevel"
+							                 [(ngModel)]="proposal.bioSafety.bioSafetyContainmentLevel">
+								<p>Which biosafety containment level is required to work with your sample?</p>
+								<mat-radio-button value="L1">L1</mat-radio-button>
+								<mat-radio-button value="L2">L2</mat-radio-button>
+							</mat-radio-group>
+							<mat-radio-group name="proposal.bioSafety.organismRisk"
+							                 [(ngModel)]="proposal.bioSafety.organismRisk">
+								<p>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the environment?</p>
+								<mat-radio-button value="yes">Yes</mat-radio-button>
+								<mat-radio-button value="no">No</mat-radio-button>
+							</mat-radio-group>
+						<mat-form-field *ngIf="proposal.bioSafety.organismRisk == 'yes'">
+							<p>If you chose “yes”, please provide details:</p>
+						<input matInput
+						       name="proposal.bioSafety.organismRiskDetails"
+						       [(ngModel)]="proposal.bioSafety.organismRiskDetails">
+						</mat-form-field>
+						<mat-form-field>
+							<p>If there is anything else you would like us to know, please enter it below:</p>
+							<input matInput
+							       name="proposal.bioSafety.other"
+							       [(ngModel)]="proposal.bioSafety.other">
+						</mat-form-field>
+					</mat-card>
 
-					</mat-accordion>
-
+					<mat-action-row>
+						<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
+						<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
+						<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
+						<button mat-raised-button color="primary" type="submit">Save</button>
+					</mat-action-row>
 
 			</mat-tab>
-
 
 			<mat-tab label="4. Chemical deuteration" [disabled]="!proposal.wantsChemicalDeuteration">
 				<mat-card>

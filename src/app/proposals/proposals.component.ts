@@ -30,6 +30,10 @@ export class ProposalsComponent implements OnInit {
 
 	selectedIndex = 0;
 
+	experimentTitle = new FormControl('', [
+		Validators.required
+	]);
+
 
 	selectTab(index: number): void {
 		event.preventDefault();
@@ -40,7 +44,7 @@ export class ProposalsComponent implements OnInit {
 
 	proposalForm = this.formBuilder.group({
 		dateCreated: [ '' ],
-		experimentTitle: [ '', Validators.required ],
+		experimentTitle: [ ''],
 		briefSummary: [ '', Validators.required ],
 		mainProposer: this.formBuilder.group({
 			firstName: [ '', Validators.required ],
