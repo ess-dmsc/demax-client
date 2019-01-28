@@ -52,13 +52,11 @@ export class AuthService {
 		this.currentUser.firstName = decodedUser.firstName;
 		this.currentUser.lastName = decodedUser.lastName;
 		this.currentUser.phone = decodedUser.phone;
-		this.currentUser.employerSector = decodedUser.employerSector;
-		this.currentUser.employerName = decodedUser.employerName;
-		this.currentUser.employerStreet = decodedUser.employerStreet;
-		this.currentUser.employerZipcode = decodedUser.employerZipcode;
-		this.currentUser.employerCity = decodedUser.employerCity;
-		this.currentUser.employerCountry = decodedUser.employerCountry;
-
+		this.currentUser.employer = decodedUser.employer;
+		this.currentUser.industry = decodedUser.industry;
+		this.currentUser.jobTitle = decodedUser.jobTitle;
+		this.currentUser.hasConsentedToGdpr = decodedUser.hasConsentedToGdpr;
+		this.currentUser.hasConsentedToEmails = decodedUser.hasConsentedToEmails;
 		this.currentUser.role = decodedUser.role;
 		decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
 		delete decodedUser.role;

@@ -1,6 +1,5 @@
 mat-form-field {
 	width: 60%;
-	display: block;
 }
 .card{
 	background-color: white;
@@ -14,4 +13,7 @@ button{
 }
 fieldset{
 	text-align: left;
+}
+mat-checkbox{
+	font-size: 1.3rem;
 }

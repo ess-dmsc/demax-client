@@ -6,11 +6,9 @@ export class User {
 	email:  string;
 	password:  string;
 	role?:  string;
-	employerSector?:  string;
-	employerName?:  string;
-	employerStreet?:  string;
-	employerZipcode?:  string;
-	employerCity?:  string;
-	employerCountry?:  string;
-	employerPhone?:  string;
+	employer:  string;
+	industry:  string;
+	jobTitle:  string;
+	hasConsentedToGdpr: boolean;
+	hasConsentedToEmails: boolean;
 }

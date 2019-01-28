@@ -755,7 +755,7 @@
 				<mat-card>
 
 					<fieldset>
-						<mat-label>Upload your proposal here</mat-label>
+						<mat-label>Upload your deuteration proposal here</mat-label>
 						<p><em>(Accepted formats: PDF)</em></p>
 						<label class="btn btn-default">
 							<input type="file" name="proposalTemplate" (change)="selectFile($event)">
@@ -769,9 +769,6 @@
 							{{progress.percentage}}%
 						</div>
 					</div>
-					<label class="btn btn-default">
-						<input type="file" (change)="selectFile($event)">
-					</label>
 
 					<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
 					<div>

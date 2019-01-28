@@ -10,9 +10,10 @@ RUN npm config set registry http://registry.npmjs.org/
 RUN npm config set strict-ssl false
 RUN npm install -g @angular/cli
 COPY package.json /usr/src/app/package.json
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/
 RUN npm install
 COPY . /usr/src/app
 RUN ng build
+WORKDIR /usr/src/app/dist
 EXPOSE 4200
 CMD ["ng", "serve"]

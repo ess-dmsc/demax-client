@@ -2,6 +2,10 @@ body {margin: 0;
 	font-family: 'Titillium Web', sans-serif;
 }
 
+svg{
+	margin: 2rem;
+}
+
 .topnav {
 	overflow: hidden;
 	background-color: #009EDD;
@@ -60,10 +64,9 @@ body {margin: 0;
 	justify-content: space-around;}
 
 mat-tab-group {
-	width: 400px;
+	width: 600px;
 	position: fixed;
-	max-height: 320px;
-	margin: 30vh 10vh 30vh 90vh;
+	margin: 20vh 5vh 20vh 70vh;
 	background-color: white;
 	opacity: 0.9;
 	border: solid lightgray 1px;

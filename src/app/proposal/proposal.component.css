@@ -1,28 +1,59 @@
+.proposal-list{
+}
 mat-card {
-	margin: 5rem;
-	padding: 5rem;
+	margin: 2rem 5rem;
+	padding: 2rem;
 }
 
-mat-checkbox {
+.editProposal{
+	margin-left: 2rem;
+	margin-top: 2rem;
+}
+mat-checkbox{
 	margin: 2rem;
 	display: block;
 }
-
-mat-radio-group {
+mat-radio-group{
 	display: block;
 }
-
-mat-radio-button {
+mat-radio-button{
 	margin: 2rem;
 }
 
-mat-form-field {
+.tab-4 tr{
+	padding: 1rem;
+}
+.tab-4 td{
+	padding: 1rem;
+	margin: 0 auto;
+}
+mat-form-field{
 	width: 60%;
 	margin: 1rem auto;
 }
-
-.smallFormField {
+button{
+	margin: 1em;
+}
+.smallFormField{
 	width: 300px;
 }
 
-mat-form-field {}
+table {
+	width: 100%;
+}
+
+mat-action-row{
+	display: flex;
+	justify-content: center;
+}
+fieldset{
+	display: block;
+	margin: 2rem;
+}
+label{
+	width: 40%;
+	margin: 1rem;
+	display: block;
+	text-align: left;
+	padding: 1rem;
+}

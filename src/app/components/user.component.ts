@@ -25,12 +25,77 @@ import { Router } from '@angular/router';
 				width: 80%;
 			}
 		</style>
+		<form (ngSubmit)="editUser(user)">
 
+		<mat-form-field>
+			<input matInput
+			       name="user.firstName"
+			       [(ngModel)]="user.firstName"
+			       placeholder="First name">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.lastName"
+			       [(ngModel)]="user.lastName"
+			       placeholder="Last name">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.phone"
+			       [(ngModel)]="user.phone"
+			       placeholder="Phone">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.email"
+			       [(ngModel)]="user.email"
+			       placeholder="Email">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       type="password"
+			       name="user.password"
+			       [(ngModel)]="user.password"
+			       placeholder="Password">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.industry"
+			       [(ngModel)]="user.industry"
+			       placeholder="Industry">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.employer"
+			       [(ngModel)]="user.employer"
+			       placeholder="Employer">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.jobTitle"
+			       [(ngModel)]="user.jobTitle"
+			       placeholder="Job title">
+		</mat-form-field>
+			<mat-action-row>
+				<button mat-raised-button color="primary" type="submit">Save</button>
+			</mat-action-row>
+		</form>
 	`
 })
 export class UserComponent implements OnInit {
 	message = 'Save';
 	user: User;
+
+	userForm = this.formBuilder.group({
+		firstName: [ '' ],
+		lastName: [ '' ],
+		email: [ '' ],
+		phone: [ '' ],
+		password: [ '' ],
+		employer: [ '' ],
+		industry: [ '' ],
+		jobTitle: [ '' ]
+	});
 
 	constructor(
 		private formBuilder: FormBuilder,

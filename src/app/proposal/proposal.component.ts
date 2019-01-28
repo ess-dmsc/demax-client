@@ -46,6 +46,7 @@ export class ProposalComponent implements OnInit {
 			}),
 			coProposers: this.formBuilder.array([ this.createCoProposer() ]),
 			needByDate: '',
+			needByDateMotivation: '',
 			linksWithIndustry: '',
 			coProposerStudents: '',
 			workTowardsStudentsDegree: '',
