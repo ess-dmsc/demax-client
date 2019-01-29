@@ -15,6 +15,6 @@ RUN npm install
 COPY . /usr/src/app
 RUN ng build --prod
 RUN npm install -g http-server
-WORKDIR /usr/src/dist/demax-client
+WORKDIR /usr/src/app/dist
 EXPOSE 8080
 CMD ["http-server", "-p","8080"]
