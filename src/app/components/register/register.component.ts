@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 	register() {
-		this.message = 'Registered!'
 		this.userService.register(this.registerForm.value);
+		this.message = 'Registered!';
 	}
 }

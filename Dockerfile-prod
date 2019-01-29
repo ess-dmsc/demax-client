@@ -13,7 +13,7 @@ COPY package.json /usr/src/app/package.json
 WORKDIR /usr/src/app/
 RUN npm install
 COPY . /usr/src/app
-RUN ng build
+RUN ng build --prod
 WORKDIR /usr/src/app/dist
 EXPOSE 4200
 CMD ["ng", "serve"]
