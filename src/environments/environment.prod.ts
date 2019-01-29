@@ -1,5 +1,5 @@
 export const environment = {
 	production: true,
 	externalAuthEndpoint: '',
-	demaxBaseUrl: "http://127.0.0.1:3000"
+	demaxBaseUrl: "http://scicat02.esss.lu.se:3000"
 };
