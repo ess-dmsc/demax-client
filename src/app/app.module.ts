@@ -25,15 +25,15 @@ import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from './components/admin.component';
 import { UserComponent } from "./components/user.component";
 import { TestingComponent } from "./components/testing.component";
-import { MessageService }       from './services/message.service';
-import { HttpErrorHandler }     from './services/http-error-handler.service';
+import { MessageService } from './services/message.service';
+import { HttpErrorHandler } from './services/http-error-handler.service';
 import { ProposalComponent } from './proposal/proposal.component';
 import { GuidelinesComponent } from './components/guidelines/guidelines.component';
 import { EditProposalComponent } from './edit-proposal/edit-proposal.component';
 
-export const tokenGetter = () => {
-	return localStorage.getItem('token')
-};
+export function tokenGetter() {
+	return localStorage.getItem('access_token');
+}
 
 @NgModule({
 	declarations: [
@@ -67,7 +67,8 @@ export const tokenGetter = () => {
 		JwtModule.forRoot({
 			config: {
 				tokenGetter: tokenGetter,
-				whitelistedDomains: [ 'localhost:4200', 'localhost:8080' ],
+				whitelistedDomains: ['esss.se, esss.lu.se, demax.esss.se, localhost:3000, localhost:4200'],
+				blacklistedRoutes: []
 			}
 		})
 	],

@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
 				width: 80%;
 			}
 		</style>
-		<form (ngSubmit)="editUser(user)">
+		<form (ngSubmit)="save(user)">
 
 		<mat-form-field>
 			<input matInput

@@ -8,8 +8,7 @@
 		<p>General enquiries can be sent to: <a href="mailto:demax@esss.se">demax@esss.se</a> or to one of the<a
 				routerLink="/contact"> subject matter experts.</a></p>
 		<ul>
-			<li> Proposals should be written in English, properly referenced, and prepared in the <a
-					href="http://localhost:8080/word/attachment">Word template.</a> Please keep to the 2 page
+			<li>Proposals should be written in English, properly referenced, and prepared in the <a download href="/word/attachment">Word template.</a> Please keep to the 2 page
 				limit, including Summary, Background (Science Case, Practical Consideration, References,
 				Figures/Tables)
 			</li>
@@ -524,14 +523,17 @@
 
 
 				<fieldset>
-					<a mat-raised-button color="warn" (click)="generate()"
-					   href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate Deuteration proposal</a>
+					<a download
+					   color="warn"
+					   href="/api/pdf/{{proposal.proposalId}}">
+						Generate Deuteration proposal</a>
 				</fieldset>
 				<br>
 				<fieldset>
-					<a mat-raised-button color="warn" (click)="merge()" class="btn btn-danger"
-					   href="http://localhost:8080/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with
-						proposal</a><br>
+					<a download
+					   color="warn"
+					   class="btn btn-danger"
+					   href="/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with proposal</a>
 				</fieldset>
 				<br>
 				<mat-action-row>

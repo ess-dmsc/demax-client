@@ -774,24 +774,28 @@
 					<div>
 						<tr *ngFor="let file of fileUploads | async" style="margin: 1rem;">
 							<td><img src="../../../assets/logos/pdf.png" alt="{{file.name}}" width="80"></td>
-							<td class="panel-body"><a href="http://localhost:8080/api/file/{{file}}">{{file}}</a></td>
+							<td class="panel-body"><a download href="/api/file/{{file}}">{{file}}</a></td>
 							<td>
 								<button style="padding: 0.5rem;" (click)="deleteFile(file, proposal)"
 								        class="btn-danger">Delete
 								</button>
 							</td>
-							<td><a style="padding: 0.5rem;" class="btn-success"
-							       href="http://localhost:8080/api/file/{{file}}">Download</a></td>
+							<td><a download
+							       style="padding: 0.5rem;" class="btn-success"
+							       href="/api/file/{{file}}">Download</a></td>
 						</tr>
 					</div>
 					<fieldset>
-						<a mat-raised-button color="warn" (click)="generate()"
-						   href="http://localhost:8080/api/pdf/{{proposal.proposalId}}">Generate Deuteration
+						<a download
+						   color="warn"
+						   href="/api/pdf/{{proposal.proposalId}}">Generate Deuteration
 							proposal</a>
 					</fieldset>
 					<fieldset>
-						<a mat-raised-button color="warn" (click)="merge()" class="btn btn-danger"
-						   href="http://localhost:8080/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with
+						<a download
+						   color="warn"
+						   class="btn btn-danger"
+						   href="/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with
 							proposal</a>
 					</fieldset>
 					<mat-action-row>
