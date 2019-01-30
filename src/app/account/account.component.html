@@ -1,59 +1,84 @@
-<mat-card>
-	<form (ngSubmit)="save(user)">
-		<div>
-			<p>Personal information</p>
-			<mat-form-field>
-				<input matInput
-				       name="user.firstName"
-				       [(ngModel)]="user.firstName"
-				       placeholder="First name">
-			</mat-form-field>
-			<mat-form-field>
-				<input matInput
-				       name="user.lastName"
-				       [(ngModel)]="user.lastName"
-				       placeholder="Last name">
-			</mat-form-field>
-		</div>
-		<div>
-			<p>Contact</p>
-			<mat-form-field>
-				<input matInput
-				       name="user.email"
-				       [(ngModel)]="user.email"
-				       placeholder="Email">
-			</mat-form-field>
-			<mat-form-field>
-				<input matInput
-				       name="user.phone"
-				       [(ngModel)]="user.phone"
-				       placeholder="Phone">
-			</mat-form-field>
-		</div>
+<div class="card" *ngIf="!isLoading">
+	<mat-card>
+		<mat-card-header>
+			<h4>Account settings</h4>
+		</mat-card-header>
+		<form #accountForm="ngForm" (ngSubmit)="save(user)">
+			<div>
 
-		<p>Affiliation</p>
-		<mat-form-field>
-			<input matInput
-			       name="user.industry"
-			       [(ngModel)]="user.industry"
-			       placeholder="Industry">
-		</mat-form-field>
-		<mat-form-field>
-			<input matInput
-			       name="user.employer"
-			       [(ngModel)]="user.employer"
-			       placeholder="Employer">
-		</mat-form-field>
-		<mat-form-field>
-			<input matInput
-			       name="user.jobTitle"
-			       [(ngModel)]="user.jobTitle"
-			       placeholder="Job title">
-		</mat-form-field>
-		<div style="padding: 1rem; width: 35%;">
-			<button mat-raised-button [disabled]="!userForm.valid" class="btn-success" style="width: 300px;" type="submit">
-				Save
-			</button>
-		</div>
-	</form>
-</mat-card>
+				<p>Personal information</p>
+				<mat-form-field>
+					<input matInput
+					       type="text"
+					       name="firstName"
+					       [(ngModel)]="user.firstName"
+					       placeholder="First name"
+					       required>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput
+					       type="text"
+					       name="lastName"
+					       [(ngModel)]="user.lastName"
+					       placeholder="Last name"
+					       required>
+				</mat-form-field>
+			</div>
+
+			<div>
+				<p>Contact information</p>
+				<mat-form-field>
+					<input matInput
+					       type="email"
+					       name="email"
+					       [(ngModel)]="user.email"
+					       placeholder="email"
+					       required>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput
+					       type="text"
+					       name="phone"
+					       [(ngModel)]="user.phone"
+					       placeholder="Phone"
+					       required>
+				</mat-form-field>
+			</div>
+
+			<div>
+				<p>Affiliation</p>
+				<mat-form-field>
+					<input matInput
+					       type="text"
+					       name="industry"
+					       [(ngModel)]="user.industry"
+					       placeholder="Industry/sector"
+					       required>
+				</mat-form-field>
+				<p>Contact information</p>
+				<mat-form-field>
+					<input matInput
+					       type="text"
+					       name="employer"
+					       [(ngModel)]="user.employer"
+					       placeholder="Employer"
+					       required>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput
+					       type="text"
+					       name="jobTitle"
+					       [(ngModel)]="user.jobTitle"
+					       placeholder="Job title"
+					       required>
+				</mat-form-field>
+			</div>
+			<div>
+
+				<button mat-raised-button color="primary" type="submit" [disabled]="!accountForm.form.valid">
+					Save
+				</button>
+			</div>
+		</form>
+	</mat-card>
+</div>
