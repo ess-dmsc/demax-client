@@ -8,8 +8,8 @@ export class Proposal {
 		email?: string;
 		phone?: string;
 		employer?: string;
-		sector?: string;
-		title?: string;
+		industry?: string;
+		jobTitle?: string;
 	};
 	coProposers: [
 		{
