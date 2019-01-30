@@ -1,0 +1,59 @@
+<mat-card>
+	<form (ngSubmit)="save(user)">
+		<div>
+			<p>Personal information</p>
+			<mat-form-field>
+				<input matInput
+				       name="user.firstName"
+				       [(ngModel)]="user.firstName"
+				       placeholder="First name">
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput
+				       name="user.lastName"
+				       [(ngModel)]="user.lastName"
+				       placeholder="Last name">
+			</mat-form-field>
+		</div>
+		<div>
+			<p>Contact</p>
+			<mat-form-field>
+				<input matInput
+				       name="user.email"
+				       [(ngModel)]="user.email"
+				       placeholder="Email">
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput
+				       name="user.phone"
+				       [(ngModel)]="user.phone"
+				       placeholder="Phone">
+			</mat-form-field>
+		</div>
+
+		<p>Affiliation</p>
+		<mat-form-field>
+			<input matInput
+			       name="user.industry"
+			       [(ngModel)]="user.industry"
+			       placeholder="Industry">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.employer"
+			       [(ngModel)]="user.employer"
+			       placeholder="Employer">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       name="user.jobTitle"
+			       [(ngModel)]="user.jobTitle"
+			       placeholder="Job title">
+		</mat-form-field>
+		<div style="padding: 1rem; width: 35%;">
+			<button mat-raised-button [disabled]="!userForm.valid" class="btn-success" style="width: 300px;" type="submit">
+				Save
+			</button>
+		</div>
+	</form>
+</mat-card>

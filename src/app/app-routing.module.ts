@@ -10,11 +10,11 @@ import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from "./components/admin.component";
-import { UserComponent } from "./components/user.component";
 import { TestingComponent } from "./components/testing.component";
 import { ProposalComponent } from "./proposal/proposal.component";
 import { GuidelinesComponent } from "./components/guidelines/guidelines.component";
 import { EditProposalComponent } from "./edit-proposal/edit-proposal.component";
+import { AccountComponent } from "./account/account.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -28,7 +28,7 @@ const routes: Routes = [
 	{path: 'proposals', component: ProposalsComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'test', component: TestingComponent},
-	{path: 'user', component: UserComponent},
+	{path: 'account', component: AccountComponent},
 	{path: 'proposal', component: ProposalComponent},
 ];
 

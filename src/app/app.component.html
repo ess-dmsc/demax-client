@@ -5,14 +5,13 @@
 	<h2>DEMAX User Portal</h2>
 			</a>	</span>
 		<span>
-		<a *ngIf="auth.loggedIn" routerLink="/home">Welcome, {{auth.currentUser.firstName}} {{auth.currentUser.lastName}}</a>
-	<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/user">Settings</a>
+		<a *ngIf="auth.loggedIn" routerLink="/account">Welcome, {{auth.currentUser.firstName}} {{auth.currentUser.lastName}}</a>
+	<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/account">Settings</a>
 	<a *ngIf="auth.loggedIn" style="margin: auto 2rem;" routerLink="/logout">Logout</a>
 	</span>
 	</mat-toolbar>
 	<mat-sidenav-container class="example-container sidebar">
-		<mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="false" fixedTopGap="0"
-		             fixedBottomGap="0">
+		<mat-sidenav #sidenav mode="side" opened class="example-sidenav" [fixedInViewport]="false" fixedTopGap="0" fixedBottomGap="0">
 			<a routerLink="/home">Home</a>
 			<mat-divider></mat-divider>
 			<a routerLink="/proposal">Create new proposal</a>

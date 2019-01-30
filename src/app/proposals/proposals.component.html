@@ -29,7 +29,7 @@
 		<ng-container matColumnDef="pdf">
 			<th mat-header-cell *matHeaderCellDef>Download PDF</th>
 			<td mat-cell *matCellDef="let proposal">
-				<a href="/api/pdf/{{proposal.proposalId}}">
+				<a href="{{url}}/api/pdf/{{proposal.proposalId}}">
 					<button mat-stroked-button class="btn btn-success">
 						<mat-icon>get_app</mat-icon>
 						Download
@@ -774,7 +774,7 @@
 					<div>
 						<tr *ngFor="let file of fileUploads | async" style="margin: 1rem;">
 							<td><img src="../../../assets/logos/pdf.png" alt="{{file.name}}" width="80"></td>
-							<td class="panel-body"><a download href="/api/file/{{file}}">{{file}}</a></td>
+							<td class="panel-body"><a download href="{{url}}/api/file/{{file}}">{{file}}</a></td>
 							<td>
 								<button style="padding: 0.5rem;" (click)="deleteFile(file, proposal)"
 								        class="btn-danger">Delete
@@ -782,20 +782,20 @@
 							</td>
 							<td><a download
 							       style="padding: 0.5rem;" class="btn-success"
-							       href="/api/file/{{file}}">Download</a></td>
+							       href="{{url}}/api/file/{{file}}">Download</a></td>
 						</tr>
 					</div>
 					<fieldset>
 						<a download
 						   color="warn"
-						   href="/api/pdf/{{proposal.proposalId}}">Generate Deuteration
+						   href="{{url}}/api/pdf/{{proposal.proposalId}}">Generate Deuteration
 							proposal</a>
 					</fieldset>
 					<fieldset>
 						<a download
 						   color="warn"
 						   class="btn btn-danger"
-						   href="/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with
+						   href="{{url}}/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with
 							proposal</a>
 					</fieldset>
 					<mat-action-row>

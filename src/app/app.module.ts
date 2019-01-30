@@ -23,7 +23,6 @@ import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { AdminComponent } from './components/admin.component';
-import { UserComponent } from './components/user.component';
 import { TestingComponent } from './components/testing.component';
 import { MessageService } from './services/message.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
@@ -31,6 +30,7 @@ import { ProposalComponent } from './proposal/proposal.component';
 import { GuidelinesComponent } from './components/guidelines/guidelines.component';
 import { EditProposalComponent } from './edit-proposal/edit-proposal.component';
 import { ApiInterceptor } from "./api-interceptor";
+import { AccountComponent } from './account/account.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -48,10 +48,10 @@ export function tokenGetter() {
 		LogoutComponent,
 		ProposalsComponent,
 		TestingComponent,
-		UserComponent,
 		ProposalComponent,
 		GuidelinesComponent,
-		EditProposalComponent
+		EditProposalComponent,
+		AccountComponent
 	],
 	imports: [
 		BrowserModule,

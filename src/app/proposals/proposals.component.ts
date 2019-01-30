@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
 import { ProposalService } from '../services/proposal.service';
@@ -8,6 +8,8 @@ import { catchError, last, map, tap } from "rxjs/operators";
 import { MessageService } from "../services/message.service";
 import { Observable } from "rxjs";
 import { MatDialog, MatStep } from "@angular/material";
+import { AppConfig } from "../app-config.module";
+import { APP_CONFIG } from "../app-config.module";
 
 @Component({
 	selector: 'app-proposals',
@@ -16,6 +18,7 @@ import { MatDialog, MatStep } from "@angular/material";
 	providers: [ ProposalService ]
 })
 export class ProposalsComponent implements OnInit {
+	url = this.appConfig.demaxBaseUrl;
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
 	isEditing = false;
@@ -44,7 +47,7 @@ export class ProposalsComponent implements OnInit {
 
 	proposalForm = this.formBuilder.group({
 		dateCreated: [ '' ],
-		experimentTitle: [ ''],
+		experimentTitle: [ '' ],
 		briefSummary: [ '', Validators.required ],
 		mainProposer: this.formBuilder.group({
 			firstName: [ '', Validators.required ],
@@ -154,11 +157,12 @@ export class ProposalsComponent implements OnInit {
 	});
 
 	constructor(
+		@Inject(APP_CONFIG) private appConfig: AppConfig,
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
 		private http: HttpClient,
 		public auth: AuthService,
-		public dialog: MatDialog
+		public dialog: MatDialog,
 	) {
 	}
 
@@ -261,11 +265,11 @@ export class ProposalsComponent implements OnInit {
 
 	deleteFile(file: File) {
 		event.preventDefault();
-			this.proposalService.deleteFile(file).subscribe(
-				() => {
-					this.fileUploads = this.proposalService.getFiles();
-				},
-				error => console.log(error)
-			);
+		this.proposalService.deleteFile(file).subscribe(
+			() => {
+				this.fileUploads = this.proposalService.getFiles();
+			},
+			error => console.log(error)
+		);
 	}
 }
