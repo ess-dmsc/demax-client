@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MaterialModule } from '../../external/material.module';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -13,23 +12,15 @@ export class RegisterComponent implements OnInit {
 	message = 'Register';
 
 	registerForm: FormGroup;
-	email = new FormControl('', [
-		Validators.required,
-		Validators.minLength(3),
-		Validators.maxLength(100)
-	]);
-	password = new FormControl('', [
-		Validators.required,
-		Validators.minLength(6)
-	]);
-	firstName = new FormControl('');
-	lastName = new FormControl('');
-	phone = new FormControl('');
-	employer = new FormControl('');
-	industry = new FormControl('');
-	jobTitle = new FormControl('');
-	hasConsentedToGdpr = new FormControl('');
-	hasConsentedToEmails = new FormControl('');
+	firstName = new FormControl('', [ Validators.required]);
+	lastName = new FormControl('', [ Validators.required]);
+	email = new FormControl('', [ Validators.required, Validators.minLength(3), ]);
+	password = new FormControl('', [ Validators.required]);
+	industry = new FormControl('', [ Validators.required]);
+	employer = new FormControl('', [ Validators.required]);
+	jobTitle = new FormControl('', [ Validators.required]);
+	hasConstentedToGdpr = new FormControl('',[Validators.required])
+	hasConstentedToEmails = new FormControl('',[Validators.required])
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -42,27 +33,22 @@ export class RegisterComponent implements OnInit {
 		this.registerForm = this.formBuilder.group({
 			firstName: this.firstName,
 			lastName: this.lastName,
-			phone: this.phone,
 			email: this.email,
 			password: this.password,
-			employer: this.employer,
 			industry: this.industry,
+			employer: this.employer,
 			jobTitle: this.jobTitle,
-			hasConsentedToGdpr: this.hasConsentedToGdpr,
-			hasConsentedToEmails: this.hasConsentedToEmails
+			hasConsentedToGdpr: this.hasConstentedToGdpr,
+			hasConsentedToEmails: this.hasConstentedToEmails
 		});
 	}
 
-	setClassEmail() {
-		return {'has-danger': !this.email.pristine && !this.email.valid};
-	}
-
-	setClassPassword() {
-		return {'has-danger': !this.password.pristine && !this.password.valid};
-	}
-
 	register() {
-		this.userService.register(this.registerForm.value);
-		this.message = 'Registered!';
+		this.userService.register(this.registerForm.value).subscribe(
+			res => {
+				this.message = 'Registered!';
+			},
+			error => this.message = 'email already exists')
+		;
 	}
 }
