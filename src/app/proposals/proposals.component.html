@@ -1,5 +1,5 @@
 <section *ngIf="proposals.length === 0">
-	There are no proposals in the database. Create a new proposal below.
+	There are no proposals in the database. Create a new proposal to get started.
 </section>
 <section *ngIf="!isEditing && proposals.length !=0" class="proposal-list">
 	<table mat-table [dataSource]="proposals" class="mat-elevation-z8">

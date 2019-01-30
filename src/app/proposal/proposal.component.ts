@@ -36,13 +36,13 @@ export class ProposalComponent implements OnInit {
 			experimentTitle: '',
 			briefSummary: '',
 			mainProposer: this.formBuilder.group({
-				firstName: '',
-				lastName: '',
-				email: '',
-				phone: '',
-				title: '',
-				employer: '',
-				sector: ''
+				firstName: this.auth.currentUser.firstName,
+				lastName: this.auth.currentUser.lastName,
+				email: this.auth.currentUser.email,
+				phone:  this.auth.currentUser.phone,
+				jobTitle:  this.auth.currentUser.jobTitle,
+				employer:  this.auth.currentUser.employer,
+				industry:  this.auth.currentUser.industry
 			}),
 			coProposers: this.formBuilder.array([ this.createCoProposer() ]),
 			needByDate: '',
