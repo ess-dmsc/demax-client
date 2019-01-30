@@ -10,6 +10,7 @@ import { AuthService } from "./services/auth.service";
 	styleUrls: [ './app.component.css' ]
 })
 export class AppComponent implements AfterViewChecked {
+	url = this.appConfig.demaxBaseUrl;
 	title = 'demax-client';
 	opened: boolean;
 	mode = new FormControl('over');
