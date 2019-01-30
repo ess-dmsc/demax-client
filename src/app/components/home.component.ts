@@ -34,7 +34,7 @@ import { AuthService } from "../services/auth.service";
 						proposal</a>
 				</p>
 				<br>
-				<a href="http://localhost:8080/word/attachment">
+				<a href="http://scicat02.esss.lu.se:3000/word/attachment">
 					<button mat-raised-button class="btn btn-success">
 						<mat-icon>get_app</mat-icon>
 						Download proposal template
