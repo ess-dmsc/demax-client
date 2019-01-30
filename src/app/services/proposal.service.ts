@@ -13,6 +13,7 @@ import {APP_CONFIG, AppConfig} from "../app-config.module";
 import {catchError, last, map, tap} from "rxjs/operators";
 import {MessageService} from "./message.service";
 import {AuthService} from "./auth.service";
+import { User } from "../models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -25,23 +26,23 @@ export class ProposalService {
     ) {
     }
 
-    getProposals(): Observable<Proposal[]> {
+    adminGetProposals(): Observable<Proposal[]> {
         return this.http.get<Proposal[]>('/api/proposals');
     }
 
-    countProposals(): Observable<number> {
-        return this.http.get<number>('/api/proposals/count');
-    }
+	getProposals(user: User): Observable<Proposal[]> {
+		return this.http.get<Proposal[]>(`/api/proposals/${this.auth.currentUser.email}`);
+	}
 
-    addProposal(proposal: Proposal): Observable<Proposal> {
-        return this.http.post<Proposal>('/api/proposals', proposal);
-    }
+	getProposal(proposal: Proposal): Observable<Proposal> {
+		return this.http.get<Proposal>(`/api/proposals/${proposal.proposalId}`);
+	}
 
-    getProposal(proposal: Proposal): Observable<Proposal> {
-        return this.http.get<Proposal>(`/api/proposals/${proposal.proposalId}`);
-    }
+	addProposal(proposal: Proposal): Observable<Proposal> {
+		return this.http.post<Proposal>('/api/proposals', proposal);
+	}
 
-    editProposal(proposal: Proposal): Observable<any> {
+	editProposal(proposal: Proposal): Observable<any> {
         return this.http.put(`/api/proposals/${proposal.proposalId}`, proposal, {responseType: 'text'});
     }
 
@@ -108,11 +109,11 @@ export class ProposalService {
         );
     }
 
-    getFiles(): Observable<any> {
-        return this.http.get('/api/file/all/');
+    getFiles(proposal: Proposal): Observable<any> {
+        return this.http.get(`/api/file/proposals/${proposal.proposalId}`);
     }
 
-	deleteFile(file: File): Observable<any> {
-		return this.http.delete(`/api/file/${file}`, {responseType: 'text'});
+	removeFile(filename: String): Observable<any>{
+    	return this.http.get(`/api/file/${filename}`, {responseType: 'text'})
 	}
 }

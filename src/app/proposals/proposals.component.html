@@ -42,10 +42,6 @@
 		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 	</table>
 </section>
-<button mat-raised-button color="primary" *ngIf="!isEditing" (click)="addProposal()">
-	<mat-icon>add</mat-icon>
-	Create new proposal
-</button>
 
 <section *ngIf="isEditing" class="editProposal">
 	<form (ngSubmit)="editProposal(proposal)">
@@ -584,7 +580,8 @@
 						                 [(ngModel)]="proposal.proteinDeuteration.deuterationLevelRequired">
 							<p>Level of deuteration required:</p>
 							<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
-							<mat-radio-button value="partial65">Partial (65-80% with unlabeled carbon source)</mat-radio-button>
+							<mat-radio-button value="partial65">Partial (65-80% with unlabeled carbon source)
+							</mat-radio-button>
 							<mat-radio-button value="partial25">Partial (25-30% H/D exchange)</mat-radio-button>
 						</mat-radio-group>
 
@@ -602,7 +599,8 @@
 						</mat-radio-group>
 
 						<div *ngIf="proposal.proteinDeuteration.needsPurificationSupport === 'yes'">
-							<p>If “yes”, please attach reference or protocol as PDF:<br><strong style="color: red;">Accepted formats: PDF</strong></p>
+							<p>If “yes”, please attach reference or protocol as PDF:<br><strong style="color: red;">Accepted
+								formats: PDF</strong></p>
 							<label class="btn btn-default">
 								<input name="needsPurificationSupportAttachment"
 								       style="width: 100%;"
@@ -716,17 +714,18 @@
 					          placeholder="Justify level of deuteration"
 					          rows="5" cols="40"></textarea>
 					</mat-form-field>
-						<p>Attach chemical structure:<br><strong style="color: red;">Accepted formats: PDF</strong></p>
-						<label class="btn btn-default">
-							<input name="chemicalStructureAttachment"
-							       style="width: 100%;"
-							       type="file"
-							       (change)="selectFile($event)">
-						</label>
+					<p>Attach chemical structure:<br><strong style="color: red;">Accepted formats: PDF</strong></p>
+					<label class="btn btn-default">
+						<input name="chemicalStructureAttachment"
+						       style="width: 100%;"
+						       type="file"
+						       (change)="selectFile($event)">
+					</label>
 					<mat-radio-group name="proposal.chemicalDeuteration.hasPreviousProductionExperience"
 					                 [(ngModel)]="proposal.chemicalDeuteration.hasPreviousProductionExperience"
 					                 [disabled]="!proposal.wantsChemicalDeuteration">
-						<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or others?</p>
+						<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
+							others?</p>
 						<mat-radio-button value="yes">Yes</mat-radio-button>
 						<mat-radio-button value="no">No</mat-radio-button>
 					</mat-radio-group>
@@ -762,47 +761,55 @@
 						</label>
 					</fieldset>
 
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
-						</div>
-					</div>
-
-					<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
-					<div>
-						<tr *ngFor="let file of fileUploads | async" style="margin: 1rem;">
-							<td><img src="../../../assets/logos/pdf.png" alt="{{file.name}}" width="80"></td>
-							<td class="panel-body"><a download href="{{url}}/api/file/{{file}}">{{file}}</a></td>
-							<td>
-								<button style="padding: 0.5rem;" (click)="deleteFile(file, proposal)"
-								        class="btn-danger">Delete
-								</button>
-							</td>
-							<td><a download
-							       style="padding: 0.5rem;" class="btn-success"
-							       href="{{url}}/api/file/{{file}}">Download</a></td>
-						</tr>
+					<div style="margin: 0; padding: 0; width: 100%;">
+						<table>
+							<tr *ngFor="let i of proposal.attachments">
+								<td>
+									<img src="../../../assets/logos/pdf.png" alt="{{i.name}}" width="30"
+									     style="margin: 0.3rem;">
+								</td>
+								<td>{{i.name}}</td>
+								<td>
+									<a download
+									   mat-button class="btn-success"
+									   href="{{url}}/api/file/{{i.name}}">
+										<mat-icon>get_app</mat-icon>
+									</a>
+								</td>
+								<td>
+									<a mat-button class="btn-danger"
+									   href="{{url}}/api/file/delete/{{i.name}}">
+										<mat-icon>delete</mat-icon>
+									</a>
+								</td>
+							</tr>
+						</table>
 					</div>
 					<fieldset>
 						<a download
+						   mat-raised-button
 						   color="warn"
-						   href="{{url}}/api/pdf/{{proposal.proposalId}}">Generate Deuteration
-							proposal</a>
+						   href="{{url}}/api/pdf/{{proposal.proposalId}}">
+							Generate Deuteration proposal
+							<mat-icon>cached</mat-icon>
+						</a>
 					</fieldset>
 					<fieldset>
 						<a download
+						   mat-raised-button
 						   color="warn"
 						   class="btn btn-danger"
-						   href="{{url}}/api/pdf/merge/{{proposal.proposalId}}">Merge attachments with
-							proposal</a>
+						   href="{{url}}/api/pdf/merge/{{proposal.proposalId}}">
+							Merge and download all files
+							<mat-icon>get_app</mat-icon>
+						</a>
 					</fieldset>
 					<mat-action-row>
 						<button mat-button (click)="selectTab(3)">Go back</button>
 						<button mat-raised-button color="primary" type="submit">Submit</button>
 					</mat-action-row>
 				</mat-card>
+
 			</mat-tab>
 
 		</mat-tab-group>

@@ -120,7 +120,7 @@ export class AdminComponent implements OnInit {
 	}
 
 	getProposals() {
-		this.proposalService.getProposals().subscribe(
+		this.proposalService.adminGetProposals().subscribe(
 			data => this.proposals = data,
 			error => console.log(error),
 			() => this.isLoading = false

@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 import { MatDialog, MatStep } from "@angular/material";
 import { AppConfig } from "../app-config.module";
 import { APP_CONFIG } from "../app-config.module";
+import { User } from "../models/user";
 
 @Component({
 	selector: 'app-proposals',
@@ -24,10 +25,11 @@ export class ProposalsComponent implements OnInit {
 	isEditing = false;
 	panelOpenState = false;
 	message: string;
+	files: Observable<string[]>;
+
 	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'options', 'pdf' ];
 	selectedFiles: FileList;
 	selectedInput: string;
-	fileUploads: Observable<string[]>;
 	currentFileUpload: File;
 	progress: { percentage: number } = {percentage: 0};
 
@@ -179,12 +181,11 @@ export class ProposalsComponent implements OnInit {
 
 	ngOnInit() {
 		this.getProposals();
-		this.fileUploads = this.proposalService.getFiles();
 		this.addProposalForm = this.formBuilder.group({})
 	}
 
 	getProposals() {
-		this.proposalService.getProposals().subscribe(
+		this.proposalService.getProposals(this.auth.currentUser).subscribe(
 			data => this.proposals = data,
 			error => console.log(error),
 		);
@@ -201,20 +202,10 @@ export class ProposalsComponent implements OnInit {
 		);
 	}
 
-	hasGenerated = false;
-	hasMerged = false;
-
-	generate() {
-		this.hasGenerated = true;
-	}
-
-	merge() {
-		this.hasMerged = true;
-	}
-
 	enableEditing(proposal: Proposal) {
 		this.isEditing = true;
 		this.proposal = proposal;
+		this.files = this.proposalService.getFiles(proposal);
 	}
 
 	cancelEditing() {
@@ -260,16 +251,24 @@ export class ProposalsComponent implements OnInit {
 			console.log('File is completely uploaded!');
 		});
 		this.selectedFiles = undefined;
-		this.fileUploads = this.proposalService.getFiles();
+		this.files = this.proposalService.getFiles(this.proposal);
+		console.log(this.files)
 	}
 
-	deleteFile(file: File) {
+	getFiles() {
+		this.proposalService.getFiles(this.proposal).subscribe(
+			data => this.files = data,
+			error => console.log(error),
+		);
+	}
+
+	removeFile(filename: String) {
 		event.preventDefault();
-		this.proposalService.deleteFile(file).subscribe(
+		this.proposalService.removeFile(filename).subscribe(
 			() => {
-				this.fileUploads = this.proposalService.getFiles();
+				this.files = this.proposalService.getFiles(this.proposal);
 			},
 			error => console.log(error)
-		);
+		)
 	}
 }
