@@ -5,21 +5,15 @@ import { AuthService } from "../services/auth.service";
 	selector: 'app-home',
 	template: `
 		<style>
-			.wrapper {
-				margin: 3rem;
-			}
-
-			.jumbotron {
-				padding: 3rem;
+			.main {
+				padding: 4rem;
 				width: 800px;
 			}
-			table{
-				width: 300px;
+			.small-action{
+				margin-right: 2rem;
 			}
 		</style>
-		<div class="wrapper" style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
-
-			<div class="jumbotron jumbotron-fluid">
+			<div class="jumbotron jumbotron-fluid main">
 				<h1 class="display-4">Welcome</h1>
 				<p class="lead">to the DEMAX user portal for deuteration & crystallization support!</p>
 				<hr class="my-4">
@@ -34,37 +28,11 @@ import { AuthService } from "../services/auth.service";
 						proposal</a>
 				</p>
 				<br>
-				<a href="http://scicat02.esss.lu.se:3000/word/attachment">
-					<button mat-raised-button class="btn btn-success">
-						<mat-icon>get_app</mat-icon>
-						Download proposal template
-					</button>
-				</a>
-			</div>
-			<div style="width: 300px;">
-				<mat-action-row>Upcoming deadlines</mat-action-row>
-				<table mat-table [dataSource]="cycles" class="mat-elevation-z8" style="width: 100%;">
-					<ng-container matColumnDef="cycleId">
-						<th mat-header-cell *matHeaderCellDef> Cycle ID</th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.cycleId}}</td>
-					</ng-container>
-
-					<ng-container matColumnDef="date">
-						<th mat-header-cell *matHeaderCellDef> Date </th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.date}}</td>
-					</ng-container>
-
-					<ng-container matColumnDef="review">
-						<th mat-header-cell *matHeaderCellDef> Review</th>
-						<td mat-cell *matCellDef="let cycle"> {{cycle.review}}</td>
-					</ng-container>
-
-					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-				</table>
-			</div>
-		</div>
-
+				<a class="small-action" href="http://scicat02.esss.lu.se:3000/word/attachment"><button mat-raised-button class="btn btn-success"><mat-icon>get_app</mat-icon>Download proposal template</button></a>
+				<a class="small-action" routerLink="/guidelines"><button mat-raised-button class="btn btn-primary"><mat-icon>info</mat-icon> Read the proposal guidelines</button></a>
+				
+				</div>
+				
 	`
 })
 export class HomeComponent implements OnInit {
@@ -72,26 +40,8 @@ export class HomeComponent implements OnInit {
 	constructor(public auth: AuthService) {
 	}
 
-	displayedColumns: string[] = [ 'cycleId', 'date', 'review' ];
 
 	ngOnInit() {
 	}
 
-	cycles: object[] = [
-		{
-			cycleId: '001',
-			date: '2018-02-01',
-			review: '2018-03-01'
-		},
-		{
-			cycleId: '002',
-			date: '2018-04-01',
-			review: '2018-05-01'
-		},
-		{
-			cycleId: '003',
-			date: '2018-05-01',
-			review: '2018-06-01'
-		}
-	];
 }
