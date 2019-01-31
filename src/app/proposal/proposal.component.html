@@ -134,8 +134,7 @@
 				<label class="btn btn-default">
 					<input name="needByDateAttachment"
 					       style="width: 100%;"
-					       type="file"
-					       (change)="selectFile($event)">
+					       type="file">
 				</label>
 				<mat-form-field>
 					<p>If there is anything else you would like us to know, please enter it below:</p>
@@ -207,8 +206,7 @@
 					<label class="btn btn-default">
 						<input name="pbdIdReferenceAttachment"
 						       style="width: 100%;"
-						       type="file"
-						       (change)="selectFile($event)">
+						       type="file">
 					</label>
 					<mat-form-field>
 						<p>Does the protein have any co-factors or ligands required for crystallization? Specify:</p>
@@ -318,12 +316,11 @@
 							<br>
 							<p><em>(Accepted formats: PDF)</em></p>
 							<label class="btn btn-default">
-								<input type="file" name="chemicalStructureAttachment" (change)="selectFile($event)">
+								<input type="file" name="chemicalStructureAttachment">
 							</label>
 						</fieldset>
 						<br>
-						<mat-radio-group
-								formControlName="hasPreparedMolecule">
+						<mat-radio-group formControlName="hasPreparedMolecule">
 							<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or others?</p>
 							<mat-radio-button value="yes">Yes</mat-radio-button>
 							<mat-radio-button value="no">No</mat-radio-button>
@@ -333,7 +330,7 @@
 							<br>
 							<p><em>(Accepted formats: PDF)</em></p>
 							<label class="btn btn-default">
-								<input type="file" name="moleculePreparationReferenceArticle" (change)="selectFile($event)">
+								<input type="file" name="moleculePreparationReferenceArticle">
 							</label>
 						</fieldset>
 						<mat-form-field>
