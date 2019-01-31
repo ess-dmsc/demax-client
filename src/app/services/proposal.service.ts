@@ -27,7 +27,7 @@ export class ProposalService {
     }
 
     adminGetProposals(): Observable<Proposal[]> {
-        return this.http.get<Proposal[]>('/api/proposals');
+        return this.http.get<Proposal[]>('/api/admin/proposals');
     }
 
 	getProposals(user: User): Observable<Proposal[]> {

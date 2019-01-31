@@ -116,7 +116,9 @@ export class AdminComponent implements OnInit {
 
 	ngOnInit() {
 		this.getUsers();
+		console.log(this.users);
 		this.getProposals();
+		console.log(this.proposals)
 	}
 
 	getProposals() {
