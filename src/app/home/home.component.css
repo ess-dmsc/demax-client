@@ -10,11 +10,12 @@
 .wrapper {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: space-evenly;
 }
 
 .deadlines {
 	margin-top: 2rem;
+	min-width: 200px;
 }
 td{
 	margin: 0.5rem;

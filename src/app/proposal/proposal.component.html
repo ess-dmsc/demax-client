@@ -115,24 +115,26 @@
 					<tr *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
 						<td>
 
-						<mat-form-field class="smallFormField">
-							<input matInput required formControlName="firstName" placeholder="First name">
-						</mat-form-field>
+							<mat-form-field class="smallFormField">
+								<input matInput required formControlName="firstName" placeholder="First name">
+							</mat-form-field>
 
-						<mat-form-field class="smallFormField">
-							<input matInput required formControlName="lastName" placeholder="Last name">
-						</mat-form-field>
-						<br>
-						<mat-form-field class="smallFormField">
-							<input matInput required formControlName="affiliation" placeholder="Affiliation">
-						</mat-form-field>
+							<mat-form-field class="smallFormField">
+								<input matInput required formControlName="lastName" placeholder="Last name">
+							</mat-form-field>
+							<br>
+							<mat-form-field class="smallFormField">
+								<input matInput required formControlName="affiliation" placeholder="Affiliation">
+							</mat-form-field>
 
-						<mat-form-field class="smallFormField">
-							<input matInput required formControlName="email" placeholder="Email">
-						</mat-form-field>
+							<mat-form-field class="smallFormField">
+								<input matInput required formControlName="email" placeholder="Email">
+							</mat-form-field>
 						</td>
 						<td>
-							<button class="btn btn-danger btn-lg" style="margin-left: 2rem;" (click)="deleteCoProposer(i)">Delete</button>
+							<button class="btn btn-danger btn-lg" style="margin-left: 2rem;"
+							        (click)="deleteCoProposer(i)">Delete
+							</button>
 						</td>
 					</tr>
 
@@ -456,33 +458,59 @@
 					<label for="proposalTemplate">Choose File</label>
 					<small>{{this.selectedFileName}}</small>
 				</div>
-
-				<h4>Attached files</h4>
-				<div class="fileUpload">
-					<div *ngFor="let i of proposal.attachments">
-						{{i.type}}
-						<img src="../../assets/logos/pdf.png" width="40" alt="{{i.name}}">
-						<small>{{i.name}}</small>
-					</div>
-				</div>
-
-				<h4>Merge and download all files as pdf</h4>
-				<div class="fileUpload">
-					<p>Click to merge and download all your attachments into a single PDF document.</p>
-					<a download
-					   mat-raised-button
-					   color="warn"
-					   href="{{url}}/api/pdf/merge/{{proposal.proposalId}}">
-						<mat-icon>picture_as_pdf</mat-icon>
-						Download
-					</a>
-				</div>
-
-
 				<br>
-				<button mat-raised-button color="primary" type="submit">Submit</button>
+				<h4>Attached documents</h4>
+				<div style="width: 60%; display:flex; flex-wrap: wrap; justify-content: space-around;">
+					<figure>
+						<img src="../../assets/logos/pdf.png"
+						     alt="proposal.proposalTemplate.name"
+						     width="60">
+						<figcaption><a href="">Deuteration.proposal.pdf</a></figcaption>
+					</figure>
+					<figure>
+						<img src="../../assets/logos/pdf.png"
+						     alt="proposal.needByDateAttachment.name"
+						     width="60">
+						<figcaption><a href="">Beamtime.proposal.pdf</a></figcaption>
+					</figure>
+					<figure>
+						<img src="../../assets/logos/pdf.png"
+						     alt="proposal.crystalStructureAttachment.name"
+						     width="60">
+						<figcaption><a href="">Crystal.structure.pdf</a></figcaption>
+					</figure>
+					<figure>
+						<img src="../../assets/logos/pdf.png"
+						     alt="proposal.proteinAttachment.name"
+						     width="60">
+						<figcaption><a href="">Protein.purification.protocol.pdf</a></figcaption>
+					</figure>
+				</div>
+				<br>
+				<h4>Submit & review</h4>
+				<mat-list>
+					<mat-list-item>
+						<p>1. Click to merge all your attached documents with the information in this form and download a single PDF.</p>
+					</mat-list-item>
+					<mat-list-item>
+						<a download class="btn btn-danger btn-lg" style="width: 80px;"
+						   href="{{url}}/api/pdf/merge/{{proposal.proposalId}}">
+							Download proposal
+						</a>
+					</mat-list-item>
+					<mat-list-item>
+						2. Review the proposal. Go back and edit if something is missing, or if you would like to add something.
+					</mat-list-item>
+					<mat-list-item>
+						3. If you're pleased, proceed by clicking 'Submit'
+					</mat-list-item>
+					<mat-list-item>
+						<button class="btn btn-primary btn-lg" style="width: 80px;" type="submit">Submit proposal</button>
+					</mat-list-item>
+				</mat-list>
+				<br>
 				<mat-action-row>
-					<button mat-button (click)="selectTab(3)">Go back</button>
+					<button mat-stroked-button color="warn" (click)="selectTab(3)">Go back</button>
 				</mat-action-row>
 			</mat-card>
 

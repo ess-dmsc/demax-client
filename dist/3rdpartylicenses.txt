@@ -692,6 +692,10 @@ MIT
 
 @angular/material/table
 
+@angular/material/core
+
+@angular/material/list
+
 @angular/material/form-field
 
 @angular/material/tabs

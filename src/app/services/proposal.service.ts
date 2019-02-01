@@ -108,6 +108,19 @@ export class ProposalService {
             catchError(this.handleError(file))
         );
     }
+    upload(file: File, proposal: Proposal, input: string): Observable<HttpEvent<{}>>{
+    	const formdata: FormData = new FormData();
+	    formdata.append('file', file, file.name);
+	    formdata.append('proposalId', proposal.proposalId);
+	    formdata.append('name', input);
+
+	    const req = new HttpRequest('POST', `/api/file/upload/${input}`, formdata, {
+		    reportProgress: true,
+		    responseType: 'text'
+	    });
+	    return this.http.request(req);
+
+    }
 
     getFiles(proposal: Proposal): Observable<any> {
         return this.http.get(`/api/file/proposals/${proposal.proposalId}`);

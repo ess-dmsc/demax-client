@@ -28,6 +28,7 @@ export class ProposalComponent implements OnInit {
 	coProposers: FormArray;
 	selectedIndex = 0;
 	hasReadTos = false;
+	fileUploads: Observable<string[]>;
 
 	progress: { percentage: number } = {percentage: 0};
 
@@ -149,6 +150,7 @@ export class ProposalComponent implements OnInit {
 
 	ngOnInit() {
 		this.createProposal();
+		this.fileUploads = this.proposalService.getFiles(this.proposal);
 	}
 
 	createProposal() {
@@ -219,6 +221,9 @@ export class ProposalComponent implements OnInit {
 	upload() {
 		this.progress.percentage = 0;
 		this.currentFileUpload = this.selectedFiles.item(0);
+		console.log(this.currentFileUpload.name)
+		console.log(this.currentFileUpload.size)
+		console.log(this.currentFileUpload.type)
 		this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
 			console.log('File is completely uploaded!');
 		});

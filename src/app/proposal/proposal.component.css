@@ -17,6 +17,7 @@ mat-action-row{
 	border-bottom: solid 1px lightgray;
 	width: 60%;
 	margin: 1rem;
+	padding: 0 1rem;
 }
 fieldset{
 	display: block;

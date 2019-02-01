@@ -98,5 +98,4 @@ export class Proposal {
 		hasPreparedMolecule?: string;
 		other?: string;
 	};
-	attachments: object[];
 };
