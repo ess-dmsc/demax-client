@@ -87,11 +87,11 @@ export class ProposalService {
         this.messenger.add(message);
     }
 
-    pushFileToStorage(file: File, proposal: Proposal, input: String) {
+    pushFileToStorage(file: File, proposal: Proposal, input: string) {
         const formdata: FormData = new FormData();
-        formdata.append('file', file, proposal.proposalId + '_' + file.name);
+        formdata.append('file', file, file.name);
         formdata.append('proposalId', proposal.proposalId);
-        console.log(input);
+        formdata.append('name', input);
         if (!file) {
             return;
         }

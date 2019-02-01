@@ -19,18 +19,21 @@ import { User } from "../models/user";
 	providers: [ ProposalService ]
 })
 export class ProposalsComponent implements OnInit {
+
 	url = this.appConfig.demaxBaseUrl;
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
-	isEditing = false;
-	panelOpenState = false;
-	message: string;
+	attachments = [];
 	files: Observable<string[]>;
+	selectedFileName = '';
+	isEditing = false;
+	coProposers: FormArray;
 
-	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'options', 'pdf' ];
+	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'mainProposer', 'options' ];
 	selectedFiles: FileList;
 	selectedInput: string;
 	currentFileUpload: File;
+
 	progress: { percentage: number } = {percentage: 0};
 
 	selectedIndex = 0;
@@ -60,14 +63,9 @@ export class ProposalsComponent implements OnInit {
 			sector: [ '', Validators.required ],
 			title: [ '', Validators.required ],
 		}),
-		coProposers: this.formBuilder.array(
-			[
-				{
-					firstName: [ ' ' ],
-					lastName: [ ' ' ],
-					affiliation: [ ' ' ]
-				}
-			]),
+		coProposers: this.formBuilder.array([
+			this.createCoProposer()
+		]),
 		needByDate: [ '', Validators.required ],
 		needByDateMotivation: [ '', Validators.required ],
 		needByDateAttachment: [ '', Validators.required ],
@@ -148,6 +146,7 @@ export class ProposalsComponent implements OnInit {
 			other: [ '' ]
 		}),
 		other: [ '' ],
+		attachments: [''],
 		pbdIdReferenceAttachment: [ '' ],
 		organismReferenceAttachment: [ '' ],
 		needsPurificationSupportAttachment: [ '' ],
@@ -189,6 +188,7 @@ export class ProposalsComponent implements OnInit {
 			data => this.proposals = data,
 			error => console.log(error),
 		);
+
 	}
 
 	addProposal() {
@@ -202,10 +202,38 @@ export class ProposalsComponent implements OnInit {
 		);
 	}
 
+	addCoProposer() {
+		event.preventDefault();
+		const coProposer = this.formBuilder.group({
+			firstName: [],
+			lastName: [],
+			affiliation: []
+		})
+		this.coProposerForms.push(coProposer);
+
+	}
+
+	createCoProposer(): FormGroup {
+		return this.formBuilder.group({
+			firstName: '',
+			lastName: '',
+			affiliation: ''
+		});
+	}
+
+	deleteCoProposer(i) {
+		console.log(i)
+		this.coProposerForms.removeAt(i)
+	}
+
+	get coProposerForms() {
+		return this.proposalForm.get('coProposers') as FormArray
+	}
+
 	enableEditing(proposal: Proposal) {
 		this.isEditing = true;
 		this.proposal = proposal;
-		this.files = this.proposalService.getFiles(proposal);
+		console.log(this.attachments)
 	}
 
 	cancelEditing() {
@@ -239,25 +267,24 @@ export class ProposalsComponent implements OnInit {
 
 	selectFile(event) {
 		this.selectedFiles = event.target.files;
-		this.selectedInput = event.target.name.toString()
+		this.selectedInput = event.target.name.toString();
+		this.selectedFileName = event.target.files.item(0).name;
 		this.upload();
 	}
 
 	upload() {
 		this.progress.percentage = 0;
-
 		this.currentFileUpload = this.selectedFiles.item(0);
 		this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
 			console.log('File is completely uploaded!');
 		});
 		this.selectedFiles = undefined;
-		this.files = this.proposalService.getFiles(this.proposal);
-		console.log(this.files)
+		this.getFiles();
 	}
 
 	getFiles() {
 		this.proposalService.getFiles(this.proposal).subscribe(
-			data => this.files = data,
+			data => this.attachments = data,
 			error => console.log(error),
 		);
 	}

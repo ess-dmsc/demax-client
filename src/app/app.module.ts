@@ -28,7 +28,6 @@ import { MessageService } from './services/message.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { ProposalComponent } from './proposal/proposal.component';
 import { GuidelinesComponent } from './components/guidelines/guidelines.component';
-import { EditProposalComponent } from './edit-proposal/edit-proposal.component';
 import { ApiInterceptor } from "./api-interceptor";
 import { AccountComponent } from './account/account.component';
 
@@ -50,7 +49,6 @@ export function tokenGetter() {
 		TestingComponent,
 		ProposalComponent,
 		GuidelinesComponent,
-		EditProposalComponent,
 		AccountComponent
 	],
 	imports: [

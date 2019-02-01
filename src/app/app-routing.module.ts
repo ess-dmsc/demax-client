@@ -13,7 +13,6 @@ import { AdminComponent } from "./components/admin.component";
 import { TestingComponent } from "./components/testing.component";
 import { ProposalComponent } from "./proposal/proposal.component";
 import { GuidelinesComponent } from "./components/guidelines/guidelines.component";
-import { EditProposalComponent } from "./edit-proposal/edit-proposal.component";
 import { AccountComponent } from "./account/account.component";
 
 const routes: Routes = [

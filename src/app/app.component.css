@@ -1,9 +1,6 @@
-body {margin: 0;
+body {
+	margin: 0;
 	font-family: 'Titillium Web', sans-serif;
-}
-
-svg{
-	margin: 2rem;
 }
 
 .topnav {
@@ -12,13 +9,18 @@ svg{
 	display: flex;
 	justify-content: space-between;
 	font-family: "Titillium Web", sans-serif;
+	position: fixed;
+	top: 0;
+	height: 7rem;
+	width: 100%;
+	z-index: 2;
 }
 
 .topnav a {
 	float: left;
-	color: #F2F2F2;
+	color: #ffffff;
 	text-align: center;
-	padding: 14px 16px;
+	padding: 20px 20px;
 	text-decoration: none;
 	font-size: 17px;
 }
@@ -26,10 +28,18 @@ svg{
 .topnav a:hover {
 	background-color: white;
 	color: #009EDD;
+	text-decoration: none;
 }
 
-.example-fill-remaining-space {
-	flex: 1 1 auto;
+.sidebar {
+	margin-top: 7rem;
+	padding: 0;
+	width: 200px;
+	background-color: white;
+	position: fixed;
+	height: 100%;
+	overflow: auto;
+	border-right: solid lightgray 0.5px;
 }
 
 .sidebar a {
@@ -39,9 +49,9 @@ svg{
 	text-decoration: none;
 }
 
-.menuItem {
-	display: flex;
-	justify-content: space-evenly;
+.sidebar a.active {
+	background-color: #4CAF50;
+	color: white;
 }
 
 .sidebar a:hover:not(.active) {
@@ -49,12 +59,27 @@ svg{
 	color: white;
 }
 
-.example-container {
-	position: absolute;
-	top: 60px;
-	bottom: 0;
-	left: 0;
-	right: 0;
+div.content {
+	margin-left: 200px;
+	padding-top: 7rem;
+	height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+	.sidebar {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	.sidebar a {float: left;}
+	div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+	.sidebar a {
+		text-align: center;
+		float: none;
+	}
 }
 
 .login-background {
@@ -72,30 +97,4 @@ mat-tab-group {
 	border: solid lightgray 1px;
 	border-radius: 1rem;
 	box-shadow: 5px 4px 5px lightgray;
-}
-
-.example-sidenav {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 200px;
-	background: white;
-	margin-right: 1rem;
-	top: 60px;
-	bottom: 0;
-	left: 0;
-}
-
-.example-header {
-	top: 0;
-	left: 0;
-	right: 0;
-	padding: 3rem;
-}
-
-.example-footer {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
 }

@@ -1,5 +1,7 @@
 export class Proposal {
 	proposalId: string;
+	dateCreated?: string;
+	submitted?: boolean;
 	experimentTitle?: string;
 	briefSummary?: string;
 	mainProposer: {
@@ -20,12 +22,11 @@ export class Proposal {
 		];
 	needByDate?: string;
 	needByDateMotivation?: string;
-	needByDateAttachment?: string;
 	lab?: string;
 	linksWithIndustry?: string;
 	coProposerStudents?: string;
 	workTowardsStudentsDegree?: string;
-	wantsCrystallization?: string;
+	wantsCrystallization?: boolean;
 	wantsBiologicalDeuteration?: boolean;
 	wantsBiomassDeuteration?: boolean;
 	wantsProteinDeuteration?: boolean;
@@ -75,6 +76,7 @@ export class Proposal {
 		deuterationLevelMotivation?: string;
 		needsPurificationSupport?: string;
 		hasDoneUnlabeledProteinExpression?: string;
+		typicalYield: string;
 		hasDonePurification?: string;
 		hasProteinPurificationExperience?: string;
 		proteinDeuterationResults?: string
@@ -93,16 +95,7 @@ export class Proposal {
 		deuterationLocationAndPercentege?: string;
 		deuterationLevelMotivation?: string;
 		hasPreparedMolecule?: string;
-		hasPreparedMoleculeProtocol?: string
 		other?: string;
 	};
-	submitted?: boolean;
-	proposalTemplate?: string;
-	generatedProposal?: string;
-	mergedProposal?: string;
-	pbdIdReferenceAttachment?: string;
-	organismReferenceAttachment?: string;
-	needsPurificationSupportAttachment?: string;
-	chemicalStructureAttachment?: string;
-	moleculePreparationReferenceArticle?: string;
+	attachments: object[];
 };
