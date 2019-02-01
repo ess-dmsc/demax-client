@@ -4,8 +4,8 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './external/material.module';
 import { APP_CONFIG, APP_DI_CONFIG } from "./app-config.module";
 import { AuthService } from "./services/auth.service";
-import { RegisterComponent } from "./components/register/register.component";
-import { LoginComponent } from "./components/login/login.component";
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
 import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('AppComponent', () => {

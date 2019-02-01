@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './login/login.component';
 import { ContactComponent } from './components/contact.component';
-import { RegisterComponent } from './components/register/register.component';
+import { RegisterComponent } from './register/register.component';
 import { ImprintComponent } from './components/imprint.component';
-import { HomeComponent } from './components/home.component';
+import { HomeComponent } from './home/home.component';
 import { ProposalsComponent } from "./proposals/proposals.component";
 import { AuthGuardLogin } from "./services/auth-guard-login.service";
 import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
-import { LogoutComponent } from "./components/logout/logout.component";
+import { LogoutComponent } from "./logout/logout.component";
 import { AdminComponent } from "./components/admin.component";
 import { TestingComponent } from "./components/testing.component";
 import { ProposalComponent } from "./proposal/proposal.component";
-import { GuidelinesComponent } from "./components/guidelines/guidelines.component";
+import { GuidelinesComponent } from "./guidelines/guidelines.component";
 import { AccountComponent } from "./account/account.component";
 
 const routes: Routes = [

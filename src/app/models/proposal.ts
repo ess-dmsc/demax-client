@@ -17,6 +17,7 @@ export class Proposal {
 		{
 			firstName?: string;
 			lastName?: string;
+			email?: string;
 			affiliation?: string;
 		}
 		];

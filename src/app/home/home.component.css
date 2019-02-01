@@ -1,0 +1,21 @@
+.main {
+	padding: 4rem;
+	width: 750px;
+}
+
+.small-action {
+	margin-right: 2rem;
+}
+
+.wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.deadlines {
+	margin-top: 2rem;
+}
+td{
+	margin: 0.5rem;
+}

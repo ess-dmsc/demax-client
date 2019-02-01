@@ -160,12 +160,23 @@ export class ProposalComponent implements OnInit {
 		);
 	}
 
+	saveProposal(proposal: Proposal) {
+		this.proposalService.editProposal(proposal).subscribe(
+			() => {
+				this.proposal = proposal;
+			},
+			error => console.log(error),
+			this.router.navigate['/proposals']
+		);
+	}
+
 	addCoProposer() {
 		event.preventDefault();
 		const coProposer = this.formBuilder.group({
 			firstName: [],
 			lastName: [],
-			affiliation: []
+			affiliation: [],
+			email: []
 		})
 		this.coProposerForms.push(coProposer);
 
@@ -175,7 +186,8 @@ export class ProposalComponent implements OnInit {
 		return this.formBuilder.group({
 			firstName: '',
 			lastName: '',
-			affiliation: ''
+			affiliation: '',
+			email: ''
 		});
 	}
 
@@ -212,7 +224,6 @@ export class ProposalComponent implements OnInit {
 		});
 		this.selectedFiles = undefined;
 		this.getFiles();
-		console.log(this.attachments)
 	}
 
 	getFiles() {
