@@ -98,4 +98,49 @@ export class Proposal {
 		hasPreparedMolecule?: string;
 		other?: string;
 	};
-};
+    proposalTemplate: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    generatedProposal: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    needByDateAttachment: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    mergedProposal: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    pbdIdReferenceAttachment: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    organismReferenceAttachment: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    needsPurificationSupportAttachment: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    chemicalStructureAttachment: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+    moleculePreparationReferenceArticle: {
+        name?: string;
+        path?: string;
+        uploaded?: boolean;
+    };
+}

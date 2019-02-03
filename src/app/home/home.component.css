@@ -1,11 +1,14 @@
-.main {
-	padding: 4rem;
+.jumbotron {
+	padding: 3rem;
+	background-color: white;
 	width: 70%;
 }
 
 .small-action {
 	margin-right: 2rem;
 }
+
+
 
 .wrapper {
 	display: flex;

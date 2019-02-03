@@ -1,15 +1,16 @@
-.proposal-list{
-}
-
 mat-card {
 	margin: 2rem 5rem;
 	padding: 2rem;
 }
+.jumbotron {
+	padding: 3rem;
+	background-color: white;
+}
 
 .editProposal{
 	margin-left: 2rem;
-	margin-top: 2rem;
 }
+
 mat-checkbox{
 	margin: 2rem;
 	display: block;

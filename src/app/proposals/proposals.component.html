@@ -1,7 +1,11 @@
-<section *ngIf="proposals.length === 0">
-	There are no proposals in the database. Create a <a routerLink="/proposal">new proposal</a> to get started.
-</section>
-<section *ngIf="!isEditing && proposals.length !=0" class="proposal-list">
+<section *ngIf="!isEditing">
+	<div class="jumbotron jumbotron-fluid">
+		<h2>My current proposals</h2>
+
+		<hr class="my-4">
+
+		<p *ngIf="proposals.length === 0">You haven't submitted any proposals yet. Create a <a routerLink="/proposal">new proposal</a> to get started.</p>
+	</div>
 	<table mat-table [dataSource]="proposals">
 
 		<ng-container matColumnDef="proposalId">
@@ -40,22 +44,22 @@
 		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 	</table>
-	<mat-card style="padding: 2rem; margin: 0;">
-		<a mat-raised-button color="primary" routerLink="/proposal">Create new proposal</a>
+	<mat-card>
+		<a class="btn btn-primary btn-lg" role="button" routerLink="/proposal">
+			Create new proposal
+		</a>
 	</mat-card>
 </section>
 
 <section *ngIf="isEditing" class="editProposal">
 	<form (ngSubmit)="editProposal(proposal)">
+		<div class="jumbotron">
+			<h2>Proposal ID: {{proposal.proposalId}}</h2>
+		</div>
 		<mat-tab-group [(selectedIndex)]="selectedIndex">
 
 			<mat-tab label="1. General information">
 				<mat-card>
-
-					<h3>
-						Proposal ID: {{proposal.proposalId}}
-					</h3>
-
 					<mat-form-field>
 						<input matInput
 						       name="proposal.experimentTitle"
@@ -196,7 +200,6 @@
 			</mat-tab>
 			<mat-tab label="2. Crystallization" [disabled]="!proposal.wantsCrystallization">
 				<mat-card>
-
 					<p>Required information to include in the “Practical Considerations” section of your proposal:</p>
 					<ul>
 						<li>SDS-PAGE</li>
@@ -595,7 +598,7 @@
 							<mat-radio-button value="no">No</mat-radio-button>
 						</mat-radio-group>
 						<mat-radio-group name="proposal.proteinDeuteration.hasProteinPurificationExperience"
-						                 [(ngModel)]="proposal.proteinDeuteration.hasProteinPurificationExperience">
+						                 [(ngModel)]="proposal.proteinDeuteration.hasDoneProteinPurification">
 							<p>Have you been able to purify the unlabeled protein? </p>
 							<mat-radio-button value="yes">Yes</mat-radio-button>
 							<mat-radio-button value="no">No</mat-radio-button>
