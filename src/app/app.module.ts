@@ -30,6 +30,9 @@ import { ProposalComponent } from './proposal/proposal.component';
 import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { ApiInterceptor } from "./api-interceptor";
 import { AccountComponent } from './account/account.component';
+import { FileDetailComponent } from './file-detail/file-detail.component';
+import { FileListComponent } from './file-list/file-list.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -49,7 +52,10 @@ export function tokenGetter() {
 		TestingComponent,
 		ProposalComponent,
 		GuidelinesComponent,
-		AccountComponent
+		AccountComponent,
+		FileDetailComponent,
+		FileListComponent,
+		FileUploadComponent
 	],
 	imports: [
 		BrowserModule,
