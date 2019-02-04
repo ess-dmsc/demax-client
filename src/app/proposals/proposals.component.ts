@@ -279,7 +279,7 @@ export class ProposalsComponent implements OnInit {
 	upload() {
 		this.progress.percentage = 0;
 		this.currentFileUpload = this.selectedFiles.item(0);
-		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposal.proposalId, this.selectedInput).subscribe(event => {
+		this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
 			console.log('File is completely uploaded!');
 		});
 		this.selectedFiles = undefined;

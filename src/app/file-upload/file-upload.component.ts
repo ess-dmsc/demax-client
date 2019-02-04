@@ -10,6 +10,7 @@ import { Proposal } from "../models/proposal";
 })
 export class FileUploadComponent implements OnInit {
 	@Input() attachmentType: string;
+	@Input('proposalId') proposalId: string;
 
 	selectedFiles: FileList;
 	currentFileUpload: File;
@@ -27,7 +28,7 @@ export class FileUploadComponent implements OnInit {
 	upload() {
 		this.progress.percentage = 0;
 		this.currentFileUpload = this.selectedFiles.item(0);
-		this.fileService.pushFileToStorage(this.currentFileUpload, 'CEL6Z7KZ', 'needByDateAttachment' ).subscribe(event => {
+		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalId, this.attachmentType).subscribe(event => {
 			if (event.type === HttpEventType.UploadProgress) {
 				this.progress.percentage = Math.round(100 * event.loaded / event.total);
 			} else if (event instanceof HttpResponse) {
