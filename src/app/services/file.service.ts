@@ -10,10 +10,10 @@ export class FileService {
 
 	constructor(private http: HttpClient) { }
 
-	pushFileToStorage(file: File, proposal: Proposal, input: string): Observable<HttpEvent<{}>> {
+	pushFileToStorage(file: File, proposal_id: string, input: string): Observable<HttpEvent<{}>> {
 		const formdata: FormData = new FormData();
 		formdata.append('file', file, file.name);
-		formdata.append('proposalId', proposal.proposalId);
+		formdata.append('proposalId', proposal_id);
 		formdata.append('name', input);
 
 		const req = new HttpRequest('POST', `/api/file/upload/${input}`, formdata, {

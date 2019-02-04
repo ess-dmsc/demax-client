@@ -11,6 +11,7 @@ import { MatDialog, MatStep } from "@angular/material";
 import { AppConfig } from "../app-config.module";
 import { APP_CONFIG } from "../app-config.module";
 import { User } from "../models/user";
+import { FileService } from "../services/file.service";
 
 @Component({
 	selector: 'app-proposals',
@@ -28,6 +29,7 @@ export class ProposalsComponent implements OnInit {
 	selectedFileName = '';
 	isEditing = false;
 	coProposers: FormArray;
+	proposal_id: string;
 
 	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'mainProposer', 'options' ];
 	selectedFiles: FileList;
@@ -164,6 +166,7 @@ export class ProposalsComponent implements OnInit {
 		private http: HttpClient,
 		public auth: AuthService,
 		public dialog: MatDialog,
+		private fileService: FileService
 	) {
 	}
 
@@ -269,13 +272,14 @@ export class ProposalsComponent implements OnInit {
 		this.selectedFiles = event.target.files;
 		this.selectedInput = event.target.name.toString();
 		this.selectedFileName = event.target.files.item(0).name;
+		this.proposal_id = this.proposal.proposalId;
 		this.upload();
 	}
 
 	upload() {
 		this.progress.percentage = 0;
 		this.currentFileUpload = this.selectedFiles.item(0);
-		this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
+		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposal.proposalId, this.selectedInput).subscribe(event => {
 			console.log('File is completely uploaded!');
 		});
 		this.selectedFiles = undefined;
