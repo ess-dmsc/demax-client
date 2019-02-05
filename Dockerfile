@@ -16,7 +16,7 @@ WORKDIR /usr/src/app
 RUN npm install typescript@">=3.1.1 <3.3"
 RUN npm install
 COPY . /usr/src/app
-RUN ng build --esss
+RUN ng build --configuration=esss
 
 FROM nginx:alpine
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
