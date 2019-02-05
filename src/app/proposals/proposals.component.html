@@ -37,7 +37,7 @@
 			<td mat-cell *matCellDef="let proposal">
 				<button mat-raised-button color="primary" (click)="enableEditing(proposal)">Edit</button>
 				<button mat-raised-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
-				<a mat-raised-button download class="btn btn-success" href="{{url}}/api/pdf/{{proposal.proposalId}}">
+				<a mat-raised-button download class="btn btn-success" href="{{url}}/api/merge/{{proposal.proposalId}}">
 					<mat-icon>get_app</mat-icon>
 					Download
 				</a>
@@ -634,6 +634,10 @@
 							       name="proposal.proteinDeuteration.proteinDeuterationResults"
 							       [(ngModel)]="proposal.proteinDeuteration.proteinDeuterationResults">
 						</mat-form-field>
+
+						<mat-action-row>
+							<button mat-raised-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+						</mat-action-row>
 
 					</mat-expansion-panel>
 				</mat-card>

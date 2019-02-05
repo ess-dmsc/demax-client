@@ -33,6 +33,7 @@ export class ProposalsComponent implements OnInit {
 
 
 	selectTab(index: number): void {
+		window.scrollTo(0, 0)
 		event.preventDefault();
 		this.selectedIndex = index;
 	}
@@ -81,11 +82,13 @@ export class ProposalsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		window.scrollTo(0, 0)
 		this.getProposals();
 		this.proposalForm = this.formBuilder.group({})
 	}
 
 	getProposals() {
+		window.scrollTo(0, 0)
 		this.proposalService.getProposals(this.auth.currentUser).subscribe(
 			data => this.proposals = data,
 			error => console.log(error),
@@ -94,12 +97,14 @@ export class ProposalsComponent implements OnInit {
 	}
 
 	enableEditing(proposal: Proposal) {
+		window.scrollTo(0, 0)
 		this.isEditing = true;
 		this.proposal = proposal;
 		this.message.setMessage('Editing proposal ' + this.proposal.proposalId, 'success')
 	}
 
 	cancelEditing() {
+		window.scrollTo(0, 0)
 		this.isEditing = false;
 		this.message.setMessage('Cancelled', 'danger')
 
@@ -108,6 +113,7 @@ export class ProposalsComponent implements OnInit {
 	}
 
 	editProposal(proposal: Proposal) {
+		window.scrollTo(0, 0)
 		this.proposalService.editProposal(proposal).subscribe(
 			() => {
 				this.isEditing = false;
@@ -118,7 +124,9 @@ export class ProposalsComponent implements OnInit {
 		);
 	}
 
+
 	deleteProposal(proposal: Proposal) {
+		window.scrollTo(0, 0)
 		if(window.confirm('Are you sure you want to permanently delete this proposal?')) {
 			this.proposalService.deleteProposal(proposal).subscribe(
 				() => {

@@ -136,7 +136,8 @@ export class ProposalComponent implements OnInit {
 	addProposal() {
 		this.proposalService.addProposal(this.proposalForm.value).subscribe(response => {
 			this.proposal = response;
-			this.message.setMessage('Successfully created proposal ' + this.proposal.proposalId, 'success')
+			this.message.setMessage('Proposal ' + this.proposal.proposalId + ' successfully created', 'success');
+			this.router.navigate(['/proposals']);
 		}, error => {
 			this.message.setMessage('HTTP Response Error 500 - Could not create proposal at this time', 'danger')
 		})

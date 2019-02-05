@@ -1,5 +1,5 @@
 <fieldset>
-	<p>Accepted formats: PDF <mat-icon style="color: red">picture_as_pdf</mat-icon></p>
+	<p><small>Accepted formats: PDF </small><mat-icon style="color: red">picture_as_pdf</mat-icon></p>
 	<div *ngIf="currentFileUpload" class="progress">
 		<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
 		     attr.aria-valuenow="{{progress.percentage}}"
@@ -17,19 +17,6 @@
 		       id="{{attachmentType}}"
 		       name="{{attachmentType}}"
 		       (change)="selectFile($event)">
-		<p>Choose file <mat-icon style="font-size: 3rem;">folder_open</mat-icon></p>
+		<p>{{fileMessage}}<mat-icon style="font-size: 3rem;">{{fileIcon}}</mat-icon></p>
 	</label>
-
-	<button mat-stroked-button
-	        matTooltip="Click to upload"
-	        class="btn btn-success btn-lg"
-	        style="margin-left: 2rem;
-	        margin-top: 0.5rem;
-	        margin-bottom: 0.5rem;
-	        padding: 1rem;"
-	        (click)="upload()">
-
-		<mat-icon>cloud_upload</mat-icon> Upload
-	</button>
-
 </fieldset>

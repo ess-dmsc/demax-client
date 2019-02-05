@@ -3,6 +3,7 @@ import { User } from '../models/user';
 import { FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
+import { MessageComponent } from "../message/message.component";
 
 @Component({
 	selector: 'app-account',
@@ -16,7 +17,8 @@ export class AccountComponent implements OnInit {
 
 	constructor(
 		private auth: AuthService,
-		private userService: UserService
+		private userService: UserService,
+		public message: MessageComponent
 	) {
 	}
 
@@ -36,6 +38,7 @@ export class AccountComponent implements OnInit {
 		this.userService.editUser(user).subscribe(
 			error => console.log(error)
 		);
+		this.message.setMessage('Saved', 'success')
 	}
 
 }
