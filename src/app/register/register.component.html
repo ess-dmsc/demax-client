@@ -2,40 +2,48 @@
 	<div class="card">
 		<form [formGroup]="registerForm" (ngSubmit)="register()">
 			<mat-form-field style="width: 40%;">
-				<input matInput type="text" name="firstName" formControlName="firstName" placeholder="First name" autofocus>
+				<input matInput required type="text" name="firstName" formControlName="firstName" placeholder="First name"
+				       autofocus>
 			</mat-form-field>
 			<mat-form-field style="width: 40%;">
-				<input matInput type="text" name="lastName" formControlName="lastName" placeholder="Last name">
+				<input matInput required ype="text" name="lastName" formControlName="lastName" placeholder="Last name">
 			</mat-form-field>
 			<mat-form-field style="width: 40%;">
-				<input matInput type="email" name="email" formControlName="email" placeholder="Email">
+				<input matInput required type="email" name="email" formControlName="email" placeholder="Email">
 			</mat-form-field>
 			<mat-form-field style="width: 40%;">
-				<input matInput type="password" name="password" formControlName="password" placeholder="Password">
+				<input matInput required type="text" name="phone" formControlName="phone" placeholder="Phone">
+			</mat-form-field>
+			<mat-form-field style="width: 40%;">
+				<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
 			</mat-form-field>
 			<p>Affiliation</p>
 			<mat-form-field style="width: 40%;">
-				<input matInput type="text" name="industry" formControlName="industry" placeholder="Industry">
+				<input matInput required type="text" name="industry" formControlName="industry" placeholder="Industry">
 			</mat-form-field>
 			<mat-form-field style="width: 40%;">
-				<input matInput type="text" name="employer" formControlName="employer" placeholder="Employer">
+				<input matInput required type="text" name="employer" formControlName="employer" placeholder="Employer">
 			</mat-form-field>
 			<mat-form-field style="width: 40%;">
-				<input matInput type="text" name="jobTitle" formControlName="jobTitle" placeholder="Job title">
+				<input matInput required type="text" name="jobTitle" formControlName="jobTitle" placeholder="Job title">
 			</mat-form-field>
-			<mat-checkbox formControlName="hasConsentedToEmails">
+			<mat-checkbox required formControlName="hasConsentedToEmails">
 				Receive mails and updates about your proposal process from DEMAX by email.
 				<br>You can change this setting
 				whenever you want. <a href="">More information</a>
 			</mat-checkbox>
-			<mat-checkbox formControlName="hasConsentedToGdpr">
-				I confirm that I have read, consent and agree to the <br>DEMAX <a href="">User Agreement</a> and <a href="">Privacy
-				Statement</a>, and I am of legal age. <br>I understand that I can change my communication preferences in my DEMAX account
-				at any time.<br>For more information about DEMAX, see our <a href="">Key Data and Service Information</a>.
+			<mat-checkbox required formControlName="hasConsentedToGdpr">
+				I confirm that I have read, consent and agree to the <br>DEMAX <a href="">User Agreement</a> and <a
+					href="">Privacy
+				Statement</a>, and I am of legal age. <br>I understand that I can change my communication preferences in
+				my DEMAX account
+				at any time.<br>For more information about DEMAX, see our <a href="">Key Data and Service
+				Information</a>.
 			</mat-checkbox>
-
+			<app-message [message]="message.message"></app-message>
 			<mat-action-row>
-				<button mat-raised-button [disabled]="!registerForm.valid" color="primary" type="submit">Register</button>
+				<button mat-raised-button [disabled]="!registerForm.valid" color="primary" type="submit">Register
+				</button>
 			</mat-action-row>
 
 		</form>

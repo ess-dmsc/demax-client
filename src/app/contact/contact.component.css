@@ -1,0 +1,20 @@
+h4 {
+	margin: 1rem;
+}
+
+p {
+	margin: 0.5rem;
+}
+
+img {
+	border-radius: 0.5rem;
+}
+mat-card{
+	width: 25%;
+}
+
+.jumbotron {
+	padding: 3rem;
+	background-color: white;
+	width: 70%;
+}

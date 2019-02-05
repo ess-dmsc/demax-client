@@ -1,17 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
 import { ProposalService } from '../services/proposal.service';
 import { Proposal } from '../models/proposal';
 import { AuthService } from "../services/auth.service";
-import { catchError, last, map, tap } from "rxjs/operators";
-import { MessageService } from "../services/message.service";
-import { Observable } from "rxjs";
-import { MatDialog, MatStep } from "@angular/material";
+
 import { AppConfig } from "../app-config.module";
 import { APP_CONFIG } from "../app-config.module";
-import { User } from "../models/user";
-import { FileService } from "../services/file.service";
+import { MessageComponent } from "../message/message.component";
+
 
 @Component({
 	selector: 'app-proposals',
@@ -20,26 +16,17 @@ import { FileService } from "../services/file.service";
 	providers: [ ProposalService ]
 })
 export class ProposalsComponent implements OnInit {
-
 	url = this.appConfig.demaxBaseUrl;
+	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'mainProposer', 'options' ];
+
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
-	attachments = [];
-	files: Observable<string[]>;
-	selectedFileName = '';
+
+	isLoading = true;
 	isEditing = false;
-	coProposers: FormArray;
-	proposal_id: string;
 
-	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'mainProposer', 'options' ];
-	selectedFiles: FileList;
-	selectedInput: string;
-	currentFileUpload: File;
-
-	progress: { percentage: number } = {percentage: 0};
 
 	selectedIndex = 0;
-
 	experimentTitle = new FormControl('', [
 		Validators.required
 	]);
@@ -50,11 +37,10 @@ export class ProposalsComponent implements OnInit {
 		this.selectedIndex = index;
 	}
 
-	addProposalForm: FormGroup;
 
 	proposalForm = this.formBuilder.group({
 		dateCreated: [ '' ],
-		experimentTitle: [ '' ],
+		experimentTitle: [ '' , Validators.required],
 		briefSummary: [ '', Validators.required ],
 		mainProposer: this.formBuilder.group({
 			firstName: [ '', Validators.required ],
@@ -65,117 +51,30 @@ export class ProposalsComponent implements OnInit {
 			sector: [ '', Validators.required ],
 			title: [ '', Validators.required ],
 		}),
-		coProposers: this.formBuilder.array([
-			this.createCoProposer()
-		]),
 		needByDate: [ '', Validators.required ],
 		needByDateMotivation: [ '', Validators.required ],
 		needByDateAttachment: [ '', Validators.required ],
 		lab: [ '', Validators.required ],
 		linksWithIndustry: [ '', Validators.required ],
-		coProposerStudents: [ '', Validators.required ],
-		workTowardsStudentsDegree: [ '', Validators.required ],
-		wantsCrystallization: false,
-		wantsBiologicalDeuteration: false,
-		wantsBiomassDeuteration: false,
-		wantsProteinDeuteration: false,
-		wantsOtherDeuteration: false,
-		wantsChemicalDeuteration: false,
-		crystallization: this.formBuilder.group({
-			moleculeName: [ '' ],
-			moleculeIdentifier: [ '' ],
-			molecularWeight: [ '' ],
-			oligomerizationState: [ '' ],
-			pbdId: [ '' ],
-			doi: [ '' ],
-			crystallizationRequirements: [ '' ],
-			crystallizationPrecipitantComposition: [ '' ],
-			previousCrystallizationExperience: [ '' ],
-			estimatedCrystallizationProductionTime: [ '' ],
-			typicalCrystalSize: [ '' ],
-			typicalYieldMgPerLiter: [ '' ],
-			storageConditions: [ '' ],
-			stability: [ '' ],
-			buffer: [ '' ],
-			levelOfDeuteration: [ '' ],
-			typicalProteinConcentrationUsed: [ '' ],
-			other: [ '' ]
-		}),
-		biomassDeuteration: this.formBuilder.group({
-			organismProvidedByUser: [ '' ],
-			organismDetails: [ '' ],
-			amountNeeded: [ '' ],
-			stateOfMaterial: [ '' ],
-			amountOfMaterialMotivation: [ '' ],
-			deuterationLevelRequired: [ '' ],
-			deuterationLevelMotivation: [ '' ]
-		}),
-		proteinDeuteration: this.formBuilder.group({
-			moleculeName: [ '' ],
-			moleculeIdentifier: [ '' ],
-			molecularWeight: [ '' ],
-			oligomerizationState: [ '' ],
-			expressionRequirements: [ '' ],
-			moleculeOrigin: [ '' ],
-			expressionPlasmidProvidedByUser: [ '' ],
-			expressionPlasmidProvidedByUserDetails: [ '' ],
-			amountNeeded: [ '' ],
-			amountNeededMotivation: [ '' ],
-			deuterationLevelRequired: [ '' ],
-			deuterationLevelMotivation: [ '' ],
-			needsPurificationSupport: [ '' ],
-			hasDoneUnlabeledProteinExpression: [ '' ],
-			typicalYield: [ '' ],
-			hasDonePurification: [ '' ],
-			hasProteinPurificationExperience: [ '' ],
-			proteinDeuterationResults: [ '' ],
-			other: [ '' ]
-		}),
-		bioSafety: this.formBuilder.group({
-			bioSafetyContainmentLevel: [ '' ],
-			organismRisk: [ '' ],
-			organismRiskDetails: [ '' ],
-			other: [ '' ]
-		}),
-		chemicalDeuteration: this.formBuilder.group({
-			moleculeName: [ '' ],
-			amount: [ '' ],
-			amountMotivation: [ '' ],
-			deuterationLocationAndPercentage: [ '' ],
-			deuterationLevelMotivation: [ '' ],
-			hasPreparedMolecule: [ '' ],
-			hasPreparedMoleculeProtocol: [ '' ],
-			other: [ '' ]
-		}),
-		other: [ '' ],
-		attachments: [''],
-		pbdIdReferenceAttachment: [ '' ],
-		organismReferenceAttachment: [ '' ],
-		needsPurificationSupportAttachment: [ '' ],
-		chemicalStructureAttachment: [ '' ],
-		moleculePreparationReferenceArticle: [ '' ],
-		proposalTemplate: [ '' ],
-		generatedProposal: [ '' ],
-		mergedProposal: [ '' ],
+		linksWithIndustryDetails: [ '' ],
+		coProposerStudents: [ '', Validators.required ]
 	});
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
-		private http: HttpClient,
 		public auth: AuthService,
-		public dialog: MatDialog,
-		private fileService: FileService
+		public message: MessageComponent
 	) {
 	}
 
 	onSubmit() {
-		console.warn(this.proposalForm.value);
 		this.proposalService.addProposal(this.proposalForm.value).subscribe(
 			res => {
 				this.proposals.push(res);
 				this.proposalForm.reset();
+				this.message.setMessage('Saved proposal' + this.proposal.proposalId, 'success')
 			},
 			error => console.log(error)
 		);
@@ -183,7 +82,7 @@ export class ProposalsComponent implements OnInit {
 
 	ngOnInit() {
 		this.getProposals();
-		this.addProposalForm = this.formBuilder.group({})
+		this.proposalForm = this.formBuilder.group({})
 	}
 
 	getProposals() {
@@ -194,53 +93,16 @@ export class ProposalsComponent implements OnInit {
 
 	}
 
-	addProposal() {
-		this.proposalService.addProposal(this.proposalForm.value).subscribe(
-			response => {
-				this.proposals.push(response);
-				this.proposalForm.reset();
-				this.getProposals();
-			},
-			error => console.log(error)
-		);
-	}
-
-	addCoProposer() {
-		event.preventDefault();
-		const coProposer = this.formBuilder.group({
-			firstName: [],
-			lastName: [],
-			affiliation: []
-		})
-		this.coProposerForms.push(coProposer);
-
-	}
-
-	createCoProposer(): FormGroup {
-		return this.formBuilder.group({
-			firstName: '',
-			lastName: '',
-			affiliation: ''
-		});
-	}
-
-	deleteCoProposer(i) {
-		console.log(i)
-		this.coProposerForms.removeAt(i)
-	}
-
-	get coProposerForms() {
-		return this.proposalForm.get('coProposers') as FormArray
-	}
-
 	enableEditing(proposal: Proposal) {
 		this.isEditing = true;
 		this.proposal = proposal;
-		console.log(this.attachments)
+		this.message.setMessage('Editing proposal ' + this.proposal.proposalId, 'success')
 	}
 
 	cancelEditing() {
 		this.isEditing = false;
+		this.message.setMessage('Cancelled', 'danger')
+
 		this.proposal = new Proposal();
 		this.getProposals();
 	}
@@ -250,6 +112,7 @@ export class ProposalsComponent implements OnInit {
 			() => {
 				this.isEditing = false;
 				this.proposal = proposal;
+				this.message.setMessage('Saved ' + this.proposal.proposalId, 'success')
 			},
 			error => console.log(error)
 		);
@@ -260,46 +123,13 @@ export class ProposalsComponent implements OnInit {
 			this.proposalService.deleteProposal(proposal).subscribe(
 				() => {
 					const pos = this.proposals.map(element => element.proposalId).indexOf(proposal.proposalId);
+					this.message.setMessage('Deleted proposal ' + this.proposal.proposalId, 'danger')
 					this.proposals.splice(pos, 1);
 					this.getProposals();
+
 				},
 				error => console.log(error)
 			);
 		}
-	}
-
-	selectFile(event) {
-		this.selectedFiles = event.target.files;
-		this.selectedInput = event.target.name.toString();
-		this.selectedFileName = event.target.files.item(0).name;
-		this.proposal_id = this.proposal.proposalId;
-		this.upload();
-	}
-
-	upload() {
-		this.progress.percentage = 0;
-		this.currentFileUpload = this.selectedFiles.item(0);
-		this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
-			console.log('File is completely uploaded!');
-		});
-		this.selectedFiles = undefined;
-		this.getFiles();
-	}
-
-	getFiles() {
-		this.proposalService.getFiles(this.proposal).subscribe(
-			data => this.attachments = data,
-			error => console.log(error),
-		);
-	}
-
-	removeFile(filename: String) {
-		event.preventDefault();
-		this.proposalService.removeFile(filename).subscribe(
-			() => {
-				this.files = this.proposalService.getFiles(this.proposal);
-			},
-			error => console.log(error)
-		)
 	}
 }

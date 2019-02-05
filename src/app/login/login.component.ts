@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { MessageComponent } from "../message/message.component";
 
 @Component({
 	selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
 
 	constructor(private auth: AuthService,
 	            private formBuilder: FormBuilder,
-	            private router: Router) { }
+	            private router: Router,
+	            public message: MessageComponent) { }
 
 	ngOnInit() {
 		if (this.auth.loggedIn) {
@@ -45,7 +47,9 @@ export class LoginComponent implements OnInit {
 
 	login() {
 		this.auth.login(this.loginForm.value).subscribe(
-			res => this.router.navigate(['/']),
+			res =>
+				this.router.navigate(['/']),
+			error => this.message.setMessage('invalid email or password!', 'danger'),
 		);
 	}
 

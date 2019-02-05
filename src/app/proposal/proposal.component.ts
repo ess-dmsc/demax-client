@@ -9,276 +9,170 @@ import { MaterialModule } from '../external/material.module';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { APP_CONFIG, AppConfig } from '../app-config.module';
+import { MessageComponent } from "../message/message.component";
 
 @Component({
-    selector: 'app-proposal',
-    templateUrl: './proposal.component.html',
-    styleUrls: [ './proposal.component.css' ]
+	selector: 'app-proposal',
+	templateUrl: './proposal.component.html',
+	styleUrls: [ './proposal.component.css' ]
 })
 export class ProposalComponent implements OnInit {
-    url = this.appConfig.demaxBaseUrl;
 
-    attachments = [];
-    files: Observable<string[]>;
-    selectedFileName = '';
-    selectedFiles: FileList;
-    selectedInput: string;
-    currentFileUpload: File;
-    proposal = new Proposal();
-    coProposers: FormArray;
-    selectedIndex = 0;
-    hasReadTos = false;
-    fileUploads: Observable<string[]>;
+	url = this.appConfig.demaxBaseUrl;
 
-    progress: { percentage: number } = {percentage: 0};
+	proposal = new Proposal();
+	coProposers: FormArray;
+	selectedIndex = 0;
+	hasReadTos = false;
+	proposalForm: FormGroup;
 
-    constructor(
-        @Inject(APP_CONFIG) private appConfig: AppConfig,
-        private proposalService: ProposalService,
-        private formBuilder: FormBuilder,
-        public auth: AuthService,
-        private router: Router
-    ) {
-    }
+	constructor(
+		@Inject(APP_CONFIG) private appConfig: AppConfig,
+		private proposalService: ProposalService,
+		private formBuilder: FormBuilder,
+		public auth: AuthService,
+		private router: Router,
+		public message: MessageComponent
+	) {
+	}
 
+	ngOnInit() {
+		this.proposalForm = this.formBuilder.group({
+			experimentTitle: [ '', Validators.required ],
+			briefSummary: [ '', Validators.required ],
+			mainProposer: this.formBuilder.group({
+				firstName: this.auth.currentUser.firstName,
+				lastName: this.auth.currentUser.lastName,
+				email: this.auth.currentUser.email,
+				phone: this.auth.currentUser.phone,
+				jobTitle: this.auth.currentUser.jobTitle,
+				employer: this.auth.currentUser.employer,
+				industry: this.auth.currentUser.industry
+			}),
+			coProposers: this.formBuilder.array([ this.createCoProposer() ]),
+			needByDate: [ '', Validators.required ],
+			needByDateMotivation: [ '', Validators.required ],
+			needByDateAttachment: [ '', Validators.required ],
+			lab: [ '', Validators.required ],
+			linksWithIndustry: [ '', Validators.required ],
+			coProposerStudents: [ '', Validators.required ],
+			workTowardsStudentsDegree: [ '', Validators.required ],
+			wantsCrystallization: false,
+			wantsBiologicalDeuteration: false,
+			wantsBiomassDeuteration: false,
+			wantsProteinDeuteration: false,
+			wantsOtherDeuteration: false,
+			wantsChemicalDeuteration: false,
+			crystallization: this.formBuilder.group({
+				moleculeName: [ '' ],
+				moleculeIdentifier: [ '' ],
+				molecularWeight: [ '' ],
+				oligomerizationState: [ '' ],
+				pbdId: [ '' ],
+				doi: [ '' ],
+				crystallizationRequirements: [ '' ],
+				crystallizationPrecipitantComposition: [ '' ],
+				previousCrystallizationExperience: [ '' ],
+				estimatedCrystallizationProductionTime: [ '' ],
+				typicalCrystalSize: [ '' ],
+				typicalYieldMgPerLiter: [ '' ],
+				storageConditions: [ '' ],
+				stability: [ '' ],
+				buffer: [ '' ],
+				levelOfDeuteration: [ '' ],
+				typicalProteinConcentrationUsed: [ '' ],
+				other: [ '' ]
+			}),
+			biomassDeuteration: this.formBuilder.group({
+				organismProvidedByUser: [ '' ],
+				organismDetails: [ '' ],
+				amountNeeded: [ '' ],
+				stateOfMaterial: [ '' ],
+				amountOfMaterialMotivation: [ '' ],
+				deuterationLevelRequired: [ '' ],
+				deuterationLevelMotivation: [ '' ]
+			}),
+			proteinDeuteration: this.formBuilder.group({
+				moleculeName: [ '' ],
+				moleculeIdentifier: [ '' ],
+				molecularWeight: [ '' ],
+				oligomerizationState: [ '' ],
+				expressionRequirements: [ '' ],
+				moleculeOrigin: [ '' ],
+				expressionPlasmidProvidedByUser: [ '' ],
+				expressionPlasmidProvidedByUserDetails: [ '' ],
+				amountNeeded: [ '' ],
+				amountNeededMotivation: [ '' ],
+				deuterationLevelRequired: [ '' ],
+				deuterationLevelMotivation: [ '' ],
+				needsPurificationSupport: [ '' ],
+				hasDoneUnlabeledProteinExpression: [ '' ],
+				typicalYield: [ '' ],
+				hasDonePurification: [ '' ],
+				hasProteinPurificationExperience: [ '' ],
+				proteinDeuterationResults: [ '' ],
+				other: [ '' ]
+			}),
+			bioSafety: this.formBuilder.group({
+				bioSafetyContainmentLevel: [ '' ],
+				organismRisk: [ '' ],
+				organismRiskDetails: [ '' ],
+				other: [ '' ]
+			}),
+			chemicalDeuteration: this.formBuilder.group({
+				moleculeName: [ '' ],
+				amount: [ '' ],
+				amountMotivation: [ '' ],
+				deuterationLocationAndPercentage: [ '' ],
+				deuterationLevelMotivation: [ '' ],
+				hasPreparedMolecule: [ '' ],
+				hasPreparedMoleculeProtocol: [ '' ],
+				other: [ '' ]
+			}),
+			other: [ '' ]
+		});
+	}
 
-    proposalForm = this.formBuilder.group({
-        dateCreated: [ '' ],
-        experimentTitle: [ '' ],
-        briefSummary: [ '', Validators.required ],
-        mainProposer: this.formBuilder.group({
-            firstName: this.auth.currentUser.firstName,
-            lastName: this.auth.currentUser.lastName,
-            email: this.auth.currentUser.email,
-            phone: this.auth.currentUser.phone,
-            jobTitle: this.auth.currentUser.jobTitle,
-            employer: this.auth.currentUser.employer,
-            industry: this.auth.currentUser.industry
-        }),
-        coProposers: this.formBuilder.array([ this.createCoProposer() ]),
-        needByDate: [ '', Validators.required ],
-        needByDateMotivation: [ '', Validators.required ],
-        needByDateAttachment: [ '', Validators.required ],
-        lab: [ '', Validators.required ],
-        linksWithIndustry: [ '', Validators.required ],
-        coProposerStudents: [ '', Validators.required ],
-        workTowardsStudentsDegree: [ '', Validators.required ],
-        wantsCrystallization: false,
-        wantsBiologicalDeuteration: false,
-        wantsBiomassDeuteration: false,
-        wantsProteinDeuteration: false,
-        wantsOtherDeuteration: false,
-        wantsChemicalDeuteration: false,
-        crystallization: this.formBuilder.group({
-            moleculeName: [ '' ],
-            moleculeIdentifier: [ '' ],
-            molecularWeight: [ '' ],
-            oligomerizationState: [ '' ],
-            pbdId: [ '' ],
-            doi: [ '' ],
-            crystallizationRequirements: [ '' ],
-            crystallizationPrecipitantComposition: [ '' ],
-            previousCrystallizationExperience: [ '' ],
-            estimatedCrystallizationProductionTime: [ '' ],
-            typicalCrystalSize: [ '' ],
-            typicalYieldMgPerLiter: [ '' ],
-            storageConditions: [ '' ],
-            stability: [ '' ],
-            buffer: [ '' ],
-            levelOfDeuteration: [ '' ],
-            typicalProteinConcentrationUsed: [ '' ],
-            other: [ '' ]
-        }),
-        biomassDeuteration: this.formBuilder.group({
-            organismProvidedByUser: [ '' ],
-            organismDetails: [ '' ],
-            amountNeeded: [ '' ],
-            stateOfMaterial: [ '' ],
-            amountOfMaterialMotivation: [ '' ],
-            deuterationLevelRequired: [ '' ],
-            deuterationLevelMotivation: [ '' ]
-        }),
-        proteinDeuteration: this.formBuilder.group({
-            moleculeName: [ '' ],
-            moleculeIdentifier: [ '' ],
-            molecularWeight: [ '' ],
-            oligomerizationState: [ '' ],
-            expressionRequirements: [ '' ],
-            moleculeOrigin: [ '' ],
-            expressionPlasmidProvidedByUser: [ '' ],
-            expressionPlasmidProvidedByUserDetails: [ '' ],
-            amountNeeded: [ '' ],
-            amountNeededMotivation: [ '' ],
-            deuterationLevelRequired: [ '' ],
-            deuterationLevelMotivation: [ '' ],
-            needsPurificationSupport: [ '' ],
-            hasDoneUnlabeledProteinExpression: [ '' ],
-            typicalYield: [ '' ],
-            hasDoneProteinPurification: [ '' ],
-            hasProteinDeuterationExperience: [ '' ],
-            proteinDeuterationResults: [ '' ],
-            other: [ '' ]
-        }),
-        bioSafety: this.formBuilder.group({
-            bioSafetyContainmentLevel: [ '' ],
-            organismRisk: [ '' ],
-            organismRiskDetails: [ '' ],
-            other: [ '' ]
-        }),
-        chemicalDeuteration: this.formBuilder.group({
-            moleculeName: [ '' ],
-            amount: [ '' ],
-            amountMotivation: [ '' ],
-            deuterationLocationAndPercentage: [ '' ],
-            deuterationLevelMotivation: [ '' ],
-            hasPreparedMolecule: [ '' ],
-            hasPreparedMoleculeProtocol: [ '' ],
-            hasPreviousProductionExperience: [ '' ],
-            other: [ '' ]
-        }),
-        other: [ '' ],
-        attachments: [ '' ],
-        pbdIdReferenceAttachment: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-        organismReferenceAttachment: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-        needsPurificationSupportAttachment: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-        chemicalStructureAttachment: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-        moleculePreparationReferenceArticle: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-        proposalTemplate: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-        generatedProposal: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-        mergedProposal: this.formBuilder.group({
-            name: [ '' ],
-            path: [ '' ],
-            uploaded: false
-        }),
-    });
+	addProposal() {
+		this.proposalService.addProposal(this.proposalForm.value).subscribe(response => {
+			this.proposal = response;
+			this.message.setMessage('Successfully created proposal ' + this.proposal.proposalId, 'success')
+		}, error => {
+			this.message.setMessage('HTTP Response Error 500 - Could not create proposal at this time', 'danger')
+		})
+	}
 
-    ngOnInit() {
-        this.createProposal();
-        this.fileUploads = this.proposalService.getFiles(this.proposal);
-    }
+	addCoProposer() {
+		event.preventDefault();
+		const coProposer = this.formBuilder.group({
+			firstName: [],
+			lastName: [],
+			affiliation: [],
+			email: []
+		});
+		this.coProposerForms.push(coProposer);
+	}
 
-    createProposal() {
-        this.proposalService.addProposal(this.proposalForm.value).subscribe(
-            response => {
-                this.proposal = response;
-            },
-            error => console.log(error)
-        );
-    }
+	createCoProposer(): FormGroup {
+		return this.formBuilder.group({
+			firstName: '',
+			lastName: '',
+			affiliation: '',
+			email: ''
+		});
+	}
 
-    saveProposal(proposal: Proposal) {
-        event.preventDefault();
-        this.proposalService.editProposal(this.proposalForm.value).subscribe(
-            response => {
-                this.proposal = proposal;
-            },
-            error => console.log(error),
-        );
-        this.router.navigate(['/proposals']);
-    }
+	deleteCoProposer(i) {
+		console.log(i);
+		this.coProposerForms.removeAt(i);
+	}
 
-    addCoProposer() {
-        event.preventDefault();
-        const coProposer = this.formBuilder.group({
-            firstName: [],
-            lastName: [],
-            affiliation: [],
-            email: []
-        });
-        this.coProposerForms.push(coProposer);
+	get coProposerForms() {
+		return this.proposalForm.get('coProposers') as FormArray;
+	}
 
-    }
-
-    createCoProposer(): FormGroup {
-        return this.formBuilder.group({
-            firstName: '',
-            lastName: '',
-            affiliation: '',
-            email: ''
-        });
-    }
-
-    deleteCoProposer(i) {
-        console.log(i);
-        this.coProposerForms.removeAt(i);
-    }
-
-    get coProposerForms() {
-        return this.proposalForm.get('coProposers') as FormArray;
-    }
-
-    selectTab(index: number): void {
-        event.preventDefault();
-        this.selectedIndex = index;
-    }
-
-    confirm() {
-        this.hasReadTos = true;
-        this.saveProposal(this.proposal);
-    }
-
-    selectFile(event) {
-        this.selectedFiles = event.target.files;
-        this.selectedInput = event.target.name.toString();
-        this.selectedFileName = event.target.files.item(0).name;
-        this.upload();
-    }
-
-    upload() {
-        this.progress.percentage = 0;
-        this.currentFileUpload = this.selectedFiles.item(0);
-        console.log(this.currentFileUpload.name);
-        console.log(this.currentFileUpload.size);
-        console.log(this.currentFileUpload.type);
-        this.proposalService.pushFileToStorage(this.currentFileUpload, this.proposal, this.selectedInput).subscribe(event => {
-            console.log('File is completely uploaded!');
-        });
-        this.selectedFiles = undefined;
-    }
-
-    getFiles() {
-        this.proposalService.getFiles(this.proposal).subscribe(
-            data => this.attachments = data,
-            error => console.log(error),
-        );
-    }
-
-    removeFile(filename: String) {
-        event.preventDefault();
-        this.proposalService.removeFile(filename).subscribe(
-            () => {
-                this.files = this.proposalService.getFiles(this.proposal);
-            },
-            error => console.log(error)
-        );
-    }
+	confirm() {
+		this.hasReadTos = true;
+	}
 
 }

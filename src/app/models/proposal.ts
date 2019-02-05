@@ -25,6 +25,7 @@ export class Proposal {
 	needByDateMotivation?: string;
 	lab?: string;
 	linksWithIndustry?: string;
+	linksWithIndustryDetails?: string;
 	coProposerStudents?: string;
 	workTowardsStudentsDegree?: string;
 	wantsCrystallization?: boolean;

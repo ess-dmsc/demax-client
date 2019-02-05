@@ -1,14 +1,21 @@
-<button class="button btn-info" *ngIf='showFile' (click)='showFiles(false)'>Hide Files</button>
+<button mat-raised-button class="btn btn-success btn-lg"
+        *ngIf='!showFile' (click)='showFiles(true)'
+matTooltip="Click to show attached files">
+	Uploaded attachments <mat-icon>attachment</mat-icon></button>
 
-<button class="button btn-info" *ngIf='!showFile' (click)='showFiles(true)'>Show Files</button>
+<button mat-raised-button class="btn btn-danger btn-lg" *ngIf='showFile'
+        matTooltip="Close" (click)='showFiles(false)'>Close <mat-icon>clear</mat-icon></button>
 
-<div [hidden]="!showFile">
-	<div class="panel panel-primary">
-		<div class="panel-heading">List of Files</div>
-		<div *ngFor="let file of fileUploads | async">
-			<div class="panel-body">
-				<app-file-detail [fileUpload]='file'></app-file-detail>
-			</div>
-		</div>
+<div *ngIf="showFile" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+
+	<div *ngFor="let file of fileUploads | async" style="text-align: center; max-width: 100px;">
+		<a href="{{file}}">
+			<figure>
+				<img mat-card-sm-image src="../../assets/logos/pdf.png" width="50px">
+				<figcaption>
+					<small>{{file}}</small>
+				</figcaption>
+			</figure>
+		</a>
 	</div>
 </div>

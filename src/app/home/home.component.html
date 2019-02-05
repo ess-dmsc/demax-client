@@ -16,22 +16,24 @@
 		</p>
 		<br>
 		<a class="small-action" href="http://scicat02.esss.lu.se:3000/word/attachment">
-			<button mat-raised-button class="btn btn-success">
+			<a mat-raised-button class="btn btn-success btn-lg" download
+			   href="{{url}}/word/attachment">
 				<mat-icon>get_app</mat-icon>
-				Download proposal template
-			</button>
+					Download proposal template
+			</a>
 		</a>
 		<a class="small-action" routerLink="/guidelines">
-			<button mat-raised-button class="btn btn-primary">
-				<mat-icon>info</mat-icon>
-				Read the proposal guidelines
+			<button mat-raised-button class="btn btn-success btn-lg">
+				<mat-icon>assignment</mat-icon>
+					Read the proposal guidelines
 			</button>
 		</a>
 	</div>
 	<div class="deadlines">
 		<mat-card>
 			<mat-card-title>
-				<mat-icon>event</mat-icon>  Important dates
+				<mat-icon>event</mat-icon>
+				Important dates
 			</mat-card-title>
 			<mat-card-content>
 				<table>

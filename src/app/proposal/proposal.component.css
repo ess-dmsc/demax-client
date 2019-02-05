@@ -6,6 +6,17 @@
 	width: 70%;
 }
 
+li:last-child {
+	margin-top: 1rem;
+	list-style-type: none;
+	font-style: italic;
+	font-size: 1.5rem;
+}
+
+li:last-child:before {
+	content: "*    "
+}
+
 mat-card {
 	padding: 5rem;
 }

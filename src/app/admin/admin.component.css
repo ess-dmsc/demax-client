@@ -4,7 +4,10 @@
 	width: 70%;
 }
 
-mat-form-field{
-	margin: 1rem;
-	width: 35%;
+button {
+	margin: 0 1rem;
+}
+
+table {
+	width: 100%;
 }

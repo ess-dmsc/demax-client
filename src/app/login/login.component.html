@@ -2,14 +2,15 @@
 	<div class="card">
 			<form [formGroup]="loginForm" (ngSubmit)="login()">
 				<mat-form-field class="input-group" [ngClass]="setClassEmail()">
-					<input matInput type="email" name="email" formControlName="email" placeholder="Email" autofocus>
+					<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus>
 				</mat-form-field>
 				<mat-form-field class="input-group" [ngClass]="setClassPassword()">
-					<input matInput type="password" name="password" formControlName="password" placeholder="Password">
+					<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
 				</mat-form-field>
 				<fieldset>
-					<button mat-raised-button color="primary" type="submit">Login</button>
+					<button mat-raised-button color="primary" [disabled]="!loginForm.valid" type="submit">Login</button>
 				</fieldset>
 			</form>
+		<app-message [message]="message.message"></app-message>
 	</div>
 </section>

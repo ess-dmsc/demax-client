@@ -3,6 +3,7 @@ import { AppConfig } from "./app-config.module";
 import { APP_CONFIG } from "./app-config.module";
 import { FormControl } from "@angular/forms";
 import { AuthService } from "./services/auth.service";
+import { MessageComponent } from "./message/message.component";
 
 @Component({
 	selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements AfterViewChecked {
 	constructor(
 		public auth: AuthService,
 		private changeDetector: ChangeDetectorRef,
+		public message: MessageComponent,
 		@Inject(APP_CONFIG) private appConfig: AppConfig
 
 	) {

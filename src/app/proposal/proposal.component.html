@@ -1,747 +1,167 @@
-<div class="jumbotron" *ngIf="!hasReadTos">
-	<h2>Proposal guidelines</h2>
+<div class="jumbotron jumbotron-fluid" *ngIf="!hasReadTos">
+
+	<h2>Create a new proposal</h2>
 
 	<hr class="my-4">
 
 	<p>Users are strongly encouraged to contact DEMAX staff prior to preparing and submitting a
-		deuteration/crystallization proposal.
-		<br>General enquiries can be sent to: <a href="mailto:demax@esss.se">demax@esss.se</a> or to one of the<a
-				routerLink="/contact"> subject matter experts.</a></p>
-
+		deuteration/crystallization proposal. </p>
+	<p>General enquiries can be sent to: <a href="mailto:demax@esss.se">demax@esss.se</a> or to one of the<a
+			routerLink="/contact"> subject matter experts.</a></p>
+	<p class="lead">
+		<a style="margin: 1rem; " mat-raised-button class="btn btn-success btn-lg" download
+		   href="{{url}}/word/attachment">
+			<img style="margin-right: 1rem;" src="../../assets/logos/Microsoft_Word_logo.png" width=50
+			     alt="Proposal template">
+			<mat-icon>get_app</mat-icon>
+	<p style="display: inline; margin: 0; padding: 0; font-size: 1.5rem;">
+		DEMAX_proposal_template.docx</p>
+	</a>
+	</p>
 	<ul>
 		<li>
-			Proposals should be written in English, properly referenced, and prepared in the <a download
-			                                                                                    href="{{url}}/word/attachment">Word
-			template</a>.<br>
-			Please keep to the 2 page limit, including Summary, Background (Science Case, Practical Consideration,
-			References, Figures/Tables)
+			Proposals should be written in English, properly referenced, and prepared in the
+			<a download href="{{url}}/word/attachment">Word template</a>.
+			Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
+			Consideration, References, Figures/Tables)
 		</li>
-		<li>Access to DEMAX is granted on the basis of both a technical and a peer-review process.
-		</li>
-		<li> Proposals awarded during initial operations (2019-2022) will be free of charge. <br>
+		<li>Access to DEMAX is granted on the basis of both a technical and a peer-review process.</li>
+		<li> Proposals awarded during initial operations (2019-2022) will be free of charge.
 			During formal user operations (beyond 2023) we reserve the right to ask for partial financial contributions
 			towards consumables & shipping costs.
 		</li>
-		<li> During initial operations we will not limit access to DEMAX based on ESS-membership.<br>
+
+		<li> During initial operations we will not limit access to DEMAX based on ESS-membership.
 			Beyond this period we will respect the user access policy that will be applicable ESS-wide.
 		</li>
+
 		<li> Biological and chemical deuteration proposals are run as a service but users for protein
 			crystallization are welcome to come in person as well.
 		</li>
+
 		<li>Proposals awarded during initial operations (2019-2021) will be free of charge. During formal
 			user operations (beyond 2023) we reserve the right to ask for partial financial contributions
 			towards consumables & shipping costs.
 		</li>
-		*<em>Users should note that the contributions by DEMAX should be acknowledged in any publications
-		containing materials obtained from us.<br> For particularly challenging projects that require above
-		average involvement from DEMAX, relevant DEMAX staff should be acknowledged through
-		co-authorship of any subsequent publications.</em>
+
+		<li class="str">
+			<em>
+				Users should note that the contributions by DEMAX should be acknowledged in any publications
+				containing materials obtained from us. For particularly challenging projects that require above
+				average involvement from DEMAX, relevant DEMAX staff should be acknowledged through
+				co-authorship of any subsequent publications.
+			</em>
+		</li>
 
 	</ul>
-
 	<mat-checkbox style="margin: 2rem;">I acknowledge the information above</mat-checkbox>
-	<button class="btn btn-primary btn-lg" (click)="confirm()">Create new proposal</button>
+	<button class="btn btn-primary btn-lg" (click)="confirm()">Accept</button>
+
+
 </div>
+
 <form [formGroup]="proposalForm" *ngIf="hasReadTos">
-	<div class="jumbotron">
-		<h2>Proposal ID: {{proposal.proposalId}}</h2>
-	</div>
 
-	{{proposal.needByDateAttachment.name}}
-	<mat-tab-group [(selectedIndex)]="selectedIndex">
+	<mat-card>
 
-		<mat-tab label="1. General information">
-			<mat-card>
-				<mat-form-field>
-					<input matInput
-					       required
-					       formControlName="experimentTitle"
-					       placeholder="Experiment title">
-				</mat-form-field>
-				<mat-form-field>
+		<h3>Proposal ID: {{proposal.proposalId}}</h3>
+
+		<mat-form-field>
+			<input matInput
+			       required
+			       formControlName="experimentTitle"
+			       placeholder="Experiment title">
+		</mat-form-field>
+
+		<mat-form-field>
 					<textarea matInput required
 					          formControlName="briefSummary"
 					          placeholder="Brief summary"
 					          rows="4" cols="40"></textarea>
+		</mat-form-field>
+
+		<h4>Main proposer</h4>
+
+		<div formGroupName="mainProposer">
+			<mat-form-field class="smallFormField">
+				<input matInput
+				       formControlName="firstName"
+				       placeholder="First name">
+			</mat-form-field>
+			<mat-form-field class="smallFormField">
+				<input matInput
+				       formControlName="lastName"
+				       placeholder="Last name">
+			</mat-form-field>
+			<br>
+			<mat-form-field class="smallFormField">
+				<input matInput
+				       formControlName="email"
+				       placeholder="Email">
+			</mat-form-field>
+			<mat-form-field class="smallFormField">
+				<input matInput
+				       formControlName="phone"
+				       placeholder="Phone">
+			</mat-form-field>
+
+			<p>Affiliation</p>
+			<div>
+				<mat-form-field class="smallFormField">
+					<input matInput
+					       formControlName="jobTitle"
+					       placeholder="Job title">
 				</mat-form-field>
+				<mat-form-field class="smallFormField">
+					<input matInput
+					       formControlName="employer"
+					       placeholder="Employer">
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput
+					       formControlName="industry"
+					       placeholder="Industry">
+				</mat-form-field>
+			</div>
+		</div>
 
-				<h4>Main proposer</h4>
-
-				<div formGroupName="mainProposer">
+		<div formArrayName="coProposers">
+			<h4>Co-proposers</h4>
+			<tr *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
+				<td>
 					<mat-form-field class="smallFormField">
-						<input matInput
-						       formControlName="firstName"
-						       placeholder="First name">
+						<input matInput required formControlName="firstName" placeholder="First name">
 					</mat-form-field>
+
 					<mat-form-field class="smallFormField">
-						<input matInput
-						       formControlName="lastName"
-						       placeholder="Last name">
+						<input matInput required formControlName="lastName" placeholder="Last name">
 					</mat-form-field>
 					<br>
 					<mat-form-field class="smallFormField">
-						<input matInput
-						       formControlName="email"
-						       placeholder="Email">
+						<input matInput required formControlName="affiliation" placeholder="Affiliation">
 					</mat-form-field>
+
 					<mat-form-field class="smallFormField">
-						<input matInput
-						       formControlName="phone"
-						       placeholder="Phone">
+						<input matInput required formControlName="email" placeholder="Email">
 					</mat-form-field>
+				</td>
+				<td>
+					<button mat-icon-button color="warn"
+					        (click)="deleteCoProposer(i)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</td>
+			</tr>
 
-					<p>Affiliation</p>
-					<div>
-						<mat-form-field class="smallFormField">
-							<input matInput
-							       formControlName="jobTitle"
-							       placeholder="Job title">
-						</mat-form-field>
-						<mat-form-field class="smallFormField">
-							<input matInput
-							       formControlName="employer"
-							       placeholder="Employer">
-						</mat-form-field>
-						<mat-form-field>
-							<input matInput
-							       formControlName="industry"
-							       placeholder="Industry">
-						</mat-form-field>
-					</div>
-				</div>
+			<button mat-raised-button color="primary" (click)="addCoProposer()"><mat-icon>person_add</mat-icon> Click to add co-proposer</button>
 
-				<div formArrayName="coProposers">
-					<h4>Co-proposers</h4>
-					<tr *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
-						<td>
+		</div>
 
-							<mat-form-field class="smallFormField">
-								<input matInput required formControlName="firstName" placeholder="First name">
-							</mat-form-field>
+		<mat-action-row>
+			<button class="btn btn-danger btn-lg" routerLink="/home">Cancel</button>
+			<button mat-raised-button color="primary" (click)="addProposal()">Save</button>
+		</mat-action-row>
+		<app-message [message]="message.message"></app-message>
+	</mat-card>
 
-							<mat-form-field class="smallFormField">
-								<input matInput required formControlName="lastName" placeholder="Last name">
-							</mat-form-field>
-							<br>
-							<mat-form-field class="smallFormField">
-								<input matInput required formControlName="affiliation" placeholder="Affiliation">
-							</mat-form-field>
-
-							<mat-form-field class="smallFormField">
-								<input matInput required formControlName="email" placeholder="Email">
-							</mat-form-field>
-						</td>
-						<td>
-							<button class="btn btn-danger btn-lg" style="margin-left: 2rem;"
-							        (click)="deleteCoProposer(i)">Delete
-							</button>
-						</td>
-					</tr>
-
-					<button class="btn btn-primary btn-lg" (click)="addCoProposer()">Click to add co-proposer</button>
-				</div>
-
-				<mat-radio-group formControlName="linksWithIndustry">
-					<p>Links with industry</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-				<mat-radio-group formControlName="coProposerStudents">
-					<p>Are any of the co-proposers students?</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-				<mat-radio-group formControlName="workTowardsStudentsDegree">
-					<p>Does the proposal work towards a students degree?</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-
-				<h4>Final delivery date</h4>
-				<mat-form-field>
-					<input matInput required formControlName="needByDate" [matDatepicker]="picker"
-					       placeholder="Choose a final delivery date">
-					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-					<mat-datepicker #picker></mat-datepicker>
-				</mat-form-field>
-				<mat-form-field>
-					<p>Please motivate the chosen date<br><em>
-						<small>(e.g. based on awarded beamtime, or described intention to apply)</small>
-					</em></p>
-					<textarea matInput required formControlName="needByDateMotivation" rows="4"
-					          cols="40"></textarea>
-				</mat-form-field>
-				<div class="fileUpload">
-					<p>Attach a copy of the beamtime proposal, draft or intended submission:<br>
-						<small><em>Accepted formats: PDF</em></small>
-					</p>
-					<input type="file"
-					       accept="application/pdf,application/vnd.ms-excel"
-					       class="inputfile"
-					       id="needByDateAttachment"
-					       name="needByDateAttachment"
-					       (change)="selectFile($event)">
-					<label for="needByDateAttachment">Choose File</label>
-					{{this.selectedFileName}}
-				</div>
-
-				<mat-form-field>
-					<p>If there is anything else you would like us to know, please enter it below:</p>
-					<textarea matInput formControlName="other" rows="4" cols="40"></textarea>
-				</mat-form-field>
-
-				<p>In the next sections you will fill out the applicable area of support your proposal requires.<br>Select
-					one, or as many as apply, from the alternatives below.</p>
-
-				<mat-checkbox formControlName="wantsCrystallization">Crystallization</mat-checkbox>
-				<mat-checkbox formControlName="wantsBiologicalDeuteration">Biological deuteration</mat-checkbox>
-				<mat-checkbox formControlName="wantsChemicalDeuteration">Chemical deuteration</mat-checkbox>
-
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" routerLink="/home">Cancel</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(1)">Next</button>
-					<button mat-button class="btn btn-primary" (click)="saveProposal(proposal)">Save</button>
-				</mat-action-row>
-			</mat-card>
-		</mat-tab>
-		<mat-tab label="2. Crystallization" formGroupName="crystallization">
-			<mat-card>
-
-				<p>Required information to include in the “Practical Considerations” section of your
-					proposal:</p>
-				<ul>
-					<li>SDS-PAGE</li>
-					<li>Chromatogram of protein purification to indicate yield & purity</li>
-					<li>Photo of crystal</li>
-				</ul>
-
-				<mat-form-field>
-					<p>Name of molecule to be crystallized:<br><em>
-						<small>(e.g. superoxide dismutase)</small>
-					</em></p>
-					<input matInput required formControlName="moleculeName">
-				</mat-form-field>
-				<mat-form-field>
-					<p>FASTA sequence or Uniprot number:</p>
-					<input matInput required formControlName="moleculeIdentifier">
-				</mat-form-field>
-				<mat-form-field>
-					<p>Molecular weight
-						<small>(kDA)</small>
-						:
-					</p>
-					<input matInput required formControlName="molecularWeight">
-				</mat-form-field>
-				<mat-form-field>
-					<p>Oligomerization state:<br><em>
-						<small>(e.g. homodimer, tetramer etc.)</small>
-					</em></p>
-					<input matInput required formControlName="oligomerizationState">
-				</mat-form-field>
-				<mat-form-field>
-					<p>PDB ID of crystal structure:</p>
-					<input matInput required formControlName="pbdId">
-				</mat-form-field>
-				<mat-form-field>
-					<p>If the reference is publicly available, please provide the DOI or an accessible link:</p>
-					<input matInput formControlName="doi">
-				</mat-form-field>
-
-				<div class="fileUpload">
-					<p>If the reference isn't publicly available, please upload a copy:<br>
-						<small><em>Accepted formats: PDF</em></small>
-					</p>
-					<input type="file"
-					       accept="application/pdf,application/vnd.ms-excel"
-					       class="inputfile"
-					       id="pbdIdReferenceAttachment"
-					       name="pbdIdReferenceAttachment"
-					       (change)="selectFile($event)">
-					<label for="pbdIdReferenceAttachment">Choose File</label>
-					<small>{{this.selectedFileName}}</small>
-				</div>
-
-				<mat-form-field>
-					<p>Does the protein have any co-factors or ligands required for crystallization?
-						Specify:</p>
-					<textarea matInput required formControlName="crystallizationRequirements" rows="4"
-					          cols="40"></textarea>
-				</mat-form-field>
-				<mat-form-field>
-					<p>Known crystallization precipitant composition:<br><em>
-						<small>(incl. buffer, salt, additives, pH)</small>
-					</em></p>
-					<textarea matInput required formControlName="crystallizationPrecipitantComposition" rows="4"
-					          cols="40"></textarea>
-				</mat-form-field>
-				<mat-form-field>
-					<p>What crystallization method, volume, and temperature have you used in the past?<br><em>
-						<small>(e.g. vapour diffusion, 10 &#181;L drops, room temperature)</small>
-					</em></p>
-					<textarea matInput required formControlName="previousCrystallizationExperience" rows="4"
-					          cols="60"></textarea>
-				</mat-form-field>
-				<mat-form-field>
-					<p>How long do your crystals take to appear?</p>
-					<input matInput required formControlName="estimatedCrystallizationProductionTime">
-				</mat-form-field>
-				<mat-form-field>
-					<p>What is the typical size of your crystal?<br><em>
-						<small>( &#181;m x &#181;m x &#181;m )</small>
-					</em></p>
-					<input matInput required formControlName="typicalCrystalSize">
-				</mat-form-field>
-
-				<br>
-
-				<h4>Details from protein preparation</h4>
-
-				<mat-form-field>
-					<p>Typical yield:<br><em>
-						<small>(mg per liter of culture)</small>
-					</em></p>
-					<input matInput required formControlName="typicalYieldMgPerLiter">
-				</mat-form-field>
-				<mat-form-field>
-					<p>Storage conditions:<br><em>
-						<small>(e.g. stable at 4 &#176;C or frozen at -20 &#176;C)</small>
-					</em></p>
-					<input matInput required formControlName="storageConditions">
-				</mat-form-field>
-				<mat-form-field>
-					<p>Stability:</p>
-					<input matInput required formControlName="stability">
-				</mat-form-field>
-				<mat-form-field>
-					<p>What buffer is your protein in?</p>
-					<input matInput required formControlName="buffer">
-				</mat-form-field>
-				<mat-form-field>
-					<p>Is your protein partially or fully deuterated?</p>
-					<input matInput required formControlName="levelOfDeuteration">
-				</mat-form-field>
-				<mat-form-field>
-					<p>What protein concentration do you usually use for crystallization?</p>
-					<input matInput required formControlName="typicalProteinConcentrationUsed">
-				</mat-form-field>
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" (click)="selectTab(2)">Skip</button>
-					<button mat-button class="btn btn-danger" (click)="selectTab(0)">Back</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
-				</mat-action-row>
-			</mat-card>
-
-		</mat-tab>
-		<mat-tab label="3. Biological deuteration">
-
-			<mat-card>
-
-				<p>If the protein is to be purified by us, please remember to include a chromatogram from
-					purification and a picture of SDS-PAGE that indicates MW and purity in your science case.</p>
-
-				<p>Select one, or as many as apply, from the alternatives below.</p>
-
-				<mat-checkbox formControlName="wantsBiomassDeuteration">Biomass
-					<small>(yeast)</small>
-				</mat-checkbox>
-				<mat-checkbox formControlName="wantsProteinDeuteration">Protein <em>
-					<small>(E. coli)</small>
-				</em>
-				</mat-checkbox>
-				<mat-checkbox formControlName="wantsOtherDeuteration">Other
-				</mat-checkbox>
-				<mat-form-field>
-					<input matInput
-					       formControlName="other"
-					       placeholder="If other - please explain:">
-				</mat-form-field>
-
-				<mat-expansion-panel formGroupName="biomassDeuteration">
-
-					<mat-expansion-panel-header><h4>For biomass</h4></mat-expansion-panel-header>
-
-					<mat-radio-group formControlName="organismProvidedByUser">
-						<p> Will user provide the organism for us to grow under deuterated conditions?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-
-					<mat-form-field>
-							<textarea matInput
-							          formControlName="organismDetails"
-							          placeholder="What is the organism?"
-							          rows="4" cols="40"></textarea>
-					</mat-form-field>
-
-					<div class="fileUpload">
-						<p>Please attach a reference or protocol of culture conditions and media composition<br>
-							<small><em>Accepted formats: PDF</em></small>
-						</p>
-						<input type="file"
-						       accept="application/pdf,application/vnd.ms-excel"
-						       class="inputfile"
-						       id="organismReferenceAttachment"
-						       name="organismReferenceAttachment"
-						       (change)="selectFile($event)">
-						<label for="organismReferenceAttachment">Choose File</label>
-						<small>{{this.selectedFileName}}</small>
-					</div>
-
-					<mat-form-field>
-						<input matInput formControlName="amountNeeded"
-						       placeholder="How much material do you need?">
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput formControlName="stateOfMaterial"
-						       placeholder="Indicate wet or dry mass:">
-					</mat-form-field>
-					<mat-form-field>
-							<textarea matInput
-							          formControlName="amountOfMaterialMotivation"
-							          placeholder="Justify amount:"
-							          rows="4" cols="40"></textarea>
-					</mat-form-field>
-
-					<mat-radio-group formControlName="deuterationLevelRequired">
-						<p> Level of deuteration required:</p>
-						<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)
-						</mat-radio-button>
-						<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
-					</mat-radio-group>
-
-					<mat-form-field>
-							<textarea matInput formControlName="deuterationLevelMotivation"
-							          placeholder="Justify level of D incorporation:"
-							          rows="4" cols="40"></textarea>
-					</mat-form-field>
-
-					<mat-action-row>
-						<button mat-raised-button color="primary" type="submit">Save</button>
-					</mat-action-row>
-
-				</mat-expansion-panel>
-
-				<mat-expansion-panel formGroupName="proteinDeuteration">
-					<mat-expansion-panel-header>
-						<mat-panel-title><h4>For proteins</h4></mat-panel-title>
-					</mat-expansion-panel-header>
-
-					<mat-form-field>
-						<p>Name of molecule to be deuterated: <br><em>
-							<small>(e.g. superoxide dismutase)</small>
-						</em></p>
-						<input matInput
-						       formControlName="moleculeName">
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>FASTA sequence or Uniprot number:</p>
-						<input matInput
-						       formControlName="moleculeIdentifier">
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>Molecular weight
-							<small>(kDA)</small>
-							:
-						</p>
-						<input matInput
-						       formControlName="molecularWeight">
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>Oligomerization state:<br><em>
-							<small>(e.g. homodimer, tetramer etc.)</small>
-						</em></p>
-						<input matInput
-						       formControlName="oligomerizationState">
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>Does the protein have any co-factors or ligands required for expression? Specify:</p>
-						<textarea matInput
-						          formControlName="expressionRequirements"
-						          rows="4" cols="40"></textarea>
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>Origin of molecules:<br><em>
-							<small>(e.g. human, E. coli, S. cerevisiae)</small>
-						</em></p>
-						<input matInput
-						       formControlName="moleculeOrigin">
-					</mat-form-field>
-
-					<mat-radio-group formControlName="expressionPlasmidProvidedByUser">
-						<p>Will you provide an expression plasmid?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-
-					<mat-form-field>
-						<p>If yes, please provide details:<br><em><small>(e.g. pET31b, C-terminal His-tag, Amp selection)</small></em></p>
-						<input matInput formControlName="expressionPlasmidProvidedByUserDetails">
-					</mat-form-field>
-
-					<p>
-						If you chose no, we will design & order a plasmid commercially
-					</p>
-
-					<mat-form-field>
-						<p>How much material do you need?</p>
-						<input matInput formControlName="amountNeeded">
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>Justify amount:</p>
-						<input matInput formControlName="deuterationLevelMotivation">
-					</mat-form-field>
-
-
-					<mat-radio-group formControlName="deuterationLevelRequired">
-						<p>Level of deuteration required:</p>
-						<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
-						<mat-radio-button value="partial65">Partial (65-80% with unlabeled carbon source)
-						</mat-radio-button>
-						<mat-radio-button value="partial25">Partial (25-30% H/D exchange)</mat-radio-button>
-					</mat-radio-group>
-
-					<mat-form-field>
-						<p>Justify level of D incorporation:</p>
-						<input matInput
-						       formControlName="deuterationLevelMotivation">
-					</mat-form-field>
-					<mat-radio-group formControlName="needsPurificationSupport">
-						<p>Will you need DEMAX to purify the protein from deuterated biomass?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-
-					<div class="fileUpload">
-						<p>If “yes”, please attach reference or protocol<br>
-							<small><em>Accepted formats: PDF</em></small>
-						</p>
-						<input type="file"
-						       accept="application/pdf,application/vnd.ms-excel"
-						       class="inputfile"
-						       id="needsPurificationSupportAttachment"
-						       name="needsPurificationSupportAttachment"
-						       (change)="selectFile($event)">
-						<label for="needsPurificationSupportAttachment">Choose a file</label>
-						<small>{{this.selectedFileName}}</small>
-					</div>
-					<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
-						<p>Has expression been done for the unlabeled protein?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-					<mat-form-field>
-						<input matInput formControlName="typicalYield" placeholder="Typical yield:">
-					</mat-form-field>
-					<mat-radio-group formControlName="hasDoneProteinPurification">
-						<p>Have you been able to purify the unlabeled protein? </p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-					<mat-radio-group formControlName="hasProteinDeuterationExperience">
-						<p>Have you tried to deuterate the protein yourself, even in small scale?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-
-					<mat-form-field>
-						<p>If yes, what were the results?</p>
-						<input matInput formControlName="proteinDeuterationResults">
-					</mat-form-field>
-
-				</mat-expansion-panel>
-
-			<div formGroupName="bioSafety">
-				<h4>Biosafety</h4>
-				<mat-radio-group formControlName="bioSafetyContainmentLevel">
-					<p>Which biosafety containment level is required to work with your sample?</p>
-					<mat-radio-button value="L1">L1</mat-radio-button>
-					<mat-radio-button value="L2">L2</mat-radio-button>
-				</mat-radio-group>
-				<mat-radio-group formControlName="organismRisk">
-					<p>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the
-						environment?</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-				<mat-form-field *ngIf="organismRisk == 'yes'">
-					<p>If you chose “yes”, please provide details:</p>
-					<input matInput
-					       formControlName="organismRiskDetails">
-				</mat-form-field>
-				<mat-form-field>
-					<p>If there is anything else you would like us to know, please enter it below:</p>
-					<input matInput
-					       formControlName="other">
-				</mat-form-field>
-			</div>
-
-			<mat-action-row>
-				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
-				<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
-				<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
-				<button mat-raised-button color="primary" type="submit">Save</button>
-			</mat-action-row>
-			</mat-card>
-		</mat-tab>
-		<mat-tab label="4. Chemical deuteration" formGroupName="chemicalDeuteration">
-			<mat-card>
-
-				<mat-form-field>
-					<input matInput required
-					       formControlName="moleculeName"
-					       placeholder="Molecule/s to be deuterated (name):">
-				</mat-form-field>
-				<mat-form-field>
-					<input matInput required
-					       formControlName="amount"
-					       placeholder="Amount of material required (mass):">
-				</mat-form-field>
-				<mat-form-field>
-					<textarea matInput required
-					          formControlName="amountMotivation"
-					          placeholder="Justify amount:"
-					          rows="6" cols="40"></textarea>
-				</mat-form-field>
-				<mat-form-field>
-					<input matInput required
-					       formControlName="deuterationLocationAndPercentage"
-					       placeholder="Indicate percentage and location of deuteration:">
-				</mat-form-field>
-				<mat-form-field>
-					<textarea matInput required formControlName="deuterationLevelMotivation"
-					          placeholder="Justify level of deuteration"
-					          rows="5" cols="40"></textarea>
-				</mat-form-field>
-
-				<div class="fileUpload">
-					<p>Organism details<br>
-						<small><em>Accepted formats: PDF</em></small>
-					</p>
-					<input type="file"
-					       accept="application/pdf,application/vnd.ms-excel"
-					       class="inputfile"
-					       id="chemicalStructureAttachment"
-					       name="chemicalStructureAttachment"
-					       (change)="selectFile($event)">
-					<label for="chemicalStructureAttachment">Choose File</label>
-					<small>{{this.selectedFileName}}</small>
-				</div>
-
-				<mat-radio-group formControlName="hasPreviousProductionExperience">
-					<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
-						others?</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-
-
-				<div class="fileUpload">
-					<p>If yes, please provide a protocol:<br>
-						<small><em>Accepted formats: PDF</em></small>
-					</p>
-					<input type="file"
-					       accept="application/pdf,application/vnd.ms-excel"
-					       class="inputfile"
-					       id="moleculePreparationReferenceArticle"
-					       name="moleculePreparationReferenceArticle"
-					       (change)="selectFile($event)">
-					<label for="moleculePreparationReferenceArticle">Choose File</label>
-					<small>{{this.selectedFileName}}</small>
-				</div>
-
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
-					<button mat-button class="btn btn-danger" (click)="selectTab(2)">Back</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(4)">Next</button>
-					<button mat-raised-button color="primary" (click)="saveProposal(proposal)">Save</button>
-				</mat-action-row>
-			</mat-card>
-
-		</mat-tab>
-
-		<mat-tab label="5. Review and submit">
-			<mat-card>
-				<h4>Upload proposal</h4>
-				<p>
-					Proposals should be written in English, properly referenced, and prepared in the <a download
-					                                                                                    href="/word/attachment">Word
-					template</a>.<br>
-					Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
-					Consideration, References, Figures/Tables)<br>
-					For more detailed instructions, see the <a routerLink="/guidelines">proposal guidelines</a>.
-				</p>
-				<div class="fileUpload">
-					<input type="file"
-					       accept="application/pdf,application/vnd.ms-excel"
-					       class="inputfile"
-					       id="proposalTemplate"
-					       name="proposalTemplate"
-					       (change)="selectFile($event)">
-					<label for="proposalTemplate">Choose File</label>
-					<small>{{this.selectedFileName}}</small>
-				</div>
-				<br>
-				<h4>Attached documents</h4>
-				<div style="width: 60%; display:flex; flex-wrap: wrap; justify-content: space-around;">
-					<figure>
-						<img src="../../assets/logos/pdf.png"
-						     alt="proposal.proposalTemplate.name"
-						     width="60">
-						<figcaption><a href="">Deuteration.proposal.pdf</a></figcaption>
-					</figure>
-					<figure>
-						<img src="../../assets/logos/pdf.png"
-						     alt="proposal.needByDateAttachment.name"
-						     width="60">
-						<figcaption><a href="">Beamtime.proposal.pdf</a></figcaption>
-					</figure>
-					<figure>
-						<img src="../../assets/logos/pdf.png"
-						     alt="proposal.crystalStructureAttachment.name"
-						     width="60">
-						<figcaption><a href="">Crystal.structure.pdf</a></figcaption>
-					</figure>
-					<figure>
-						<img src="../../assets/logos/pdf.png"
-						     alt="proposal.proteinAttachment.name"
-						     width="60">
-						<figcaption><a href="">Protein.purification.protocol.pdf</a></figcaption>
-					</figure>
-				</div>
-				<br>
-				<h4>Submit & review</h4>
-				<mat-list>
-					<mat-list-item>
-						<p>1. Click to merge all your attached documents with the information in this form and download a single PDF.</p>
-					</mat-list-item>
-					<mat-list-item>
-						<a download class="btn btn-danger btn-lg" style="width: 80px;"
-						   href="{{url}}/api/pdf/merge/{{proposalId}}">
-							Download proposal
-						</a>
-					</mat-list-item>
-					<mat-list-item>
-						2. Review the proposal. Go back and edit if something is missing, or if you would like to add something.
-					</mat-list-item>
-					<mat-list-item>
-						3. If you're pleased, proceed by clicking 'Submit'
-					</mat-list-item>
-					<mat-list-item>
-						<button class="btn btn-primary btn-lg" style="width: 80px;" type="submit">Submit proposal</button>
-					</mat-list-item>
-				</mat-list>
-				<br>
-				<mat-action-row>
-					<button mat-stroked-button color="warn" (click)="selectTab(3)">Go back</button>
-				</mat-action-row>
-			</mat-card>
-
-		</mat-tab>
-	</mat-tab-group>
 </form>
