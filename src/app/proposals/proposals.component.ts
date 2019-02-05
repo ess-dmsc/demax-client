@@ -7,6 +7,7 @@ import { AuthService } from "../services/auth.service";
 import { AppConfig } from "../app-config.module";
 import { APP_CONFIG } from "../app-config.module";
 import { MessageComponent } from "../message/message.component";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -41,7 +42,7 @@ export class ProposalsComponent implements OnInit {
 
 	proposalForm = this.formBuilder.group({
 		dateCreated: [ '' ],
-		experimentTitle: [ '' , Validators.required],
+		experimentTitle: [ '', Validators.required ],
 		briefSummary: [ '', Validators.required ],
 		mainProposer: this.formBuilder.group({
 			firstName: [ '', Validators.required ],
@@ -66,8 +67,21 @@ export class ProposalsComponent implements OnInit {
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
 		public auth: AuthService,
+		public router: Router,
 		public message: MessageComponent
 	) {
+	}
+
+	submitProposal(proposal: Proposal) {
+		if(window.confirm('Are you sure you want to submit?')) {
+			window.scrollTo(0, 0);
+			this.proposalService.editProposal(this.proposal).subscribe(
+				() => {
+					this.message.setMessage('Proposal ' + this.proposal.proposalId + ' has been submitted!', 'success');
+					this.router.navigate([ '/home' ])
+				}
+			)
+		}
 	}
 
 	onSubmit() {

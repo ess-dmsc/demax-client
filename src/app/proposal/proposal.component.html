@@ -153,13 +153,22 @@
 				</td>
 			</tr>
 
-			<button mat-raised-button color="primary" (click)="addCoProposer()"><mat-icon>person_add</mat-icon> Click to add co-proposer</button>
+			<button mat-raised-button color="primary" (click)="addCoProposer()">
+				<mat-icon>person_add</mat-icon>
+				Click to add co-proposer
+			</button>
 
 		</div>
 
 		<mat-action-row>
-			<button class="btn btn-danger btn-lg" routerLink="/home">Cancel</button>
-			<button mat-raised-button color="primary" (click)="addProposal()">Save</button>
+			<a class="btn btn-danger btn-lg" routerLink="/home">
+				<mat-icon>cross</mat-icon>
+				Cancel
+			</a>
+			<button class="btn btn-success btn-lg" (click)="addProposal()">
+				<mat-icon>save</mat-icon>
+				Save
+			</button>
 		</mat-action-row>
 		<app-message [message]="message.message"></app-message>
 	</mat-card>
