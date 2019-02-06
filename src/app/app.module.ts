@@ -33,6 +33,7 @@ import { FileDetailComponent } from './file-detail/file-detail.component';
 import { FileListComponent } from './file-list/file-list.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MessageComponent } from './message/message.component';
+import { MatIconModule, MatFormFieldModule, MatCardModule } from '@angular/material';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -69,6 +70,9 @@ export function tokenGetter() {
 		HttpClientModule,
 
 		HttpModule,
+		MatIconModule,
+		MatFormFieldModule,
+		MatCardModule,
 		MaterialModule,
 		JwtModule.forRoot({
 			config: {

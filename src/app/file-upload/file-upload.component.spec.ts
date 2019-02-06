@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileUploadComponent } from './file-upload.component';
+import { MaterialModule } from '../external/material.module';
+import { FormsModule } from '@angular/forms';
 
 describe('FileUploadComponent', () => {
   let component: FileUploadComponent;
@@ -8,6 +10,7 @@ describe('FileUploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MaterialModule, FormsModule],
       declarations: [ FileUploadComponent ]
     })
     .compileComponents();
