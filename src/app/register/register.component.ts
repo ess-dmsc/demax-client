@@ -16,7 +16,6 @@ export class RegisterComponent implements OnInit {
 	email = new FormControl('', [ Validators.required, Validators.minLength(3), ]);
 	phone = new FormControl('', [ Validators.required ])
 	password = new FormControl('', [ Validators.required ]);
-	industry = new FormControl('', [ Validators.required ]);
 	employer = new FormControl('', [ Validators.required ]);
 	jobTitle = new FormControl('', [ Validators.required ]);
 	hasConstentedToGdpr = new FormControl('', [ Validators.required ])
@@ -37,7 +36,6 @@ export class RegisterComponent implements OnInit {
 			email: this.email,
 			phone: this.phone,
 			password: this.password,
-			industry: this.industry,
 			employer: this.employer,
 			jobTitle: this.jobTitle,
 			hasConsentedToGdpr: this.hasConstentedToGdpr,
