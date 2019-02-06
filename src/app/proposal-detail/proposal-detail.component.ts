@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { first } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { FileService } from "../services/file.service";
+import { APP_CONFIG, AppConfig } from "../app-config.module";
 
 @Component({
 	selector: 'app-proposal-detail',
@@ -16,7 +17,7 @@ import { FileService } from "../services/file.service";
 	styleUrls: [ './proposal-detail.component.css' ]
 })
 export class ProposalDetailComponent implements OnInit {
-
+	url = this.appConfig.demaxBaseUrl;
 	proposalId: string;
 	proposal: Proposal;
 	proposalForm: FormGroup;
@@ -37,6 +38,7 @@ export class ProposalDetailComponent implements OnInit {
 
 
 	constructor(
+		@Inject(APP_CONFIG) private appConfig: AppConfig,
 		private proposalService: ProposalService,
 		private fileService: FileService,
 		private formBuilder: FormBuilder,

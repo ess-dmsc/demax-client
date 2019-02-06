@@ -101,7 +101,7 @@ div.content {
 mat-tab-group {
 	width: 600px;
 	position: fixed;
-	margin: 20vh 5vh 20vh 70vh;
+	margin: 20vh 20vh 20vh 20vh;
 	background-color: white;
 	opacity: 0.9;
 	border: solid lightgray 1px;

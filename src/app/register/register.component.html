@@ -19,10 +19,7 @@
 			</mat-form-field>
 			<p>Affiliation</p>
 			<mat-form-field style="width: 40%;">
-				<input matInput required type="text" name="industry" formControlName="industry" placeholder="Industry">
-			</mat-form-field>
-			<mat-form-field style="width: 40%;">
-				<input matInput required type="text" name="employer" formControlName="employer" placeholder="Employer">
+				<input matInput required type="text" name="employer" formControlName="employer" placeholder="Affiliation">
 			</mat-form-field>
 			<mat-form-field style="width: 40%;">
 				<input matInput required type="text" name="jobTitle" formControlName="jobTitle" placeholder="Job title">
@@ -30,15 +27,12 @@
 			<mat-checkbox required formControlName="hasConsentedToEmails">
 				Receive mails and updates about your proposal process from DEMAX by email.
 				<br>You can change this setting
-				whenever you want. <a href="">More information</a>
+				whenever you want. 
 			</mat-checkbox>
 			<mat-checkbox required formControlName="hasConsentedToGdpr">
-				I confirm that I have read, consent and agree to the <br>DEMAX <a href="">User Agreement</a> and <a
+				I confirm that I have read, consent and agree to the <br>DEMAX <a
 					href="">Privacy
-				Statement</a>, and I am of legal age. <br>I understand that I can change my communication preferences in
-				my DEMAX account
-				at any time.<br>For more information about DEMAX, see our <a href="">Key Data and Service
-				Information</a>.
+				Statement</a>
 			</mat-checkbox>
 			<app-message [message]="message.message"></app-message>
 			<mat-action-row>

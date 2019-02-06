@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid" *ngIf="!hasReadTos">
+<div class="jumbotron jumbotron-fluid">
 
 	<h2>Create a new proposal</h2>
 
@@ -525,7 +525,7 @@
 						<mat-radio-button value="yes">Yes</mat-radio-button>
 						<mat-radio-button value="no">No</mat-radio-button>
 					</mat-radio-group>
-					<mat-form-field *ngIf="organismRisk == 'yes'">
+					<mat-form-field>
 						<p>If you chose “yes”, please provide details:</p>
 						<input matInput
 						       formControlName="organismRiskDetails">
@@ -649,8 +649,6 @@
 					</a>
 				</mat-action-row>
 				<mat-action-row>
-					<button mat-stroked-button class="btn btn-danger btn-lg" (click)="cancelEditing()">Cancel
-					</button>
 					<button mat-stroked-button class="btn btn-danger btn-lg" (click)="selectTab(3)">
 						<mat-icon>keyboard_arrow_left</mat-icon>
 						Back
