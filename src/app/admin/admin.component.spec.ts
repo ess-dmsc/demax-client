@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminComponent } from './admin.component';
 import { MaterialModule } from '../external/material.module';
+import { HttpClient } from '@angular/common/http';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -10,7 +11,8 @@ describe('AdminComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AdminComponent],
-      imports: [MaterialModule]
+      imports: [MaterialModule],
+      providers: [{ provide: HttpClient}]
     })
     .compileComponents();
   }));
