@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
       imports: [MaterialModule],
-      providers: {provide: APP_CONFIG, useValue: APP_DI_CONFIG},
+      providers: [{provide: APP_CONFIG, useValue: APP_DI_CONFIG}]
     })
     .compileComponents();
   }));
