@@ -5,6 +5,7 @@ import { MaterialModule } from '../external/material.module';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { APP_CONFIG, APP_DI_CONFIG } from '../app-config.module';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -14,7 +15,9 @@ describe('AdminComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AdminComponent],
       imports: [MaterialModule],
-      providers: [{ provide: HttpClient }, { provide: Router }, {provide: JwtHelperService}]
+      providers: [
+        { provide: APP_CONFIG, useValue: APP_DI_CONFIG },
+        { provide: HttpClient }, { provide: Router }, { provide: JwtHelperService }]
     })
     .compileComponents();
   }));
