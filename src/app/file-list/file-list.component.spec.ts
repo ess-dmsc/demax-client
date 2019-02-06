@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileListComponent } from './file-list.component';
+import { MaterialModule } from '../external/material.module';
+import { HttpClient } from "@angular/common/http";
 
 describe('FileListComponent', () => {
   let component: FileListComponent;
@@ -8,7 +10,9 @@ describe('FileListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileListComponent ]
+      declarations: [FileListComponent],
+      imports: [MaterialModule],
+      providers: [{provide: HttpClient}]
     })
     .compileComponents();
   }));
