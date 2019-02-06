@@ -33,6 +33,7 @@ import { FileDetailComponent } from './file-detail/file-detail.component';
 import { FileListComponent } from './file-list/file-list.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MessageComponent } from './message/message.component';
+import { ProposalDetailComponent } from './proposal-detail/proposal-detail.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -56,7 +57,8 @@ export function tokenGetter() {
 		FileDetailComponent,
 		FileListComponent,
 		FileUploadComponent,
-		MessageComponent
+		MessageComponent,
+		ProposalDetailComponent
 	],
 	imports: [
 		BrowserModule,

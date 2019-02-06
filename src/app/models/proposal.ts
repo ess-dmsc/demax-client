@@ -67,15 +67,20 @@ export class Proposal {
 		moleculeName?: string;
 		moleculeIdentifier?: string;
 		molecularWeight?: string;
+
 		oligomerizationState?: string;
 		expressionRequirements?: string;
 		moleculeOrigin?: string;
+
 		expressionPlasmidProvidedByUser?: string;
 		expressionPlasmidProvidedByUserDetails?: string;
+
 		amountNeeded?: string;
 		amountNeededMotivation?: string;
+
 		deuterationLevelRequired?: string;
 		deuterationLevelMotivation?: string;
+
 		needsPurificationSupport?: string;
 		hasDoneUnlabeledProteinExpression?: string;
 		typicalYield: string;

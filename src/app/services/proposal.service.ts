@@ -32,8 +32,8 @@ export class ProposalService {
 		return this.http.get<Proposal[]>(`/api/proposals/${this.auth.currentUser.email}`);
 	}
 
-	getProposal(proposal: Proposal): Observable<Proposal> {
-		return this.http.get<Proposal>(`/api/proposals/${proposal.proposalId}`);
+	getProposal(proposalId: string): Observable<Proposal> {
+		return this.http.get<Proposal>(`/api/proposals/${proposalId}`);
 	}
 
 	addProposal(proposal: Proposal): Observable<Proposal> {

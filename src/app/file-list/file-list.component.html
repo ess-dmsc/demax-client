@@ -1,3 +1,5 @@
+<h4>Attached documents</h4>
+
 <button mat-raised-button class="btn btn-success btn-lg"
         *ngIf='!showFile' (click)='showFiles(true)'
 matTooltip="Click to show attached files">
@@ -6,12 +8,12 @@ matTooltip="Click to show attached files">
 <button mat-raised-button class="btn btn-danger btn-lg" *ngIf='showFile'
         matTooltip="Close" (click)='showFiles(false)'>Close <mat-icon>clear</mat-icon></button>
 
-<div *ngIf="showFile" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
 
 	<div *ngFor="let file of fileUploads | async" style="text-align: center; max-width: 100px;">
-		<a href="{{file}}">
+		<a href="http://localhost:3000/api/file/{{file}}">
 			<figure>
-				<img mat-card-sm-image src="../../assets/logos/pdf.png" width="50px">
+				<img mat-card-sm-image src="../../assets/logos/pdf.png" width="30px">
 				<figcaption>
 					<small>{{file}}</small>
 				</figcaption>

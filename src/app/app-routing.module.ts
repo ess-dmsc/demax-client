@@ -14,6 +14,7 @@ import { TestingComponent } from "./testing/testing.component";
 import { ProposalComponent } from "./proposal/proposal.component";
 import { GuidelinesComponent } from "./guidelines/guidelines.component";
 import { AccountComponent } from "./account/account.component";
+import { ProposalDetailComponent } from "./proposal-detail/proposal-detail.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
 	{path: 'test', component: TestingComponent},
 	{path: 'account', component: AccountComponent},
 	{path: 'proposal', component: ProposalComponent},
+	{path: 'proposal-detail', component: ProposalDetailComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,68 @@
+.jumbotron {
+	padding: 3rem;
+	background-color: white;
+}
+
+mat-card {
+	margin: 2rem 5rem;
+	padding: 2rem;
+}
+
+textarea {
+	display: block;
+}
+
+fieldset {
+	padding: 2rem;
+}
+
+mat-form-field {
+	display: block;
+	max-width: 700px;
+}
+
+mat-checkbox {
+	margin: 2rem;
+	display: block;
+}
+
+mat-radio-group {
+	display: block;
+}
+
+mat-radio-button {
+	margin: 2rem;
+}
+
+.mainProposer mat-form-field {
+	width: 300px;
+	display: inline-block;
+}
+
+.coProposer mat-form-field {
+	width: 300px;
+	display: inline-block;
+}
+
+.coProposer {
+	max-width: 700px;
+	border: solid gray 1px;
+	border-radius: 1rem;
+	box-shadow: 2px 2px 2px black;
+	margin-bottom: 2rem;
+	padding: 0.5rem;
+}
+
+.coProposer button {
+	margin-left: 2rem;
+	display: inline-block;
+	right: 1rem;
+}
+
+mat-action-row {
+	display: flex;
+	justify-content: center;
+}
+mat-action-row button, a{
+	margin: 0 2rem;
+}
