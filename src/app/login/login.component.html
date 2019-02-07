@@ -6,6 +6,7 @@
 				</mat-form-field>
 				<mat-form-field class="input-group" [ngClass]="setClassPassword()">
 					<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
+					<mat-hint>If you forget your password, please email <a ng-href="mailto:demax@esss.se">demax@esss.se</a></mat-hint>
 				</mat-form-field>
 				<fieldset>
 					<button mat-raised-button color="primary" [disabled]="!loginForm.valid" type="submit">Login</button>
