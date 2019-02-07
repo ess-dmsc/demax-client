@@ -1,44 +1,38 @@
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
-import { AppConfigModule } from "./app-config.module";
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { HttpModule } from "@angular/http";
-import { MaterialModule } from "./external/material.module";
-import { JwtModule } from "@auth0/angular-jwt";
-import { ImprintComponent } from "./imprint/imprint.component";
-import { HomeComponent } from "./home/home.component";
-import { ContactComponent } from "./contact/contact.component";
-import { RegisterComponent } from "./register/register.component";
-import { LoginComponent } from "./login/login.component";
-import { ProposalsComponent } from "./proposals/proposals.component";
-import { ProposalService } from "./services/proposal.service";
-import { AuthService } from "./services/auth.service";
-import { UserService } from "./services/user.service";
-import { AuthGuardLogin } from "./services/auth-guard-login.service";
-import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
-import { LogoutComponent } from "./logout/logout.component";
-import { AdminComponent } from "./admin/admin.component";
-import { TestingComponent } from "./testing/testing.component";
-import { HttpErrorHandler } from "./services/http-error-handler.service";
-import { ProposalComponent } from "./proposal/proposal.component";
-import { GuidelinesComponent } from "./guidelines/guidelines.component";
-import { ApiInterceptor } from "./api-interceptor";
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppConfigModule } from './app-config.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { MaterialModule } from './external/material.module';
+import { JwtModule } from '@auth0/angular-jwt';
+import { ImprintComponent } from './imprint/imprint.component';
+import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './contact/contact.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { ProposalService } from './services/proposal.service';
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
+import { AuthGuardLogin } from './services/auth-guard-login.service';
+import { AuthGuardAdmin } from './services/auth-guard-admin.service';
+import { LogoutComponent } from './logout/logout.component';
+import { AdminComponent } from './admin/admin.component';
+import { HttpErrorHandler } from './services/http-error-handler.service';
 import { AccountComponent } from './account/account.component';
-import { FileDetailComponent } from './file-detail/file-detail.component';
-import { FileListComponent } from './file-list/file-list.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MessageComponent } from './message/message.component';
 import { ProposalDetailComponent } from './proposal-detail/proposal-detail.component';
+import { ProposalListComponent } from './proposal-list/proposal-list.component';
+import { ApiInterceptor } from './api-interceptor';
 
 
 
 export function tokenGetter() {
-	return localStorage.getItem("access_token");
+	return localStorage.getItem('access_token');
 }
 
 @NgModule({
@@ -51,16 +45,10 @@ export function tokenGetter() {
 		RegisterComponent,
 		LoginComponent,
 		LogoutComponent,
-		ProposalsComponent,
-		TestingComponent,
-		ProposalComponent,
-		GuidelinesComponent,
 		AccountComponent,
-		FileDetailComponent,
-		FileListComponent,
-		FileUploadComponent,
 		MessageComponent,
-		ProposalDetailComponent
+		ProposalDetailComponent,
+		ProposalListComponent
 	],
 	imports: [
 		BrowserModule,
@@ -77,7 +65,7 @@ export function tokenGetter() {
 			config: {
 				tokenGetter: tokenGetter,
 				whitelistedDomains: [
-					"esss.se, esss.lu.se, demax.esss.se, localhost:3000, localhost:4200"
+					'esss.se, esss.lu.se, demax.esss.se, localhost:3000, localhost:4200'
 				],
 				blacklistedRoutes: []
 			}

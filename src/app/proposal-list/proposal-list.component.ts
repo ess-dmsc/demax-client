@@ -8,15 +8,18 @@ import { AppConfig } from "../app-config.module";
 import { APP_CONFIG } from "../app-config.module";
 import { MessageComponent } from "../message/message.component";
 import { Router } from "@angular/router";
-
+import { Observable } from "rxjs";
+import { HttpEventType, HttpResponse } from "@angular/common/http";
+import { FileService } from "../services/file.service";
 
 @Component({
-	selector: 'app-proposals',
-	templateUrl: './proposals.component.html',
-	styleUrls: [ './proposals.component.css' ],
-	providers: [ ProposalService ]
+	selector: 'app-proposal-list',
+	templateUrl: './proposal-list.component.html',
+	styleUrls: [ './proposal-list.component.css' ]
 })
-export class ProposalsComponent implements OnInit {
+export class ProposalListComponent implements OnInit {
+
+
 	url = this.appConfig.demaxBaseUrl;
 	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'mainProposer', 'options' ];
 
@@ -25,6 +28,12 @@ export class ProposalsComponent implements OnInit {
 
 	isLoading = true;
 	isEditing = false;
+
+	fileUploads: Observable<string[]>;
+	selectedFiles: FileList;
+	attachmentType: string;
+	currentFileUpload: File;
+	progress: { percentage: number } = {percentage: 0};
 
 
 	selectedIndex = 0;
@@ -37,6 +46,7 @@ export class ProposalsComponent implements OnInit {
 		window.scrollTo(0, 0)
 		event.preventDefault();
 		this.selectedIndex = index;
+		this.progress.percentage = 0;
 	}
 
 
@@ -67,6 +77,7 @@ export class ProposalsComponent implements OnInit {
 		private proposalService: ProposalService,
 		private formBuilder: FormBuilder,
 		public auth: AuthService,
+		private fileService: FileService,
 		public router: Router,
 		public message: MessageComponent
 	) {
@@ -153,5 +164,28 @@ export class ProposalsComponent implements OnInit {
 				error => console.log(error)
 			);
 		}
+	}
+
+	selectFile(event) {
+		this.selectedFiles = event.target.files;
+		this.attachmentType = event.target.name;
+		this.currentFileUpload = this.selectedFiles.item(0);
+		this.progress.percentage = 0;
+		this.fileService.upload(this.currentFileUpload, this.proposal, this.attachmentType).subscribe(
+			event => {
+				if(event.type === HttpEventType.UploadProgress) {
+					this.progress.percentage = Math.round(100 * event.loaded / event.total);
+				} else if(event instanceof HttpResponse) {
+					console.log('File is completely uploaded!');
+					this.message.setMessage(this.currentFileUpload.name + ' was successfully uploaded', 'success');
+				}
+			},
+			error => {
+				this.message.setMessage(this.currentFileUpload.name + ' failed to upload', 'danger');
+
+			}
+		);
+		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
+		this.selectedFiles = undefined;
 	}
 }

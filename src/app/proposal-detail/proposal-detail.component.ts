@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Proposal } from "../models/proposal";
 import { ProposalService } from "../services/proposal.service";
@@ -6,10 +6,10 @@ import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
 import { MessageComponent } from "../message/message.component";
 import { ActivatedRoute } from '@angular/router';
-import { first } from "rxjs/operators";
-import { Observable } from "rxjs";
 import { FileService } from "../services/file.service";
 import { APP_CONFIG, AppConfig } from "../app-config.module";
+import { Observable } from "rxjs";
+import { HttpEventType, HttpResponse } from "@angular/common/http";
 
 @Component({
 	selector: 'app-proposal-detail',
@@ -18,22 +18,21 @@ import { APP_CONFIG, AppConfig } from "../app-config.module";
 })
 export class ProposalDetailComponent implements OnInit {
 	url = this.appConfig.demaxBaseUrl;
-	proposalId: string;
 	proposal: Proposal;
 	proposalForm: FormGroup;
 	coProposers: FormArray;
+	selectedIndex = 0;
 
 	fileUploads: Observable<string[]>;
-
-	routerParameter: string;
-
-	selectedIndex = 0;
+	selectedFiles: FileList;
+	attachmentType: string;
+	currentFileUpload: File;
+	progress: { percentage: number } = {percentage: 0};
 
 	selectTab(index: number): void {
 		window.scrollTo(0, 0)
 		event.preventDefault();
 		this.selectedIndex = index;
-		this.fileUploads = this.fileService.getFiles(this.proposalId);
 	}
 
 
@@ -42,7 +41,6 @@ export class ProposalDetailComponent implements OnInit {
 		private proposalService: ProposalService,
 		private fileService: FileService,
 		private formBuilder: FormBuilder,
-		private route: ActivatedRoute,
 		public auth: AuthService,
 		public router: Router,
 		public message: MessageComponent
@@ -69,7 +67,7 @@ export class ProposalDetailComponent implements OnInit {
 			needByDateAttachment: [ '', Validators.required ],
 			lab: [ '', Validators.required ],
 			linksWithIndustry: [ '', Validators.required ],
-			linksWithIndustryDetails: [''],
+			linksWithIndustryDetails: [ '' ],
 			coProposerStudents: [ '', Validators.required ],
 			workTowardsStudentsDegree: [ '', Validators.required ],
 			wantsCrystallization: false,
@@ -111,26 +109,19 @@ export class ProposalDetailComponent implements OnInit {
 				moleculeName: [ '' ],
 				moleculeIdentifier: [ '' ],
 				molecularWeight: [ '' ],
-
 				oligomerizationState: [ '' ],
 				expressionRequirements: [ '' ],
 				moleculeOrigin: [ '' ],
-
 				expressionPlasmidProvidedByUser: [ '' ],
 				expressionPlasmidProvidedByUserDetails: [ '' ],
-
 				amountNeeded: [ '' ],
 				amountNeededMotivation: [ '' ],
-
 				deuterationLevelRequired: [ '' ],
 				deuterationLevelMotivation: [ '' ],
-
 				needsPurificationSupport: [ '' ],
 				hasDoneUnlabeledProteinExpression: [ '' ],
-
 				typicalYield: [ '' ],
 				hasDoneProteinPurification: [ '' ],
-
 				hasProteinDeuterationExperience: [ '' ],
 				proteinDeuterationResults: [ '' ],
 				other: [ '' ]
@@ -166,20 +157,19 @@ export class ProposalDetailComponent implements OnInit {
 		)
 	}
 
-
 	save() {
 		this.proposalService.editProposal(this.proposalForm.value)
 		.subscribe(
 			data => {
 				if(data.status === 200) {
-					alert('Proposal updated successfully.');
-					this.router.navigate([ 'proposals' ]);
+					this.message.setMessage('Saved!', 'success');
+					this.router.navigate([ '/proposals' ]);
 				} else {
-					alert(data.message);
+					console.log(data);
 				}
 			},
 			error => {
-				alert(error);
+				console.log(error)
 			}
 		);
 	}
@@ -214,6 +204,30 @@ export class ProposalDetailComponent implements OnInit {
 	get coProposerForms() {
 		return this.proposalForm.get('coProposers') as FormArray;
 	}
+
+	selectFile(event) {
+		this.selectedFiles = event.target.files;
+		this.attachmentType = event.target.name;
+		this.currentFileUpload = this.selectedFiles.item(0);
+		this.progress.percentage = 0;
+		this.fileService.upload(this.currentFileUpload, this.proposal, this.attachmentType).subscribe(
+			event => {
+				if(event.type === HttpEventType.UploadProgress) {
+					this.progress.percentage = Math.round(100 * event.loaded / event.total);
+				} else if(event instanceof HttpResponse) {
+					console.log('File is completely uploaded!');
+					this.message.setMessage(this.currentFileUpload.name + ' was successfully uploaded', 'success');
+				}
+			},
+			error => {
+				this.message.setMessage(this.currentFileUpload.name + ' failed to upload', 'danger');
+
+			}
+		);
+		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls['proposalId'].value);
+		this.selectedFiles = undefined;
+	}
+
 
 
 }
