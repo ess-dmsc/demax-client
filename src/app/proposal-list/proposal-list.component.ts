@@ -47,7 +47,9 @@ export class ProposalListComponent implements OnInit {
 		event.preventDefault();
 		this.selectedIndex = index;
 		this.progress.percentage = 0;
-	}
+        this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
+        this.editProposal(this.proposal);
+    }
 
 
 	proposalForm = this.formBuilder.group({
@@ -132,7 +134,6 @@ export class ProposalListComponent implements OnInit {
 		window.scrollTo(0, 0)
 		this.isEditing = false;
 		this.message.setMessage('Cancelled', 'danger')
-
 		this.proposal = new Proposal();
 		this.getProposals();
 	}
@@ -141,7 +142,6 @@ export class ProposalListComponent implements OnInit {
 		window.scrollTo(0, 0)
 		this.proposalService.editProposal(proposal).subscribe(
 			() => {
-				this.isEditing = false;
 				this.proposal = proposal;
 				this.message.setMessage('Saved ' + this.proposal.proposalId, 'success')
 			},

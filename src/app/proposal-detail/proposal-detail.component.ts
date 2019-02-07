@@ -33,7 +33,9 @@ export class ProposalDetailComponent implements OnInit {
 		window.scrollTo(0, 0)
 		event.preventDefault();
 		this.selectedIndex = index;
-	}
+        this.progress.percentage = 0;
+        this.fileUploads = this.fileService.getFiles(this.proposalForm.controls['proposalId'].value);
+    }
 
 
 	constructor(
@@ -227,7 +229,4 @@ export class ProposalDetailComponent implements OnInit {
 		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls['proposalId'].value);
 		this.selectedFiles = undefined;
 	}
-
-
-
 }
