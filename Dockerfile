@@ -22,6 +22,6 @@ FROM nginx:alpine
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 3001
 
 CMD ["nginx", "-g", "daemon off;"]
