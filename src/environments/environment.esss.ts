@@ -1,5 +1,5 @@
 export const environment = {
 	production: true,
 	externalAuthEndpoint: '',
-	demaxBaseUrl: "http://demax.esss.se:3000"
+	demaxBaseUrl: "https://demaxapi.esss.dk"
 };
