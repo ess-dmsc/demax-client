@@ -651,9 +651,6 @@
 
 					<p>If yes, please provide a protocol:</p>
 
-					<app-file-upload attachmentType="moleculePreparationReferenceArticle"
-					                 [proposal]="proposal"></app-file-upload>
-
 				</fieldset>
 
 
@@ -700,7 +697,7 @@
 					<div *ngFor="let file of fileUploads | async" style="text-align: center; max-width: 100px;">
 						<a href="{{file}}">
 							<figure>
-								<img mat-card-sm-image src="../../assets/logos/pdf.png" width="50px">
+								<img mat-card-sm-image src="../../../assets/logos/pdf.png" width="50px">
 								<figcaption>
 									<small>{{file}}</small>
 								</figcaption>

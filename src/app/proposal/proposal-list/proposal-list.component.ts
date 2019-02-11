@@ -1,16 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProposalService } from '../services/proposal.service';
-import { Proposal } from '../models/proposal';
-import { AuthService } from "../services/auth.service";
+import { FormGroup } from '@angular/forms';
+import { ProposalService } from '../../services/proposal.service';
+import { Proposal } from '../../models/proposal';
+import { AuthService } from "../../services/auth.service";
 
-import { AppConfig } from "../app-config.module";
-import { APP_CONFIG } from "../app-config.module";
-import { MessageComponent } from "../message/message.component";
+import { AppConfig } from "../../app-config.module";
+import { APP_CONFIG } from "../../app-config.module";
+import { MessageComponent } from "../../shared/message/message.component";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { HttpEventType, HttpResponse } from "@angular/common/http";
-import { FileService } from "../services/file.service";
+
 
 @Component({
 	selector: 'app-proposal-list',

@@ -4,11 +4,11 @@ import { AppComponent } from "./app.component";
 import { MaterialModule } from "./external/material.module";
 import { APP_CONFIG, APP_DI_CONFIG } from "./app-config.module";
 import { AuthService } from "./services/auth.service";
-import { RegisterComponent } from "./register/register.component";
-import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./user/register/register.component";
+import { LoginComponent } from "./user/login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { MessageComponent } from "./message/message.component";
+import { MessageComponent } from "./shared/message/message.component";
 
 describe("AppComponent", () => {
   let auth: AuthService;

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 import { FormBuilder } from '@angular/forms';
-import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
-import { MessageComponent } from "../message/message.component";
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({
 	selector: 'app-account',

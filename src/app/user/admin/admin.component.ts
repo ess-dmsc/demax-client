@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from "../models/user";
-import { Proposal } from "../models/proposal";
-import { AuthService } from "../services/auth.service";
-import { UserService } from "../services/user.service";
-import { ProposalService } from "../services/proposal.service";
+import { User } from "../../models/user";
+import { Proposal } from "../../models/proposal";
+import { AuthService } from "../../services/auth.service";
+import { UserService } from "../../services/user.service";
+import { ProposalService } from "../../services/proposal.service";
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: [ './admin.component.css']
 })
 export class AdminComponent implements OnInit {
 

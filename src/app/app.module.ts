@@ -12,22 +12,11 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ImprintComponent } from './imprint/imprint.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { ProposalService } from './services/proposal.service';
-import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
-import { AuthGuardLogin } from './services/auth-guard-login.service';
-import { AuthGuardAdmin } from './services/auth-guard-admin.service';
-import { LogoutComponent } from './logout/logout.component';
-import { AdminComponent } from './admin/admin.component';
 import { HttpErrorHandler } from './services/http-error-handler.service';
-import { AccountComponent } from './account/account.component';
-import { MessageComponent } from './message/message.component';
-import { ProposalDetailComponent } from './proposal-detail/proposal-detail.component';
-import { ProposalListComponent } from './proposal-list/proposal-list.component';
-import { ApiInterceptor } from './api-interceptor';
-import { LoadingComponent } from './loading/loading.component';
+import { ApiInterceptor } from './services/api-interceptor';
+import { SharedModule } from "./shared/shared.module";
+import { ProposalModule } from "./proposal/proposal.module";
+import { UserModule } from "./user/user.module";
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -36,29 +25,18 @@ export function tokenGetter() {
 @NgModule({
 	declarations: [
 		AppComponent,
-		AdminComponent,
 		ImprintComponent,
 		HomeComponent,
-		ContactComponent,
-		RegisterComponent,
-		LoginComponent,
-		LogoutComponent,
-		AccountComponent,
-		MessageComponent,
-		ProposalDetailComponent,
-		ProposalListComponent,
-		LoadingComponent
+		ContactComponent
 	],
 	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		CommonModule,
 		AppConfigModule,
+		AppRoutingModule,
+		BrowserModule,
 		BrowserAnimationsModule,
+		CommonModule,
 		FormsModule,
-		ReactiveFormsModule,
 		HttpClientModule,
-		MaterialModule,
 		JwtModule.forRoot({
 			config: {
 				tokenGetter: tokenGetter,
@@ -67,7 +45,12 @@ export function tokenGetter() {
 				],
 				blacklistedRoutes: []
 			}
-		})
+		}),
+		ReactiveFormsModule,
+		MaterialModule,
+		ProposalModule,
+		SharedModule,
+		UserModule
 	],
 	providers: [
 		{
@@ -75,16 +58,9 @@ export function tokenGetter() {
 			useClass: ApiInterceptor,
 			multi: true
 		},
-		AuthService,
-		AuthGuardAdmin,
-		AuthGuardLogin,
-		HttpErrorHandler,
-		UserService,
-		ProposalService,
-		MessageComponent
+		HttpErrorHandler
 	],
-	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-	exports: [ MessageComponent ]
+	schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {
 }
