@@ -27,9 +27,7 @@ import { MessageComponent } from './message/message.component';
 import { ProposalDetailComponent } from './proposal-detail/proposal-detail.component';
 import { ProposalListComponent } from './proposal-list/proposal-list.component';
 import { ApiInterceptor } from './api-interceptor';
-import { EditProposalComponent } from './edit-proposal/edit-proposal.component';
 import { LoadingComponent } from './loading/loading.component';
-import { CrystallizationComponent } from './crystallization/crystallization.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -49,9 +47,7 @@ export function tokenGetter() {
 		MessageComponent,
 		ProposalDetailComponent,
 		ProposalListComponent,
-		EditProposalComponent,
-		LoadingComponent,
-		CrystallizationComponent
+		LoadingComponent
 	],
 	imports: [
 		BrowserModule,

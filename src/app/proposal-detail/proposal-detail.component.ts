@@ -3,9 +3,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@ang
 import { Proposal } from "../models/proposal";
 import { ProposalService } from "../services/proposal.service";
 import { AuthService } from "../services/auth.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MessageComponent } from "../message/message.component";
-import { ActivatedRoute } from '@angular/router';
 import { FileService } from "../services/file.service";
 import { APP_CONFIG, AppConfig } from "../app-config.module";
 import { Observable } from "rxjs";
@@ -24,21 +23,26 @@ export class ProposalDetailComponent implements OnInit {
 	coProposers: FormArray;
 	selectedIndex = 0;
 
-	fileUploads: Observable<string[]>;
+	isLoading = true;
+	isEditing = false;
+	isCreating = false;
 
+	currentProposalId: string;
+
+	fileUploads: Observable<string[]>;
 	selectedFiles: FileList;
 	attachmentType: string;
 	currentFileUpload: File;
+
 	progress: { percentage: number } = {percentage: 0};
 
 	selectTab(index: number): void {
 		window.scrollTo(0, 0)
 		event.preventDefault();
 		this.selectedIndex = index;
-        this.progress.percentage = 0;
-        this.fileUploads = this.fileService.getFiles(this.proposalForm.controls['proposalId'].value);
-        
-    }
+		this.progress.percentage = 0;
+		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+	}
 
 
 	constructor(
@@ -47,6 +51,7 @@ export class ProposalDetailComponent implements OnInit {
 		private fileService: FileService,
 		private formBuilder: FormBuilder,
 		public auth: AuthService,
+		public activatedRoute: ActivatedRoute,
 		public router: Router,
 		public message: MessageComponent
 	) {
@@ -149,15 +154,39 @@ export class ProposalDetailComponent implements OnInit {
 			other: [ '' ]
 		});
 
-		this.proposalService.addProposal(this.proposalForm.value)
-		.subscribe(
+		this.currentProposalId = this.activatedRoute.snapshot.params.proposalId;
+		console.log(this.currentProposalId);
+
+		if(this.currentProposalId === 'new') {
+			this.isCreating = true;
+			this.proposalService.addProposal(this.proposalForm.value)
+			.subscribe(
+				response => {
+					this.proposal = response;
+					this.proposalForm.setValue(response);
+					console.log('Created new proposal: ' + response.proposalId)
+					this.message.setMessage('New proposal created!', 'success');
+					this.isLoading = false;
+				},
+				error => {
+					console.log(error)
+				}
+			)
+		}
+		else {
+			this.getProposal();
+		}
+	}
+
+	getProposal() {
+		this.proposalService.getProposalByProposalId(this.currentProposalId).subscribe(
 			response => {
 				this.proposal = response;
-				this.proposalForm.setValue(response);
-				console.log('Successfully created proposal: ' + response.proposalId)
-			},
-			error => {
-				console.log(error)
+				this.proposalForm.patchValue(this.proposal);
+				this.isEditing = true;
+				console.log('Editing proposal ' + this.proposal.proposalId);
+				this.message.setMessage('Editing proposal ' + this.proposal.proposalId, 'success');
+				this.isLoading = false;
 			}
 		)
 	}
@@ -229,7 +258,7 @@ export class ProposalDetailComponent implements OnInit {
 
 			}
 		);
-		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls['proposalId'].value);
+		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
 		this.selectedFiles = undefined;
 	}
 }

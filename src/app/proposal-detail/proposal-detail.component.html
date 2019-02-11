@@ -1,11 +1,13 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" *ngIf="isCreating">
 
 	<h2>Create a new proposal</h2>
 
 	<hr class="my-4">
 </div>
+<app-loading [condition]="isLoading"></app-loading>
+<app-message [message]="message.message"></app-message>
 
-<form [formGroup]="proposalForm" (ngSubmit)="save()">
+<form [formGroup]="proposalForm" (ngSubmit)="save()" *ngIf="!isLoading">
 	<mat-tab-group [(selectedIndex)]="selectedIndex">
 		<mat-tab label="1. General information">
 			<mat-card>
@@ -184,6 +186,7 @@
 			</mat-card>
 		</mat-tab>
 		<mat-tab label="2. Crystallization" formGroupName="crystallization">
+
 			<mat-card>
 
 				<p>Required information to include in the “Practical Considerations” section of your

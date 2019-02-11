@@ -22,8 +22,8 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'logout', component: LogoutComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'proposal', component: ProposalDetailComponent},
     {path: 'proposals', component: ProposalListComponent},
+	{path: 'proposals/:proposalId', component: ProposalDetailComponent}
 ];
 
 @NgModule({
