@@ -15,7 +15,7 @@ export class AuthService {
 	currentUser: User = new User();
 
 	constructor(private userService: UserService, private router: Router, private jwtHelper: JwtHelperService) {
-		const token = localStorage.getItem('token');
+		const token = localStorage.getItem('access_token');
 		if(token) {
 			const decodedUser = this.decodeUserFromToken(token);
 			this.setCurrentUser(decodedUser);
@@ -25,7 +25,7 @@ export class AuthService {
 	login(emailAndPassword) {
 		return this.userService.login(emailAndPassword).map(
 			res => {
-				localStorage.setItem('token', res.token);
+				localStorage.setItem('access_token', res.token);
 				const decodedUser = this.decodeUserFromToken(res.token);
 				this.setCurrentUser(decodedUser);
 				return this.loggedIn;
@@ -35,7 +35,7 @@ export class AuthService {
 
 
 	logout() {
-		localStorage.removeItem('token');
+		localStorage.removeItem('access_token');
 		this.loggedIn = false;
 		this.isAdmin = false;
 		this.currentUser = new User();

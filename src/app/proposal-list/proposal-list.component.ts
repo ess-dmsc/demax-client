@@ -52,27 +52,7 @@ export class ProposalListComponent implements OnInit {
     }
 
 
-	proposalForm = this.formBuilder.group({
-		dateCreated: [ '' ],
-		experimentTitle: [ '', Validators.required ],
-		briefSummary: [ '', Validators.required ],
-		mainProposer: this.formBuilder.group({
-			firstName: [ '', Validators.required ],
-			lastName: [ '', Validators.required ],
-			email: [ '', Validators.required ],
-			phone: [ '', Validators.required ],
-			employer: [ '', Validators.required ],
-			sector: [ '', Validators.required ],
-			title: [ '', Validators.required ],
-		}),
-		needByDate: [ '', Validators.required ],
-		needByDateMotivation: [ '', Validators.required ],
-		needByDateAttachment: [ '', Validators.required ],
-		lab: [ '', Validators.required ],
-		linksWithIndustry: [ '', Validators.required ],
-		linksWithIndustryDetails: [ '' ],
-		coProposerStudents: [ '', Validators.required ]
-	});
+	proposalForm = this.formBuilder.group({});
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,

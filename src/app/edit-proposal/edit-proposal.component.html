@@ -1,0 +1,11 @@
+<div *ngIf="proposal">
+	<h2>{{proposal.proposalId | uppercase}} Proposal ID</h2>
+	<div><span>id: </span>{{proposal.proposalId}}</div>
+
+	<input [(ngModel)]="proposal.experimentTitle" placeholder="Experiment title"/>
+
+	<input matInput [(ngModel)]="proposal.briefSummary" placeholder="Brief summary">
+
+	<upload-component></upload-component>
+
+</div>

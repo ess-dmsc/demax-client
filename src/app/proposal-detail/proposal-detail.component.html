@@ -62,7 +62,6 @@
 					</mat-form-field>
 				</div>
 
-
 				<h4>Co-proposers</h4>
 
 				<fieldset>
@@ -159,7 +158,6 @@
 				</fieldset>
 
 
-
 				<mat-form-field>
 					<p>If there is anything else you would like us to know, please enter it below:</p>
 					<textarea matInput
@@ -242,7 +240,6 @@
 					</div>
 
 				</fieldset>
-
 
 
 				<mat-form-field>
@@ -390,7 +387,8 @@
 
 					<mat-radio-group formControlName="deuterationLevelRequired">
 						<p> Level of deuteration required:</p>
-						<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)</mat-radio-button>
+						<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)
+						</mat-radio-button>
 						<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
 					</mat-radio-group>
 
@@ -670,8 +668,11 @@
 			<mat-card>
 				<h4>Upload proposal</h4>
 				<p>
-					Proposals should be written in English, properly referenced, and prepared in the <a download href="/word/attachment">Word template</a>.<br>
-					Please keep to the 2 page limit, including Summary, Background (Science Case, Practical Consideration, References, Figures/Tables)
+					Proposals should be written in English, properly referenced, and prepared in the <a download
+					                                                                                    href="/word/attachment">Word
+					template</a>.<br>
+					Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
+					Consideration, References, Figures/Tables)
 				</p>
 
 				<fieldset class="fileUpload">
@@ -712,8 +713,10 @@
 						Generate PDF
 					</a>
 
-					<a download class="btn btn-danger" href="{{url}}/api/merge/{{this.proposalForm.controls['proposalId'].value}}">
-						<mat-icon>get_app</mat-icon> Download proposal
+					<a download class="btn btn-danger"
+					   href="{{url}}/api/merge/{{this.proposalForm.controls['proposalId'].value}}">
+						<mat-icon>get_app</mat-icon>
+						Download proposal
 					</a>
 				</mat-action-row>
 				<mat-action-row>

@@ -17,6 +17,7 @@ import { HttpEventType, HttpResponse } from "@angular/common/http";
 	styleUrls: [ './proposal-detail.component.css' ]
 })
 export class ProposalDetailComponent implements OnInit {
+
 	url = this.appConfig.demaxBaseUrl;
 	proposal: Proposal;
 	proposalForm: FormGroup;
@@ -24,6 +25,7 @@ export class ProposalDetailComponent implements OnInit {
 	selectedIndex = 0;
 
 	fileUploads: Observable<string[]>;
+
 	selectedFiles: FileList;
 	attachmentType: string;
 	currentFileUpload: File;
@@ -35,6 +37,7 @@ export class ProposalDetailComponent implements OnInit {
 		this.selectedIndex = index;
         this.progress.percentage = 0;
         this.fileUploads = this.fileService.getFiles(this.proposalForm.controls['proposalId'].value);
+        
     }
 
 

@@ -8,15 +8,14 @@ import { APP_CONFIG } from "./app-config.module";
 export class ApiInterceptor implements HttpInterceptor {
 
     constructor(
-        @Inject(APP_CONFIG) private appConfig: AppConfig
+        @Inject(APP_CONFIG) private appConfig: AppConfig,
     ) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const clonedHttpRequest = request.clone({url: this.appConfig.demaxBaseUrl + request.url});
-        //setHeaders: {
-        //         Authorization: `Bearer ${this.auth.getToken()}`
-        //       }
+        const clonedHttpRequest = request.clone({
+	        url: this.appConfig.demaxBaseUrl + request.url,
+        });
         return next.handle(clonedHttpRequest);
     }
 }
