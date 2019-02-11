@@ -2,12 +2,11 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppConfigModule } from './app-config.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { MaterialModule } from './external/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ImprintComponent } from './imprint/imprint.component';
@@ -28,8 +27,9 @@ import { MessageComponent } from './message/message.component';
 import { ProposalDetailComponent } from './proposal-detail/proposal-detail.component';
 import { ProposalListComponent } from './proposal-list/proposal-list.component';
 import { ApiInterceptor } from './api-interceptor';
-
-
+import { EditProposalComponent } from './edit-proposal/edit-proposal.component';
+import { LoadingComponent } from './loading/loading.component';
+import { CrystallizationComponent } from './crystallization/crystallization.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -48,7 +48,10 @@ export function tokenGetter() {
 		AccountComponent,
 		MessageComponent,
 		ProposalDetailComponent,
-		ProposalListComponent
+		ProposalListComponent,
+		EditProposalComponent,
+		LoadingComponent,
+		CrystallizationComponent
 	],
 	imports: [
 		BrowserModule,
@@ -59,7 +62,6 @@ export function tokenGetter() {
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		HttpModule,
 		MaterialModule,
 		JwtModule.forRoot({
 			config: {
