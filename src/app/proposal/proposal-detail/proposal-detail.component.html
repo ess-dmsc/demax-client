@@ -20,11 +20,11 @@
 				<p>In the next sections you will fill out the applicable area of support your proposal requires.
 					<br>Select one, or as many as apply, from the alternatives below.</p>
 
-
-				<mat-checkbox formControlName="wantsBiologicalDeuteration" name="proposal.wantsBiologicalDeuteration">
+				<mat-checkbox formControlName="wantsCrystallization">Crystallization</mat-checkbox>
+				<mat-checkbox formControlName="wantsBiologicalDeuteration">
 					Biological deuteration
 				</mat-checkbox>
-				<mat-checkbox formControlName="wantsChemicalDeuteration" name="proposal.wantsChemicalDeuteration">
+				<mat-checkbox formControlName="wantsChemicalDeuteration">
 					Chemical deuteration
 				</mat-checkbox>
 
@@ -608,12 +608,13 @@
 
 		<mat-tab label="5. Review and submit">
 			<mat-card>
-
-				<mat-card>
+				<mat-card style="margin: 1rem; padding: 1rem;">
 					<h4>Upload deuteration/crystallization proposal</h4>
 					<p>
-						Proposals should be written in English, properly referenced, and prepared in the Word template.
-						Please keep to the 2 page limit, including Summary, Background (Science Case, Practical Consideration, References, Figures/Tables)
+						Proposals should be written in English, properly referenced, and prepared in the<a download href="/word/attachment"> Word
+						template</a>.<br>
+						Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
+						Consideration, References, Figures/Tables)
 					</p>
 					<app-file-upload
 							[proposalId]="proposalForm.controls['proposalId'].value"
@@ -622,7 +623,7 @@
 					</app-file-upload>
 				</mat-card>
 
-				<mat-card>
+				<mat-card style="margin: 1rem; padding: 1rem;">
 					<h4>Upload (draft) beamtime proposal</h4>
 					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
 					<app-file-upload
