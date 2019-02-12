@@ -11,11 +11,22 @@
 	<mat-tab-group [(selectedIndex)]="selectedIndex">
 		<mat-tab label="1. General information">
 			<mat-card>
-				<h3>Proposal ID: {{this.proposalForm.controls['proposalId'].value}}</h3>
-
 				<mat-form-field>
 					<input matInput required formControlName="experimentTitle" placeholder="Proposal title">
 				</mat-form-field>
+
+				Proposal ID: {{this.proposalForm.controls['proposalId'].value}}
+
+				<p>In the next sections you will fill out the applicable area of support your proposal requires.
+					<br>Select one, or as many as apply, from the alternatives below.</p>
+
+				<mat-checkbox formControlName="wantsCrystallization">Crystallization</mat-checkbox>
+				<mat-checkbox formControlName="wantsBiologicalDeuteration" name="proposal.wantsBiologicalDeuteration">
+					Biological deuteration
+				</mat-checkbox>
+				<mat-checkbox formControlName="wantsChemicalDeuteration" name="proposal.wantsChemicalDeuteration">
+					Chemical deuteration
+				</mat-checkbox>
 
 				<mat-form-field>
 					<textarea matInput
@@ -144,20 +155,6 @@
 
 				</mat-form-field>
 
-				<fieldset class="fileUpload">
-
-					<p>Attach a copy of the beamtime proposal, draft or intended submission:</p>
-
-					<input type="file" name="needByDateAttachment" (change)="selectFile($event)">
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
-						</div>
-					</div>
-
-				</fieldset>
 
 
 				<mat-form-field>
@@ -167,16 +164,6 @@
 					          rows="4" cols="40"></textarea>
 				</mat-form-field>
 
-				<p>In the next sections you will fill out the applicable area of support your proposal requires.
-					<br>Select one, or as many as apply, from the alternatives below.</p>
-
-				<mat-checkbox formControlName="wantsCrystallization">Crystallization</mat-checkbox>
-				<mat-checkbox formControlName="wantsBiologicalDeuteration" name="proposal.wantsBiologicalDeuteration">
-					Biological deuteration
-				</mat-checkbox>
-				<mat-checkbox formControlName="wantsChemicalDeuteration" name="proposal.wantsChemicalDeuteration">
-					Chemical deuteration
-				</mat-checkbox>
 
 				<mat-action-row>
 					<button mat-raised-button color="primary" type="submit">Save</button>
@@ -666,7 +653,7 @@
 
 		<mat-tab label="5. Review and submit">
 			<mat-card>
-				<h4>Upload proposal</h4>
+				<h4>Upload deuteration/crystallization proposal</h4>
 				<p>
 					Proposals should be written in English, properly referenced, and prepared in the <a download
 					                                                                                    href="/word/attachment">Word
@@ -677,9 +664,24 @@
 
 				<fieldset class="fileUpload">
 
-					<p>If yes, please provide a protocol:</p>
 
 					<input type="file" name="proposalTemplate" (change)="selectFile($event)">
+					<div *ngIf="currentFileUpload" class="progress">
+						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
+						     attr.aria-valuenow="{{progress.percentage}}"
+						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+							{{progress.percentage}}%
+						</div>
+					</div>
+
+				</fieldset>
+
+				<h4>Upload (draft) beamtime proposal</h4>
+				<fieldset class="fileUpload">
+
+					<p>Attach a copy of the beamtime proposal, draft or intended submission:</p>
+
+					<input type="file" name="needByDateAttachment" (change)="selectFile($event)">
 					<div *ngIf="currentFileUpload" class="progress">
 						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
 						     attr.aria-valuenow="{{progress.percentage}}"
