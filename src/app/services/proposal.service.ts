@@ -32,12 +32,16 @@ export class ProposalService {
 		return this.http.get<Proposal[]>(`/api/proposals/${this.auth.currentUser.email}`);
 	}
 
-	getProposal(proposalId: string): Observable<Proposal> {
-		return this.http.get<Proposal>(`/api/proposals/${proposalId}`);
-	}
-
 	addProposal(proposal: Proposal): Observable<Proposal> {
 		return this.http.post<Proposal>('/api/proposals', proposal);
+	}
+
+	getProposal(proposal: Proposal): Observable<Proposal> {
+		return this.http.post<Proposal>('/api/proposals', proposal);
+	}
+
+	getProposalByProposalId(proposalId: string): Observable<Proposal> {
+		return this.http.get<Proposal>('/api/proposals/getById/' + proposalId);
 	}
 
 	editProposal(proposal: Proposal): Observable<any> {

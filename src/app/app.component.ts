@@ -3,7 +3,7 @@ import { AppConfig } from "./app-config.module";
 import { APP_CONFIG } from "./app-config.module";
 import { FormControl } from "@angular/forms";
 import { AuthService } from "./services/auth.service";
-import { MessageComponent } from "./message/message.component";
+import { MessageComponent } from "./shared/message/message.component";
 
 @Component({
 	selector: 'app-root',

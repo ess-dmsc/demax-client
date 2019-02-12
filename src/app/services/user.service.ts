@@ -35,6 +35,10 @@ export class UserService {
 		return this.http.get<User>(`/api/users/${user.email}`);
 	}
 
+	getUserByEmail(email: string): Observable<User>{
+		return this.http.get<User>('/api/users/' + email);
+	}
+
 	editUser(user: User): Observable<any> {
 		return this.http.put(`/api/users/${user._id}`, user, { responseType: 'text' });
 	}

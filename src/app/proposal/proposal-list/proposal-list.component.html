@@ -1,0 +1,60 @@
+
+
+<div class="jumbotron jumbotron-fluid">
+	<h2>My current proposals</h2>
+
+	<hr class="my-4">
+
+	<p *ngIf="proposals.length === 0">You haven't submitted any proposals yet. Create a <a routerLink="/proposal">new
+		proposal</a> to get started.</p>
+</div>
+
+<app-message [message]="message.message"></app-message>
+<app-loading [condition]="isLoading"></app-loading>
+
+<section *ngIf="!isLoading">
+
+<table mat-table [dataSource]="proposals">
+
+	<ng-container matColumnDef="proposalId">
+		<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
+		<td mat-cell *matCellDef="let proposal"> {{proposal.proposalId}}</td>
+	</ng-container>
+
+	<ng-container matColumnDef="experimentTitle">
+		<th mat-header-cell *matHeaderCellDef> Experiment title</th>
+		<td mat-cell *matCellDef="let proposal"> {{proposal.experimentTitle}}</td>
+	</ng-container>
+
+	<ng-container matColumnDef="lab">
+		<th mat-header-cell *matHeaderCellDef> Lab</th>
+		<td mat-cell *matCellDef="let proposal"> {{proposal.lab}}</td>
+	</ng-container>
+	<ng-container matColumnDef="mainProposer">
+		<th mat-header-cell *matHeaderCellDef>Main proposer</th>
+		<td mat-cell *matCellDef="let proposal">{{proposal.mainProposer.firstName}}
+			{{proposal.mainProposer.lastName}}
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="options">
+		<th mat-header-cell *matHeaderCellDef></th>
+		<td mat-cell *matCellDef="let proposal">
+			<button mat-raised-button color="primary" [routerLink]="['/proposals/' + proposal.proposalId]">Edit</button>
+			<!--<button mat-raised-button color="primary" (click)="enableEditing(proposal)">Edit</button>-->
+			<button mat-raised-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
+			<a mat-raised-button download class="btn btn-success" href="{{url}}/api/merge/{{proposal.proposalId}}">
+				<mat-icon>get_app</mat-icon>
+				Download
+			</a>
+		</td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<a class="btn btn-primary btn-lg" routerLink="/proposals/new" style="margin: 2rem;">
+	Create new proposal
+</a>
+</section>
