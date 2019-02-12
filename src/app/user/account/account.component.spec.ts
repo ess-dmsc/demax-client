@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccountComponent } from './account.component';
-import { MaterialModule } from "../external/material.module";
+import { MaterialModule } from "../../external/material.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { UserService } from "../services/user.service";
-import { AuthService } from "../services/auth.service";
+import { UserService } from "../../services/user.service";
+import { AuthService } from "../../services/auth.service";
 
 describe('AccountComponent', () => {
 	let component: AccountComponent;

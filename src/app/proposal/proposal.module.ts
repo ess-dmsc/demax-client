@@ -5,6 +5,7 @@ import { ProposalListComponent } from "./proposal-list/proposal-list.component";
 import { ProposalService } from "../services/proposal.service";
 import { MaterialModule } from "../external/material.module";
 import { SharedModule } from "../shared/shared.module";
+import { FileUploadComponent } from "../file/file-upload/file-upload.component";
 
 @NgModule({
 	imports: [
@@ -14,7 +15,8 @@ import { SharedModule } from "../shared/shared.module";
 	],
 	declarations: [
 		ProposalDetailComponent,
-		ProposalListComponent
+		ProposalListComponent,
+		FileUploadComponent
 	],
 	providers: [
 		ProposalService

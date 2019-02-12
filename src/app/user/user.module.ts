@@ -10,6 +10,7 @@ import { AdminComponent } from "./admin/admin.component";
 import { AuthGuardLogin } from "../services/auth-guard-login.service";
 import { AuthGuardAdmin } from "../services/auth-guard-admin.service";
 import { SharedModule } from "../shared/shared.module";
+import {FileAdminComponent} from "../file/file-admin/file-admin.component";
 
 @NgModule({
 	imports: [
@@ -19,6 +20,7 @@ import { SharedModule } from "../shared/shared.module";
 	declarations: [
 		AccountComponent,
 		AdminComponent,
+		FileAdminComponent,
 		LoginComponent,
 		LogoutComponent,
 		RegisterComponent
@@ -32,6 +34,7 @@ import { SharedModule } from "../shared/shared.module";
 	exports: [
 		AccountComponent,
 		AdminComponent,
+		FileAdminComponent,
 		LoginComponent,
 		LogoutComponent,
 		RegisterComponent

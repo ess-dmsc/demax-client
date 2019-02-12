@@ -116,7 +116,7 @@ export class Proposal {
     };
     needByDateAttachment: {
         name?: string;
-        path?: string;
+	    path?: string;
         uploaded?: boolean;
     };
     mergedProposal: {
@@ -126,27 +126,27 @@ export class Proposal {
     };
     pbdIdReferenceAttachment: {
         name?: string;
-        path?: string;
+	    path?: string;
         uploaded?: boolean;
     };
     organismReferenceAttachment: {
         name?: string;
-        path?: string;
+	    path?: string;
         uploaded?: boolean;
     };
     needsPurificationSupportAttachment: {
         name?: string;
-        path?: string;
+	    path?: string;
         uploaded?: boolean;
     };
     chemicalStructureAttachment: {
         name?: string;
-        path?: string;
+	    path?: string;
         uploaded?: boolean;
     };
     moleculePreparationReferenceArticle: {
         name?: string;
-        path?: string;
+	    path?: string;
         uploaded?: boolean;
     };
 }

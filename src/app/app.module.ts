@@ -17,6 +17,8 @@ import { ApiInterceptor } from './services/api-interceptor';
 import { SharedModule } from "./shared/shared.module";
 import { ProposalModule } from "./proposal/proposal.module";
 import { UserModule } from "./user/user.module";
+import { FileListComponent } from './file/file-list/file-list.component';
+import { FileDetailComponent } from './file/file-detail/file-detail.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -27,7 +29,9 @@ export function tokenGetter() {
 		AppComponent,
 		ImprintComponent,
 		HomeComponent,
-		ContactComponent
+		ContactComponent,
+		FileListComponent,
+		FileDetailComponent
 	],
 	imports: [
 		AppConfigModule,

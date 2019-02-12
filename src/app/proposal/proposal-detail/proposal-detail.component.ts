@@ -28,8 +28,13 @@ export class ProposalDetailComponent implements OnInit {
 	isCreating = false;
 
 	currentProposalId: string;
+	currentFileName: string;
 
-	fileUploads: Observable<string[]>;
+	crystallization = false;
+	proteinDeuteration = false;
+
+	fileUploads: Observable<Object[]>;
+
 	selectedFiles: FileList;
 	attachmentType: string;
 	currentFileUpload: File;
@@ -175,6 +180,7 @@ export class ProposalDetailComponent implements OnInit {
 		}
 		else {
 			this.getProposal();
+			this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
 		}
 	}
 
@@ -184,6 +190,7 @@ export class ProposalDetailComponent implements OnInit {
 				this.proposal = response;
 				this.proposalForm.patchValue(this.proposal);
 				this.isEditing = true;
+				this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
 				console.log('Editing proposal ' + this.proposal.proposalId);
 				this.message.setMessage('Editing proposal ' + this.proposal.proposalId, 'success');
 				this.isLoading = false;
@@ -242,14 +249,24 @@ export class ProposalDetailComponent implements OnInit {
 	selectFile(event) {
 		this.selectedFiles = event.target.files;
 		this.attachmentType = event.target.name;
-		this.currentFileUpload = this.selectedFiles.item(0);
+		this.upload();
+	}
+
+	getFiles(uploaded) {
+		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
+	}
+
+	upload() {
+		this.isLoading = true;
 		this.progress.percentage = 0;
-		this.fileService.upload(this.currentFileUpload, this.proposal, this.attachmentType).subscribe(
+		this.currentFileUpload = this.selectedFiles.item(0);
+
+		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalForm.controls[ 'proposalId' ].value, this.attachmentType).subscribe(
 			event => {
 				if(event.type === HttpEventType.UploadProgress) {
 					this.progress.percentage = Math.round(100 * event.loaded / event.total);
 				} else if(event instanceof HttpResponse) {
-					console.log('File is completely uploaded!');
+					console.log('Attachment is completely uploaded!');
 					this.message.setMessage(this.currentFileUpload.name + ' was successfully uploaded', 'success');
 				}
 			},
@@ -259,6 +276,20 @@ export class ProposalDetailComponent implements OnInit {
 			}
 		);
 		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+		console.log(this.fileUploads);
 		this.selectedFiles = undefined;
+	}
+
+	delete(filename: string, input: string) {
+		console.log(filename)
+		console.log(this.proposal.proposalId)
+		console.log(input)
+		this.fileService.deleteFile(filename, this.proposal, input).subscribe(
+			() => {
+				this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
+			}, error => {
+				console.log(error)
+			}
+		);
 	}
 }

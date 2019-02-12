@@ -5,17 +5,28 @@
 	<hr class="my-4">
 </div>
 <app-loading [condition]="isLoading"></app-loading>
-<app-message [message]="message.message"></app-message>
 
 <form [formGroup]="proposalForm" (ngSubmit)="save()" *ngIf="!isLoading">
 	<mat-tab-group [(selectedIndex)]="selectedIndex">
 		<mat-tab label="1. General information">
+			<app-message [message]="message.message"></app-message>
 			<mat-card>
-				<h3>Proposal ID: {{this.proposalForm.controls['proposalId'].value}}</h3>
-
 				<mat-form-field>
 					<input matInput required formControlName="experimentTitle" placeholder="Proposal title">
 				</mat-form-field>
+
+				Proposal ID: {{this.proposalForm.controls['proposalId'].value}}
+
+				<p>In the next sections you will fill out the applicable area of support your proposal requires.
+					<br>Select one, or as many as apply, from the alternatives below.</p>
+
+
+				<mat-checkbox formControlName="wantsBiologicalDeuteration" name="proposal.wantsBiologicalDeuteration">
+					Biological deuteration
+				</mat-checkbox>
+				<mat-checkbox formControlName="wantsChemicalDeuteration" name="proposal.wantsChemicalDeuteration">
+					Chemical deuteration
+				</mat-checkbox>
 
 				<mat-form-field>
 					<textarea matInput
@@ -104,7 +115,7 @@
 					<mat-radio-button value="no">No</mat-radio-button>
 				</mat-radio-group>
 
-				<mat-form-field>
+				<mat-form-field *ngIf="this.proposalForm.controls['linksWithIndustry'].value==='yes'">
 					<input matInput
 					       formControlName="linksWithIndustryDetails"
 					       placeholder="If yes, please describe:">
@@ -144,22 +155,6 @@
 
 				</mat-form-field>
 
-				<fieldset class="fileUpload">
-
-					<p>Attach a copy of the beamtime proposal, draft or intended submission:</p>
-
-					<input type="file" name="needByDateAttachment" (change)="selectFile($event)">
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
-						</div>
-					</div>
-
-				</fieldset>
-
-
 				<mat-form-field>
 					<p>If there is anything else you would like us to know, please enter it below:</p>
 					<textarea matInput
@@ -167,16 +162,6 @@
 					          rows="4" cols="40"></textarea>
 				</mat-form-field>
 
-				<p>In the next sections you will fill out the applicable area of support your proposal requires.
-					<br>Select one, or as many as apply, from the alternatives below.</p>
-
-				<mat-checkbox formControlName="wantsCrystallization">Crystallization</mat-checkbox>
-				<mat-checkbox formControlName="wantsBiologicalDeuteration" name="proposal.wantsBiologicalDeuteration">
-					Biological deuteration
-				</mat-checkbox>
-				<mat-checkbox formControlName="wantsChemicalDeuteration" name="proposal.wantsChemicalDeuteration">
-					Chemical deuteration
-				</mat-checkbox>
 
 				<mat-action-row>
 					<button mat-raised-button color="primary" type="submit">Save</button>
@@ -186,7 +171,6 @@
 			</mat-card>
 		</mat-tab>
 		<mat-tab label="2. Crystallization" formGroupName="crystallization">
-
 			<mat-card>
 
 				<p>Required information to include in the “Practical Considerations” section of your
@@ -229,21 +213,13 @@
 					<input matInput formControlName="doi">
 				</mat-form-field>
 
-				<fieldset class="fileUpload">
+				<p>If the reference isn't publicly available, please upload a copy:</p>
 
-					<p>If the reference isn't publicly available, please upload a copy:</p>
-
-					<input type="file" name="pbdIdReferenceAttachment" (change)="selectFile($event)">
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
-						</div>
-					</div>
-
-				</fieldset>
-
+				<app-file-upload
+						[proposalId]="proposalForm.controls['proposalId'].value"
+						attachmentType="organismReferenceAttachment"
+						(uploaded)='getFiles($event)'>
+				</app-file-upload>
 
 				<mat-form-field>
 					<p>Does the protein have any co-factors or ligands required for crystallization?
@@ -358,20 +334,13 @@
 						          rows="4" cols="40"></textarea>
 					</mat-form-field>
 
-					<fieldset class="fileUpload">
+					<p>Please attach a reference or protocol of culture conditions and media composition:</p>
 
-						<p>Please attach a reference or protocol of culture conditions and media composition:</p>
-
-						<input type="file" name="organismReferenceAttachment" (change)="selectFile($event)">
-						<div *ngIf="currentFileUpload" class="progress">
-							<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-							     attr.aria-valuenow="{{progress.percentage}}"
-							     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-								{{progress.percentage}}%
-							</div>
-						</div>
-
-					</fieldset>
+					<app-file-upload
+							[proposalId]="proposalForm.controls['proposalId'].value"
+							attachmentType="organismReferenceAttachment"
+							(uploaded)='getFiles($event)'>
+					</app-file-upload>
 
 					<mat-form-field>
 						<input matInput formControlName="amountNeeded"
@@ -505,19 +474,13 @@
 						<mat-radio-button value="no">No</mat-radio-button>
 					</mat-radio-group>
 
-					<fieldset class="fileUpload">
+					<p>If “yes”, please attach reference or protocol</p>
 
-						<p>If “yes”, please attach reference or protocol</p>
-						<input type="file" name="needsPurificationSupportAttachment" (change)="selectFile($event)">
-						<div *ngIf="currentFileUpload" class="progress">
-							<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-							     attr.aria-valuenow="{{progress.percentage}}"
-							     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-								{{progress.percentage}}%
-							</div>
-						</div>
-
-					</fieldset>
+					<app-file-upload
+							[proposalId]="proposalForm.controls['proposalId'].value"
+							attachmentType="needsPurificationSupportAttachment"
+							(uploaded)='getFiles($event)'>
+					</app-file-upload>
 
 					<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
 						<p>Has expression been done for the unlabeled protein?</p>
@@ -609,21 +572,13 @@
 				          rows="5" cols="40"></textarea>
 				</mat-form-field>
 
+				<p>Attach chemical structure</p>
 
-				<fieldset class="fileUpload">
-
-					<p>Attach chemical structure</p>
-
-					<input type="file" name="chemicalStructureAttachment" (change)="selectFile($event)">
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
-						</div>
-					</div>
-
-				</fieldset>
+				<app-file-upload
+						[proposalId]="proposalForm.controls['proposalId'].value"
+						attachmentType="chemicalStructureAttachment"
+						(uploaded)='getFiles($event)'>
+				</app-file-upload>
 
 				<mat-radio-group formControlName="hasPreparedMolecule">
 					<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
@@ -632,27 +587,14 @@
 					<mat-radio-button value="no">No</mat-radio-button>
 				</mat-radio-group>
 
-				<fieldset class="fileUpload">
 
-					<p>If yes, please provide a protocol:</p>
+				<p>If yes, please provide a protocol:</p>
 
-					<input type="file" name="moleculePreparationReferenceArticle" (change)="selectFile($event)">
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
-						</div>
-					</div>
-
-				</fieldset>
-
-				<fieldset class="fileUpload">
-
-					<p>If yes, please provide a protocol:</p>
-
-				</fieldset>
-
+				<app-file-upload
+						[proposalId]="proposalForm.controls['proposalId'].value"
+						attachmentType="moleculePreparationReferenceArticle"
+						(uploaded)='getFiles($event)'>
+				</app-file-upload>
 
 				<mat-action-row>
 					<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
@@ -666,45 +608,79 @@
 
 		<mat-tab label="5. Review and submit">
 			<mat-card>
-				<h4>Upload proposal</h4>
-				<p>
-					Proposals should be written in English, properly referenced, and prepared in the <a download
-					                                                                                    href="/word/attachment">Word
-					template</a>.<br>
-					Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
-					Consideration, References, Figures/Tables)
-				</p>
 
-				<fieldset class="fileUpload">
+				<mat-card>
+					<h4>Upload deuteration/crystallization proposal</h4>
+					<p>
+						Proposals should be written in English, properly referenced, and prepared in the Word template.
+						Please keep to the 2 page limit, including Summary, Background (Science Case, Practical Consideration, References, Figures/Tables)
+					</p>
+					<app-file-upload
+							[proposalId]="proposalForm.controls['proposalId'].value"
+							attachmentType="proposalTemplate"
+							(uploaded)='getFiles($event)'>
+					</app-file-upload>
+				</mat-card>
 
-					<p>If yes, please provide a protocol:</p>
+				<mat-card>
+					<h4>Upload (draft) beamtime proposal</h4>
+					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
+					<app-file-upload
+							[proposalId]="proposalForm.controls['proposalId'].value"
+							attachmentType="needByDateAttachment"
+							(uploaded)='getFiles($event)'>
+					</app-file-upload>
+				</mat-card>
 
-					<input type="file" name="proposalTemplate" (change)="selectFile($event)">
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
+
+				<table class="table table-hover table-success">
+					<thead>
+					<tr>
+						<th scope="col">Attachment type</th>
+						<th scope="col">Uploaded file</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+					</thead>
+
+					<tbody *ngIf="!isLoading">
+					<tr *ngFor="let file of fileUploads | async" class="file">
+						<th scope="row">
+							{{file.attachmentType}}
+						</th>
+						<td>
+							<a href="/api/admin/file/download/{{file.originalname}}">
+								<img src="../../../assets/logos/pdf.png" width="50" alt="{{file.originalname}}">
+								{{file.originalname}}
+							</a>
+						</td>
+						<td>
+						</td>
+						<td>
+							<a mat-stroked-button class="btn btn-success btn-sm"
+							   href="/api/admin/file/download/{{file.originalname}}">
+								<mat-icon>get_app</mat-icon>
+								Download</a>
+						</td>
+						<td>
+							<button mat-stroked-button
+							        class="btn btn-danger btn-sm"
+							        (click)="delete(file.originalname, file.attachmentType)">
+								<mat-icon>delete</mat-icon>
+								Delete
+							</button>
+						</td>
+					</tr>
+					</tbody>
+
+					<div *ngIf="isLoading" style="text-align: center;">
+						<div class="lds-ripple">
+							<div></div>
+							<div></div>
 						</div>
 					</div>
-
-				</fieldset>
-
-				<h4>Attached documents</h4>
-
-				<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-
-					<div *ngFor="let file of fileUploads | async" style="text-align: center; max-width: 100px;">
-						<a href="{{file}}">
-							<figure>
-								<img mat-card-sm-image src="../../../assets/logos/pdf.png" width="50px">
-								<figcaption>
-									<small>{{file}}</small>
-								</figcaption>
-							</figure>
-						</a>
-					</div>
-				</div>
+				</table>
 
 				<mat-action-row>
 					<a download mat-raised-button class="btn btn-danger btn-lg"

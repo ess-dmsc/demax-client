@@ -1,16 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpEvent,
-    HttpEventType,
-    HttpHeaders,
-    HttpRequest
-} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Proposal} from '../models/proposal';
 import {APP_CONFIG, AppConfig} from "../app-config.module";
-import {catchError, last, map, tap} from "rxjs/operators";
 import {AuthService} from "./auth.service";
 import { User } from "../models/user";
 
