@@ -155,20 +155,6 @@
 
 				</mat-form-field>
 
-				<fieldset class="fileUpload">
-
-					<p>Attach a copy of the beamtime proposal, draft or intended submission:</p>
-
-					<input type="file" name="needByDateAttachment" (change)="selectFile($event)">
-					<div *ngIf="currentFileUpload" class="progress">
-						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
-						     attr.aria-valuenow="{{progress.percentage}}"
-						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-							{{progress.percentage}}%
-						</div>
-					</div>
-
-				</fieldset>
 
 
 				<mat-form-field>
@@ -681,6 +667,21 @@
 					<p>If yes, please provide a protocol:</p>
 
 					<input type="file" name="proposalTemplate" (change)="selectFile($event)">
+					<div *ngIf="currentFileUpload" class="progress">
+						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
+						     attr.aria-valuenow="{{progress.percentage}}"
+						     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+							{{progress.percentage}}%
+						</div>
+					</div>
+
+				</fieldset>
+
+				<fieldset class="fileUpload">
+
+					<p>Attach a copy of the beamtime proposal, draft or intended submission:</p>
+
+					<input type="file" name="needByDateAttachment" (change)="selectFile($event)">
 					<div *ngIf="currentFileUpload" class="progress">
 						<div class="progress-bar progress-bar-info progress-bar-animated" role="progressbar"
 						     attr.aria-valuenow="{{progress.percentage}}"
