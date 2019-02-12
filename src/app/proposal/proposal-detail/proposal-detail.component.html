@@ -653,7 +653,7 @@
 
 		<mat-tab label="5. Review and submit">
 			<mat-card>
-				<h4>Upload proposal</h4>
+				<h4>Upload deuteration/crystallization proposal</h4>
 				<p>
 					Proposals should be written in English, properly referenced, and prepared in the <a download
 					                                                                                    href="/word/attachment">Word
@@ -664,7 +664,6 @@
 
 				<fieldset class="fileUpload">
 
-					<p>If yes, please provide a protocol:</p>
 
 					<input type="file" name="proposalTemplate" (change)="selectFile($event)">
 					<div *ngIf="currentFileUpload" class="progress">
@@ -677,6 +676,7 @@
 
 				</fieldset>
 
+				<h4>Upload (draft) beamtime proposal</h4>
 				<fieldset class="fileUpload">
 
 					<p>Attach a copy of the beamtime proposal, draft or intended submission:</p>
