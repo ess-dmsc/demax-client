@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
-import { UploadFileService } from "../upload-file.service";
+import { FileService } from "../file.service";
 import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({
@@ -9,6 +9,7 @@ import { MessageComponent } from "../../shared/message/message.component";
 	styleUrls: [ './file-list.component.css' ]
 })
 export class FileListComponent implements OnInit {
+
 	@Input() proposalId: string;
 
 	isLoading = false;
@@ -16,28 +17,31 @@ export class FileListComponent implements OnInit {
 
 	progress: { percentage: number } = {percentage: 0};
 
-	constructor(private uploadService: UploadFileService, public message: MessageComponent) {
+	constructor(private fileService: FileService, public message: MessageComponent) {
 	}
-
+/*
 	ngOnInit() {
-		this.fileUploads = this.uploadService.getFiles();
+		this.fileUploads = this.fileService.getFiles();
 	}
 
-	getFiles(uploaded){
-		this.fileUploads = this.uploadService.getFiles();
+	getFiles(uploaded) {
+		this.fileUploads = this.fileService.getFiles();
 	}
 
 	delete(filename: string) {
 		this.isLoading = true;
-		this.uploadService.deleteFile(filename).subscribe(
+		this.fileService.deleteFile().subscribe(
 			() => {
-				this.fileUploads = this.uploadService.getFiles();
+				this.fileUploads = this.fileService.getFiles();
 			}, error => {
 				console.log(error)
 			}
 		);
 		this.isLoading = false;
 	}
+*/
 
+	ngOnInit() {
+	}
 }
 

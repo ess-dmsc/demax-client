@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ProposalService } from '../../services/proposal.service';
+import { ProposalService } from '../proposal.service';
 import { Proposal } from '../../models/proposal';
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../user/auth.service";
 
 import { AppConfig } from "../../app-config.module";
 import { APP_CONFIG } from "../../app-config.module";

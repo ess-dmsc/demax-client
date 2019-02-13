@@ -12,13 +12,13 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ImprintComponent } from './imprint/imprint.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
-import { HttpErrorHandler } from './services/http-error-handler.service';
-import { ApiInterceptor } from './services/api-interceptor';
+import { HttpErrorHandler } from './shared/http-error-handler.service';
+import { ApiInterceptor } from './user/api-interceptor';
 import { SharedModule } from "./shared/shared.module";
 import { ProposalModule } from "./proposal/proposal.module";
 import { UserModule } from "./user/user.module";
-import { FileListComponent } from './file/file-list/file-list.component';
-import { FileDetailComponent } from './file/file-detail/file-detail.component';
+import { FileModule } from "./file/file.module";
+import { AdminModule } from "./admin/admin.module";
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -29,16 +29,16 @@ export function tokenGetter() {
 		AppComponent,
 		ImprintComponent,
 		HomeComponent,
-		ContactComponent,
-		FileListComponent,
-		FileDetailComponent
+		ContactComponent
 	],
 	imports: [
+		AdminModule,
 		AppConfigModule,
 		AppRoutingModule,
 		BrowserModule,
 		BrowserAnimationsModule,
 		CommonModule,
+		FileModule,
 		FormsModule,
 		HttpClientModule,
 		JwtModule.forRoot({

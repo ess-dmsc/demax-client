@@ -1,11 +1,11 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Proposal } from "../../models/proposal";
-import { ProposalService } from "../../services/proposal.service";
-import { AuthService } from "../../services/auth.service";
+import { ProposalService } from "../proposal.service";
+import { AuthService } from "../../user/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MessageComponent } from "../../shared/message/message.component";
-import { FileService } from "../../services/file.service";
+import { FileService } from "../../file/file.service";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 import { Observable } from "rxjs";
 import { HttpEventType, HttpResponse } from "@angular/common/http";
@@ -28,7 +28,6 @@ export class ProposalDetailComponent implements OnInit {
 	isCreating = false;
 
 	currentProposalId: string;
-	currentFileName: string;
 
 	crystallization = false;
 	proteinDeuteration = false;

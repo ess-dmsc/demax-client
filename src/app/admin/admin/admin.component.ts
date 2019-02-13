@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from "../../models/user";
 import { Proposal } from "../../models/proposal";
-import { AuthService } from "../../services/auth.service";
-import { UserService } from "../../services/user.service";
-import { ProposalService } from "../../services/proposal.service";
+import { AuthService } from "../../user/auth.service";
+import { UserService } from "../../user/user.service";
+import { ProposalService } from "../../proposal/proposal.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: [ './admin.component.css']
+	selector: 'app-admin',
+	templateUrl: './admin.component.html',
+	styleUrls: [ './admin.component.css' ]
 })
 export class AdminComponent implements OnInit {
 
@@ -47,6 +47,12 @@ export class AdminComponent implements OnInit {
 			error => console.log(error),
 			() => this.isLoading = false
 		);
+	}
+
+	editUser(user: User) {
+		this.userService.editUser(user).subscribe(
+			() => this.getUsers()
+		)
 	}
 
 	deleteUser(user: User) {

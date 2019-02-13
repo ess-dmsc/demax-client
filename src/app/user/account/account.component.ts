@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { FormBuilder } from '@angular/forms';
-import { UserService } from '../../services/user.service';
-import { AuthService } from '../../services/auth.service';
+import { UserService } from '../user.service';
+import { AuthService } from '../auth.service';
 import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({

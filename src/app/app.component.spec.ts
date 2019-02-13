@@ -3,7 +3,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
 import { MaterialModule } from "./external/material.module";
 import { APP_CONFIG, APP_DI_CONFIG } from "./app-config.module";
-import { AuthService } from "./services/auth.service";
+import { AuthService } from "./user/auth.service";
 import { RegisterComponent } from "./user/register/register.component";
 import { LoginComponent } from "./user/login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";

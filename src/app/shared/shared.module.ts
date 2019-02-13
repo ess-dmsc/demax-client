@@ -7,6 +7,7 @@ import { MaterialModule } from "../external/material.module";
 import { MessageComponent } from './message/message.component';
 import { LoadingComponent } from './loading/loading.component';
 import { RouterModule } from "@angular/router";
+import { MessageService } from "./message.service";
 
 @NgModule({
 	imports: [

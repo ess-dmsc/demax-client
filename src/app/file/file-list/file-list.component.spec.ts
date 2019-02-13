@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FileListComponent } from './file-list.component';
+import { SharedModule } from "../../shared/shared.module";
 
 describe('FileListComponent', () => {
   let component: FileListComponent;
@@ -8,6 +8,7 @@ describe('FileListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+	    imports: [SharedModule],
       declarations: [ FileListComponent ]
     })
     .compileComponents();

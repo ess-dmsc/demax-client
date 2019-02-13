@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpEvent, HttpRequest } from "@angular/common/http";
+import { Observable } from "rxjs";
 import { Attachment } from "../models/attachment";
 
 @Injectable({
 	providedIn: 'root'
 })
-export class UploadFileService {
-
+export class FileAdminService {
 	constructor(private http: HttpClient) {
 	}
 

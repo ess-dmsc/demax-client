@@ -1,10 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from "rxjs";
-import { UploadFileService } from "../upload-file.service";
 import { HttpEventType, HttpResponse } from "@angular/common/http";
+import { FileService } from "../file.service";
 import { MessageComponent } from "../../shared/message/message.component";
-import { FileService } from "../../services/file.service";
-import { Proposal } from "../../models/proposal";
 
 @Component({
 	selector: 'app-file-upload',
@@ -21,8 +18,9 @@ export class FileUploadComponent implements OnInit {
 
 	progress: { percentage: number } = {percentage: 0};
 
-	constructor(private uploadService: UploadFileService, public message: MessageComponent,
-	            private fileService: FileService
+	constructor(
+		public message: MessageComponent,
+		private fileService: FileService
 	) {
 	}
 
