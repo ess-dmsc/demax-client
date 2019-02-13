@@ -1,17 +1,23 @@
-<section>
-	<div class="card">
-			<form [formGroup]="loginForm" (ngSubmit)="login()">
-				<mat-form-field class="input-group" [ngClass]="setClassEmail()">
-					<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus>
-				</mat-form-field>
-				<mat-form-field class="input-group" [ngClass]="setClassPassword()">
-					<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
-					<mat-hint>If you forget your password, please email <a ng-href="mailto:demax@esss.se">demax@esss.se</a></mat-hint>
-				</mat-form-field>
-				<fieldset>
-					<button mat-raised-button color="primary" [disabled]="!loginForm.valid" type="submit">Login</button>
-				</fieldset>
-			</form>
-		<app-message [message]="message.message"></app-message>
-	</div>
-</section>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+	<mat-card>
+	<mat-form-field class="input-group" [ngClass]="setClassEmail()">
+		<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus>
+	</mat-form-field>
+	<mat-form-field class="input-group" [ngClass]="setClassPassword()">
+		<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
+		<mat-hint>If you forget your password, please email <a ng-href="mailto:demax@esss.se">demax@esss.se</a>
+		</mat-hint>
+	</mat-form-field>
+
+		<mat-card-actions style="padding: 1rem;">
+			<button mat-raised-button
+			class="mat-elevation-z5"
+			color="primary" style="width: 150px; margin-top: 2rem;"
+			[disabled]="!loginForm.valid" type="submit">
+			Login
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</form>
+
+<app-message [message]="message.message"></app-message>

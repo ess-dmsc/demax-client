@@ -1,45 +1,45 @@
-<section>
-	<div class="card">
-		<form [formGroup]="registerForm" (ngSubmit)="register()">
-			<mat-form-field style="width: 40%;">
-				<input matInput required type="text" name="firstName" formControlName="firstName" placeholder="First name"
-				       autofocus>
-			</mat-form-field>
-			<mat-form-field style="width: 40%;">
-				<input matInput required ype="text" name="lastName" formControlName="lastName" placeholder="Last name">
-			</mat-form-field>
-			<mat-form-field style="width: 40%;">
-				<input matInput required type="email" name="email" formControlName="email" placeholder="Email">
-			</mat-form-field>
-			<mat-form-field style="width: 40%;">
-				<input matInput required type="text" name="phone" formControlName="phone" placeholder="Phone">
-			</mat-form-field>
-			<mat-form-field style="width: 80%;">
-				<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
-				<mat-hint>Please use password with min. 8 letter mixture of upper/lower case and numbers</mat-hint>
-			</mat-form-field>
-			<mat-form-field style="width: 40%;">
-				<input matInput required type="text" name="employer" formControlName="employer" placeholder="Affiliation">
-			</mat-form-field>
-			<mat-form-field style="width: 40%;">
-				<input matInput required type="text" name="jobTitle" formControlName="jobTitle" placeholder="Job title">
-			</mat-form-field>
-			<mat-checkbox required formControlName="hasConsentedToEmails">
-				Receive mails and updates about your proposal process from DEMAX by email.
-				<br>You can change this setting
-				whenever you want. 
-			</mat-checkbox>
-			<mat-checkbox required formControlName="hasConsentedToGdpr">
-				I confirm that I have read, consent and agree to the <br>DEMAX <a
-					href="">Privacy
-				Statement</a>
-			</mat-checkbox>
-			<app-message [message]="message.message"></app-message>
-			<mat-action-row>
-				<button mat-raised-button [disabled]="!registerForm.valid" color="primary" type="submit">Register
-				</button>
-			</mat-action-row>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+	<mat-card>
+		<mat-form-field>
+			<input matInput required type="text" name="firstName" formControlName="firstName" placeholder="First name"
+			       autofocus>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput required type="text" name="lastName" formControlName="lastName" placeholder="Last name">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput required type="email" name="email" formControlName="email" placeholder="Email">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput required type="text" name="phone" formControlName="phone" placeholder="Phone">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput required type="text" name="employer" formControlName="employer" placeholder="Affiliation">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput required type="text" name="jobTitle" formControlName="jobTitle" placeholder="Job title">
+		</mat-form-field>
+		<mat-form-field style="width: 100%; margin-bottom: 1rem;">
+			<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
+			<mat-hint>Please use password with min. 8 letter mixture of upper/lower case and numbers</mat-hint>
+		</mat-form-field>
 
-		</form>
-	</div>
-</section>
+	<mat-checkbox required formControlName="hasConsentedToEmails">
+		Receive updates about your proposal process from DEMAX through email.
+		<br>
+		You can change this setting whenever you want.
+	</mat-checkbox>
+	<mat-checkbox required formControlName="hasConsentedToGdpr">
+		I confirm that I have read, consent and agree to the DEMAX <a
+			href="">Privacy
+		Statement</a>
+	</mat-checkbox>
+	<app-message [message]="message.message"></app-message>
+		<mat-card-actions style="padding: 1rem;">
+			<button mat-raised-button [disabled]="!registerForm.valid" color="primary" class="mat-elevation-z5"
+			        style="width: 150px;" type="submit">
+				Register
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</form>

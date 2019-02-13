@@ -1,17 +1,3 @@
-mat-form-field {
-	width: 70%;
-	display: block;
-}
-.card{
-	background-color: white;
-	border-radius: 1rem;
-	padding: 2rem;
-	margin: 0 auto;
-}
-
-button{
-	width: 30%;
-}
-fieldset{
-	text-align: left;
+mat-form-field{
+	width: 80%;
 }

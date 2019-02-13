@@ -1,19 +1,17 @@
-mat-form-field {
-	width: 60%;
+mat-form-field{
+	margin: 0;
+	padding: 0;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 1.3rem;
+	width: 50%;
 }
-.card{
-	background-color: white;
-	border-radius: 1rem;
-	padding: 2rem;
-	margin: 0 auto;
+mat-checkbox{
+	font-family: "Titillium Web", sans-serif;
+	font-size: 1.1rem;
+	font-weight: lighter;
+	max-width: 50%;
 }
 
 button{
-	width: 30%;
-}
-fieldset{
-	text-align: left;
-}
-mat-checkbox{
-	font-size: 1.3rem;
+	display: block;
 }

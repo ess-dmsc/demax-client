@@ -91,20 +91,3 @@ div.content {
 		float: none;
 	}
 }
-
-.login-background {
-	width: 100vh;
-	height: 100vh;
-	display: flex;
-	justify-content: space-around;}
-
-mat-tab-group {
-	width: 600px;
-	position: fixed;
-	margin: 20vh 20vh 20vh 20vh;
-	background-color: white;
-	opacity: 0.9;
-	border: solid lightgray 1px;
-	border-radius: 1rem;
-	box-shadow: 5px 4px 5px lightgray;
-}
