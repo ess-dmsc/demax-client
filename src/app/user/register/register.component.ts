@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 			employer: this.employer,
 			jobTitle: this.jobTitle,
 			hasConsentedToGdpr: this.hasConstentedToGdpr,
-			hasConsentedToEmails: this.hasConstentedToEmails
+			hasConsentedToEmails: this.hasConstentedToEmails,
 		});
 	}
 
