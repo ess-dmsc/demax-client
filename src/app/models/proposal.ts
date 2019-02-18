@@ -58,6 +58,7 @@ export class Proposal {
 		organismProvidedByUser?: string;
 		organismDetails?: string;
 		amountNeeded?: string;
+		stateOfMaterial?: string;
 		amountNeededMotivation?: string;
 		deuterationLevelRequired?: string;
 		deuterationLevelMotivation?: string

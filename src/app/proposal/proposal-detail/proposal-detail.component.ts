@@ -115,9 +115,10 @@ export class ProposalDetailComponent implements OnInit {
 				organismDetails: [ '' ],
 				amountNeeded: [ '' ],
 				stateOfMaterial: [ '' ],
-				amountOfMaterialMotivation: [ '' ],
+				amountNeededMotivation: [ '' ],
 				deuterationLevelRequired: [ '' ],
-				deuterationLevelMotivation: [ '' ]
+				deuterationLevelMotivation: [ '' ],
+				other: ['']
 			}),
 			proteinDeuteration: this.formBuilder.group({
 				moleculeName: [ '' ],
