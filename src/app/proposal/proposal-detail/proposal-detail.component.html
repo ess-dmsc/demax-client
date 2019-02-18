@@ -17,17 +17,6 @@
 
 				Proposal ID: {{this.proposalForm.controls['proposalId'].value}}
 
-				<p>In the next sections you will fill out the applicable area of support your proposal requires.
-					<br>Select one, or as many as apply, from the alternatives below.</p>
-
-				<mat-checkbox formControlName="wantsCrystallization">Crystallization</mat-checkbox>
-				<mat-checkbox formControlName="wantsBiologicalDeuteration">
-					Biological deuteration
-				</mat-checkbox>
-				<mat-checkbox formControlName="wantsChemicalDeuteration">
-					Chemical deuteration
-				</mat-checkbox>
-
 				<mat-form-field>
 					<textarea matInput
 					          required
@@ -162,6 +151,13 @@
 					          rows="4" cols="40"></textarea>
 				</mat-form-field>
 
+				<p>In the next sections you will fill out the applicable area of support your proposal requires.
+					<br>Select one, or as many as apply, from the alternatives below.</p>
+
+				<mat-checkbox formControlName="wantsCrystallization">Crystallization</mat-checkbox>
+				<mat-checkbox formControlName="wantsBiologicalDeuteration">Biological deuteration</mat-checkbox>
+				<mat-checkbox formControlName="wantsChemicalDeuteration">Chemical deuteration</mat-checkbox>
+
 
 				<mat-action-row>
 					<button mat-raised-button color="primary" type="submit">Save</button>
@@ -170,8 +166,13 @@
 
 			</mat-card>
 		</mat-tab>
-		<mat-tab label="2. Crystallization" formGroupName="crystallization">
-			<mat-card>
+		<mat-tab label="2. Crystallization">
+
+			<mat-checkbox formControlName="wantsCrystallization" [(ngModel)]="proposal.wantsCrystallization">Check to
+				select: Crystallization
+			</mat-checkbox>
+
+			<mat-card formGroupName="crystallization" *ngIf="proposal.wantsCrystallization">
 
 				<p>Required information to include in the “Practical Considerations” section of your
 					proposal:</p>
@@ -294,18 +295,23 @@
 
 		</mat-tab>
 		<mat-tab label="3. Biological deuteration">
-
-			<mat-card>
+			<mat-checkbox formControlName="wantsBiologicalDeuteration"
+			              [(ngModel)]="proposal.wantsBiologicalDeuteration">
+				Check to select: Biological deuteration
+			</mat-checkbox>
+			<mat-card *ngIf="proposal.wantsBiologicalDeuteration">
 
 				<p>If the protein is to be purified by us, please remember to include a chromatogram from
 					purification and a picture of SDS-PAGE that indicates MW and purity in your science case.</p>
 
 				<p>Select one, or as many as apply, from the alternatives below.</p>
 
-				<mat-checkbox formControlName="wantsBiomassDeuteration">Biomass
+				<mat-checkbox formControlName="wantsBiomassDeuteration" [(ngModel)]="proposal.wantsBiomassDeuteration">
+					Biomass
 					<small>(yeast)</small>
 				</mat-checkbox>
-				<mat-checkbox formControlName="wantsProteinDeuteration">Protein <em>
+				<mat-checkbox formControlName="wantsProteinDeuteration" [(ngModel)]="proposal.wantsProteinDeuteration">
+					Protein <em>
 					<small>(E. coli)</small>
 				</em>
 				</mat-checkbox>
@@ -317,196 +323,200 @@
 					       placeholder="If other - please explain:">
 				</mat-form-field>
 
-				<mat-expansion-panel formGroupName="biomassDeuteration">
+				<mat-accordion multi="false">
 
-					<mat-expansion-panel-header><h4>For biomass</h4></mat-expansion-panel-header>
+					<mat-expansion-panel formGroupName="biomassDeuteration" [disabled]="!proposal.wantsBiomassDeuteration" [expanded]="proposal.wantsBiomassDeuteration">
 
-					<mat-radio-group formControlName="organismProvidedByUser">
-						<p> Will user provide the organism for us to grow under deuterated conditions?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
+						<mat-expansion-panel-header><h4>For biomass</h4></mat-expansion-panel-header>
 
-					<mat-form-field>
+						<mat-radio-group formControlName="organismProvidedByUser">
+							<p> Will user provide the organism for us to grow under deuterated conditions?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+
+						<mat-form-field>
 						<textarea matInput
 						          formControlName="organismDetails"
 						          placeholder="What is the organism?"
 						          rows="4" cols="40"></textarea>
-					</mat-form-field>
+						</mat-form-field>
 
-					<p>Please attach a reference or protocol of culture conditions and media composition:</p>
+						<p>Please attach a reference or protocol of culture conditions and media composition:</p>
 
-					<app-file-upload
-							[proposalId]="proposalForm.controls['proposalId'].value"
-							attachmentType="organismReferenceAttachment"
-							(uploaded)='getFiles($event)'>
-					</app-file-upload>
+						<app-file-upload
+								[proposalId]="proposalForm.controls['proposalId'].value"
+								attachmentType="organismReferenceAttachment"
+								(uploaded)='getFiles($event)'>
+						</app-file-upload>
 
-					<mat-form-field>
-						<input matInput formControlName="amountNeeded"
-						       placeholder="How much material do you need?">
-					</mat-form-field>
-					<mat-form-field>
-						<input matInput formControlName="stateOfMaterial"
-						       placeholder="Indicate wet or dry mass:">
-					</mat-form-field>
-					<mat-form-field>
+						<mat-form-field>
+							<input matInput formControlName="amountNeeded"
+							       placeholder="How much material do you need?">
+						</mat-form-field>
+						<mat-form-field>
+							<input matInput formControlName="stateOfMaterial"
+							       placeholder="Indicate wet or dry mass:">
+						</mat-form-field>
+						<mat-form-field>
 						<textarea matInput
 						          formControlName="amountOfMaterialMotivation"
 						          placeholder="Justify amount:"
 						          rows="4" cols="40"></textarea>
-					</mat-form-field>
+						</mat-form-field>
 
-					<mat-radio-group formControlName="deuterationLevelRequired">
-						<p> Level of deuteration required:</p>
-						<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)
-						</mat-radio-button>
-						<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
-					</mat-radio-group>
+						<mat-radio-group formControlName="deuterationLevelRequired">
+							<p> Level of deuteration required:</p>
+							<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)
+							</mat-radio-button>
+							<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
+						</mat-radio-group>
 
-					<mat-form-field>
+						<mat-form-field>
 						<textarea matInput formControlName="deuterationLevelMotivation"
 						          placeholder="Justify level of D incorporation:"
 						          rows="4" cols="40"></textarea>
-					</mat-form-field>
+						</mat-form-field>
 
-					<mat-action-row>
-						<button mat-raised-button color="primary" type="submit">Save</button>
-					</mat-action-row>
+						<mat-action-row>
+							<button mat-raised-button color="primary" type="submit">Save</button>
+						</mat-action-row>
 
-				</mat-expansion-panel>
+					</mat-expansion-panel>
 
-				<mat-expansion-panel formGroupName="proteinDeuteration">
-					<mat-expansion-panel-header>
-						<mat-panel-title><h4>For proteins</h4></mat-panel-title>
-					</mat-expansion-panel-header>
+					<mat-expansion-panel formGroupName="proteinDeuteration"
+					                     [disabled]="!proposal.wantsProteinDeuteration" [expanded]="proposal.wantsProteinDeuteration">
+						<mat-expansion-panel-header>
+							<mat-panel-title><h4>For proteins</h4></mat-panel-title>
+						</mat-expansion-panel-header>
 
-					<mat-form-field>
-						<p>Name of molecule to be deuterated: <br><em>
-							<small>(e.g. superoxide dismutase)</small>
-						</em></p>
-						<input matInput
-						       formControlName="moleculeName">
-					</mat-form-field>
+						<mat-form-field>
+							<p>Name of molecule to be deuterated: <br><em>
+								<small>(e.g. superoxide dismutase)</small>
+							</em></p>
+							<input matInput
+							       formControlName="moleculeName">
+						</mat-form-field>
 
-					<mat-form-field>
-						<p>FASTA sequence or Uniprot number:</p>
-						<input matInput
-						       formControlName="moleculeIdentifier">
-					</mat-form-field>
+						<mat-form-field>
+							<p>FASTA sequence or Uniprot number:</p>
+							<input matInput
+							       formControlName="moleculeIdentifier">
+						</mat-form-field>
 
-					<mat-form-field>
-						<p>Molecular weight
-							<small>(kDA)</small>
-							:
+						<mat-form-field>
+							<p>Molecular weight
+								<small>(kDA)</small>
+								:
+							</p>
+							<input matInput
+							       formControlName="molecularWeight">
+						</mat-form-field>
+
+						<mat-form-field>
+							<p>Oligomerization state:<br><em>
+								<small>(e.g. homodimer, tetramer etc.)</small>
+							</em></p>
+							<input matInput
+							       formControlName="oligomerizationState">
+						</mat-form-field>
+
+						<mat-form-field>
+							<p>Does the protein have any co-factors or ligands required for expression? Specify:</p>
+							<textarea matInput
+							          formControlName="expressionRequirements"
+							          rows="4" cols="40"></textarea>
+						</mat-form-field>
+
+						<mat-form-field>
+							<p>Origin of molecules:<br><em>
+								<small>(e.g. human, E. coli, S. cerevisiae)</small>
+							</em></p>
+							<input matInput
+							       formControlName="moleculeOrigin">
+						</mat-form-field>
+
+						<mat-radio-group formControlName="expressionPlasmidProvidedByUser">
+							<p>Will you provide an expression plasmid?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+
+						<mat-form-field>
+							<p>If yes, please provide details:<br><em>
+								<small>(e.g. pET31b, C-terminal His-tag, Amp selection)</small>
+							</em></p>
+							<input matInput formControlName="expressionPlasmidProvidedByUserDetails">
+						</mat-form-field>
+
+						<p>
+							If you chose no, we will design & order a plasmid commercially
 						</p>
-						<input matInput
-						       formControlName="molecularWeight">
-					</mat-form-field>
 
-					<mat-form-field>
-						<p>Oligomerization state:<br><em>
-							<small>(e.g. homodimer, tetramer etc.)</small>
-						</em></p>
-						<input matInput
-						       formControlName="oligomerizationState">
-					</mat-form-field>
+						<mat-form-field>
+							<p>How much material do you need?</p>
+							<input matInput formControlName="amountNeeded">
+						</mat-form-field>
 
-					<mat-form-field>
-						<p>Does the protein have any co-factors or ligands required for expression? Specify:</p>
-						<textarea matInput
-						          formControlName="expressionRequirements"
-						          rows="4" cols="40"></textarea>
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>Origin of molecules:<br><em>
-							<small>(e.g. human, E. coli, S. cerevisiae)</small>
-						</em></p>
-						<input matInput
-						       formControlName="moleculeOrigin">
-					</mat-form-field>
-
-					<mat-radio-group formControlName="expressionPlasmidProvidedByUser">
-						<p>Will you provide an expression plasmid?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-
-					<mat-form-field>
-						<p>If yes, please provide details:<br><em>
-							<small>(e.g. pET31b, C-terminal His-tag, Amp selection)</small>
-						</em></p>
-						<input matInput formControlName="expressionPlasmidProvidedByUserDetails">
-					</mat-form-field>
-
-					<p>
-						If you chose no, we will design & order a plasmid commercially
-					</p>
-
-					<mat-form-field>
-						<p>How much material do you need?</p>
-						<input matInput formControlName="amountNeeded">
-					</mat-form-field>
-
-					<mat-form-field>
-						<p>Justify amount:</p>
-						<input matInput formControlName="deuterationLevelMotivation">
-					</mat-form-field>
+						<mat-form-field>
+							<p>Justify amount:</p>
+							<input matInput formControlName="deuterationLevelMotivation">
+						</mat-form-field>
 
 
-					<mat-radio-group formControlName="deuterationLevelRequired">
-						<p>Level of deuteration required:</p>
-						<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
-						<mat-radio-button value="partial65">Partial (65-80% with unlabeled carbon source)
-						</mat-radio-button>
-						<mat-radio-button value="partial25">Partial (25-30% H/D exchange)</mat-radio-button>
-					</mat-radio-group>
+						<mat-radio-group formControlName="deuterationLevelRequired">
+							<p>Level of deuteration required:</p>
+							<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
+							<mat-radio-button value="partial65">Partial (65-80% with unlabeled carbon source)
+							</mat-radio-button>
+							<mat-radio-button value="partial25">Partial (25-30% H/D exchange)</mat-radio-button>
+						</mat-radio-group>
 
-					<mat-form-field>
-						<p>Justify level of D incorporation:</p>
-						<input matInput
-						       formControlName="deuterationLevelMotivation">
-					</mat-form-field>
-					<mat-radio-group formControlName="needsPurificationSupport">
-						<p>Will you need DEMAX to purify the protein from deuterated biomass?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
+						<mat-form-field>
+							<p>Justify level of D incorporation:</p>
+							<input matInput
+							       formControlName="deuterationLevelMotivation">
+						</mat-form-field>
+						<mat-radio-group formControlName="needsPurificationSupport">
+							<p>Will you need DEMAX to purify the protein from deuterated biomass?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
 
-					<p>If “yes”, please attach reference or protocol</p>
+						<p>If “yes”, please attach reference or protocol</p>
 
-					<app-file-upload
-							[proposalId]="proposalForm.controls['proposalId'].value"
-							attachmentType="needsPurificationSupportAttachment"
-							(uploaded)='getFiles($event)'>
-					</app-file-upload>
+						<app-file-upload
+								[proposalId]="proposalForm.controls['proposalId'].value"
+								attachmentType="needsPurificationSupportAttachment"
+								(uploaded)='getFiles($event)'>
+						</app-file-upload>
 
-					<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
-						<p>Has expression been done for the unlabeled protein?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-					<mat-form-field>
-						<input matInput formControlName="typicalYield" placeholder="Typical yield:">
-					</mat-form-field>
-					<mat-radio-group formControlName="hasDoneProteinPurification">
-						<p>Have you been able to purify the unlabeled protein? </p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
-					<mat-radio-group formControlName="hasProteinDeuterationExperience">
-						<p>Have you tried to deuterate the protein yourself, even in small scale?</p>
-						<mat-radio-button value="yes">Yes</mat-radio-button>
-						<mat-radio-button value="no">No</mat-radio-button>
-					</mat-radio-group>
+						<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
+							<p>Has expression been done for the unlabeled protein?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+						<mat-form-field>
+							<input matInput formControlName="typicalYield" placeholder="Typical yield:">
+						</mat-form-field>
+						<mat-radio-group formControlName="hasDoneProteinPurification">
+							<p>Have you been able to purify the unlabeled protein? </p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+						<mat-radio-group formControlName="hasProteinDeuterationExperience">
+							<p>Have you tried to deuterate the protein yourself, even in small scale?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
 
-					<mat-form-field>
-						<p>If yes, what were the results?</p>
-						<input matInput formControlName="proteinDeuterationResults">
-					</mat-form-field>
+						<mat-form-field>
+							<p>If yes, what were the results?</p>
+							<input matInput formControlName="proteinDeuterationResults">
+						</mat-form-field>
 
-				</mat-expansion-panel>
+					</mat-expansion-panel>
+				</mat-accordion>
 
 				<div formGroupName="bioSafety">
 					<h4>Biosafety</h4>
@@ -542,8 +552,13 @@
 				</mat-action-row>
 			</mat-card>
 		</mat-tab>
-		<mat-tab label="4. Chemical deuteration" formGroupName="chemicalDeuteration">
-			<mat-card>
+		<mat-tab label="4. Chemical deuteration">
+
+			<mat-checkbox formControlName="wantsChemicalDeuteration" [(ngModel)]="proposal.wantsChemicalDeuteration">
+				Check to select: Chemical deuteration
+			</mat-checkbox>
+
+			<mat-card formGroupName="chemicalDeuteration" *ngIf="proposal.wantsChemicalDeuteration">
 
 				<mat-form-field>
 					<input matInput required
@@ -611,7 +626,9 @@
 				<mat-card style="margin: 1rem; padding: 1rem;">
 					<h4>Upload deuteration/crystallization proposal</h4>
 					<p>
-						Proposals should be written in English, properly referenced, and prepared in the<a download href="/word/attachment"> Word
+						Proposals should be written in English, properly referenced, and prepared in the<a download
+						                                                                                   href="/word/attachment">
+						Word
 						template</a>.<br>
 						Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
 						Consideration, References, Figures/Tables)

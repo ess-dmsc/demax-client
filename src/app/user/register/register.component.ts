@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
 	register() {
 		this.userService.register(this.registerForm.value).subscribe(
 			res => {
-				this.message.setMessage('you successfully registered!', 'success');
+				this.message.setMessage('Email confirmation sent! Check your email.', 'success');
 			},
 			error => this.message.setMessage('email already exists', 'danger')
 		)
