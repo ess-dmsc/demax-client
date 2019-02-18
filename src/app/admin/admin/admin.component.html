@@ -5,77 +5,12 @@
 
 <mat-tab-group>
 	<mat-tab label="Users">
-		<h4>Registered users: {{users.length}}</h4>
-		<table mat-table [dataSource]="users">
-			<ng-container matColumnDef="firstName">
-				<th mat-header-cell *matHeaderCellDef>First name</th>
-				<td mat-cell *matCellDef="let user"> {{user.firstName}}</td>
-			</ng-container>
-
-			<ng-container matColumnDef="lastName">
-				<th mat-header-cell *matHeaderCellDef>Last name</th>
-				<td mat-cell *matCellDef="let user"> {{user.lastName}}</td>
-			</ng-container>
-			<ng-container matColumnDef="phone">
-				<th mat-header-cell *matHeaderCellDef>Phone</th>
-				<td mat-cell *matCellDef="let user"> {{user.phone}}</td>
-			</ng-container>
-			<ng-container matColumnDef="email">
-				<th mat-header-cell *matHeaderCellDef>Email</th>
-				<td mat-cell *matCellDef="let user"> {{user.email}}</td>
-			</ng-container>
-			<ng-container matColumnDef="role">
-				<th mat-header-cell *matHeaderCellDef>Role</th>
-				<td mat-cell *matCellDef="let user"> {{user.role}}</td>
-			</ng-container>
-
-			<ng-container matColumnDef="options">
-				<th mat-header-cell *matHeaderCellDef> Options</th>
-				<td mat-cell *matCellDef="let user">
-					<button class="btn btn-sm btn-danger" (click)="deleteUser(user)">
-						Delete
-					</button>
-				</td>
-			</ng-container>
-
-			<tr mat-header-row *matHeaderRowDef="displayedUserColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedUserColumns;"></tr>
-		</table>
+	<app-user-admin></app-user-admin>
 	</mat-tab>
 	<mat-tab label="Proposals">
-		<h4>Total number of proposals: {{proposals.length}}</h4>
-		<table mat-table [dataSource]="proposals">
-
-			<ng-container matColumnDef="proposalId">
-				<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
-				<td mat-cell *matCellDef="let proposal"> {{proposal.proposalId}}</td>
-			</ng-container>
-
-			<ng-container matColumnDef="experimentTitle">
-				<th mat-header-cell *matHeaderCellDef> Experiment title</th>
-				<td mat-cell *matCellDef="let proposal"> {{proposal.experimentTitle}}</td>
-			</ng-container>
-
-			<ng-container matColumnDef="options">
-				<th mat-header-cell *matHeaderCellDef> Options</th>
-				<td mat-cell *matCellDef="let proposal">
-					<a href="/api/pdf/{{proposal.proposalId}}">
-						<button class="btn btn-sm btn-success">
-							Download
-						</button>
-					</a>
-					<button class="btn btn-sm btn-danger" (click)="deleteProposal(proposal)">
-						Delete
-					</button>
-				</td>
-			</ng-container>
-
-			<tr mat-header-row *matHeaderRowDef="displayedProposalColumns"></tr>
-			<tr mat-row *matRowDef="let row; columns: displayedProposalColumns;"></tr>
-		</table>
+		<app-proposal-admin></app-proposal-admin>
 	</mat-tab>
 	<mat-tab label="Files">
-		<h4>Uploaded files:</h4>
-	Todo: Attachment-admin-component
+		<app-file-admin></app-file-admin>
 	</mat-tab>
 </mat-tab-group>

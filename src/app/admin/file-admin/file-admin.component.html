@@ -1,1 +1,14 @@
-<p></p>
+<h4>Uploaded files:</h4>
+<tr *ngFor="let file of fileUploads | async" class="file">
+	<th scope="row">
+		{{file}}
+	</th>
+	<td>
+		<button mat-stroked-button
+		        class="btn btn-danger btn-sm"
+		        (click)="delete(file)">
+			<mat-icon>delete</mat-icon>
+			Delete
+		</button>
+	</td>
+</tr>
