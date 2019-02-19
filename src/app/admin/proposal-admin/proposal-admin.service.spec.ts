@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ProposalAdminService } from './proposal-admin.service';
-import { SharedModule } from "../shared/shared.module";
+import { SharedModule } from "../../shared/shared.module";
 
 describe('ProposalAdminService', () => {
   beforeEach(() => TestBed.configureTestingModule({

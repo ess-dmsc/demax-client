@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Attachment } from "../models/attachment";
-import { Proposal } from "../models/proposal";
-import { User } from "../models/user";
+import { Attachment } from "../../models/attachment";
+import { Proposal } from "../../models/proposal";
+import { User } from "../../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,10 @@ export class AdminService {
 			reportProgress: true,
 			responseType: 'text'
 		});
-
+		console.log('test');
 		return this.http.request(req);
 	}
+
 
 	getFiles(): Observable<any> {
 		return this.http.get('/api/admin/file/all');

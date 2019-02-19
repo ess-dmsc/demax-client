@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { FileAdminService } from "./file-admin.service";
-import { SharedModule } from "../shared/shared.module";
+import { SharedModule } from "../../shared/shared.module";
 
 describe('FileAdminService', () => {
 	beforeEach(() => {

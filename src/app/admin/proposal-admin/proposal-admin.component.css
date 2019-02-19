@@ -11,3 +11,7 @@ button {
 table {
 	width: 100%;
 }
+.categories td{
+	padding: 0;
+	margin: 0;
+}

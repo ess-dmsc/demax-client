@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { MessageComponent } from "../../shared/message/message.component";
-import { FileAdminService } from "../file-admin.service";
+import { FileAdminService } from "./file-admin.service";
 
 @Component({
   selector: 'app-file-admin',

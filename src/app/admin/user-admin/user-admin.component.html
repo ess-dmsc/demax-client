@@ -13,6 +13,8 @@
 		<th mat-header-cell *matHeaderCellDef>Phone</th>
 		<td mat-cell *matCellDef="let user"> {{user.phone}}</td>
 	</ng-container>
+
+
 	<ng-container matColumnDef="email">
 		<th mat-header-cell *matHeaderCellDef>Email</th>
 		<td mat-cell *matCellDef="let user"> {{user.email}}</td>
@@ -25,13 +27,35 @@
 	<ng-container matColumnDef="options">
 		<th mat-header-cell *matHeaderCellDef> Options</th>
 		<td mat-cell *matCellDef="let user">
-			<button class="btn btn-sm btn-primary" (click)="editUser(user)">Edit</button>
-			<button class="btn btn-sm btn-danger" (click)="deleteUser(user)">
+			<button class="btn btn-sm btn-primary" (click)="enableEditing(user)" *ngIf="!isEditing">Edit</button>
+
+			<button class="btn btn-sm btn-danger" (click)="deleteUser(user.email)" *ngIf="!isEditing">
 				Delete
 			</button>
+			<form #form="ngForm" (ngSubmit)="editUser(user)" *ngIf="isEditing">
+
+				<mat-form-field>
+					<input matInput [(ngModel)]="user.email" name="user.email" placeholder="Email">
+				</mat-form-field>
+				<br>
+				<mat-form-field>
+					<input matInput [(ngModel)]="user.password" name="user.password" placeholder="Password">
+				</mat-form-field>
+				<br>
+				<mat-form-field>
+					<input matInput [(ngModel)]="user.role" name="user.role" placeholder="Role">
+				</mat-form-field>
+				<br>
+				<button class="btn btn-sm btn-primary mr-2" type="submit" [disabled]="!form.form.valid">
+					<i class="fa fa-floppy-o"></i> Save
+				</button>
+				<button class="btn btn-sm btn-danger" (click)="cancelEditing()">
+					<i class="fa fa-times"></i> Cancel
+				</button>
+			</form>
 		</td>
 	</ng-container>
-
 	<tr mat-header-row *matHeaderRowDef="displayedUserColumns"></tr>
 	<tr mat-row *matRowDef="let row; columns: displayedUserColumns;"></tr>
+
 </table>

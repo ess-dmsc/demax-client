@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Attachment } from "../models/attachment";
+import { Proposal } from "../../models/proposal";
 
 @Injectable({
 	providedIn: 'root'
@@ -25,10 +25,6 @@ export class FileAdminService {
 
 	getFiles(): Observable<any> {
 		return this.http.get('/api/admin/files');
-	}
-
-	getFilesAsObjects(): Observable<Attachment[]> {
-		return this.http.get<Attachment[]>('/api/admin/files/all/object')
 	}
 
 	getFile(filename: string): Observable<any> {
