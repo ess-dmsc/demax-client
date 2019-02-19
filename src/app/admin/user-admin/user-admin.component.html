@@ -1,61 +1,81 @@
-<h4>Registered users: {{users.length}}</h4>
-<table mat-table [dataSource]="users">
-	<ng-container matColumnDef="firstName">
-		<th mat-header-cell *matHeaderCellDef>First name</th>
-		<td mat-cell *matCellDef="let user"> {{user.firstName}}</td>
-	</ng-container>
+<div *ngIf="!isEditing && !isEditingPassword">
+	<h4>Registered users: {{users.length}}</h4>
+	<table mat-table [dataSource]="users">
+		<ng-container matColumnDef="firstName">
+			<th mat-header-cell *matHeaderCellDef>First name</th>
+			<td mat-cell *matCellDef="let user"> {{user.firstName}}</td>
+		</ng-container>
 
-	<ng-container matColumnDef="lastName">
-		<th mat-header-cell *matHeaderCellDef>Last name</th>
-		<td mat-cell *matCellDef="let user"> {{user.lastName}}</td>
-	</ng-container>
-	<ng-container matColumnDef="phone">
-		<th mat-header-cell *matHeaderCellDef>Phone</th>
-		<td mat-cell *matCellDef="let user"> {{user.phone}}</td>
-	</ng-container>
+		<ng-container matColumnDef="lastName">
+			<th mat-header-cell *matHeaderCellDef>Last name</th>
+			<td mat-cell *matCellDef="let user"> {{user.lastName}}</td>
+		</ng-container>
+		<ng-container matColumnDef="phone">
+			<th mat-header-cell *matHeaderCellDef>Phone</th>
+			<td mat-cell *matCellDef="let user"> {{user.phone}}</td>
+		</ng-container>
 
 
-	<ng-container matColumnDef="email">
-		<th mat-header-cell *matHeaderCellDef>Email</th>
-		<td mat-cell *matCellDef="let user"> {{user.email}}</td>
-	</ng-container>
-	<ng-container matColumnDef="role">
-		<th mat-header-cell *matHeaderCellDef>Role</th>
-		<td mat-cell *matCellDef="let user"> {{user.role}}</td>
-	</ng-container>
+		<ng-container matColumnDef="email">
+			<th mat-header-cell *matHeaderCellDef>Email</th>
+			<td mat-cell *matCellDef="let user"> {{user.email}}</td>
+		</ng-container>
+		<ng-container matColumnDef="role">
+			<th mat-header-cell *matHeaderCellDef>Role</th>
+			<td mat-cell *matCellDef="let user"> {{user.role}}</td>
+		</ng-container>
 
-	<ng-container matColumnDef="options">
-		<th mat-header-cell *matHeaderCellDef> Options</th>
-		<td mat-cell *matCellDef="let user">
-			<button class="btn btn-sm btn-primary" (click)="enableEditing(user)" *ngIf="!isEditing">Edit</button>
+		<ng-container matColumnDef="options">
+			<th mat-header-cell *matHeaderCellDef> Options</th>
+			<td mat-cell *matCellDef="let user">
+				<button class="btn btn-sm btn-success" (click)="enablePasswordEditing(user)">Change password</button>
 
-			<button class="btn btn-sm btn-danger" (click)="deleteUser(user.email)" *ngIf="!isEditing">
-				Delete
+				<button class="btn btn-sm btn-primary" (click)="enableEditing(user)">Edit</button>
+
+				<button class="btn btn-sm btn-danger" (click)="deleteUser(user.email)">
+					Delete
+				</button>
+			</td>
+		</ng-container>
+		<tr mat-header-row *matHeaderRowDef="displayedUserColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedUserColumns;"></tr>
+	</table>
+</div>
+<mat-card *ngIf="isEditingPassword">
+	<form #form="ngForm" (ngSubmit)="editPassword(user)" *ngIf="isEditingPassword">
+		<mat-form-field>
+			<input matInput name="password" [(ngModel)]="user.password" placeholder="password">
+		</mat-form-field>
+		<button class="btn btn-sm btn-primary" (click)="editPassword(user)">Update password</button>
+
+		<button class="btn btn-sm btn-danger" (click)="cancelPasswordEditing()">
+			Cancel
+		</button>
+	</form>
+</mat-card>
+
+<mat-card *ngIf="isEditing">
+	<mat-card-title>Editing user {{user.email}}</mat-card-title>
+	<form #form="ngForm" (ngSubmit)="editUser(user)" *ngIf="isEditing">
+		<mat-card-content>
+
+			<mat-form-field>
+				<input matInput [(ngModel)]="user.email" name="user.email" placeholder="Email">
+			</mat-form-field>
+			<br>
+			<mat-form-field>
+				<input matInput [(ngModel)]="user.role" name="user.role" placeholder="Role">
+			</mat-form-field>
+			<br>
+		</mat-card-content>
+		<mat-card-actions>
+			<button class="btn btn-sm btn-primary mr-2" type="submit" [disabled]="!form.form.valid">
+				<i class="fa fa-floppy-o"></i> Save
 			</button>
-			<form #form="ngForm" (ngSubmit)="editUser(user)" *ngIf="isEditing">
+			<button class="btn btn-sm btn-danger" (click)="cancelEditing()">
+				<i class="fa fa-times"></i> Cancel
+			</button>
+		</mat-card-actions>
+	</form>
 
-				<mat-form-field>
-					<input matInput [(ngModel)]="user.email" name="user.email" placeholder="Email">
-				</mat-form-field>
-				<br>
-				<mat-form-field>
-					<input matInput [(ngModel)]="user.password" name="user.password" placeholder="Password">
-				</mat-form-field>
-				<br>
-				<mat-form-field>
-					<input matInput [(ngModel)]="user.role" name="user.role" placeholder="Role">
-				</mat-form-field>
-				<br>
-				<button class="btn btn-sm btn-primary mr-2" type="submit" [disabled]="!form.form.valid">
-					<i class="fa fa-floppy-o"></i> Save
-				</button>
-				<button class="btn btn-sm btn-danger" (click)="cancelEditing()">
-					<i class="fa fa-times"></i> Cancel
-				</button>
-			</form>
-		</td>
-	</ng-container>
-	<tr mat-header-row *matHeaderRowDef="displayedUserColumns"></tr>
-	<tr mat-row *matRowDef="let row; columns: displayedUserColumns;"></tr>
-
-</table>
+</mat-card>

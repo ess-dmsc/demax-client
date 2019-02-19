@@ -13,6 +13,7 @@ export class UserAdminComponent implements OnInit {
 
 	isLoading = true;
 	isEditing = false;
+	isEditingPassword = false;
 
 	user = new User();
 	users: User[] = [];
@@ -20,8 +21,10 @@ export class UserAdminComponent implements OnInit {
 
 	editUserForm: FormGroup;
 	email = new FormControl('', Validators.required);
-	password = new FormControl('', Validators.required);
 	role = new FormControl('', Validators.required);
+
+	editPasswordForm: FormGroup;
+	password = new FormControl('', Validators.required);
 
 	constructor(private userAdminService: UserAdminService, private formBuilder: FormBuilder) { }
 
@@ -29,9 +32,11 @@ export class UserAdminComponent implements OnInit {
 	  this.getUsers();
 	  this.editUserForm = this.formBuilder.group({
 		  email: this.email,
-		  password: this.password,
 		  role: this.role
-	  })
+	  });
+	  this.editPasswordForm = this.formBuilder.group({
+		  password: this.password
+	  });
   }
 
 	getUsers() {
@@ -50,7 +55,24 @@ export class UserAdminComponent implements OnInit {
 				this.getUsers()}
 		)
 	}
-
+	editPassword(user: User){
+		this.userAdminService.editPassword(user).subscribe(
+			()=>{
+				this.isEditingPassword = false;
+				this.user = user;
+				this.getUsers();
+			}
+		)
+	}
+	enablePasswordEditing(user: User){
+		this.isEditingPassword = true;
+		this.user = user;
+	}
+	cancelPasswordEditing(){
+		this.isEditingPassword = false;
+		this.user = new User();
+		this.getUsers();
+	}
 	enableEditing(user: User) {
 		this.isEditing = true;
 		this.user = user;
