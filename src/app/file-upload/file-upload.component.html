@@ -1,0 +1,62 @@
+<mat-card>
+	<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+		<mat-card-content>
+			<mat-form-field class="form-field">
+				<mat-label>Select Document Type</mat-label>
+				<mat-select formControlName="type" required>
+					<mat-option label="Beamtime proposal" value="needByDateAttachment">Beamtime proposal</mat-option>
+					<mat-option label="Primary reference(biomass)" value="pbdIdReferenceAttachment">Primary
+						reference(biomass)
+					</mat-option>
+					<mat-option label="Primary reference(proteins)" value="needsPurificationSupportAttachment">Primary
+						reference(proteins)
+					</mat-option>
+					<mat-option label="Chemical structure" value="chemicalStructureAttachment">Chemical structure
+					</mat-option>
+					<mat-option label="Primary reference(chemical)" value="moleculePreparationReferenceArticle">Primary
+						reference(chemical)
+					</mat-option>
+					<mat-option label="DEMAX Proposal" value="proposalTemplate">DEMAX Proposal</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<br>
+			<input formControlName="document" type="file" ng2FileSelect
+			       accept="application/pdf,application/vnd.ms-excel" [uploader]="uploader" multiple/><br/>
+			<br>
+			<div class="drop-zone">
+				<div ng2FileDrop [uploader]="uploader" class="drop-zone">
+					Drag and drop files to upload
+				</div>
+			</div>
+			<table>
+				<thead>
+				<tr>
+					<th width="20%">
+						Document type
+					</th>
+					<th width="70%">
+						File Name
+					</th>
+					<th width="10%">
+						Remove
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr *ngFor="let item of uploader.queue">
+					<th width="90%">
+						{{item.file.name}}({{item.file.size/1000000}} MB)
+					</th>
+					<th class="text-center" width="10%">
+						<mat-icon (click)="item.remove()">delete</mat-icon>
+					</th>
+				</tr>
+				</tbody>
+			</table>
+			<br>
+			<button mat-raised-button color="primary" class="mat-elevation-z5" [disabled]="!uploadForm.valid"
+			        type="submit">Upload file
+			</button>
+		</mat-card-content>
+	</form>
+</mat-card>

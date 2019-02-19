@@ -1,22 +1,18 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FileService } from "../../file.service";
 import { HttpEventType, HttpResponse } from "@angular/common/http";
-import { FileService } from "../file.service";
-import { FileUploader } from "ng2-file-upload";
 
 @Component({
-	selector: 'app-file-upload',
-	templateUrl: './file-upload.component.html',
-	styleUrls: [ './file-upload.component.css' ]
+  selector: 'app-chemical-structure',
+  templateUrl: './chemical-structure.component.html',
+  styleUrls: [ './chemical-structure.component.css']
 })
-export class FileUploadComponent implements OnInit {
-	@Input() attachmentType: string;
+export class ChemicalStructureComponent implements OnInit {
 	@Input() proposalId: string;
 
-	@Output() uploaded = new EventEmitter();
 
 	selectedFiles: FileList;
 	currentFileUpload: File;
-	message = '';
 
 	progress: { percentage: number } = {percentage: 0};
 
@@ -27,23 +23,22 @@ export class FileUploadComponent implements OnInit {
 
 	ngOnInit() {
 		this.progress.percentage = 0;
-		console.log(this.attachmentType)
 	}
 
 
 	selectFile(event) {
 		this.selectedFiles = event.target.files;
+		console.log(event.target.name);
 		this.upload();
 	}
 
 	upload() {
 		this.progress.percentage = 0;
 		this.currentFileUpload = this.selectedFiles.item(0);
-		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalId, this.attachmentType).subscribe(event => {
+		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalId, 'chemicalStructureAttachment').subscribe(event => {
 			if(event.type === HttpEventType.UploadProgress) {
 				this.progress.percentage = Math.round(100 * event.loaded / event.total);
 			} else if(event instanceof HttpResponse) {
-				this.uploaded.emit(true);
 			}
 		});
 		this.selectedFiles = undefined;

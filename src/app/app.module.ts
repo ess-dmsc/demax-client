@@ -20,6 +20,7 @@ import { UserModule } from "./user/user.module";
 import { FileModule } from "./file/file.module";
 import { AdminModule } from "./admin/admin.module";
 
+
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
 }

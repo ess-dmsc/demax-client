@@ -1,0 +1,12 @@
+<p>Attach chemical structure</p>
+
+<div *ngIf="currentFileUpload" class="progress">
+	<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+	     attr.aria-valuenow="{{progress.percentage}}"
+	     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+		{{progress.percentage}}%
+	</div>
+</div>
+
+<label for="upload-file" class="mat-elevation-z7">Choose file</label>
+<input type="file" name="chemicalStructureAttachment" accept="application/pdf,application/vnd.ms-excel" id="upload-file" (change)="selectFile($event)"/>

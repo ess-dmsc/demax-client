@@ -272,7 +272,7 @@ export class ProposalDetailComponent implements OnInit {
 
 	}
 
-	getFiles() {
+	getFiles(uploaded) {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
 	}
 

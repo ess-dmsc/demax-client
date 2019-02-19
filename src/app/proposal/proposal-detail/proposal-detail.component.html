@@ -7,6 +7,7 @@
 <app-loading [condition]="isLoading"></app-loading>
 
 <form [formGroup]="proposalForm" (ngSubmit)="save()" *ngIf="!isLoading">
+
 	<mat-tab-group [(selectedIndex)]="selectedIndex">
 		<mat-tab label="1. General information">
 			<app-message [message]="message.message"></app-message>
@@ -211,11 +212,7 @@
 
 				<p>If the reference isn't publicly available, please upload a copy:</p>
 
-				<app-file-upload
-						[proposalId]="proposalForm.controls['proposalId'].value"
-						attachmentType="pbdIdReferenceAttachment"
-						(uploaded)='getFiles($event)'>
-				</app-file-upload>
+				<app-file-upload3 attachmentType="pbdIdReferenceAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
 
 				<mat-form-field>
 					<p>Does the protein have any co-factors or ligands required for crystallization?
@@ -339,11 +336,7 @@
 
 						<p>Please attach a reference or protocol of culture conditions and media composition:</p>
 
-						<app-file-upload
-								[proposalId]="proposalForm.controls['proposalId'].value"
-								attachmentType="organismReferenceAttachment"
-								(uploaded)='getFiles($event)'>
-						</app-file-upload>
+						<app-file-upload3 attachmentType="organismReferenceAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
 
 						<mat-form-field>
 							<input matInput formControlName="amountNeeded"
@@ -480,11 +473,7 @@
 
 						<p>If “yes”, please attach reference or protocol</p>
 
-						<app-file-upload
-								[proposalId]="proposalForm.controls['proposalId'].value"
-								attachmentType="needsPurificationSupportAttachment"
-								(uploaded)='getFiles($event)'>
-						</app-file-upload>
+						<app-file-upload3 attachmentType="needsPurificationSupportAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
 
 						<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
 							<p>Has expression been done for the unlabeled protein?</p>
@@ -582,13 +571,8 @@
 				          rows="5" cols="40"></textarea>
 				</mat-form-field>
 
-				<p>Attach chemical structure</p>
 
-				<app-file-upload
-						[proposalId]="proposalForm.controls['proposalId'].value"
-						attachmentType="chemicalStructureAttachment"
-						(uploaded)='getFiles($event)'>
-				</app-file-upload>
+				<app-file-upload3 attachmentType="chemicalStructureAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
 
 				<mat-radio-group formControlName="hasPreparedMolecule">
 					<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
@@ -598,13 +582,9 @@
 				</mat-radio-group>
 
 				<div *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
-					<p>If yes, please provide a protocol:</p>
 
-					<app-file-upload
-							[proposalId]="proposalForm.controls['proposalId'].value"
-							attachmentType="moleculePreparationReferenceArticle"
-							(uploaded)='getFiles($event)'>
-					</app-file-upload>
+					<app-file-upload3 attachmentType="moleculePreparationReferenceArticle" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+
 				</div>
 
 				<mat-action-row>
@@ -627,20 +607,17 @@
 						Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
 						Consideration, References, Figures/Tables)
 					</p>
-					<app-file-upload
-							[proposalId]="proposalForm.controls['proposalId'].value"
-							attachmentType="proposalTemplate"
-							(uploaded)='getFiles($event)'>
-					</app-file-upload>
 
-					<h4>Upload (draft) beamtime proposal</h4>
+				<app-file-upload3 attachmentType="proposalTemplate" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+
+
+				<h4>Upload (draft) beamtime proposal</h4>
 					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
 
-					<app-file-upload
-							[proposalId]="proposalForm.controls['proposalId'].value"
-							attachmentType="needByDateAttachment"
-							(uploaded)='getFiles($event)'>
-					</app-file-upload>
+				<app-file-upload3 attachmentType="needByDateAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+
+
+				<app-file-upload2 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload2>
 
 				<table class="table table-hover table-success">
 					<thead>

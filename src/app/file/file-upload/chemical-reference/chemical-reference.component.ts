@@ -1,15 +1,13 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpEventType, HttpResponse } from "@angular/common/http";
-import { FileService } from "../file.service";
-import { FileUploader } from "ng2-file-upload";
+import { FileService } from "../../file.service";
 
 @Component({
-	selector: 'app-file-upload',
-	templateUrl: './file-upload.component.html',
-	styleUrls: [ './file-upload.component.css' ]
+  selector: 'app-chemical-reference',
+  templateUrl: './chemical-reference.component.html',
+  styleUrls: [ './chemical-reference.component.css']
 })
-export class FileUploadComponent implements OnInit {
-	@Input() attachmentType: string;
+export class ChemicalReferenceComponent implements OnInit {
 	@Input() proposalId: string;
 
 	@Output() uploaded = new EventEmitter();
@@ -27,7 +25,6 @@ export class FileUploadComponent implements OnInit {
 
 	ngOnInit() {
 		this.progress.percentage = 0;
-		console.log(this.attachmentType)
 	}
 
 
@@ -39,7 +36,7 @@ export class FileUploadComponent implements OnInit {
 	upload() {
 		this.progress.percentage = 0;
 		this.currentFileUpload = this.selectedFiles.item(0);
-		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalId, this.attachmentType).subscribe(event => {
+		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalId, 'moleculePreparationReferenceArticle').subscribe(event => {
 			if(event.type === HttpEventType.UploadProgress) {
 				this.progress.percentage = Math.round(100 * event.loaded / event.total);
 			} else if(event instanceof HttpResponse) {
