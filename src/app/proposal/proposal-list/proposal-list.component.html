@@ -43,7 +43,7 @@
 			<button mat-raised-button color="primary" [routerLink]="['/proposals/' + proposal.proposalId]">Edit</button>
 			<!--<button mat-raised-button color="primary" (click)="enableEditing(proposal)">Edit</button>-->
 			<button mat-raised-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
-			<a mat-raised-button download class="btn btn-success" href="{{url}}/api/merge/{{proposal.proposalId}}">
+			<a mat-raised-button download class="btn btn-success" href="{{url}}/api/proposals/download/{{proposal.proposalId}}">
 				<mat-icon>get_app</mat-icon>
 				Download
 			</a>
