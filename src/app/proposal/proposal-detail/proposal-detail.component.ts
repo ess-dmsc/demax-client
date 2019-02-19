@@ -29,14 +29,16 @@ export class ProposalDetailComponent implements OnInit {
 
 	currentProposalId: string;
 
+	attachmentType: string;
+	selectedFiles: FileList;
+	currentFileUpload: File;
+	progress: { percentage: number } = {percentage: 0};
+
 	crystallization = false;
 	proteinDeuteration = false;
 
 	fileUploads: Observable<Object[]>;
 
-	attachmentType: string;
-
-	progress: { percentage: number } = {percentage: 0};
 
 	selectTab(index: number): void {
 		window.scrollTo(0, 0)
@@ -55,7 +57,7 @@ export class ProposalDetailComponent implements OnInit {
 		public auth: AuthService,
 		public activatedRoute: ActivatedRoute,
 		public router: Router,
-		public message: MessageComponent
+		private message: MessageComponent
 	) {
 	}
 
@@ -244,16 +246,42 @@ export class ProposalDetailComponent implements OnInit {
 		return this.proposalForm.get('coProposers') as FormArray;
 	}
 
-	getFiles(uploaded) {
+	selectFile(event) {
+		this.selectedFiles = event.target.files;
+		this.currentFileUpload = this.selectedFiles.item(0);
+		console.log(this.currentFileUpload)
+		this.attachmentType = event.target.name;
+		console.log(event.target.name)
+		this.upload();
+	}
+
+	upload() {
+		this.progress.percentage = 0;
+		this.currentFileUpload = this.selectedFiles.item(0);
+		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposal.proposalId, this.attachmentType).subscribe(event => {
+			if(event.type === HttpEventType.UploadProgress) {
+				this.progress.percentage = Math.round(100 * event.loaded / event.total);
+				this.selectedFiles = undefined;
+				this.attachmentType = undefined;
+			} else if(event instanceof HttpResponse) {
+				console.log(event)
+				this.selectedFiles = undefined;
+				this.attachmentType = undefined;
+			}
+		});
+
+	}
+
+	getFiles() {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
 	}
 
 
 	delete(filename: string, input: string) {
-		console.log(filename)
-		console.log(this.proposal.proposalId)
-		console.log(input)
-		this.fileService.deleteFile(filename, this.proposal, input).subscribe(
+		console.log(filename);
+		console.log(this.proposal.proposalId);
+		console.log(input);
+		this.proposalService.deleteFile(filename, this.proposal, input).subscribe(
 			() => {
 				this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
 			}, error => {

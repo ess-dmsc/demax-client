@@ -26,14 +26,6 @@ export class FileService {
 		return this.http.request(req);
 	}
 
-	getFilesAsObjects(): Observable<Attachment[]> {
-		return this.http.get<Attachment[]>('/api/admin/file/all/object')
-	}
-
-	getFile(filename: string): Observable<any> {
-		return this.http.get('/api/admin/file/download/' + filename)
-	}
-
 	deleteFile(filename: string, proposal: Proposal, input: string): Observable<any> {
 		const deleteData: FormData = new FormData();
 

@@ -597,14 +597,15 @@
 					<mat-radio-button value="no">No</mat-radio-button>
 				</mat-radio-group>
 
+				<div *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
+					<p>If yes, please provide a protocol:</p>
 
-				<p>If yes, please provide a protocol:</p>
-
-				<app-file-upload
-						[proposalId]="proposalForm.controls['proposalId'].value"
-						attachmentType="moleculePreparationReferenceArticle"
-						(uploaded)='getFiles($event)'>
-				</app-file-upload>
+					<app-file-upload
+							[proposalId]="proposalForm.controls['proposalId'].value"
+							attachmentType="moleculePreparationReferenceArticle"
+							(uploaded)='getFiles($event)'>
+					</app-file-upload>
+				</div>
 
 				<mat-action-row>
 					<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
@@ -618,7 +619,6 @@
 
 		<mat-tab label="5. Review and submit">
 			<mat-card>
-				<mat-card style="margin: 1rem; padding: 1rem;">
 					<h4>Upload deuteration/crystallization proposal</h4>
 					<p>
 						Proposals should be written in English, properly referenced, and prepared in the<a download href="{{url}}/api/word/attachment">
@@ -632,18 +632,15 @@
 							attachmentType="proposalTemplate"
 							(uploaded)='getFiles($event)'>
 					</app-file-upload>
-				</mat-card>
 
-				<mat-card style="margin: 1rem; padding: 1rem;">
 					<h4>Upload (draft) beamtime proposal</h4>
 					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
+
 					<app-file-upload
 							[proposalId]="proposalForm.controls['proposalId'].value"
 							attachmentType="needByDateAttachment"
 							(uploaded)='getFiles($event)'>
 					</app-file-upload>
-				</mat-card>
-
 
 				<table class="table table-hover table-success">
 					<thead>
@@ -678,7 +675,7 @@
 						<td>
 							<button mat-stroked-button
 							        class="btn btn-danger btn-sm"
-							        (click)="delete(file.originalname, file.attachmentType)">
+							        (click)="delete(file.originalname, file.attachmentName)">
 								<mat-icon>delete</mat-icon>
 								Delete
 							</button>

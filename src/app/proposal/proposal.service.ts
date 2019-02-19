@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Proposal} from '../models/proposal';
 import {APP_CONFIG, AppConfig} from "../app-config.module";
@@ -43,5 +43,29 @@ export class ProposalService {
     deleteProposal(proposal: Proposal): Observable<any> {
         return this.http.delete(`/api/proposals/${proposal.proposalId}`, {responseType: 'text'});
     }
+
+	pushFileToStorage(file: File, proposalId: string, input: string): Observable<HttpEvent<{}>> {
+		const formdata: FormData = new FormData();
+
+		formdata.append('file', file, file.name);
+		formdata.append('proposalId', proposalId);
+		formdata.append('name', input);
+
+		const req = new HttpRequest('POST', `/api/file/upload/${input}`, formdata, {
+			reportProgress: true,
+			responseType: 'text'
+		});
+		return this.http.request(req);
+	}
+
+	deleteFile(filename: string, proposal: Proposal, input: string): Observable<any> {
+
+
+		const req = new HttpRequest('DELETE', `/api/file/delete/${proposal.proposalId}/${input}/${filename}`, {reportProgress: true, responseType: 'text'});
+
+		return this.http.request(req);
+	}
+
+
 
 }

@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { HttpEventType, HttpResponse } from "@angular/common/http";
 import { FileService } from "../file.service";
-import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({
 	selector: 'app-file-upload',
@@ -11,21 +10,25 @@ import { MessageComponent } from "../../shared/message/message.component";
 export class FileUploadComponent implements OnInit {
 	@Input() attachmentType: string;
 	@Input() proposalId: string;
+
 	@Output() uploaded = new EventEmitter();
 
 	selectedFiles: FileList;
 	currentFileUpload: File;
+	message = '';
 
 	progress: { percentage: number } = {percentage: 0};
 
 	constructor(
-		public message: MessageComponent,
 		private fileService: FileService
 	) {
 	}
 
 	ngOnInit() {
+		this.progress.percentage = 0;
+		console.log(this.attachmentType)
 	}
+
 
 	selectFile(event) {
 		this.selectedFiles = event.target.files;
@@ -39,7 +42,6 @@ export class FileUploadComponent implements OnInit {
 			if(event.type === HttpEventType.UploadProgress) {
 				this.progress.percentage = Math.round(100 * event.loaded / event.total);
 			} else if(event instanceof HttpResponse) {
-				this.message.setMessage('Uploaded ' + this.currentFileUpload.name, 'success');
 				this.uploaded.emit(true);
 			}
 		});
