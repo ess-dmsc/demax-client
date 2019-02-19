@@ -212,7 +212,9 @@
 
 				<p>If the reference isn't publicly available, please upload a copy:</p>
 
-				<app-file-upload3 attachmentType="pbdIdReferenceAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+				<app-file-upload attachmentType="pbdIdReferenceAttachment"
+				                 (uploaded)='getFiles($event)'
+				                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
 				<mat-form-field>
 					<p>Does the protein have any co-factors or ligands required for crystallization?
@@ -336,7 +338,9 @@
 
 						<p>Please attach a reference or protocol of culture conditions and media composition:</p>
 
-						<app-file-upload3 attachmentType="organismReferenceAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+						<app-file-upload attachmentType="organismReferenceAttachment"
+						                 (uploaded)='getFiles($event)'
+						                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
 						<mat-form-field>
 							<input matInput formControlName="amountNeeded"
@@ -473,7 +477,9 @@
 
 						<p>If “yes”, please attach reference or protocol</p>
 
-						<app-file-upload3 attachmentType="needsPurificationSupportAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+						<app-file-upload attachmentType="needsPurificationSupportAttachment"
+						                 (uploaded)='getFiles($event)'
+						                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
 						<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
 							<p>Has expression been done for the unlabeled protein?</p>
@@ -572,7 +578,9 @@
 				</mat-form-field>
 
 
-				<app-file-upload3 attachmentType="chemicalStructureAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+				<app-file-upload attachmentType="chemicalStructureAttachment"
+				                 (uploaded)='getFiles($event)'
+				                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
 				<mat-radio-group formControlName="hasPreparedMolecule">
 					<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
@@ -583,7 +591,9 @@
 
 				<div *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
 
-					<app-file-upload3 attachmentType="moleculePreparationReferenceArticle" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+					<app-file-upload attachmentType="moleculePreparationReferenceArticle"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
 				</div>
 
@@ -608,18 +618,23 @@
 						Consideration, References, Figures/Tables)
 					</p>
 
-				<app-file-upload3 attachmentType="proposalTemplate" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+				<app-file-upload attachmentType="proposalTemplate"
+				                 (uploaded)='getFiles($event)'
+				                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
 
 				<h4>Upload (draft) beamtime proposal</h4>
 					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
 
-				<app-file-upload3 attachmentType="needByDateAttachment" [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload3>
+				<app-file-upload attachmentType="needByDateAttachment"
+				                 (uploaded)='getFiles($event)'
+				                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
 
-				<app-file-upload2 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload2>
+				<app-file-upload2 [proposalId]="proposalForm.controls['proposalId'].value"
+				                  (uploaded)='getFiles($event)'></app-file-upload2>
 
-				<table class="table table-hover table-success">
+				<table class="table table-hover">
 					<thead>
 					<tr>
 						<th scope="col">Attachment type</th>

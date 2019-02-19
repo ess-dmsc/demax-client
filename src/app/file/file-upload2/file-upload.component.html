@@ -20,6 +20,11 @@
 				</mat-select>
 			</mat-form-field>
 			<br>
+			<div class="progress-bar progress-bar-info mat-progress-bar-fill" role="progressbar"
+			     attr.aria-valuenow="{{progress.percentage}}"
+			     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+				{{progress.percentage}}%
+			</div>
 			<input formControlName="document" type="file" ng2FileSelect
 			       accept="application/pdf,application/vnd.ms-excel" [uploader]="uploader" multiple/><br/>
 			<br>

@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { HttpEventType, HttpResponse } from "@angular/common/http";
-import { FileService } from "../file.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
+import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Component({
 	selector: 'app-file-upload',
@@ -9,43 +10,60 @@ import { FileUploader } from "ng2-file-upload";
 	styleUrls: [ './file-upload.component.css' ]
 })
 export class FileUploadComponent implements OnInit {
-	@Input() attachmentType: string;
 	@Input() proposalId: string;
-
+	@Input() attachmentType: string;
 	@Output() uploaded = new EventEmitter();
 
-	selectedFiles: FileList;
-	currentFileUpload: File;
-	message = '';
+	uploadForm: FormGroup;
 
+	public uploader: FileUploader = new FileUploader({isHTML5: true});
 	progress: { percentage: number } = {percentage: 0};
-
-	constructor(
-		private fileService: FileService
-	) {
+	constructor(private fb: FormBuilder, private http: HttpClient) {
 	}
 
-	ngOnInit() {
+	uploadFile(data: FormData): Observable<HttpEvent<{}>> {
+
+		const req = new HttpRequest(
+			'POST',
+			'/api/file/upload2', data, {reportProgress: true, responseType: 'text'}
+		);
+
+		return this.http.request(req);
+	}
+
+	uploadSubmit() {
 		this.progress.percentage = 0;
-		console.log(this.attachmentType)
-	}
+		let fileItem = this.uploader.queue[ 0 ]._file;
+		console.log(this.uploader.queue[0])
+		if(fileItem.size > 20000000) {
+			alert("The file is too big. Maximum allowed filesize is 20mb");
+			return;
+		}
 
+		let data = new FormData();
+		console.log(fileItem.name);
+		data.append('file', fileItem);
+		data.append('attachmentType', this.attachmentType);
+		data.append('proposalId', this.proposalId);
 
-	selectFile(event) {
-		this.selectedFiles = event.target.files;
-		this.upload();
-	}
-
-	upload() {
-		this.progress.percentage = 0;
-		this.currentFileUpload = this.selectedFiles.item(0);
-		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalId, this.attachmentType).subscribe(event => {
+		this.uploadFile(data).subscribe(event => {
 			if(event.type === HttpEventType.UploadProgress) {
 				this.progress.percentage = Math.round(100 * event.loaded / event.total);
 			} else if(event instanceof HttpResponse) {
 				this.uploaded.emit(true);
 			}
 		});
-		this.selectedFiles = undefined;
+		this.uploader.clearQueue();
+		this.uploaded.emit(true);
+		this.progress.percentage = 0;
 	}
+
+	ngOnInit() {
+		this.uploadForm = this.fb.group({
+			document: [ null, null ],
+			type: [ null, Validators.compose([ Validators.required ]) ]
+		});
+	}
+
+
 }

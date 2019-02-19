@@ -5,11 +5,11 @@ body { margin: 0;}
 
 html, body {
 	height: 100vh;
-	font-family: Titillium, "Helvetica Neue", sans-serif }
+	font-family: Titillium, "Titillium Web", "Helvetica Neue", sans-serif }
 
 body {
 	color: #293035;
-	font: 16px/28px Titillium, Arial, sans-serif;
+	font: 16px/28px Titillium, "Titillium Web", Arial, sans-serif;
 	font-weight: 400;
 	margin: 0;
 }
@@ -47,11 +47,4 @@ body {
 	src: url('./assets/fonts/ess-icon.ttf');
 	font-weight: 400;
 	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Material Icons';
-	font-style: normal;
-	font-weight: 400;
-	src: url('./assets/fonts/MaterialIcons-Regular.woff');
 }

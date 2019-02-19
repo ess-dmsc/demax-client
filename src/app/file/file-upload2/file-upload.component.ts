@@ -2,12 +2,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FileUploader} from "ng2-file-upload";
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
 
 @Component({
 	selector: 'app-file-upload2',
 	templateUrl: './file-upload.component.html',
-	styleUrls: ['./file-upload.component.css']
+	styleUrls: [ './file-upload.component.css']
 })
 export class FileUploadComponent2 implements OnInit {
 	@Input() proposalId: string;
@@ -16,6 +16,7 @@ export class FileUploadComponent2 implements OnInit {
 	uploadForm: FormGroup;
 
 	public uploader:FileUploader = new FileUploader({isHTML5: true});
+	progress: { percentage: number } = {percentage: 0};
 
 	constructor(private fb: FormBuilder, private http: HttpClient ) { }
 
@@ -37,14 +38,27 @@ export class FileUploadComponent2 implements OnInit {
 			data.append( 'attachmentType', this.uploadForm.controls.type.value);
 			data.append('proposalId', this.proposalId);
 
-			this.uploadFile(data).subscribe(data => alert(data.message));
+			this.uploadFile(data).subscribe(
+				event => {
+					if(event.type === HttpEventType.UploadProgress) {
+						this.progress.percentage = Math.round(100 * event.loaded / event.total);
+					} else if(event instanceof HttpResponse) {
+						this.uploaded.emit(true);
+					}
+				});
 		}
 		this.uploader.clearQueue();
 		this.uploaded.emit(true);
 	}
 
-	uploadFile(data: FormData): Observable<any> {
-		return this.http.post<any>('/api/file/upload2', data);
+	uploadFile(data: FormData): Observable<HttpEvent<{}>> {
+
+		const req = new HttpRequest(
+			'POST',
+			'/api/file/upload2', data, {reportProgress: true, responseType: 'text'}
+		);
+
+		return this.http.request(req);
 	}
 
 	ngOnInit() {
