@@ -1,4 +1,5 @@
 # demax-client
+[![Build Status](https://travis-ci.org/ess-dmsc/demax-client.svg?branch=master)](https://travis-ci.org/ess-dmsc/demax-client)
 
 This repository constitutes the frontend part of the DEMAX User Office website. The backend repository can be found <a href="https://github.com/ess-dmsc/demax-server">here.</a>
 The DEMAX User Office will be used for submission and management of deuteration proposals.
