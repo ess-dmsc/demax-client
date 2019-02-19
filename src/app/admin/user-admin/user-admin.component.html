@@ -32,29 +32,31 @@
 
 				<button class="btn btn-sm btn-primary" (click)="enableEditing(user)">Edit</button>
 
-				<button class="btn btn-sm btn-danger" (click)="deleteUser(user.email)">
-					Delete
-				</button>
+				<button class="btn btn-sm btn-danger" (click)="deleteUser(user.email)">Delete</button>
 			</td>
 		</ng-container>
 		<tr mat-header-row *matHeaderRowDef="displayedUserColumns"></tr>
 		<tr mat-row *matRowDef="let row; columns: displayedUserColumns;"></tr>
 	</table>
 </div>
-<mat-card *ngIf="isEditingPassword">
-	<form #form="ngForm" (ngSubmit)="editPassword(user)" *ngIf="isEditingPassword">
-		<mat-form-field>
-			<input matInput name="password" [(ngModel)]="user.password" placeholder="password">
-		</mat-form-field>
-		<button class="btn btn-sm btn-primary" (click)="editPassword(user)">Update password</button>
-
-		<button class="btn btn-sm btn-danger" (click)="cancelPasswordEditing()">
-			Cancel
-		</button>
+<mat-card *ngIf="isEditingPassword" style="width: 50%; padding: 2rem; margin: 2rem auto;">
+	<mat-card-title>
+		Change password for {{user.email}}
+	</mat-card-title>
+	<form (ngSubmit)="editPassword(user)" *ngIf="isEditingPassword">
+		<mat-card-content>
+			<mat-form-field>
+				<input matInput name="password" [(ngModel)]="user.password" placeholder="New password">
+			</mat-form-field>
+		</mat-card-content>
+		<mat-card-actions>
+			<button class="btn btn-primary" (click)="editPassword(user)">Update password</button>
+			<button class="btnbtn-danger" (click)="cancelPasswordEditing()">Cancel</button>
+		</mat-card-actions>
 	</form>
 </mat-card>
 
-<mat-card *ngIf="isEditing">
+<mat-card *ngIf="isEditing" style="width: 50%; padding: 2rem; margin: 2rem auto">
 	<mat-card-title>Editing user {{user.email}}</mat-card-title>
 	<form #form="ngForm" (ngSubmit)="editUser(user)" *ngIf="isEditing">
 		<mat-card-content>
@@ -63,18 +65,15 @@
 				<input matInput [(ngModel)]="user.email" name="user.email" placeholder="Email">
 			</mat-form-field>
 			<br>
-			<mat-form-field>
-				<input matInput [(ngModel)]="user.role" name="user.role" placeholder="Role">
-			</mat-form-field>
+			<mat-select [(ngModel)]="user.role" name="user.role" style="width: 50%;">
+				<mat-option value="user">User</mat-option>
+				<mat-option value="admin">Admin</mat-option>
+			</mat-select>
 			<br>
 		</mat-card-content>
 		<mat-card-actions>
-			<button class="btn btn-sm btn-primary mr-2" type="submit" [disabled]="!form.form.valid">
-				<i class="fa fa-floppy-o"></i> Save
-			</button>
-			<button class="btn btn-sm btn-danger" (click)="cancelEditing()">
-				<i class="fa fa-times"></i> Cancel
-			</button>
+			<button class="btn btn-primary" type="submit">Save</button>
+			<button class="btn btn-danger" (click)="cancelEditing()">Cancel</button>
 		</mat-card-actions>
 	</form>
 

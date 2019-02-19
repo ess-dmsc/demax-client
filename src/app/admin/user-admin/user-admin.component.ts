@@ -52,7 +52,11 @@ export class UserAdminComponent implements OnInit {
 			() => {
 				this.isEditing = false;
 				this.user = user;
-				this.getUsers()}
+				this.getUsers()
+			},
+			error =>{
+				console.log(error)
+			}
 		)
 	}
 	editPassword(user: User){
@@ -61,6 +65,9 @@ export class UserAdminComponent implements OnInit {
 				this.isEditingPassword = false;
 				this.user = user;
 				this.getUsers();
+			},
+			error =>{
+				console.log(error)
 			}
 		)
 	}

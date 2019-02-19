@@ -34,9 +34,7 @@ export class ProposalDetailComponent implements OnInit {
 
 	fileUploads: Observable<Object[]>;
 
-	selectedFiles: FileList;
 	attachmentType: string;
-	currentFileUpload: File;
 
 	progress: { percentage: number } = {percentage: 0};
 
@@ -246,39 +244,10 @@ export class ProposalDetailComponent implements OnInit {
 		return this.proposalForm.get('coProposers') as FormArray;
 	}
 
-	selectFile(event) {
-		this.selectedFiles = event.target.files;
-		this.attachmentType = event.target.name;
-		this.upload();
-	}
-
 	getFiles(uploaded) {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
 	}
 
-	upload() {
-		this.isLoading = true;
-		this.progress.percentage = 0;
-		this.currentFileUpload = this.selectedFiles.item(0);
-
-		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposalForm.controls[ 'proposalId' ].value, this.attachmentType).subscribe(
-			event => {
-				if(event.type === HttpEventType.UploadProgress) {
-					this.progress.percentage = Math.round(100 * event.loaded / event.total);
-				} else if(event instanceof HttpResponse) {
-					console.log('Attachment is completely uploaded!');
-					this.message.setMessage(this.currentFileUpload.name + ' was successfully uploaded', 'success');
-				}
-			},
-			error => {
-				this.message.setMessage(this.currentFileUpload.name + ' failed to upload', 'danger');
-
-			}
-		);
-		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
-		console.log(this.fileUploads);
-		this.selectedFiles = undefined;
-	}
 
 	delete(filename: string, input: string) {
 		console.log(filename)
