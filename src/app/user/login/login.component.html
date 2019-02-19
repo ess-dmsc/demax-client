@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
-	<mat-card>
+	<mat-card style="text-align: center;">
 	<mat-form-field class="input-group" [ngClass]="setClassEmail()">
 		<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus>
 	</mat-form-field>
@@ -12,7 +12,7 @@
 		<mat-card-actions style="padding: 1rem;">
 			<button mat-raised-button
 			class="mat-elevation-z5"
-			color="primary" style="width: 150px; margin-top: 2rem;"
+			color="primary" style="width: 200px; margin-top: 2rem;"
 			[disabled]="!loginForm.valid" type="submit">
 			Login
 			</button>
