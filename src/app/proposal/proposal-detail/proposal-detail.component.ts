@@ -43,6 +43,7 @@ export class ProposalDetailComponent implements OnInit {
 	selectTab(index: number): void {
 		window.scrollTo(0, 0)
 		event.preventDefault();
+		this.save();
 		this.selectedIndex = index;
 		this.progress.percentage = 0;
 		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
@@ -78,7 +79,6 @@ export class ProposalDetailComponent implements OnInit {
 			coProposers: this.formBuilder.array([ this.createCoProposer() ]),
 			needByDate: [ '', Validators.required ],
 			needByDateMotivation: [ '', Validators.required ],
-			needByDateAttachment: [ '', Validators.required ],
 			lab: [ '', Validators.required ],
 			linksWithIndustry: [ '', Validators.required ],
 			linksWithIndustryDetails: [ '' ],
@@ -202,12 +202,7 @@ export class ProposalDetailComponent implements OnInit {
 		this.proposalService.editProposal(this.proposalForm.value)
 		.subscribe(
 			data => {
-				if(data.status === 200) {
 					this.message.setMessage('Saved!', 'success');
-					this.router.navigate([ '/proposals' ]);
-				} else {
-					console.log(data);
-				}
 			},
 			error => {
 				console.log(error)
@@ -244,32 +239,6 @@ export class ProposalDetailComponent implements OnInit {
 
 	get coProposerForms() {
 		return this.proposalForm.get('coProposers') as FormArray;
-	}
-
-	selectFile(event) {
-		this.selectedFiles = event.target.files;
-		this.currentFileUpload = this.selectedFiles.item(0);
-		console.log(this.currentFileUpload)
-		this.attachmentType = event.target.name;
-		console.log(event.target.name)
-		this.upload();
-	}
-
-	upload() {
-		this.progress.percentage = 0;
-		this.currentFileUpload = this.selectedFiles.item(0);
-		this.fileService.pushFileToStorage(this.currentFileUpload, this.proposal.proposalId, this.attachmentType).subscribe(event => {
-			if(event.type === HttpEventType.UploadProgress) {
-				this.progress.percentage = Math.round(100 * event.loaded / event.total);
-				this.selectedFiles = undefined;
-				this.attachmentType = undefined;
-			} else if(event instanceof HttpResponse) {
-				console.log(event)
-				this.selectedFiles = undefined;
-				this.attachmentType = undefined;
-			}
-		});
-
 	}
 
 	getFiles(uploaded) {

@@ -113,7 +113,7 @@ export class Proposal {
     generatedProposal: {
         name?: string;
         path?: string;
-        uploaded?: boolean;
+        generated?: boolean;
     };
     needByDateAttachment: {
         name?: string;
@@ -123,7 +123,7 @@ export class Proposal {
     mergedProposal: {
         name?: string;
         path?: string;
-        uploaded?: boolean;
+	    merged?: boolean;
     };
     pbdIdReferenceAttachment: {
         name?: string;

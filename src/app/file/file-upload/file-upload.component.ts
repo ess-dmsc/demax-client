@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({
 	selector: 'app-file-upload',
@@ -19,7 +20,7 @@ export class FileUploadComponent implements OnInit {
 
 	public uploader: FileUploader = new FileUploader({isHTML5: true});
 	progress: { percentage: number } = {percentage: 0};
-	constructor(private fb: FormBuilder, private http: HttpClient) {
+	constructor(private fb: FormBuilder, private http: HttpClient, private message: MessageComponent) {
 	}
 
 	uploadFile(data: FormData): Observable<HttpEvent<{}>> {
@@ -52,6 +53,7 @@ export class FileUploadComponent implements OnInit {
 				this.progress.percentage = Math.round(100 * event.loaded / event.total);
 			} else if(event instanceof HttpResponse) {
 				this.uploaded.emit(true);
+				this.message.setMessage('Uploaded ' +fileItem.name,'success');
 			}
 		});
 		this.uploader.clearQueue();

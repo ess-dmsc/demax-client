@@ -82,7 +82,7 @@
 			</g>
 		</svg>
 		</span>
-
+		<app-message [message]="message.message"></app-message>
 		<span>
 			<a *ngIf="auth.loggedIn" routerLink="/account">Account settings <span style="width:1rem;"></span><mat-icon>settings</mat-icon></a>
 			<a *ngIf="auth.loggedIn" routerLink="/logout">Logout</a>
