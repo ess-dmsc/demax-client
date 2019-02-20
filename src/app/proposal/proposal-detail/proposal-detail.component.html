@@ -319,7 +319,9 @@
 
 				<mat-accordion multi="false">
 
-					<mat-expansion-panel formGroupName="biomassDeuteration" [disabled]="!proposal.wantsBiomassDeuteration" [expanded]="proposal.wantsBiomassDeuteration">
+					<mat-expansion-panel formGroupName="biomassDeuteration"
+					                     [disabled]="!proposal.wantsBiomassDeuteration"
+					                     [expanded]="proposal.wantsBiomassDeuteration">
 
 						<mat-expansion-panel-header><h4>For biomass</h4></mat-expansion-panel-header>
 
@@ -336,11 +338,14 @@
 						          rows="4" cols="40"></textarea>
 						</mat-form-field>
 
-						<p>Please attach a reference or protocol of culture conditions and media composition:</p>
+						<fieldset class="fileUpload">
 
-						<app-file-upload attachmentType="organismReferenceAttachment"
-						                 (uploaded)='getFiles($event)'
-						                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+							<p>Please attach a reference or protocol of culture conditions and media composition:</p>
+
+							<app-file-upload attachmentType="organismReferenceAttachment"
+							                 (uploaded)='getFiles($event)'
+							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+						</fieldset>
 
 						<mat-form-field>
 							<input matInput formControlName="amountNeeded"
@@ -377,7 +382,8 @@
 					</mat-expansion-panel>
 
 					<mat-expansion-panel formGroupName="proteinDeuteration"
-					                     [disabled]="!proposal.wantsProteinDeuteration" [expanded]="proposal.wantsProteinDeuteration">
+					                     [disabled]="!proposal.wantsProteinDeuteration"
+					                     [expanded]="proposal.wantsProteinDeuteration">
 						<mat-expansion-panel-header>
 							<mat-panel-title><h4>For proteins</h4></mat-panel-title>
 						</mat-expansion-panel-header>
@@ -434,16 +440,15 @@
 							<mat-radio-button value="no">No</mat-radio-button>
 						</mat-radio-group>
 
-						<mat-form-field>
+						<mat-form-field
+								*ngIf="proposalForm.controls['proteinDeuteration'].value.expressionPlasmidProvidedByUser==='yes'">
 							<p>If yes, please provide details:<br><em>
 								<small>(e.g. pET31b, C-terminal His-tag, Amp selection)</small>
 							</em></p>
 							<input matInput formControlName="expressionPlasmidProvidedByUserDetails">
 						</mat-form-field>
 
-						<p>
-							If you chose no, we will design & order a plasmid commercially
-						</p>
+						<p>If you choose no, we will design & order a plasmid commercially.</p>
 
 						<mat-form-field>
 							<p>How much material do you need?</p>
@@ -466,20 +471,26 @@
 
 						<mat-form-field>
 							<p>Justify level of D incorporation:</p>
-							<input matInput
-							       formControlName="deuterationLevelMotivation">
+							<input matInput formControlName="deuterationLevelMotivation">
 						</mat-form-field>
+
 						<mat-radio-group formControlName="needsPurificationSupport">
 							<p>Will you need DEMAX to purify the protein from deuterated biomass?</p>
 							<mat-radio-button value="yes">Yes</mat-radio-button>
 							<mat-radio-button value="no">No</mat-radio-button>
 						</mat-radio-group>
 
-						<p>If “yes”, please attach reference or protocol</p>
+						<fieldset class="fileUpload"
+						          *ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'">
 
-						<app-file-upload attachmentType="needsPurificationSupportAttachment"
-						                 (uploaded)='getFiles($event)'
-						                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+							<p>If “yes”, please attach reference or protocol</p>
+
+							<app-file-upload attachmentType="needsPurificationSupportAttachment"
+							                 (uploaded)='getFiles($event)'
+							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+
+						</fieldset>
+
 
 						<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
 							<p>Has expression been done for the unlabeled protein?</p>
@@ -500,7 +511,8 @@
 							<mat-radio-button value="no">No</mat-radio-button>
 						</mat-radio-group>
 
-						<mat-form-field>
+						<mat-form-field
+								*ngIf="proposalForm.controls['proteinDeuteration'].value.hasProteinDeuterationExperience==='yes'">
 							<p>If yes, what were the results?</p>
 							<input matInput formControlName="proteinDeuterationResults">
 						</mat-form-field>
@@ -509,12 +521,15 @@
 				</mat-accordion>
 
 				<div formGroupName="bioSafety">
+
 					<h4>Biosafety</h4>
+
 					<mat-radio-group formControlName="bioSafetyContainmentLevel">
 						<p>Which biosafety containment level is required to work with your sample?</p>
 						<mat-radio-button value="L1">L1</mat-radio-button>
 						<mat-radio-button value="L2">L2</mat-radio-button>
 					</mat-radio-group>
+
 					<mat-radio-group formControlName="organismRisk">
 						<p>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or
 							the
@@ -522,16 +537,19 @@
 						<mat-radio-button value="yes">Yes</mat-radio-button>
 						<mat-radio-button value="no">No</mat-radio-button>
 					</mat-radio-group>
-					<mat-form-field>
+
+					<mat-form-field *ngIf="proposalForm.controls['bioSafety'].value.organismRisk === 'yes'">
 						<p>If you chose “yes”, please provide details:</p>
 						<input matInput
 						       formControlName="organismRiskDetails">
 					</mat-form-field>
+
 					<mat-form-field>
 						<p>If there is anything else you would like us to know, please enter it below:</p>
 						<input matInput
 						       formControlName="other">
 					</mat-form-field>
+
 				</div>
 
 				<mat-action-row>
@@ -577,10 +595,12 @@
 				          rows="5" cols="40"></textarea>
 				</mat-form-field>
 
-
-				<app-file-upload attachmentType="chemicalStructureAttachment"
-				                 (uploaded)='getFiles($event)'
-				                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				<fieldset class="fileUpload">
+					<p>Attach chemical structure:</p>
+					<app-file-upload attachmentType="chemicalStructureAttachment"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</fieldset>
 
 				<mat-radio-group formControlName="hasPreparedMolecule">
 					<p>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
@@ -589,13 +609,13 @@
 					<mat-radio-button value="no">No</mat-radio-button>
 				</mat-radio-group>
 
-				<div *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
-
+				<fieldset class="fileUpload"
+				          *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
+					<p>-If “yes”, please provide protocol (attach a reference PDF if published)</p>
 					<app-file-upload attachmentType="moleculePreparationReferenceArticle"
 					                 (uploaded)='getFiles($event)'
 					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
-
-				</div>
+				</fieldset>
 
 				<mat-action-row>
 					<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
@@ -607,89 +627,105 @@
 
 		</mat-tab>
 
-		<mat-tab label="5. Review and submit">
+		<mat-tab label="5. Upload proposal & review">
 			<mat-card>
-					<h4>Upload deuteration/crystallization proposal</h4>
-					<p>
-						Proposals should be written in English, properly referenced, and prepared in the<a download href="{{url}}/api/word/attachment">
-						Word
-						template</a>.<br>
-						Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
-						Consideration, References, Figures/Tables)
-					</p>
 
-				<app-file-upload attachmentType="proposalTemplate"
-				                 (uploaded)='getFiles($event)'
-				                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
-
-
-				<h4>Upload (draft) beamtime proposal</h4>
-					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
-
-				<app-file-upload attachmentType="needByDateAttachment"
-				                 (uploaded)='getFiles($event)'
-				                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
-
-
-				<app-file-upload2 [proposalId]="proposalForm.controls['proposalId'].value"
-				                  (uploaded)='getFiles($event)'></app-file-upload2>
-
-				<table class="table table-hover">
-					<thead>
+				<fieldset class="fileUpload">
+					<h4>Upload your proposal here:</h4>
 					<tr>
-						<th scope="col">Attachment type</th>
-						<th scope="col">Uploaded file</th>
-						<th scope="col"></th>
-						<th scope="col"></th>
-						<th scope="col"></th>
-					</tr>
-					</thead>
-
-					<tbody *ngIf="!isLoading">
-					<tr *ngFor="let file of fileUploads | async" class="file">
-						<th scope="row">
-							{{file.attachmentType}}
-						</th>
 						<td>
-							<a href="/api/admin/file/download/{{file.originalname}}">
-								<img src="../../../assets/logos/pdf.png" width="50" alt="{{file.originalname}}">
-								{{file.originalname}}
+							<small><em>Proposals should be written in English, properly referenced, and prepared in the
+								Word template.<br>
+								Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
+								Consideration, References, Figures/Tables)
+							</em></small>
+						</td>
+						<td>
+							<a style="margin: 1rem; " mat-raised-button class="btn btn-success btn-sm" download
+							   href="{{url}}/word/attachment">
+								<img style="margin-right: 1rem;" src="../../../assets/logos/Microsoft_Word_logo.png"
+								     width=25 alt="Proposal template">
+								<mat-icon>get_app</mat-icon>
+								<p style="display: inline; margin: 0; padding: 0; font-size: 1rem;">
+									Word template</p>
 							</a>
 						</td>
-						<td>
-						</td>
-						<td>
-							<a mat-stroked-button class="btn btn-success btn-sm"
-							   href="/api/admin/file/download/{{file.originalname}}">
-								<mat-icon>get_app</mat-icon>
-								Download</a>
-						</td>
-						<td>
-							<button mat-stroked-button
-							        class="btn btn-danger btn-sm"
-							        (click)="delete(file.originalname, file.attachmentName)">
-								<mat-icon>delete</mat-icon>
-								Delete
-							</button>
-						</td>
 					</tr>
-					</tbody>
 
-					<div *ngIf="isLoading" style="text-align: center;">
-						<div class="lds-ripple">
-							<div></div>
-							<div></div>
+					<app-file-upload attachmentType="proposalTemplate"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</fieldset>
+				<mat-divider></mat-divider>
+				<fieldset class="fileUpload">
+					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
+
+					<app-file-upload attachmentType="needByDateAttachment"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</fieldset>
+
+				<mat-divider></mat-divider>
+
+				<fieldset class="fileList">
+
+					<h4>Uploaded files</h4>
+					<br>
+					<table class="table table-hover">
+						<thead>
+						<tr>
+							<th scope="col">Document type</th>
+							<th scope="col">Filename</th>
+							<th scope="col">File size</th>
+							<th scope="col">File type</th>
+							<th scope="col">Options</th>
+						</tr>
+						</thead>
+
+						<tbody *ngIf="!isLoading">
+						<tr *ngFor="let file of fileUploads | async" class="file">
+							<th scope="row">
+								{{file.attachmentType}}
+							</th>
+							<td>
+								<a href="/api/file/download/{{file.originalname}}">
+									<img src="../../../assets/logos/pdf.png" width="35" alt="{{file.originalname}}">
+									{{file.originalname}}
+								</a>
+							</td>
+							<td>
+								{{file.size/1000000}} MB
+							</td>
+							<td>
+								{{file.mimetype}}
+							</td>
+							<td>
+								<button class="btn btn-danger btn-sm"
+								        (click)="delete(file.originalname, file.attachmentName)">Delete
+								</button>
+							</td>
+						</tr>
+						</tbody>
+
+						<div *ngIf="isLoading" style="text-align: center;">
+							<div class="lds-ripple">
+								<div></div>
+								<div></div>
+							</div>
 						</div>
-					</div>
-				</table>
-
-				<mat-action-row>
-					<a download mat-raised-button class="btn btn-danger btn-lg"
+					</table>
+					<!--<app-file-upload2 [proposalId]="proposalForm.controls['proposalId'].value"
+					                  (uploaded)='getFiles($event)'></app-file-upload2>-->
+				</fieldset>
+				<mat-divider></mat-divider>
+				<fieldset class="generatePdf">
+					<label for="generatePdf">Generate PDF for review:</label>
+					<a download mat-raised-button color="warn" class="mat-elevation-z5" id="generatePdf"
 					   href="{{url}}/api/generate/{{this.proposalForm.controls['proposalId'].value}}">
 						<mat-icon>cached</mat-icon>
-						Generate PDF
-					</a>
-				</mat-action-row>
+						Click to generate</a>
+				</fieldset>
+				<mat-divider></mat-divider>
 				<mat-action-row>
 					<button mat-stroked-button class="btn btn-danger btn-lg" (click)="selectTab(3)">
 						<mat-icon>keyboard_arrow_left</mat-icon>

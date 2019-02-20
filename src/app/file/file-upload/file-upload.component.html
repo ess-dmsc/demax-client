@@ -1,29 +1,19 @@
-<mat-card>
-	<div class="progress-bar progress-bar-info mat-progress-bar-fill" role="progressbar"
-	     attr.aria-valuenow="{{progress.percentage}}"
-	     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-		{{progress.percentage}}%
-	</div>
-
-	<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
-		<mat-card-content>
-
-			<input formControlName="document"
-			       type="file" ng2FileSelect
-			       accept="application/pdf,application/vnd.ms-excel"
-			       [uploader]="uploader"/>
-			<br/>
-			<br>
-			<div class="drop-zone">
-				<div ng2FileDrop [uploader]="uploader" class="drop-zone">
-					Drag and drop files to upload
-				</div>
-			</div>
-			<br>
-			<button mat-raised-button color="primary"
-			        class="mat-elevation-z5"
-			        type="submit">Upload file
-			</button>
-		</mat-card-content>
-	</form>
-</mat-card>
+<div class="progress-bar progress-bar-info mat-progress-bar-fill" role="progressbar"
+     attr.aria-valuenow="{{progress.percentage}}"
+     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+	{{progress.percentage}}%
+</div>
+<br>
+<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+	<label class="mat-elevation-z5"> Choose file
+		<input formControlName="document"
+		       class="inputFile"
+		       type="file" ng2FileSelect
+		       accept="application/pdf,application/vnd.ms-excel"
+		       [uploader]="uploader">
+		</label>
+	<button mat-raised-button color="primary"
+	        class="mat-elevation-z5"
+	        type="submit">Click to upload
+	</button>
+</form>

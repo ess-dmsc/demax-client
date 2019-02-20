@@ -1,6 +1,4 @@
-<mat-card>
 	<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
-		<mat-card-content>
 			<mat-form-field class="form-field">
 				<mat-label>Select Document Type</mat-label>
 				<mat-select formControlName="type" required>
@@ -25,14 +23,11 @@
 			     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
 				{{progress.percentage}}%
 			</div>
-			<input formControlName="document" type="file" ng2FileSelect
+			<br>
+			<label class="mat-elevation-z5" for="fileUpload">Choose File</label>
+			<input formControlName="document" id="fileUpload" type="file" ng2FileSelect
 			       accept="application/pdf,application/vnd.ms-excel" [uploader]="uploader" multiple/><br/>
 			<br>
-			<div class="drop-zone">
-				<div ng2FileDrop [uploader]="uploader" class="drop-zone">
-					Drag and drop files to upload
-				</div>
-			</div>
 			<table>
 				<thead>
 				<tr>
@@ -62,6 +57,4 @@
 			<button mat-raised-button color="primary" class="mat-elevation-z5" [disabled]="!uploadForm.valid"
 			        type="submit">Upload file
 			</button>
-		</mat-card-content>
 	</form>
-</mat-card>

@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FileUploadComponent } from './file-upload.component';
+import {FileUploadModule} from "ng2-file-upload";
 import { SharedModule } from "../../shared/shared.module";
 
 describe('FileUploadComponent', () => {
@@ -8,7 +9,7 @@ describe('FileUploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-	    imports: [SharedModule],
+	    imports: [SharedModule, FileUploadModule],
       declarations: [ FileUploadComponent ]
     })
     .compileComponents();

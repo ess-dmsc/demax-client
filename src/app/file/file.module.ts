@@ -8,7 +8,6 @@ import { FileDetailComponent } from "./file-detail/file-detail.component";
 import { FileService } from "./file.service";
 import {FileUploadModule} from "ng2-file-upload";
 import { MessageComponent } from "../shared/message/message.component";
-import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
 import { FileUploadComponent2 } from "./file-upload2/file-upload.component";
 
 @NgModule({

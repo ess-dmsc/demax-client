@@ -12,6 +12,7 @@ import { Observable } from "rxjs";
 export class FileUploadComponent implements OnInit {
 	@Input() proposalId: string;
 	@Input() attachmentType: string;
+	@Input() textString: string;
 	@Output() uploaded = new EventEmitter();
 
 	uploadForm: FormGroup;
