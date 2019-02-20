@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { MessageComponent } from "../../shared/message/message.component";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material";
+
+export interface DialogData {
+	hasConsentedToGdpr: string;
+}
 
 @Component({
 	selector: 'app-register',
@@ -14,7 +19,7 @@ export class RegisterComponent implements OnInit {
 	firstName = new FormControl('', [ Validators.required ]);
 	lastName = new FormControl('', [ Validators.required ]);
 	email = new FormControl('', [ Validators.required, Validators.minLength(3), ]);
-	phone = new FormControl('', [Validators.required]);
+	phone = new FormControl('', [ Validators.required ]);
 	password = new FormControl('', [ Validators.required, Validators.minLength(8) ]);
 	employer = new FormControl('', [ Validators.required ]);
 	jobTitle = new FormControl('', [ Validators.required ]);
@@ -25,8 +30,22 @@ export class RegisterComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private userService: UserService,
-		public message: MessageComponent
+		public message: MessageComponent,
+		public dialog: MatDialog
 	) {
+	}
+
+	openDialog(): void {
+		const dialogRef = this.dialog.open(PrivacyDialog, {
+			width: '800px',
+			data: {name: this.hasConstentedToGdpr}
+		});
+		window.scrollTo(0,0);
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log('The dialog was closed');
+			this.hasConstentedToGdpr = result;
+		});
 	}
 
 	ngOnInit() {
@@ -52,4 +71,23 @@ export class RegisterComponent implements OnInit {
 		)
 		;
 	}
+}
+
+@Component({
+	selector: 'privacy-dialog',
+	templateUrl: 'privacy-dialog.html',
+	styleUrls: ['privacy-dialog.css']
+})
+export class PrivacyDialog {
+
+	constructor(
+		public dialogRef: MatDialogRef<PrivacyDialog>,
+		@Inject(MAT_DIALOG_DATA) public data: DialogData
+	) {
+	}
+
+	onNoClick(): void {
+		this.dialogRef.close();
+	}
+
 }

@@ -29,9 +29,7 @@
 		You can change this setting whenever you want.
 	</mat-checkbox>
 	<mat-checkbox required formControlName="hasConsentedToGdpr">
-		I confirm that I have read, consent and agree to the DEMAX <a
-			href="">Privacy
-		Statement</a>
+		I confirm that I have read, consent and agree to the DEMAX <a (click)="openDialog()">Privacy Statement</a>
 	</mat-checkbox>
 	<app-message [message]="message.message"></app-message>
 		<mat-card-actions style="padding: 1rem;">

@@ -22,7 +22,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'logout', component: LogoutComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'proposals', component: ProposalListComponent},
+	{path: 'proposals', component: ProposalListComponent},
 	{path: 'proposals/:proposalId', component: ProposalDetailComponent}
 ];
 
