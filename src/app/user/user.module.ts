@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AccountComponent } from "./account/account.component";
 import { LoginComponent } from "./login/login.component";
 import { LogoutComponent } from "./logout/logout.component";
-import { PrivacyDialog, RegisterComponent } from "./register/register.component";
+import { CookieDialog, PrivacyDialog, RegisterComponent } from "./register/register.component";
 import { UserService } from "./user.service";
 import { AuthService } from "./auth.service";
 import { AuthGuardLogin } from "./auth-guard-login.service";
@@ -20,6 +20,7 @@ import { SharedModule } from "../shared/shared.module";
 		LoginComponent,
 		LogoutComponent,
 		RegisterComponent,
+		CookieDialog,
 		PrivacyDialog
 	],
 	providers: [
@@ -28,7 +29,7 @@ import { SharedModule } from "../shared/shared.module";
 		AuthGuardAdmin,
 		UserService,
 	],
-	entryComponents:[PrivacyDialog],
+	entryComponents: [ PrivacyDialog, CookieDialog ],
 	exports: [
 		AccountComponent,
 		LoginComponent,

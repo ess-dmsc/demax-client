@@ -5,8 +5,11 @@ import { UserService } from '../user.service';
 import { MessageComponent } from "../../shared/message/message.component";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material";
 
-export interface DialogData {
+export interface PrivacyDialogData {
 	hasConsentedToGdpr: string;
+}
+export interface CookieDialogData {
+	hasConsentedToCookies: string;
 }
 
 @Component({
@@ -23,8 +26,9 @@ export class RegisterComponent implements OnInit {
 	password = new FormControl('', [ Validators.required, Validators.minLength(8) ]);
 	employer = new FormControl('', [ Validators.required ]);
 	jobTitle = new FormControl('', [ Validators.required ]);
-	hasConstentedToGdpr = new FormControl('', [ Validators.required ])
-	hasConstentedToEmails = new FormControl('', [ Validators.required ])
+	hasConsentedToGdpr = new FormControl('', [ Validators.required ]);
+	hasConstentedToEmails = new FormControl('', [ Validators.required ]);
+	hasConsentedToCookies = new FormControl('',[Validators.required]);
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -35,16 +39,29 @@ export class RegisterComponent implements OnInit {
 	) {
 	}
 
-	openDialog(): void {
-		const dialogRef = this.dialog.open(PrivacyDialog, {
+	openPrivacyDialog(): void {
+		let dialogRef = this.dialog.open(PrivacyDialog, {
 			width: '800px',
-			data: {name: this.hasConstentedToGdpr}
+			data: {hasConsentedToGdpr: this.hasConsentedToGdpr}
 		});
 		window.scrollTo(0,0);
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log('The dialog was closed');
-			this.hasConstentedToGdpr = result;
+			this.hasConsentedToGdpr = result;
+		});
+	}
+
+	openCookieDialog(): void {
+		let dialogRef = this.dialog.open(CookieDialog, {
+			width: '800px',
+			data: {hasConsentedToCookies: this.hasConsentedToCookies}
+		});
+		window.scrollTo(0,0);
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log('The dialog was closed');
+			this.hasConsentedToCookies = result;
 		});
 	}
 
@@ -57,8 +74,9 @@ export class RegisterComponent implements OnInit {
 			password: this.password,
 			employer: this.employer,
 			jobTitle: this.jobTitle,
-			hasConsentedToGdpr: this.hasConstentedToGdpr,
+			hasConsentedToGdpr: this.hasConsentedToGdpr,
 			hasConsentedToEmails: this.hasConstentedToEmails,
+			hasConsentedToCookies: this.hasConsentedToCookies
 		});
 	}
 
@@ -75,14 +93,14 @@ export class RegisterComponent implements OnInit {
 
 @Component({
 	selector: 'privacy-dialog',
-	templateUrl: 'privacy-dialog.html',
-	styleUrls: ['privacy-dialog.css']
+	templateUrl: '../policys/privacy-dialog.html',
+	styleUrls: [ '../policys/privacy-dialog.css']
 })
 export class PrivacyDialog {
 
 	constructor(
 		public dialogRef: MatDialogRef<PrivacyDialog>,
-		@Inject(MAT_DIALOG_DATA) public data: DialogData
+		@Inject(MAT_DIALOG_DATA) public data: PrivacyDialogData
 	) {
 	}
 
@@ -91,3 +109,24 @@ export class PrivacyDialog {
 	}
 
 }
+
+
+@Component({
+	selector: 'cookie-dialog',
+	templateUrl: '../policys/cookie-dialog.html',
+	styleUrls: ['../policys/cookie-dialog.css']
+})
+export class CookieDialog {
+
+	constructor(
+		public dialogRef: MatDialogRef<CookieDialog>,
+		@Inject(MAT_DIALOG_DATA) public data: CookieDialogData
+	) {
+	}
+
+	onNoClick(): void {
+		this.dialogRef.close();
+	}
+
+}
+

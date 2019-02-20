@@ -91,3 +91,16 @@ div.content {
 		float: none;
 	}
 }
+.notices{
+	position: fixed;
+	bottom: 0;
+	width: 199px;
+	border-top: solid lightgray 0.5px;
+}
+.notices tr{
+	width: 100%;
+}
+.notices a{
+	padding: 10px;
+	font-size: 1.3rem;
+}

@@ -11,4 +11,5 @@ export class User {
 	jobTitle?:  string;
 	hasConsentedToGdpr?: boolean;
 	hasConsentedToEmails?: boolean;
+	hasConsentedToCookies?: boolean;
 }
