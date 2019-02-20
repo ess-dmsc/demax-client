@@ -217,20 +217,21 @@ background-origin: content-box;">
 						</td>
 					</tr>
 				</table>
+				<mat-card-content>
+					<mat-tab-group dynamicHeight [(selectedIndex)]="selectedIndex">
+						<mat-tab label="register">
+							<app-register (registered)='goToLogin($event)'></app-register>
+						</mat-tab>
+						<mat-tab label="login">
+							<app-login></app-login>
+						</mat-tab>
+					</mat-tab-group>
+				</mat-card-content>
 
+				<mat-card-footer>
+					<app-message [message]="message.message"></app-message>
+				</mat-card-footer>
 			</mat-card>
-			<mat-card-content>
-
-				<mat-tab-group dynamicHeight>
-					<mat-tab label="register">
-						<app-register></app-register>
-					</mat-tab>
-					<mat-tab label="login">
-						<app-login></app-login>
-					</mat-tab>
-				</mat-tab-group>
-			</mat-card-content>
-
 		</div>
 	</div>
 </div>

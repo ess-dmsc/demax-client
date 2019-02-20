@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
@@ -18,6 +18,8 @@ export interface CookieDialogData {
 	styleUrls: [ './register.component.css' ]
 })
 export class RegisterComponent implements OnInit {
+	@Output() registered = new EventEmitter();
+
 	registerForm: FormGroup;
 	firstName = new FormControl('', [ Validators.required ]);
 	lastName = new FormControl('', [ Validators.required ]);
@@ -82,12 +84,12 @@ export class RegisterComponent implements OnInit {
 
 	register() {
 		this.userService.register(this.registerForm.value).subscribe(
-			res => {
-				this.message.setMessage('Email confirmation sent! Check your email.', 'success');
+			response => {
+				this.message.setMessage(`A confirmation email was sent to ${this.registerForm.controls['email'].value}. Click the link in the mail to activate your account.`, 'success');
+				this.registered.emit(true);
 			},
-			error => this.message.setMessage('email already exists', 'danger')
-		)
-		;
+			error => this.message.setMessage('Error', 'danger')
+		);
 	}
 }
 

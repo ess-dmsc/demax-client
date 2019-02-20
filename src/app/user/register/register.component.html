@@ -33,7 +33,6 @@
 		<mat-checkbox required formControlName="hasConsentedToCookies">
 			I consent to the DEMAX <a (click)="openCookieDialog()">Cookie policy</a>
 		</mat-checkbox>
-	<app-message [message]="message.message"></app-message>
 		<mat-card-actions style="padding: 1rem;">
 			<button mat-raised-button [disabled]="!registerForm.valid" color="primary" class="mat-elevation-z5"
 			        style="width: 150px;" type="submit">

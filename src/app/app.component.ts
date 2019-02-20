@@ -15,6 +15,18 @@ export class AppComponent implements AfterViewChecked {
 	title = 'demax-client';
 	opened: boolean;
 	mode = new FormControl('over');
+	selectedIndex = 0;
+
+	selectTab(index: number): void {
+		window.scrollTo(0, 0);
+		event.preventDefault();
+		this.selectedIndex = index;
+	}
+
+	goToLogin(registered) {
+		this.selectTab(1);
+		console.log('hello');
+	}
 	
 	constructor(
 		public auth: AuthService,
