@@ -2,7 +2,10 @@
 	padding: 3rem;
 	background-color: white;
 }
-
+.fileUpload{
+	display: block;
+	max-width: 700px;
+}
 mat-card {
 	margin: 2rem 5rem;
 	padding: 2rem;
@@ -62,6 +65,8 @@ mat-radio-button {
 mat-action-row {
 	display: flex;
 	justify-content: center;
+	padding: 2rem;
+	margin-bottom: 5rem;
 }
 mat-action-row button, a{
 	margin: 0 2rem;

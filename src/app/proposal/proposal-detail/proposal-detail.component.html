@@ -153,13 +153,11 @@
 
 				<p>In the next sections you will fill out the applicable area of support your proposal requires.
 					<br>Select one, or as many as apply from the alternatives.</p>
-
-				<mat-action-row>
-					<button mat-raised-button color="primary" type="submit">Save</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(1)">Next</button>
-				</mat-action-row>
-
 			</mat-card>
+			<mat-action-row>
+				<button mat-raised-button color="primary" type="submit">Save</button>
+				<button mat-button class="btn btn-primary" (click)="selectTab(1)">Next</button>
+			</mat-action-row>
 		</mat-tab>
 		<mat-tab label="2. Crystallization">
 
@@ -278,14 +276,13 @@
 					<p>What protein concentration do you usually use for crystallization?</p>
 					<input matInput required formControlName="typicalProteinConcentrationUsed">
 				</mat-form-field>
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" (click)="selectTab(2)">Skip</button>
-					<button mat-button class="btn btn-danger" (click)="selectTab(0)">Back</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
-					<button mat-raised-button color="primary" type="submit">Save</button>
-				</mat-action-row>
 			</mat-card>
-
+			<mat-action-row>
+				<button mat-button class="btn btn-danger" (click)="selectTab(2)">Skip</button>
+				<button mat-button class="btn btn-danger" (click)="selectTab(0)">Back</button>
+				<button mat-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
+				<button mat-raised-button color="primary" type="submit">Save</button>
+			</mat-action-row>
 		</mat-tab>
 		<mat-tab label="3. Biological deuteration">
 			<mat-checkbox formControlName="wantsBiologicalDeuteration"
@@ -550,14 +547,13 @@
 					</mat-form-field>
 
 				</div>
-
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
-					<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
-					<button mat-raised-button color="primary" type="submit">Save</button>
-				</mat-action-row>
 			</mat-card>
+			<mat-action-row>
+				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
+				<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
+				<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
+				<button mat-raised-button color="primary" type="submit">Save</button>
+			</mat-action-row>
 		</mat-tab>
 		<mat-tab label="4. Chemical deuteration">
 
@@ -615,15 +611,13 @@
 					                 (uploaded)='getFiles($event)'
 					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 				</fieldset>
-
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
-					<button mat-button class="btn btn-danger" (click)="selectTab(2)">Back</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(4)">Next</button>
-					<button mat-raised-button color="primary" type="submit">Save</button>
-				</mat-action-row>
 			</mat-card>
-
+			<mat-action-row>
+				<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
+				<button mat-button class="btn btn-danger" (click)="selectTab(2)">Back</button>
+				<button mat-button class="btn btn-primary" (click)="selectTab(4)">Next</button>
+				<button mat-raised-button color="primary" type="submit">Save</button>
+			</mat-action-row>
 		</mat-tab>
 
 		<mat-tab label="5. Attachments">
@@ -726,14 +720,13 @@
 				</fieldset>
 
 				<mat-divider></mat-divider>
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" (click)="selectTab(5)">Skip</button>
-					<button mat-button class="btn btn-danger" (click)="selectTab(3)">Back</button>
-					<button mat-button class="btn btn-primary" (click)="selectTab(5)">Next</button>
-					<button mat-raised-button color="primary" type="submit">Save</button>
-				</mat-action-row>
 			</mat-card>
-
+			<mat-action-row>
+				<button mat-button class="btn btn-danger" (click)="selectTab(5)">Skip</button>
+				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Back</button>
+				<button mat-button class="btn btn-primary" (click)="selectTab(5)">Next</button>
+				<button mat-raised-button color="primary" type="submit">Save</button>
+			</mat-action-row>
 		</mat-tab>
 		<mat-tab label="6. Review and submit" >
 			<mat-card style="text-align: center;">
@@ -751,11 +744,11 @@
 					</button>
 				</fieldset>
 				<mat-divider></mat-divider>
-				<mat-action-row>
-					<button mat-button class="btn btn-danger" (click)="selectTab(4)">Back</button>
-					<button mat-raised-button color="primary" type="submit">Save</button>
-				</mat-action-row>
 			</mat-card>
+			<mat-action-row>
+				<button mat-button class="btn btn-danger" (click)="selectTab(4)">Back</button>
+				<button mat-raised-button color="primary" type="submit">Save</button>
+			</mat-action-row>
 		</mat-tab>
 	</mat-tab-group>
 

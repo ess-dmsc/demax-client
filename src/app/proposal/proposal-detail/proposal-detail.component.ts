@@ -118,7 +118,7 @@ export class ProposalDetailComponent implements OnInit {
 				amountNeededMotivation: [ '' ],
 				deuterationLevelRequired: [ '' ],
 				deuterationLevelMotivation: [ '' ],
-				other: ['']
+				other: [ '' ]
 			}),
 			proteinDeuteration: this.formBuilder.group({
 				moleculeName: [ '' ],
@@ -202,7 +202,7 @@ export class ProposalDetailComponent implements OnInit {
 		this.proposalService.editProposal(this.proposalForm.value)
 		.subscribe(
 			data => {
-					this.message.setMessage('Saved!', 'success');
+				this.message.setMessage('Saved!', 'success');
 			},
 			error => {
 				console.log(error)
@@ -258,16 +258,20 @@ export class ProposalDetailComponent implements OnInit {
 			}
 		);
 	}
+
 	submitProposal() {
-		this.proposalService.submitProposal(this.proposalForm.value)
-		.subscribe(
-			data => {
-				this.message.setMessage('Submitted!', 'success');
-			},
-			error => {
-				console.log(error)
-			}
-		);
+		if(window.confirm('Are you sure you want to submit?')) {
+			this.proposalService.submitProposal(this.proposalForm.value)
+			.subscribe(
+				data => {
+					this.message.setMessage('Submitted!', 'success');
+					this.router.navigate([ '/proposals' ]);
+				},
+				error => {
+					console.log(error)
+				}
+			);
+		}
 	}
 
 }
