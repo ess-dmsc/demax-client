@@ -258,4 +258,16 @@ export class ProposalDetailComponent implements OnInit {
 			}
 		);
 	}
+	submitProposal() {
+		this.proposalService.submitProposal(this.proposalForm.value)
+		.subscribe(
+			data => {
+				this.message.setMessage('Submitted!', 'success');
+			},
+			error => {
+				console.log(error)
+			}
+		);
+	}
+
 }

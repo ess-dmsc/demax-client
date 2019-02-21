@@ -1,24 +1,24 @@
-import {Inject, Injectable} from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Proposal} from '../models/proposal';
-import {APP_CONFIG, AppConfig} from "../app-config.module";
-import {AuthService} from "../user/auth.service";
+import { Observable } from 'rxjs';
+import { Proposal } from '../models/proposal';
+import { APP_CONFIG, AppConfig } from "../app-config.module";
+import { AuthService } from "../user/auth.service";
 import { User } from "../models/user";
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class ProposalService {
 
-    constructor(@Inject(APP_CONFIG) private appConfig: AppConfig, private http: HttpClient,
-                public auth: AuthService
-    ) {
-    }
+	constructor(@Inject(APP_CONFIG) private appConfig: AppConfig, private http: HttpClient,
+	            public auth: AuthService
+	) {
+	}
 
-    adminGetProposals(): Observable<Proposal[]> {
-        return this.http.get<Proposal[]>('/api/admin/proposals');
-    }
+	adminGetProposals(): Observable<Proposal[]> {
+		return this.http.get<Proposal[]>('/api/admin/proposals');
+	}
 
 	getProposals(user: User): Observable<Proposal[]> {
 		return this.http.get<Proposal[]>(`/api/proposals/${this.auth.currentUser.email}`);
@@ -37,12 +37,16 @@ export class ProposalService {
 	}
 
 	editProposal(proposal: Proposal): Observable<any> {
-        return this.http.put(`/api/proposals/${proposal.proposalId}`, proposal, {responseType: 'text'});
-    }
+		return this.http.put(`/api/proposals/${proposal.proposalId}`, proposal, {responseType: 'text'});
+	}
 
-    deleteProposal(proposal: Proposal): Observable<any> {
-        return this.http.delete(`/api/proposals/${proposal.proposalId}`, {responseType: 'text'});
-    }
+	submitProposal(proposal: Proposal): Observable<any> {
+		return this.http.put(`/api/proposals/submit/${proposal.proposalId}`, proposal, {responseType: 'text'})
+	}
+
+	deleteProposal(proposal: Proposal): Observable<any> {
+		return this.http.delete(`/api/proposals/${proposal.proposalId}`, {responseType: 'text'});
+	}
 
 	pushFileToStorage(file: File, proposalId: string, input: string): Observable<HttpEvent<{}>> {
 		const formdata: FormData = new FormData();
@@ -61,11 +65,13 @@ export class ProposalService {
 	deleteFile(filename: string, proposal: Proposal, input: string): Observable<any> {
 
 
-		const req = new HttpRequest('DELETE', `/api/file/delete/${proposal.proposalId}/${input}/${filename}`, {reportProgress: true, responseType: 'text'});
+		const req = new HttpRequest('DELETE', `/api/file/delete/${proposal.proposalId}/${input}/${filename}`, {
+			reportProgress: true,
+			responseType: 'text'
+		});
 
 		return this.http.request(req);
 	}
-
 
 
 }
