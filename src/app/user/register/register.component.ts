@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material";
 export interface PrivacyDialogData {
 	hasConsentedToGdpr: string;
 }
+
 export interface CookieDialogData {
 	hasConsentedToCookies: string;
 }
@@ -26,11 +27,12 @@ export class RegisterComponent implements OnInit {
 	email = new FormControl('', [ Validators.required, Validators.minLength(3), ]);
 	phone = new FormControl('', [ Validators.required ]);
 	password = new FormControl('', [ Validators.required, Validators.minLength(8) ]);
+	confirmPassword = new FormControl('', [])
 	employer = new FormControl('', [ Validators.required ]);
 	jobTitle = new FormControl('', [ Validators.required ]);
 	hasConsentedToGdpr = new FormControl('', [ Validators.required ]);
 	hasConstentedToEmails = new FormControl('', [ Validators.required ]);
-	hasConsentedToCookies = new FormControl('',[Validators.required]);
+	hasConsentedToCookies = new FormControl('', [ Validators.required ]);
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -41,12 +43,19 @@ export class RegisterComponent implements OnInit {
 	) {
 	}
 
+	checkPasswords() { // here we have the 'passwords' group
+		let password = this.registerForm.get('password').value;
+		let confirmPassword = this.registerForm.get('confirmPassword').value;
+
+		return password === confirmPassword ? null : {notSame: true}
+	}
+
 	openPrivacyDialog(): void {
 		let dialogRef = this.dialog.open(PrivacyDialog, {
 			width: '800px',
 			data: {hasConsentedToGdpr: this.hasConsentedToGdpr}
 		});
-		window.scrollTo(0,0);
+		window.scrollTo(0, 0);
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log('The dialog was closed');
@@ -59,7 +68,7 @@ export class RegisterComponent implements OnInit {
 			width: '800px',
 			data: {hasConsentedToCookies: this.hasConsentedToCookies}
 		});
-		window.scrollTo(0,0);
+		window.scrollTo(0, 0);
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log('The dialog was closed');
@@ -74,6 +83,7 @@ export class RegisterComponent implements OnInit {
 			email: this.email,
 			phone: this.phone,
 			password: this.password,
+			confirmPassword: this.confirmPassword,
 			employer: this.employer,
 			jobTitle: this.jobTitle,
 			hasConsentedToGdpr: this.hasConsentedToGdpr,
@@ -85,7 +95,7 @@ export class RegisterComponent implements OnInit {
 	register() {
 		this.userService.register(this.registerForm.value).subscribe(
 			response => {
-				this.message.setMessage(`A confirmation email was sent to ${this.registerForm.controls['email'].value}. Click the link in the mail to activate your account.`, 'success');
+				this.message.setMessage(`A confirmation email was sent to ${this.registerForm.controls[ 'email' ].value}. Click the link in the mail to activate your account.`, 'success');
 				this.registered.emit(true);
 			},
 			error => this.message.setMessage('Error', 'danger')
@@ -96,7 +106,7 @@ export class RegisterComponent implements OnInit {
 @Component({
 	selector: 'privacy-dialog',
 	templateUrl: '../policys/privacy-dialog.html',
-	styleUrls: [ '../policys/privacy-dialog.css']
+	styleUrls: [ '../policys/privacy-dialog.css' ]
 })
 export class PrivacyDialog {
 
@@ -116,7 +126,7 @@ export class PrivacyDialog {
 @Component({
 	selector: 'cookie-dialog',
 	templateUrl: '../policys/cookie-dialog.html',
-	styleUrls: ['../policys/cookie-dialog.css']
+	styleUrls: [ '../policys/cookie-dialog.css' ]
 })
 export class CookieDialog {
 

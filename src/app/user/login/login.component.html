@@ -1,10 +1,12 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
 	<mat-card style="text-align: center;">
-	<mat-form-field class="input-group" [ngClass]="setClassEmail()">
-		<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus>
+	<mat-form-field>
+		<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus [formControl]="email">
+		<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
 	</mat-form-field>
-	<mat-form-field class="input-group" [ngClass]="setClassPassword()">
-		<input matInput required type="password" name="password" formControlName="password" placeholder="Password">
+	<mat-form-field>
+		<input matInput required [type]="hide ? 'password' : 'text'" name="password" formControlName="password" placeholder="Password">
+		<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 		<mat-hint>If you forget your password, please email <a ng-href="mailto:demax@esss.se">demax@esss.se</a>
 		</mat-hint>
 	</mat-form-field>

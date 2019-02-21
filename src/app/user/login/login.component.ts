@@ -10,13 +10,9 @@ import { MessageComponent } from "../../shared/message/message.component";
 	styleUrls: [ './login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+	hide = true;
 	loginForm: FormGroup;
-	email = new FormControl('', [
-		Validators.required,
-		Validators.minLength(3),
-		Validators.maxLength(100)
-	]);
+	email = new FormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.email ]);
 	password = new FormControl('', [
 		Validators.required
 	]);
@@ -36,12 +32,10 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	setClassEmail() {
-		return { 'has-danger': !this.email.pristine && !this.email.valid };
-	}
-
-	setClassPassword() {
-		return { 'has-danger': !this.password.pristine && !this.password.valid };
+	getErrorMessage() {
+		return this.email.hasError('required') ? 'You must enter a valid email' :
+			this.email.hasError('email') ? 'Not a valid email' :
+				'';
 	}
 
 	login() {
