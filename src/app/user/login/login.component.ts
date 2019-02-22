@@ -13,9 +13,7 @@ export class LoginComponent implements OnInit {
 	hide = true;
 	loginForm: FormGroup;
 	email = new FormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.email ]);
-	password = new FormControl('', [
-		Validators.required
-	]);
+	password = new FormControl('', [ Validators.required, Validators.minLength(3) ]);
 
 	constructor(private auth: AuthService,
 	            private formBuilder: FormBuilder,

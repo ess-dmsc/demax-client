@@ -20,13 +20,23 @@ export interface CookieDialogData {
 })
 export class RegisterComponent implements OnInit {
 	@Output() registered = new EventEmitter();
+	hide = true;
 
 	registerForm: FormGroup;
 	firstName = new FormControl('', [ Validators.required ]);
 	lastName = new FormControl('', [ Validators.required ]);
-	email = new FormControl('', [ Validators.required, Validators.minLength(3), ]);
+	email = new FormControl('', [
+		Validators.required,
+		Validators.minLength(3),
+		Validators.maxLength(100),
+		Validators.email
+	]);
 	phone = new FormControl('', [ Validators.required ]);
-	password = new FormControl('', [ Validators.required, Validators.minLength(8) ]);
+	password = new FormControl('', [
+		Validators.required,
+		Validators.minLength(8),
+		Validators.maxLength(100)
+	]);
 	confirmPassword = new FormControl('', [])
 	employer = new FormControl('', [ Validators.required ]);
 	jobTitle = new FormControl('', [ Validators.required ]);
@@ -43,12 +53,22 @@ export class RegisterComponent implements OnInit {
 	) {
 	}
 
-	checkPasswords() { // here we have the 'passwords' group
+	getErrorMessage() {
+		return this.email.hasError('required') ? 'You must enter a valid email' :
+			this.email.hasError('email') ? 'Not a valid email' :
+				'';
+	}
+
+	getPasswordErrorMessage() {
+		return this.password.hasError('required') ? 'Password must be at least 8 characters and a mixture of upper/lower case and numbers' :
+			this.password.hasError('password') ? 'The password is too weak' : ''
+	}
+
+	/*checkPasswords() {
 		let password = this.registerForm.get('password').value;
 		let confirmPassword = this.registerForm.get('confirmPassword').value;
-
 		return password === confirmPassword ? null : {notSame: true}
-	}
+	}*/
 
 	openPrivacyDialog(): void {
 		let dialogRef = this.dialog.open(PrivacyDialog, {

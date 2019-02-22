@@ -42,6 +42,9 @@ export class UserService {
 	editUser(user: User): Observable<any> {
 		return this.http.put(`/api/users/${user._id}`, user, { responseType: 'text' });
 	}
+	editPassword(user: User): Observable<any> {
+		return this.http.put(`/api/admin/users/changepassword/${user.email}/${user.password}`,{responseType: 'text'});
+	}
 
 	deleteUser(user: User): Observable<any> {
 		return this.http.delete(`/api/users/${user._id}`, { responseType: 'text' });

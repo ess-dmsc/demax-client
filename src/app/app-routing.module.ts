@@ -14,6 +14,7 @@ import { ProposalListComponent } from "./proposal/proposal-list/proposal-list.co
 import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.component";
 import { CookiePolicyComponent } from "./cookie-policy/cookie-policy.component";
 import { AuthGuardLogin } from "./user/auth-guard-login.service";
+import { PasswordComponent } from "./user/password/password.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
 	{path: 'logout', component: LogoutComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'cookie-policy', component: CookiePolicyComponent},
+	{path: 'change-password', component: PasswordComponent},
 	{path: 'privacy-policy', component: PrivacyPolicyComponent},
 	{path: 'proposals', component: ProposalListComponent, canActivate: [ AuthGuardLogin ]},
 	{path: 'proposals/:proposalId', component: ProposalDetailComponent, canActivate: [ AuthGuardLogin ]}
