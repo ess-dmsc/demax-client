@@ -23,6 +23,7 @@ describe('PasswordComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  console.log('test')
 
   /*it('should create', () => {
     expect(component).toBeTruthy();
