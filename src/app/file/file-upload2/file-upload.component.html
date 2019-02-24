@@ -1,60 +1,49 @@
-	<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
-			<mat-form-field class="form-field">
-				<mat-label>Select Document Type</mat-label>
-				<mat-select formControlName="type" required>
-					<mat-option label="Beamtime proposal" value="needByDateAttachment">Beamtime proposal</mat-option>
-					<mat-option label="Primary reference(biomass)" value="pbdIdReferenceAttachment">Primary
-						reference(biomass)
-					</mat-option>
-					<mat-option label="Primary reference(proteins)" value="needsPurificationSupportAttachment">Primary
-						reference(proteins)
-					</mat-option>
-					<mat-option label="Chemical structure" value="chemicalStructureAttachment">Chemical structure
-					</mat-option>
-					<mat-option label="Primary reference(chemical)" value="moleculePreparationReferenceArticle">Primary
-						reference(chemical)
-					</mat-option>
-					<mat-option label="DEMAX Proposal" value="proposalTemplate">DEMAX Proposal</mat-option>
-				</mat-select>
-			</mat-form-field>
-			<br>
-			<div class="progress-bar progress-bar-info mat-progress-bar-fill" role="progressbar"
-			     attr.aria-valuenow="{{progress.percentage}}"
-			     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
-				{{progress.percentage}}%
-			</div>
-			<br>
-			<label class="mat-elevation-z5" for="fileUpload">Choose File</label>
-			<input formControlName="document" id="fileUpload" type="file" ng2FileSelect
-			       accept="application/pdf,application/vnd.ms-excel" [uploader]="uploader" multiple/><br/>
-			<br>
-			<table>
-				<thead>
-				<tr>
-					<th width="20%">
-						Document type
-					</th>
-					<th width="70%">
-						File Name
-					</th>
-					<th width="10%">
-						Remove
-					</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr *ngFor="let item of uploader.queue">
-					<th width="90%">
-						{{item.file.name}}({{item.file.size/1000000}} MB)
-					</th>
-					<th class="text-center" width="10%">
-						<mat-icon (click)="item.remove()">delete</mat-icon>
-					</th>
-				</tr>
-				</tbody>
-			</table>
-			<br>
-			<button mat-raised-button color="primary" class="mat-elevation-z5" [disabled]="!uploadForm.valid"
-			        type="submit">Upload file
-			</button>
-	</form>
+<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+	<div class="progress-bar progress-bar-info mat-progress-bar-fill" role="progressbar"
+	     attr.aria-valuenow="{{progress.percentage}}"
+	     aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+		{{progress.percentage}}%
+	</div>
+	<mat-form-field>
+		<mat-label>Select Document Type</mat-label>
+		<mat-select formControlName="type" required>
+			<mat-option label="DEMAX Proposal" value="proposalTemplate">DEMAX Proposal</mat-option>
+			<mat-option label="Beamtime proposal" value="needByDateAttachment">Beamtime proposal</mat-option>
+			<mat-option label="Primary reference(crystallization)" value="pbdIdReferenceAttachment">Primary reference(crystallization)</mat-option>
+			<mat-option label="Primary reference(biomass)" value="organismReferenceAttachment">Primary reference(biomass</mat-option>
+			<mat-option label="Primary reference(proteins)" value="needsPurificationSupportAttachment">Primary reference(proteins)</mat-option>
+			<mat-option label="Chemical structure" value="chemicalStructureAttachment">Chemical structure</mat-option>
+			<mat-option label="Primary reference(chemical)" value="moleculePreparationReferenceArticle">Primary reference(chemical)</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<label class="mat-elevation-z5" for="fileUpload">Choose File</label>
+
+	<input formControlName="document" id="fileUpload" type="file" ng2FileSelect
+	       accept="application/pdf,application/vnd.ms-excel" [uploader]="uploader" multiple/>
+	<table *ngIf="uploader.queue.length > 0">
+		<thead>
+		<tr>
+			<th width="70%">
+				File Name
+			</th>
+			<th width="10%">
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr *ngFor="let item of uploader.queue">
+			<th width="90%">
+				{{item.file.name}}({{item.file.size/1000000}} MB)
+			</th>
+			<th class="text-center" width="10%">
+				<button mat-raised-button (click)="item.remove()">
+					Remove
+				</button>
+			</th>
+		</tr>
+		</tbody>
+	</table>
+	<button *ngIf="uploader.queue.length > 0" mat-raised-button color="primary" class="mat-elevation-z5" [disabled]="!uploadForm.valid"
+	        type="submit">Upload
+	</button>
+</form>

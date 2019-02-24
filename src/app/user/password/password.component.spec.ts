@@ -25,7 +25,7 @@ describe('PasswordComponent', () => {
   });
   console.log('test')
 
-  /*it('should create', () => {
+ /* it('should create', () => {
     expect(component).toBeTruthy();
   });*/
 });

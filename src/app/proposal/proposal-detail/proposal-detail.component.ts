@@ -26,6 +26,7 @@ export class ProposalDetailComponent implements OnInit {
 	isLoading = true;
 	isEditing = false;
 	isCreating = false;
+	isUploading = false;
 
 	currentProposalId: string;
 
@@ -38,6 +39,8 @@ export class ProposalDetailComponent implements OnInit {
 	proteinDeuteration = false;
 
 	fileUploads: Observable<Object[]>;
+
+	step = 0;
 
 
 	selectTab(index: number): void {
@@ -274,4 +277,10 @@ export class ProposalDetailComponent implements OnInit {
 		}
 	}
 
+	enableUploading(){
+		this.isUploading = true;
+	}
+	disableUploading(){
+		this.isUploading = false;
+	}
 }

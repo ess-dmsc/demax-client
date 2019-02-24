@@ -625,58 +625,72 @@
 			</mat-action-row>
 		</mat-tab>
 
-		<mat-tab label="5. Attachments">
+		<mat-tab label="5. Review & submit">
 			<mat-card>
-
-				<fieldset class="fileUpload">
-					<h4>Upload your proposal here:</h4>
-					<tr>
-						<td>
-							<small><em>Proposals should be written in English, properly referenced, and prepared in the
-								Word template.<br>
-								Please keep to the 2 page limit, including Summary, Background (Science Case, Practical
-								Consideration, References, Figures/Tables)
-							</em></small>
-						</td>
-						<td>
-							<a style="margin: 1rem; " mat-raised-button class="btn btn-success btn-sm" download
-							   href="{{url}}/word/attachment">
-								<img style="margin-right: 1rem;" src="../../../assets/logos/Microsoft_Word_logo.png"
-								     width=25 alt="Proposal template">
-								<mat-icon>get_app</mat-icon>
-								<p style="display: inline; margin: 0; padding: 0; font-size: 1rem;">
-									Word template</p>
-							</a>
-						</td>
-					</tr>
-
-					<app-file-upload attachmentType="proposalTemplate"
-					                 (uploaded)='getFiles($event)'
-					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
-				</fieldset>
-				<mat-divider></mat-divider>
-				<fieldset class="fileUpload">
-					<p>Attach a copy of the beamtime proposal, draft or intended submission</p>
-
-					<app-file-upload attachmentType="needByDateAttachment"
-					                 (uploaded)='getFiles($event)'
-					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
-				</fieldset>
-
-				<mat-divider></mat-divider>
 
 				<fieldset class="requiredFiles">
 					<h4>Required files to upload</h4>
-					<p>DEMAX Proposal</p>
-					<p>Beamtime proposal</p>
-					<p *ngIf="proposal.wantsBiomassDeuteration">Primary reference(biomass)</p>
-					<p *ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'">Primary reference(proteins)</p>
-					<p *ngIf="proposal.wantsChemicalDeuteration">Chemical structure</p>
-					<p *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">Primary reference(chemical)</p>
+
+					<ul class="list-group">
+						<li class="list-group-item">
+							<strong>DEMAX Proposal</strong><br>
+							<tr>
+								<td>
+									<small><em>Proposals should be written in English, properly referenced, and prepared
+										in the
+										Word template.<br>
+										Please keep to the 2 page limit, including Summary, Background (Science Case,
+										Practical
+										Consideration, References, Figures/Tables)
+									</em></small>
+								</td>
+								<td>
+									<a style="margin: 1rem; " mat-raised-button class="btn btn-success btn-sm" download
+									   href="{{url}}/api/word/attachment">
+										<img style="margin-right: 1rem;"
+										     src="../../../assets/logos/Microsoft_Word_logo.png"
+										     width=25 alt="Proposal template">
+										<mat-icon>get_app</mat-icon>
+										<p style="display: inline; margin: 0; padding: 0; font-size: 1rem;">
+											Word template</p>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<app-file-upload attachmentType="proposalTemplate"
+								                 (uploaded)='getFiles($event)'
+								                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+							</tr>
+						</li>
+						<li class="list-group-item">
+							<strong>Beamtime proposal</strong><br>
+							Attach a copy of the beamtime proposal, draft or intended submission
+							<app-file-upload attachmentType="needByDateAttachment"
+							                 (uploaded)='getFiles($event)'
+							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+						</li>
+						<li class="list-group-item" *ngIf="proposal.wantsCrystallization">
+							<strong>Primary reference(crystallization)</strong><br>
+							If the reference isn't publicly available, please provide a copy.
+						</li>
+						<li class="list-group-item" *ngIf="proposal.wantsBiomassDeuteration">
+							<strong>Primary reference(biomass)</strong><br>
+						</li>
+						<li class="list-group-item"
+						    *ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'">
+							<strong>Primary reference(proteins)</strong><br>
+						</li>
+						<li class="list-group-item" *ngIf="proposal.wantsChemicalDeuteration">
+							<strong>Chemical structure</strong><br>
+						</li>
+						<li class="list-group-item"
+						    *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
+							<strong>Primary reference(chemical deuteration)</strong><br>
+						</li>
+					</ul>
 				</fieldset>
 				<fieldset class="fileList">
-					<h4>Attached documents</h4>
-					<br>
+					<h4>Uploaded files</h4>
 					<table class="table table-hover">
 						<thead>
 						<tr>
@@ -720,20 +734,25 @@
 							</div>
 						</div>
 					</table>
-					<!--<app-file-upload2 [proposalId]="proposalForm.controls['proposalId'].value"
-					                  (uploaded)='getFiles($event)'></app-file-upload2>-->
 				</fieldset>
+				<fieldset class="fileUpload">
+					<mat-toolbar class="mat-elevation-z5">
+						<button mat-raised-button
+						        *ngIf="!this.isUploading"
+						        class="mat-elevation-z5"
+						        color="primary"
+						        (click)="enableUploading()"><mat-icon>add</mat-icon> Add file</button>
+						<button mat-raised-button
+						        *ngIf="this.isUploading"
+						        class="mat-elevation-z5"
+						        color="warn"
+						        (click)="disableUploading()"><mat-icon>remove</mat-icon> Close</button>
+					</mat-toolbar>
+					<app-file-upload2 *ngIf="this.isUploading" [proposalId]="proposalForm.controls['proposalId'].value"
+					                  (uploaded)='getFiles($event)'></app-file-upload2>
 
-				<mat-divider></mat-divider>
+				</fieldset>
 			</mat-card>
-			<mat-action-row>
-				<button mat-button class="btn btn-danger" (click)="selectTab(5)">Skip</button>
-				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Back</button>
-				<button mat-button class="btn btn-primary" (click)="selectTab(5)">Next</button>
-				<button mat-raised-button color="primary" type="submit">Save</button>
-			</mat-action-row>
-		</mat-tab>
-		<mat-tab label="6. Review and submit" >
 			<mat-card style="text-align: center;">
 				<fieldset class="generatePdf">
 					<label for="generatePdf">Generate PDF for review:</label>
@@ -742,17 +761,13 @@
 						<mat-icon>cached</mat-icon>
 						Click to generate</a>
 				</fieldset>
-				<mat-divider></mat-divider>
-				<fieldset class="fileUpload">
-					<button class="btn btn-primary btn-lg mat-elevation-z5" (click)="submitProposal()">
-						Submit proposal
-					</button>
-				</fieldset>
-				<mat-divider></mat-divider>
 			</mat-card>
 			<mat-action-row>
-				<button mat-button class="btn btn-danger" (click)="selectTab(4)">Back</button>
+				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Back</button>
 				<button mat-raised-button color="primary" type="submit">Save</button>
+				<button class="btn btn-primary btn-lg mat-elevation-z5" (click)="submitProposal()">
+					Submit proposal
+				</button>
 			</mat-action-row>
 		</mat-tab>
 	</mat-tab-group>
