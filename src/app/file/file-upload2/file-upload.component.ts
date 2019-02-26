@@ -30,10 +30,8 @@ export class FileUploadComponent2 implements OnInit {
 			}
 		}
 		for (let j = 0; j < this.uploader.queue.length; j++) {
-			console.log(j)
 			let data = new FormData();
 			let fileItem = this.uploader.queue[j]._file;
-			console.log(fileItem.name);
 			data.append('file', fileItem);
 			data.append('fileSeq', 'seq'+ j );
 			data.append( 'attachmentType', this.uploadForm.controls.type.value);
