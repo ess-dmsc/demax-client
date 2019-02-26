@@ -163,7 +163,6 @@ export class ProposalDetailComponent implements OnInit {
 		});
 
 		this.currentProposalId = this.activatedRoute.snapshot.params.proposalId;
-		console.log(this.currentProposalId);
 
 		if(this.currentProposalId === 'new') {
 			this.isCreating = true;
@@ -172,7 +171,6 @@ export class ProposalDetailComponent implements OnInit {
 				response => {
 					this.proposal = response;
 					this.proposalForm.setValue(response);
-					console.log('Created new proposal: ' + response.proposalId)
 					this.message.setMessage('New proposal created!', 'success');
 					this.isLoading = false;
 				},
@@ -194,7 +192,6 @@ export class ProposalDetailComponent implements OnInit {
 				this.proposalForm.patchValue(this.proposal);
 				this.isEditing = true;
 				this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
-				console.log('Editing proposal ' + this.proposal.proposalId);
 				this.message.setMessage('Editing proposal ' + this.proposal.proposalId, 'success');
 				this.isLoading = false;
 			}
@@ -236,7 +233,6 @@ export class ProposalDetailComponent implements OnInit {
 	}
 
 	deleteCoProposer(i) {
-		console.log(i);
 		this.coProposerForms.removeAt(i);
 	}
 
@@ -250,9 +246,6 @@ export class ProposalDetailComponent implements OnInit {
 
 
 	delete(filename: string, input: string) {
-		console.log(filename);
-		console.log(this.proposal.proposalId);
-		console.log(input);
 		this.proposalService.deleteFile(filename, this.proposal, input).subscribe(
 			() => {
 				this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
