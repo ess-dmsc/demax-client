@@ -32,9 +32,6 @@ export class FileService {
 		deleteData.append('filename', filename);
 		deleteData.append('proposalId', proposal.proposalId);
 		deleteData.append('attachmentType', input);
-
-		console.log(deleteData)
-
 		const req = new HttpRequest(
 			'DELETE',
 			`/api/file/delete/${proposal.proposalId}/${input}/${filename}`,
