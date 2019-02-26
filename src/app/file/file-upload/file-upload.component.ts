@@ -36,14 +36,12 @@ export class FileUploadComponent implements OnInit {
 	uploadSubmit() {
 		this.progress.percentage = 0;
 		let fileItem = this.uploader.queue[ 0 ]._file;
-		console.log(this.uploader.queue[0])
 		if(fileItem.size > 20000000) {
 			alert("The file is too big. Maximum allowed filesize is 20mb");
 			return;
 		}
 
 		let data = new FormData();
-		console.log(fileItem.name);
 		data.append('file', fileItem);
 		data.append('attachmentType', this.attachmentType);
 		data.append('proposalId', this.proposalId);
