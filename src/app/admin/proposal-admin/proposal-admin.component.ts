@@ -12,7 +12,7 @@ export class ProposalAdminComponent implements OnInit {
 	proposals: Proposal[] = [];
 
 	isLoading = true;
-	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer','options' ]
+	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted','options' ]
 
 	constructor(private proposalService: ProposalService) { }
 
