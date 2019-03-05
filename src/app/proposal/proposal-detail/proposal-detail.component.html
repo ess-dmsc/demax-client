@@ -303,16 +303,22 @@
 
 				<mat-checkbox formControlName="wantsBiomassDeuteration" [(ngModel)]="proposal.wantsBiomassDeuteration">
 					Biomass
-					<small>(yeast)</small>
+					<em>
+						<small>(E. coli)</small>
+					</em>
+				</mat-checkbox>
+				<mat-checkbox formControlName="wantsYeastDeuteration" [(ngModel)]="proposal.wantsYeastDeuteration">
+					Yeast-derived total lipid extract
+					<em><small>(P. pastoris)</small></em>
 				</mat-checkbox>
 				<mat-checkbox formControlName="wantsProteinDeuteration" [(ngModel)]="proposal.wantsProteinDeuteration">
-					Protein <em>
+					Recombinant Protein <em>
 					<small>(E. coli)</small>
 				</em>
 				</mat-checkbox>
-				<mat-checkbox formControlName="wantsOtherDeuteration">Other
-				</mat-checkbox>
-				<mat-form-field>
+				<mat-checkbox formControlName="wantsOtherDeuteration" [(ngModel)]="proposal.wantsOtherDeuteration">Other</mat-checkbox>
+
+				<mat-form-field *ngIf="proposal.wantsOtherDeuteration">
 					<input matInput
 					       formControlName="other"
 					       placeholder="If other - please explain:">

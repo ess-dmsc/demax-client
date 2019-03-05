@@ -31,6 +31,7 @@ export class Proposal {
 	wantsCrystallization?: boolean;
 	wantsBiologicalDeuteration?: boolean;
 	wantsBiomassDeuteration?: boolean;
+	wantsYeastDeuteration?: boolean;
 	wantsProteinDeuteration?: boolean;
 	wantsOtherDeuteration?: boolean;
 	wantsChemicalDeuteration?: boolean;

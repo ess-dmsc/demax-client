@@ -90,6 +90,7 @@ export class ProposalDetailComponent implements OnInit {
 			wantsCrystallization: false,
 			wantsBiologicalDeuteration: false,
 			wantsBiomassDeuteration: false,
+			wantsYeastDeuteration: false,
 			wantsProteinDeuteration: false,
 			wantsOtherDeuteration: false,
 			wantsChemicalDeuteration: false,
