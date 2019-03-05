@@ -8,7 +8,7 @@ import { MessageComponent } from "../../shared/message/message.component";
 import { FileService } from "../../file/file.service";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 import { Observable } from "rxjs";
-import { HttpEventType, HttpResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpEventType, HttpResponse } from "@angular/common/http";
 
 @Component({
 	selector: 'app-proposal-detail',
@@ -145,6 +145,12 @@ export class ProposalDetailComponent implements OnInit {
 				proteinDeuterationResults: [ '' ],
 				other: [ '' ]
 			}),
+			yeastDeuteration: this.formBuilder.group({
+				amountNeeded: [ '' ],
+				amountNeededMotivation: [ '' ],
+				deuterationLevelRequired: [ '' ],
+				deuterationLevelMotivation: [ '' ]
+			}),
 			bioSafety: this.formBuilder.group({
 				bioSafetyContainmentLevel: [ '' ],
 				organismRisk: [ '' ],
@@ -258,14 +264,21 @@ export class ProposalDetailComponent implements OnInit {
 
 	submitProposal() {
 		if(window.confirm('Are you sure you want to submit?')) {
-			this.proposalService.submitProposal(this.proposalForm.value)
+			this.proposalService.submitProposal(this.proposal.proposalId)
 			.subscribe(
-				data => {
-					this.message.setMessage('Submitted!', 'success');
-					this.router.navigate([ '/proposals' ]);
+				response => {
+					if(response === HttpErrorResponse) {
+						this.message.setMessage('Error - missing ' + response.error,'danger', 2);
+						console.log()
+
+					} else {
+						this.message.setMessage(response, 'success');
+						this.router.navigate([ '/proposals' ]);
+					}
 				},
 				error => {
-					console.log(error)
+					this.message.setMessage('Error - missing ' + error.error,'danger', 2);
+					console.log()
 				}
 			);
 		}

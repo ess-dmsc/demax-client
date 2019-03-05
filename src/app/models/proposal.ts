@@ -91,6 +91,12 @@ export class Proposal {
 		proteinDeuterationResults?: string
 		other?: string;
 	};
+	yeastDeuteration?:{
+		amountNeeded?: string;
+		amountNeededMotivation?: string;
+		deuterationLevelRequired?: string;
+		deuterationLevelMotivation?: string;
+	};
 	bioSafety?: {
 		bioSafetyContainmentLevel?: string;
 		organismRisk?: string;

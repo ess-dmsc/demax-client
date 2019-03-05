@@ -40,8 +40,8 @@ export class ProposalService {
 		return this.http.put(`/api/proposals/${proposal.proposalId}`, proposal, {responseType: 'text'});
 	}
 
-	submitProposal(proposal: Proposal): Observable<any> {
-		return this.http.put(`/api/proposals/submit/${proposal.proposalId}`, proposal, {responseType: 'text'})
+	submitProposal(proposalId: string): Observable<any> {
+		return this.http.put(`/api/proposals/submit/${proposalId}`, {responseType: 'text'})
 	}
 
 	deleteProposal(proposal: Proposal): Observable<any> {
