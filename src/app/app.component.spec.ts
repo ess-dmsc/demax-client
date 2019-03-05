@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MessageComponent } from "./shared/message/message.component";
 
 describe("AppComponent", () => {
-  let auth: AuthService;
+  let authService: AuthService;
   let authServiceStub: {
     loggedIn: boolean;
     isAdmin: boolean;
@@ -40,4 +40,10 @@ describe("AppComponent", () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
+
+  it("should not display admin components to normal users", ()=>{
+	  const fixture = TestBed.createComponent(AppComponent);
+	  const app = fixture.debugElement.componentInstance;
+	  expect(app).toBeTruthy();
+  })
 });

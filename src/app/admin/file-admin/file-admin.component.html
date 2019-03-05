@@ -1,14 +1,24 @@
 <h4>Uploaded files:</h4>
-<tr *ngFor="let file of fileUploads | async" class="file">
-	<th scope="row">
-		{{file}}
-	</th>
-	<td>
-		<button mat-stroked-button
-		        class="btn btn-danger btn-sm"
-		        (click)="delete(file)">
-			<mat-icon>delete</mat-icon>
-			Delete
-		</button>
-	</td>
-</tr>
+
+<section>
+
+	<table mat-table [dataSource]="fileUploads">
+
+		<ng-container matColumnDef="filename">
+			<th mat-header-cell *matHeaderCellDef> Filename</th>
+			<td mat-cell *matCellDef="let file"> {{file}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="options">
+			<th mat-header-cell *matHeaderCellDef>Actions</th>
+			<td mat-cell *matCellDef="let file">
+				<button mat-raised-button color="warn" (click)="delete(file)"> Delete</button>
+				<a mat-raised-button download class="btn btn-success" href="/api/file/download/{{file}}"><mat-icon>get_app</mat-icon> Download</a>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+
+</section>

@@ -27,6 +27,10 @@ export class FileAdminService {
 		return this.http.get('/api/admin/files');
 	}
 
+	getFilesByProposal(proposalId: string): Observable<any> {
+		return this.http.get('/api/file/' + proposalId);
+	}
+
 	getFile(filename: string): Observable<any> {
 		return this.http.get('/api/admin/files/download/' + filename)
 	}
