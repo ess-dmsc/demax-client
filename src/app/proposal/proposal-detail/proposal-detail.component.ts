@@ -268,7 +268,7 @@ export class ProposalDetailComponent implements OnInit {
 			.subscribe(
 				response => {
 					if(response === HttpErrorResponse) {
-						this.message.setMessage('Error - missing ' + response.error,'danger', 2);
+						this.message.setMessage('Error - Please upload ' + response.message,'danger');
 						console.log()
 
 					} else {
