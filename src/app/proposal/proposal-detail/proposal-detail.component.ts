@@ -9,6 +9,7 @@ import { FileService } from "../../file/file.service";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 import { Observable } from "rxjs";
 import { HttpErrorResponse, HttpEventType, HttpResponse } from "@angular/common/http";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
 	selector: 'app-proposal-detail',
@@ -61,7 +62,8 @@ export class ProposalDetailComponent implements OnInit {
 		public auth: AuthService,
 		public activatedRoute: ActivatedRoute,
 		public router: Router,
-		private message: MessageComponent
+		private message: MessageComponent,
+		private _snackbar: MatSnackBar
 	) {
 	}
 
@@ -268,7 +270,7 @@ export class ProposalDetailComponent implements OnInit {
 			.subscribe(
 				response => {
 					if(response === HttpErrorResponse) {
-						this.message.setMessage('Error - Please upload ' + response.message,'danger');
+						this.message.setMessage('Error - Please upload ' + response.message, 'danger');
 						console.log()
 
 					} else {
@@ -277,17 +279,22 @@ export class ProposalDetailComponent implements OnInit {
 					}
 				},
 				error => {
-					this.message.setMessage('Error - missing ' + error.error,'danger', 2);
+					this.message.setMessage('Error - missing ' + error.error, 'danger', 2);
 					console.log()
 				}
 			);
 		}
 	}
 
-	enableUploading(){
+	enableUploading() {
 		this.isUploading = true;
 	}
-	disableUploading(){
+
+	disableUploading() {
 		this.isUploading = false;
+	}
+
+	showSnackbar() {
+		this._snackbar.open('YUM SNACKS', 'CHEW');
 	}
 }

@@ -10,18 +10,18 @@
 
 	<mat-tab-group [(selectedIndex)]="selectedIndex">
 		<mat-tab label="1. General information">
-			<mat-card>
-				<mat-form-field>
-					<input matInput required formControlName="experimentTitle" placeholder="Proposal title">
-					<div [hidden]="proposalForm.controls['experimentTitle'].valid || proposalForm.controls['experimentTitle'].pristine"
-					     class="alert alert-danger">
-						A proposal title is required.
-					</div>
-				</mat-form-field>
 
-				Proposal ID: {{this.proposalForm.controls['proposalId'].value}}
+			<mat-form-field>
+				<input matInput required formControlName="experimentTitle" placeholder="Proposal title">
+				<div [hidden]="proposalForm.controls['experimentTitle'].valid || proposalForm.controls['experimentTitle'].pristine"
+				     class="alert alert-danger">
+					A proposal title is required.
+				</div>
+			</mat-form-field>
 
-				<mat-form-field hintLabel="Max 500 characters">
+			Proposal ID: {{this.proposalForm.controls['proposalId'].value}}
+
+			<mat-form-field hintLabel="Max 500 characters">
 					<textarea matInput
 					          #briefSummary
 					          required
@@ -29,14 +29,15 @@
 					          placeholder="Brief summary"
 					          rows="4" cols="40">
 					</textarea>
-					<mat-hint align="end">{{briefSummary.value?.length || 0}}/500</mat-hint>
-					<mat-error *ngIf="briefSummary.invalid">Error</mat-error>
-				</mat-form-field>
+				<mat-hint align="end">{{briefSummary.value?.length || 0}}/500</mat-hint>
+				<mat-error *ngIf="briefSummary.invalid">Error</mat-error>
+			</mat-form-field>
 
-				<div class="mainProposer" formGroupName="mainProposer">
-
-					<h4>Main proposer</h4>
-
+			<mat-card formGroupName="mainProposer">
+				<mat-card-header>
+					<mat-card-title>Main proposer</mat-card-title>
+				</mat-card-header>
+				<mat-card-content class="mainProposer">
 					<mat-form-field>
 						<input matInput
 						       formControlName="firstName"
@@ -49,6 +50,7 @@
 					</mat-form-field>
 					<br>
 					<mat-form-field>
+						<mat-icon matPrefix class="app-input-icon">email</mat-icon>
 						<input matInput
 						       formControlName="email"
 						       placeholder="Email">
@@ -69,98 +71,108 @@
 						       formControlName="jobTitle"
 						       placeholder="Job title">
 					</mat-form-field>
-				</div>
+				</mat-card-content>
+			</mat-card>
 
-				<h4>Co-proposers</h4>
-
-				<fieldset>
+			<mat-card>
+				<mat-card-header>
+					<mat-card-title>Co-proposers</mat-card-title>
+				</mat-card-header>
+				<mat-card-content formArrayName="coProposers">
+					<mat-grid-list cols="3" rowHeight="6:1" class="coProposer"
+					               *ngFor="let coProposer of coProposerForms.controls; let i=index"
+					               [formGroupName]="i">
+						<mat-grid-tile>
+							<mat-form-field>
+								<input matInput required formControlName="firstName" placeholder="First name">
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile>
+							<mat-form-field>
+								<input matInput required formControlName="lastName" placeholder="Last name">
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile>
+							<button mat-raised-button class="btn btn-danger btn-sm" (click)="deleteCoProposer(i)">
+								Delete
+							</button>
+						</mat-grid-tile>
+						<mat-grid-tile>
+							<mat-form-field>
+								<input matInput required formControlName="affiliation" placeholder="Affiliation">
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile>
+							<mat-form-field>
+								<input matInput required formControlName="email" placeholder="Email">
+							</mat-form-field>
+						</mat-grid-tile>
+					</mat-grid-list>
+				</mat-card-content>
+				<mat-card-actions>
 					<button mat-raised-button color="primary" (click)="addCoProposer()">
 						<mat-icon>person_add</mat-icon>
 						Click to add
 					</button>
-				</fieldset>
-
-				<div class="coProposers" formArrayName="coProposers">
-
-					<div class="coProposer" *ngFor="let coProposer of coProposerForms.controls; let i=index"
-					     [formGroupName]="i">
-						<mat-form-field>
-							<input matInput required formControlName="firstName" placeholder="First name">
-						</mat-form-field>
-
-						<mat-form-field>
-							<input matInput required formControlName="lastName" placeholder="Last name">
-						</mat-form-field>
-						<br>
-						<mat-form-field>
-							<input matInput required formControlName="affiliation" placeholder="Affiliation">
-						</mat-form-field>
-
-						<mat-form-field>
-							<input matInput required formControlName="email" placeholder="Email">
-						</mat-form-field>
-						<button (click)="deleteCoProposer(i)">
-							Delete
-						</button>
-					</div>
-				</div>
-
-				<mat-radio-group formControlName="linksWithIndustry">
-					<p>Links with industry?</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-
-				<mat-form-field *ngIf="this.proposalForm.controls['linksWithIndustry'].value==='yes'">
-					<input matInput
-					       formControlName="linksWithIndustryDetails"
-					       placeholder="If yes, please describe:">
-				</mat-form-field>
-
-				<mat-radio-group formControlName="coProposerStudents">
-					<p>Are any of the co-proposers students?</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-
-				<mat-radio-group formControlName="workTowardsStudentsDegree">
-					<p>Does the proposal work towards a students degree?</p>
-					<mat-radio-button value="yes">Yes</mat-radio-button>
-					<mat-radio-button value="no">No</mat-radio-button>
-				</mat-radio-group>
-
-				<h4>Final delivery date</h4>
-
-				<mat-form-field>
-					<input matInput
-					       formControlName="needByDate"
-					       [matDatepicker]="picker"
-					       placeholder="Choose a date">
-					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-					<mat-datepicker #picker></mat-datepicker>
-				</mat-form-field>
-
-				<mat-form-field>
-					<p>Please motivate the chosen date<br><em>
-						<small>(e.g. based on awarded beamtime, or described intention to apply)</small>
-					</em></p>
-
-					<textarea matInput
-					          formControlName="needByDateMotivation"
-					          rows="4" cols="40"></textarea>
-
-				</mat-form-field>
-
-				<mat-form-field>
-					<p>If there is anything else you would like us to know, please enter it below:</p>
-					<textarea matInput
-					          formControlName="other"
-					          rows="4" cols="40"></textarea>
-				</mat-form-field>
-
-				<p>In the next sections you will fill out the applicable area of support your proposal requires.
-					<br>Select one, or as many as apply from the alternatives.</p>
+				</mat-card-actions>
 			</mat-card>
+
+			<mat-radio-group formControlName="linksWithIndustry">
+				<p>Links with industry?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+			</mat-radio-group>
+
+			<mat-form-field *ngIf="this.proposalForm.controls['linksWithIndustry'].value==='yes'">
+				<input matInput
+				       formControlName="linksWithIndustryDetails"
+				       placeholder="If yes, please describe:">
+			</mat-form-field>
+
+			<mat-radio-group formControlName="coProposerStudents">
+				<p>Are any of the co-proposers students?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+			</mat-radio-group>
+
+			<mat-radio-group formControlName="workTowardsStudentsDegree">
+				<p>Does the proposal work towards a students degree?</p>
+				<mat-radio-button value="yes">Yes</mat-radio-button>
+				<mat-radio-button value="no">No</mat-radio-button>
+			</mat-radio-group>
+
+			<h4>Final delivery date</h4>
+
+			<mat-form-field>
+				<input matInput
+				       formControlName="needByDate"
+				       [matDatepicker]="picker"
+				       placeholder="Choose a date">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field>
+				<p>Please motivate the chosen date<br><em>
+					<small>(e.g. based on awarded beamtime, or described intention to apply)</small>
+				</em></p>
+
+				<textarea matInput
+				          formControlName="needByDateMotivation"
+				          rows="4" cols="40"></textarea>
+
+			</mat-form-field>
+
+			<mat-form-field>
+				<p>If there is anything else you would like us to know, please enter it below:</p>
+				<textarea matInput
+				          formControlName="other"
+				          rows="4" cols="40"></textarea>
+			</mat-form-field>
+
+			<p>In the next sections you will fill out the applicable area of support your proposal requires.
+				<br>Select one, or as many as apply from the alternatives.</p>
+
 			<mat-action-row>
 				<button mat-raised-button color="primary" (click)="save()">Save</button>
 				<button mat-button class="btn btn-primary" (click)="selectTab(1)">Next</button>
@@ -172,7 +184,7 @@
 				select: Crystallization
 			</mat-checkbox>
 
-			<mat-card formGroupName="crystallization" *ngIf="proposal.wantsCrystallization">
+			<div formGroupName="crystallization" *ngIf="proposal.wantsCrystallization">
 
 				<p>Required information to include in the “Practical Considerations” section of your
 					proposal:</p>
@@ -283,7 +295,7 @@
 					<p>What protein concentration do you usually use for crystallization?</p>
 					<input matInput required formControlName="typicalProteinConcentrationUsed">
 				</mat-form-field>
-			</mat-card>
+			</div>
 			<mat-action-row>
 				<button mat-button class="btn btn-danger" (click)="selectTab(2)">Skip</button>
 				<button mat-button class="btn btn-danger" (click)="selectTab(0)">Back</button>
@@ -298,7 +310,7 @@
 				Check to select: Biological deuteration
 			</mat-checkbox>
 
-			<mat-card *ngIf="proposal.wantsBiologicalDeuteration">
+			<div *ngIf="proposal.wantsBiologicalDeuteration">
 
 				<p>If the protein is to be purified by us, please remember to include a chromatogram from
 					purification and a picture of SDS-PAGE that indicates MW and purity in your science case.</p>
@@ -309,7 +321,6 @@
 					<h4>Biomass <em>(E. coli)</em></h4>
 				</mat-checkbox>
 				<mat-card *ngIf="proposal.wantsBiomassDeuteration" formGroupName="biomassDeuteration">
-
 
 
 					<mat-radio-group formControlName="organismProvidedByUser">
@@ -582,7 +593,7 @@
 					</mat-form-field>
 
 				</div>
-			</mat-card>
+			</div>
 
 			<mat-action-row>
 				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
@@ -597,7 +608,7 @@
 				Check to select: Chemical deuteration
 			</mat-checkbox>
 
-			<mat-card formGroupName="chemicalDeuteration" *ngIf="proposal.wantsChemicalDeuteration">
+			<div formGroupName="chemicalDeuteration" *ngIf="proposal.wantsChemicalDeuteration">
 
 				<mat-form-field>
 					<input matInput required
@@ -647,7 +658,7 @@
 					                 (uploaded)='getFiles($event)'
 					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 				</fieldset>
-			</mat-card>
+			</div>
 			<mat-action-row>
 				<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
 				<button mat-button class="btn btn-danger" (click)="selectTab(2)">Back</button>
@@ -657,148 +668,128 @@
 		</mat-tab>
 
 		<mat-tab label="5. Review & submit">
-			<mat-card>
 
-				<fieldset class="requiredFiles">
-					<h4>Required files to upload</h4>
+			<h4>Required files to upload</h4>
 
-					<ul class="list-group">
-						<li class="list-group-item">
-							<strong>DEMAX Proposal</strong><br>
-							<tr>
-								<td>
-									<small><em>Proposals should be written in English, properly referenced, and prepared
-										in the
-										Word template.<br>
-										Please keep to the 2 page limit, including Summary, Background (Science Case,
-										Practical
-										Consideration, References, Figures/Tables)
-									</em></small>
-								</td>
-								<td>
-									<a style="margin: 1rem; " mat-raised-button class="btn btn-success btn-sm" download
-									   href="{{url}}/api/word/attachment">
-										<img style="margin-right: 1rem;"
-										     src="../../../assets/logos/Microsoft_Word_logo.png"
-										     width=25 alt="Proposal template">
-										<mat-icon>get_app</mat-icon>
-										<p style="display: inline; margin: 0; padding: 0; font-size: 1rem;">
-											Word template</p>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<app-file-upload attachmentType="proposalTemplate"
-								                 (uploaded)='getFiles($event)'
-								                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
-							</tr>
-						</li>
-						<li class="list-group-item">
-							<strong>Beamtime proposal</strong><br>
-							Attach a copy of the beamtime proposal, draft or intended submission
-							<app-file-upload attachmentType="needByDateAttachment"
-							                 (uploaded)='getFiles($event)'
-							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
-						</li>
-						<li class="list-group-item" *ngIf="proposal.wantsCrystallization">
-							<strong>Primary reference(crystallization)</strong><br>
-							If the reference isn't publicly available, please provide a copy.
-						</li>
-						<li class="list-group-item" *ngIf="proposal.wantsBiomassDeuteration">
-							<strong>Primary reference(biomass)</strong><br>
-						</li>
-						<li class="list-group-item"
-						    *ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'">
-							<strong>Primary reference(proteins)</strong><br>
-						</li>
-						<li class="list-group-item" *ngIf="proposal.wantsChemicalDeuteration">
-							<strong>Chemical structure</strong><br>
-						</li>
-						<li class="list-group-item"
-						    *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
-							<strong>Primary reference(chemical deuteration)</strong><br>
-						</li>
-					</ul>
-				</fieldset>
-				<fieldset class="fileList">
-					<h4>Uploaded files</h4>
-					<table class="table table-hover">
-						<thead>
-						<tr>
-							<th scope="col">Document type</th>
-							<th scope="col">Filename</th>
-							<th scope="col">File size</th>
-							<th scope="col">File type</th>
-							<th scope="col">Options</th>
-						</tr>
-						</thead>
+			<mat-accordion multi="false">
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>DEMAX Proposal</mat-expansion-panel-header>
+					<mat-grid-list cols="2" rowHeight="2:1">
+						<mat-grid-tile>
+							Proposals should be written in English, properly referenced, and prepared
+							in the Word template.<br>
+							Please keep to the 2 page limit, including Summary, Background (Science Case,
+							Practical Consideration, References, Figures/Tables)
+						</mat-grid-tile>
+						<mat-grid-tile>
+							<a style="margin: 1rem; " mat-raised-button class="btn btn-success btn-sm" download
+							   href="{{url}}/api/word/attachment">
+								<img style="margin-right: 1rem;"
+								     src="../../../assets/logos/Microsoft_Word_logo.png"
+								     width=25 alt="Proposal template">
+								<mat-icon>get_app</mat-icon>
+								<p style="display: inline; margin: 0; padding: 0; font-size: 1rem;">
+									Word template</p>
+							</a>
+						</mat-grid-tile>
+					</mat-grid-list>
+					<app-file-upload attachmentType="proposalTemplate"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</mat-expansion-panel>
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>Beamtime proposal</mat-expansion-panel-header>
+					Attach a copy of the beamtime proposal, draft or intended submission
+					<app-file-upload attachmentType="needByDateAttachment"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</mat-expansion-panel>
+				<mat-expansion-panel *ngIf="proposal.wantsCrystallization">
+					<mat-expansion-panel-header>Primary reference (crystallization)</mat-expansion-panel-header>
+					If the reference isn't publicly available, please upload a copy.
+					<app-file-upload attachmentType="pbdIdReferenceAttachment"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</mat-expansion-panel>
+				<mat-expansion-panel *ngIf="proposal.wantsBiomassDeuteration">
+					<mat-expansion-panel-header>Primary reference (biomass)</mat-expansion-panel-header>
+					Please attach a reference or protocol of culture conditions and media composition.
+					<app-file-upload attachmentType="organismReferenceAttachment"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</mat-expansion-panel>
+				<mat-expansion-panel
+						*ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'">
+					<mat-expansion-panel-header>Primary reference (proteins)</mat-expansion-panel-header>
+					If you need DEMAX to purify the protein from deuterated biomass, please attach a reference or
+					protocol.
+					<app-file-upload attachmentType="needsPurificationSupportAttachment"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</mat-expansion-panel>
+				<mat-expansion-panel *ngIf="proposal.wantsChemicalDeuteration">
+					<mat-expansion-panel-header>Chemical structure</mat-expansion-panel-header>
+					Attach the chemical structure.
+					<app-file-upload attachmentType="chemicalStructureAttachment"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</mat-expansion-panel>
+				<mat-expansion-panel
+						*ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'">
+					<mat-expansion-panel-header>Primary reference (chemical deuteration)</mat-expansion-panel-header>
+					If the molecule (or an unlabeled/isotopic analogue) has been prepared by yourself or others, please
+					provide a protocol (attach a reference PDF if published).
+					<app-file-upload attachmentType="moleculePreparationReferenceArticle"
+					                 (uploaded)='getFiles($event)'
+					                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+				</mat-expansion-panel>
+			</mat-accordion>
 
-						<tbody *ngIf="!isLoading">
-						<tr *ngFor="let file of fileUploads | async" class="file">
-							<th scope="row">
-								{{file.attachmentType}}
-							</th>
-							<td>
-								<a href="/api/file/download/{{file.originalname}}">
-									<img src="../../../assets/logos/pdf.png" width="35" alt="{{file.originalname}}">
-									{{file.originalname}}
-								</a>
-							</td>
-							<td>
-								{{file.size/1000000}} MB
-							</td>
-							<td>
-								{{file.mimetype}}
-							</td>
-							<td>
-								<button class="btn btn-danger btn-sm"
-								        (click)="delete(file.filename, file.attachmentName)">Delete
-								</button>
-							</td>
-						</tr>
-						</tbody>
+			<fieldset class="fileList">
+				<h4>Uploaded files</h4>
+				<table class="table table-hover">
+					<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Originalname</th>
+						<th scope="col">Actions</th>
+					</tr>
+					</thead>
 
-						<div *ngIf="isLoading" style="text-align: center;">
-							<div class="lds-ripple">
-								<div></div>
-								<div></div>
-							</div>
+					<tbody *ngIf="!isLoading">
+					<tr *ngFor="let file of fileUploads | async" class="file">
+						<th scope="row">
+							{{file.attachmentType}}
+						</th>
+						<td>
+							<a href="/api/file/download/{{file.path.slice(17,-1)}}">
+								<img src="../../../assets/logos/pdf.png" width="35" alt="{{file.originalname}}">
+								{{file.originalname}}
+							</a>
+						</td>
+						<td>
+							<button class="btn btn-danger btn-sm"
+							        (click)="delete(file.path.slice(17,-1), file.attachmentName)">Delete
+							</button>
+						</td>
+					</tr>
+					</tbody>
+
+					<div *ngIf="isLoading" style="text-align: center;">
+						<div class="lds-ripple">
+							<div></div>
+							<div></div>
 						</div>
-					</table>
-				</fieldset>
-				<fieldset class="fileUpload">
-					<mat-toolbar class="mat-elevation-z5">
-						<button mat-raised-button
-						        *ngIf="!this.isUploading"
-						        class="mat-elevation-z5"
-						        color="primary"
-						        (click)="enableUploading()">
-							<mat-icon>add</mat-icon>
-							Add file
-						</button>
-						<button mat-raised-button
-						        *ngIf="this.isUploading"
-						        class="mat-elevation-z5"
-						        color="warn"
-						        (click)="disableUploading()">
-							<mat-icon>remove</mat-icon>
-							Close
-						</button>
-					</mat-toolbar>
-					<app-file-upload2 *ngIf="this.isUploading" [proposalId]="proposalForm.controls['proposalId'].value"
-					                  (uploaded)='getFiles($event)'></app-file-upload2>
-
-				</fieldset>
-			</mat-card>
-			<mat-card style="text-align: center;">
-				<fieldset class="generatePdf">
-					<label for="generatePdf">Generate PDF for review:</label>
-					<a download mat-raised-button color="warn" class="mat-elevation-z5" id="generatePdf"
-					   href="{{url}}/api/generate/{{this.proposalForm.controls['proposalId'].value}}">
-						<mat-icon>cached</mat-icon>
-						Click to generate</a>
-				</fieldset>
-			</mat-card>
+					</div>
+				</table>
+			</fieldset>
+			<fieldset class="generatePdf">
+				<label for="generatePdf">Generate PDF for review:</label>
+				<a download mat-raised-button color="warn" class="mat-elevation-z5" id="generatePdf"
+				   href="{{url}}/api/generate/{{this.proposalForm.controls['proposalId'].value}}">
+					<mat-icon>cached</mat-icon>
+					Click to generate</a>
+			</fieldset>
 			<mat-action-row>
 				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Back</button>
 				<button mat-raised-button color="primary" (click)="save()">Save</button>

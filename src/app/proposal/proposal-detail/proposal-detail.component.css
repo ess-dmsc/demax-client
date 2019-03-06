@@ -6,10 +6,6 @@
 	display: block;
 	max-width: 700px;
 }
-mat-card {
-	margin: 2rem 5rem;
-	padding: 2rem;
-}
 
 textarea {
 	display: block;
@@ -45,21 +41,6 @@ mat-radio-button {
 .coProposer mat-form-field {
 	width: 300px;
 	display: inline-block;
-}
-
-.coProposer {
-	max-width: 700px;
-	border: solid gray 1px;
-	border-radius: 1rem;
-	box-shadow: 2px 2px 2px black;
-	margin-bottom: 2rem;
-	padding: 0.5rem;
-}
-
-.coProposer button {
-	margin-left: 2rem;
-	display: inline-block;
-	right: 1rem;
 }
 
 mat-action-row {

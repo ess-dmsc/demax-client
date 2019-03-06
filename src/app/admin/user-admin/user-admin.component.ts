@@ -17,7 +17,7 @@ export class UserAdminComponent implements OnInit {
 
 	user = new User();
 	users: User[] = [];
-	displayedUserColumns: string[] = [ 'firstName', 'lastName', 'phone', 'email', 'role', 'options' ];
+	displayedUserColumns: string[] = [ 'firstName', 'lastName', 'phone', 'email', 'isVerified', 'role', 'options' ];
 
 	editUserForm: FormGroup;
 	email = new FormControl('', Validators.required);
