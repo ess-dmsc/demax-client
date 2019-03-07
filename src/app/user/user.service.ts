@@ -46,6 +46,10 @@ export class UserService {
 		return this.http.put(`/api/admin/users/changepassword/${user.email}/${user.password}`,{responseType: 'text'});
 	}
 
+	forgotPassword(email: string): Observable<any>{
+		return this.http.get('/api/auth/forgotpassword/' + email);
+	}
+
 	deleteUser(user: User): Observable<any> {
 		return this.http.delete(`/api/users/${user._id}`, { responseType: 'text' });
 	}

@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import 'rxjs/add/operator/map';
+import { Observable } from "rxjs";
 
 @Injectable({
 	providedIn: 'root',
@@ -33,6 +34,9 @@ export class AuthService {
 		);
 	}
 
+	forgotPassword(email: string){
+		return this.userService.forgotPassword(email);
+	}
 
 	logout() {
 		localStorage.removeItem('access_token');

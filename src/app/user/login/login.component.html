@@ -1,23 +1,55 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-	<mat-card style="text-align: center;">
-	<mat-form-field>
-		<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus [formControl]="email">
-		<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-	</mat-form-field>
-	<mat-form-field>
-		<input matInput required [type]="hide ? 'password' : 'text'" name="password" formControlName="password" placeholder="Password">
-		<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-		<mat-hint>If you forget your password, please email <a ng-href="mailto:demax@esss.se">demax@esss.se</a>
-		</mat-hint>
-	</mat-form-field>
+<form [formGroup]="loginForm">
+	<mat-card *ngIf="!hasForgottenPassword" style="text-align: center;">
+		<mat-form-field>
+			<input matInput required type="email" name="email" formControlName="email" placeholder="Email" autofocus
+			       [formControl]="email">
+			<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput required [type]="hide ? 'password' : 'text'" name="password" formControlName="password"
+			       placeholder="Password">
+			<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+		</mat-form-field>
 
-		<mat-card-actions style="padding: 1rem;">
+		<mat-card-actions>
 			<button mat-raised-button
-			class="mat-elevation-z5"
-			color="primary" style="width: 200px; margin-top: 2rem;"
-			[disabled]="!loginForm.valid" type="submit">
-			Login
+			        class="btn btn-primary btn-block font-weight-bold mat-elevation-z5"
+			        color="primary" style="width: 80%; margin-top: 1rem;"
+			        [disabled]="!loginForm.valid" (click)="login()">Login
+			</button>
+			<br>
+			<button mat-button color="primary" (click)="forgot()" style="margin-top: 15px;">
+				<small>Forgot password?</small>
+			</button>
+		</mat-card-actions>
+	</mat-card>
+	<mat-card *ngIf="hasForgottenPassword">
+		<mat-card-header>
+			<mat-card-title>
+				Reset password
+			</mat-card-title>
+			<mat-card-subtitle>
+				Enter the email address associated with your account.
+			</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content style="padding: 0 1rem;">
+			<mat-form-field appearance="outline" style="width: 100%;">
+				<input matInput type="email" name="email" formControlName="email" placeholder="Email" autofocus
+				       [formControl]="email">
+			</mat-form-field>
+			<small>
+				If you no longer have access to the email address associated with your account,<br> you may contact <a
+					href="mailto:demax@esss.se">demax@esss.se</a> for help restoring access to your account.
+			</small>
+		</mat-card-content>
+		<mat-card-actions style="padding: 0 1rem;">
+			<button mat-raised-button class="btn btn-danger btn-block font-weight-bold mat-elevation-z5" color="primary" style="width: 50%; margin-top: 10px; margin-right: 2rem;"
+			        (click)="reset(loginForm.controls['email'].value)">Reset password
+			</button>
+			<button mat-stroked-button color="warn" (click)="hasForgottenPassword = false" style="margin-top: 10px;">
+				<small>Cancel</small>
 			</button>
 		</mat-card-actions>
 	</mat-card>
 </form>
+
