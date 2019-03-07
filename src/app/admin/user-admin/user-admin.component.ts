@@ -3,13 +3,17 @@ import { User } from "../../models/user";
 import { UserService } from "../../user/user.service";
 import { UserAdminService } from "./user-admin.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { CustomValidators } from "../../custom-validators";
+import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({
-  selector: 'app-user-admin',
-  templateUrl: './user-admin.component.html',
-  styleUrls: [ './user-admin.component.css']
+	selector: 'app-user-admin',
+	templateUrl: './user-admin.component.html',
+	styleUrls: [ './user-admin.component.css' ]
 })
 export class UserAdminComponent implements OnInit {
+
+	hide = true;
 
 	isLoading = true;
 	isEditing = false;
@@ -26,18 +30,37 @@ export class UserAdminComponent implements OnInit {
 	editPasswordForm: FormGroup;
 	password = new FormControl('', Validators.required);
 
-	constructor(private userAdminService: UserAdminService, private formBuilder: FormBuilder) { }
+	constructor(private userAdminService: UserAdminService, private formBuilder: FormBuilder, public message: MessageComponent) {
+	}
 
-  ngOnInit() {
-	  this.getUsers();
-	  this.editUserForm = this.formBuilder.group({
-		  email: this.email,
-		  role: this.role
-	  });
-	  this.editPasswordForm = this.formBuilder.group({
-		  password: this.password
-	  });
-  }
+	ngOnInit() {
+		this.getUsers();
+		this.editUserForm = this.formBuilder.group({
+			email: this.email,
+			role: this.role
+		});
+		this.editPasswordForm = this.formBuilder.group(
+			{
+				password: [
+					null,
+					Validators.compose([
+						Validators.required,
+						CustomValidators.patternValidator(/\d/, {
+							hasNumber: true
+						}),
+						CustomValidators.patternValidator(/[A-Z]/, {
+							hasCapitalCase: true
+						}),
+						Validators.minLength(8)
+					])
+				],
+				confirmPassword: [ null, Validators.compose([ Validators.required ]) ]
+			},
+			{
+				validator: CustomValidators.passwordMatchValidator
+			}
+		);
+	}
 
 	getUsers() {
 		this.userAdminService.getUsers().subscribe(
@@ -49,42 +72,51 @@ export class UserAdminComponent implements OnInit {
 
 	editUser(user: User) {
 		this.userAdminService.editUser(user).subscribe(
-			() => {
+			data => {
+				this.message.setMessage('Saved!', 'success');
 				this.isEditing = false;
 				this.user = user;
 				this.getUsers()
 			},
-			error =>{
+			error => {
+				this.message.setMessage(error.error, 'danger');
 				console.log(error)
 			}
 		)
 	}
-	editPassword(user: User){
+
+	editPassword(user: User) {
 		this.userAdminService.editPassword(user).subscribe(
-			()=>{
+			data => {
+				this.message.setMessage('Successfully changed password', 'success');
 				this.isEditingPassword = false;
 				this.user = user;
 				this.getUsers();
 			},
-			error =>{
+			error => {
+				this.message.setMessage(error.error, 'danger');
 				console.log(error)
 			}
 		)
 	}
-	enablePasswordEditing(user: User){
+
+	enablePasswordEditing(user: User) {
 		this.isEditingPassword = true;
 		this.user = user;
 	}
-	cancelPasswordEditing(){
+
+	cancelPasswordEditing() {
 		this.isEditingPassword = false;
 		this.user = new User();
 		this.getUsers();
 	}
+
 	enableEditing(user: User) {
 		this.isEditing = true;
 		this.user = user;
 	}
-	cancelEditing(){
+
+	cancelEditing() {
 		this.isEditing = false;
 		this.user = new User();
 		this.getUsers();

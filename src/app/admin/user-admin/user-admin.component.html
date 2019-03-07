@@ -46,21 +46,83 @@
 		<tr mat-row *matRowDef="let row; columns: displayedUserColumns;"></tr>
 	</table>
 </div>
-<mat-card *ngIf="isEditingPassword" style="width: 50%; padding: 2rem; margin: 2rem auto;">
-	<mat-card-title>
-		Change password for {{user.email}}
-	</mat-card-title>
-	<form (ngSubmit)="editPassword(user)" *ngIf="isEditingPassword">
-		<mat-card-content>
-			<mat-form-field>
-				<input matInput name="password" [(ngModel)]="user.password" placeholder="New password">
-			</mat-form-field>
-		</mat-card-content>
-		<mat-card-actions>
-			<button class="btn btn-primary" (click)="editPassword(user)">Update password</button>
-			<button class="btnbtn-danger" (click)="cancelPasswordEditing()">Cancel</button>
-		</mat-card-actions>
-	</form>
+<mat-card *ngIf="isEditingPassword" style="padding: 2rem; margin: 2rem auto;" [formGroup]="editPasswordForm">
+	<mat-card-header>
+		<mat-card-title>
+			Change password for {{user.email}}
+		</mat-card-title>
+		<mat-card-subtitle>
+			The password must consist of a minimum of 8 characters, with at least one number, one upper case character and one lower case character.
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<mat-form-field style="margin-right: 10px; margin-bottom: 30px;">
+			<input matInput
+			       required
+			       [(ngModel)]="user.password"
+			       formControlName="password"
+			       placeholder="Password"
+			       [type]="hide ? 'password' : 'text'"
+			       [ngClass]="editPasswordForm.controls['password'].invalid ? 'is-invalid' : ''">
+			<mat-icon matTooltip="Show password" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' :
+				'visibility'}}
+			</mat-icon>
+
+			<mat-error
+					[ngClass]="editPasswordForm.controls['password'].hasError('required') || editPasswordForm.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+				<mat-icon>{{ editPasswordForm.controls['password'].hasError('required') ||
+					editPasswordForm.controls['password'].hasError('minlength') ? 'cancel' : 'check_circle' }}
+				</mat-icon>
+				Must be at least 8 characters
+			</mat-error>
+			<mat-error
+					[ngClass]="editPasswordForm.controls['password'].hasError('required') || editPasswordForm.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+				<mat-icon>{{ editPasswordForm.controls['password'].hasError('required') ||
+					editPasswordForm.controls['password'].hasError('hasNumber') ? 'cancel' : 'check_circle' }}
+				</mat-icon>
+				Must contain at least 1 number
+			</mat-error>
+			<mat-error
+					[ngClass]="editPasswordForm.controls['password'].hasError('required') || editPasswordForm.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+				<mat-icon>{{ editPasswordForm.controls['password'].hasError('required') ||
+					editPasswordForm.controls['password'].hasError('hasCapitalCase') ? 'cancel' : 'check_circle' }}
+				</mat-icon>
+				Must contain at least 1 letter in capital case
+			</mat-error>
+
+		</mat-form-field>
+
+		<mat-form-field>
+
+			<input matInput
+			       required
+			       formControlName="confirmPassword"
+			       [type]="hide ? 'password' : 'text'"
+			       placeholder="Confirm password"
+			       [ngClass]="editPasswordForm.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
+			<mat-icon matTooltip="Show password" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' :
+				'visibility'}}
+			</mat-icon>
+			<mat-error *ngIf="editPasswordForm.controls['confirmPassword'].hasError('NoPasswordMatch')">Passwords do
+				not match
+			</mat-error>
+
+		</mat-form-field>
+	</mat-card-content>
+	<mat-divider></mat-divider>
+	<mat-card-actions>
+		<button mat-raised-button
+		        [disabled]="!editPasswordForm.valid"
+		        class="mat-elevation-z5"
+		        color="primary"
+		        style="padding: 0 2rem;"
+		        (click)="editPassword(user)">Save
+		</button>
+		<button mat-flat-button
+		        color="warn"
+		        routerLink="/home">Cancel</button>
+	</mat-card-actions>
+
 </mat-card>
 
 <mat-card *ngIf="isEditing" style="width: 50%; padding: 2rem; margin: 2rem auto">

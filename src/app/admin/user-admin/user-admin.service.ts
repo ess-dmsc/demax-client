@@ -28,6 +28,7 @@ export class UserAdminService {
 	}
 
 	editPassword(user: User): Observable<any> {
+		console.log(user.password)
 		return this.http.put(`/api/admin/users/changepassword/${user.email}/${user.password}`,{responseType: 'text'});
 	}
 
