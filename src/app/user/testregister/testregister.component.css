@@ -1,0 +1,23 @@
+mat-form-field{
+	margin: 0;
+	padding: 0;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 1.3rem;
+	width: 50%;
+}
+
+button{
+	display: block;
+}
+
+.material-icons {
+	display: inline-flex;
+	vertical-align: middle;
+}
+.text-success{
+	color: #28a745 !important;
+
+}
+.text-danger{
+
+}

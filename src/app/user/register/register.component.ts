@@ -1,9 +1,28 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+	AbstractControl,
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	FormGroupDirective,
+	NgForm,
+	Validators
+} from '@angular/forms';
 import { UserService } from '../user.service';
 import { MessageComponent } from "../../shared/message/message.component";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material";
+import { ErrorStateMatcher } from '@angular/material/core';
+import { CustomValidators } from "../../custom-validators";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+		const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+		const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+		return (invalidCtrl || invalidParent);
+	}
+}
 
 export interface PrivacyDialogData {
 	hasConsentedToGdpr: string;
@@ -23,6 +42,7 @@ export class RegisterComponent implements OnInit {
 	hide = true;
 
 	registerForm: FormGroup;
+
 	firstName = new FormControl('', [ Validators.required ]);
 	lastName = new FormControl('', [ Validators.required ]);
 	email = new FormControl('', [
@@ -32,17 +52,13 @@ export class RegisterComponent implements OnInit {
 		Validators.email
 	]);
 	phone = new FormControl('', [ Validators.required ]);
-	password = new FormControl('', [
-		Validators.required,
-		Validators.minLength(8),
-		Validators.maxLength(100)
-	]);
-	confirmPassword = new FormControl('', [])
 	employer = new FormControl('', [ Validators.required ]);
 	jobTitle = new FormControl('', [ Validators.required ]);
 	hasConsentedToGdpr = new FormControl('', [ Validators.required ]);
 	hasConstentedToEmails = new FormControl('', [ Validators.required ]);
 	hasConsentedToCookies = new FormControl('', [ Validators.required ]);
+
+	matcher = new MyErrorStateMatcher();
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -51,6 +67,39 @@ export class RegisterComponent implements OnInit {
 		public message: MessageComponent,
 		public dialog: MatDialog
 	) {
+		this.registerForm = this.formBuilder.group(
+			{
+				firstName: this.firstName,
+				lastName: this.lastName,
+				phone: this.phone,
+				employer: this.employer,
+				jobTitle: this.jobTitle,
+				hasConsentedToGdpr: this.hasConsentedToGdpr,
+				hasConsentedToEmails: this.hasConstentedToEmails,
+				hasConsentedToCookies: this.hasConsentedToCookies,
+				email: [
+					null,
+					Validators.compose([Validators.email, Validators.required])
+				],
+				password: [
+					null,
+					Validators.compose([
+						Validators.required,
+						CustomValidators.patternValidator(/\d/, {
+							hasNumber: true
+						}),
+						CustomValidators.patternValidator(/[A-Z]/, {
+							hasCapitalCase: true
+						}),
+						Validators.minLength(8)
+					])
+				],
+				confirmPassword: [null, Validators.compose([Validators.required])]
+			},
+			{
+				validator: CustomValidators.passwordMatchValidator
+			}
+		);
 	}
 
 	getErrorMessage() {
@@ -58,17 +107,6 @@ export class RegisterComponent implements OnInit {
 			this.email.hasError('email') ? 'Not a valid email' :
 				'';
 	}
-
-	getPasswordErrorMessage() {
-		return this.password.hasError('required') ? 'Password must be at least 8 characters and a mixture of upper/lower case and numbers' :
-			this.password.hasError('password') ? 'The password is too weak' : ''
-	}
-
-	/*checkPasswords() {
-		let password = this.registerForm.get('password').value;
-		let confirmPassword = this.registerForm.get('confirmPassword').value;
-		return password === confirmPassword ? null : {notSame: true}
-	}*/
 
 	openPrivacyDialog(): void {
 		let dialogRef = this.dialog.open(PrivacyDialog, {
@@ -97,19 +135,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.registerForm = this.formBuilder.group({
-			firstName: this.firstName,
-			lastName: this.lastName,
-			email: this.email,
-			phone: this.phone,
-			password: this.password,
-			confirmPassword: this.confirmPassword,
-			employer: this.employer,
-			jobTitle: this.jobTitle,
-			hasConsentedToGdpr: this.hasConsentedToGdpr,
-			hasConsentedToEmails: this.hasConstentedToEmails,
-			hasConsentedToCookies: this.hasConsentedToCookies
-		});
+
 	}
 
 	register() {
