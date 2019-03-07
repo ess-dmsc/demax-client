@@ -10,7 +10,6 @@ import { AuthGuardLogin } from "./auth-guard-login.service";
 import { AuthGuardAdmin } from "../admin/auth-guard-admin.service";
 import { SharedModule } from "../shared/shared.module";
 import { PasswordComponent } from './password/password.component';
-import { TestregisterComponent } from './testregister/testregister.component';
 
 @NgModule({
 	imports: [
@@ -24,8 +23,7 @@ import { TestregisterComponent } from './testregister/testregister.component';
 		RegisterComponent,
 		CookieDialog,
 		PrivacyDialog,
-		PasswordComponent,
-		TestregisterComponent
+		PasswordComponent
 	],
 	providers: [
 		AuthService,
@@ -39,8 +37,7 @@ import { TestregisterComponent } from './testregister/testregister.component';
 		LoginComponent,
 		LogoutComponent,
 		RegisterComponent,
-		PasswordComponent,
-		TestregisterComponent
+		PasswordComponent
 	]
 })
 export class UserModule {
