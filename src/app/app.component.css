@@ -1,106 +1,73 @@
-body {
-	margin: 0;
-	font-family: 'Titillium Web', sans-serif;
-}
-.logo{
-	margin-left: 0;
-	padding: 0.5rem;
-}
-.topnav {
-	overflow: hidden;
-	background-color: #009EDD;
-	display: flex;
-	justify-content: space-between;
-	font-family: "Titillium Web", sans-serif;
-	position: fixed;
-	top: 0;
-	height: 7rem;
-	width: 100%;
-	z-index: 2;
+.nav-item a {
+	color: white;
+	padding-left: 3rem;
 }
 
-.topnav a {
-	float: left;
-	color: #ffffff;
-	text-align: center;
-	padding: 20px 20px;
-	text-decoration: none;
-	font-size: 17px;
-}
-.topnav p{
-	float: left;
-	color: #ffffff;
-	text-align: center;
-	padding: 20px 20px;
-	text-decoration: none;
-	font-size: 17px;
+.nav-item:hover {
+	background-color: #00B0E8;
 }
 
-.topnav a:hover {
-	background-color: white;
-	color: #009EDD;
-	text-decoration: none;
+.nav-item a:hover {
+	color: white;
+}
+
+.flex-column .nav-link {
+	color: black;
+}
+
+.flex-column .nav-link:hover {
+	color: black;
+}
+
+.flex-column .nav-item:hover {
+	background-color: lightgray;
 }
 
 .sidebar {
-	padding-top: 7rem;
-	width: 200px;
-	background-color: white;
-	position: fixed;
-	height: 100%;
-	overflow: auto;
-	border-right: solid lightgray 0.5px;
+	background-color: whitesmoke;
 }
 
-.sidebar a {
-	display: block;
+.fixed-bottom {
+	justify-content: space-around;
+}
+
+.fixed-bottom a {
+	width: 50%;
+	color: dimgray;
+	padding: 1rem;
+	margin: 0 0.5rem;
+}
+.fixed-bottom a:hover{
 	color: black;
-	padding: 16px;
 	text-decoration: none;
+	background-color: whitesmoke;
 }
-
-.sidebar a.active {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.sidebar a:hover:not(.active) {
-	background-color: #009EDD;
-	color: white;
-}
-
-div.content {
-	margin-left: 200px;
-	padding-top: 7rem;
-	height: 1000px;
-}
-
 @media screen and (max-width: 700px) {
-	.sidebar {
+	.container{
+		padding: 0
+	}
+	td {
 		width: 100%;
 		height: auto;
 		position: relative;
+		display: block;
 	}
-	.sidebar a {float: left;}
-	div.content {margin-left: 0;}
+	mat-tab-group{
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 400px) {
-	.sidebar a {
-		text-align: center;
-		float: none;
+	.container{
+		padding: 0
 	}
-}
-.notices{
-	position: fixed;
-	bottom: 0;
-	width: 199px;
-	border-top: solid lightgray 0.5px;
-}
-.notices tr{
-	width: 100%;
-}
-.notices a{
-	padding: 10px;
-	font-size: 1.3rem;
+	td {
+		width: 100%;
+		height: auto;
+		position: relative;
+		display: block;
+	}
+	mat-tab-group{
+		width: 100%;
+	}
 }

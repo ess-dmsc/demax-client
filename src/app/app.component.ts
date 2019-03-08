@@ -11,6 +11,9 @@ import { MessageComponent } from "./shared/message/message.component";
 	styleUrls: [ './app.component.css' ]
 })
 export class AppComponent implements AfterViewChecked {
+
+	expanded = false;
+
 	url = this.appConfig.demaxBaseUrl;
 	title = 'demax-client';
 	opened: boolean;
@@ -41,5 +44,8 @@ export class AppComponent implements AfterViewChecked {
 		this.changeDetector.detectChanges();
 	}
 
+	toggle(){
+		this.expanded = true;
+	}
 
 }

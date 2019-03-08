@@ -1,3 +1,24 @@
 mat-form-field{
 	width: 80%;
 }
+@media screen and (max-width: 700px) {
+	mat-card {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	mat-form-field{
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	mat-card {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	mat-form-field{
+		width: 90%;
+	}
+}

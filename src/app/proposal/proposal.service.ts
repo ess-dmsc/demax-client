@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Proposal } from '../models/proposal';
 import { APP_CONFIG, AppConfig } from "../app-config.module";
@@ -72,6 +72,4 @@ export class ProposalService {
 
 		return this.http.request(req);
 	}
-
-
 }

@@ -1,9 +1,14 @@
-<div class="jumbotron jumbotron-fluid" *ngIf="isCreating">
-
-	<h2>Create a new proposal</h2>
-
-	<hr class="my-4">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
+     *ngIf="isCreating">
+	<h1 class="h2">Create a new proposal</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group mr-2">
+			<button class="btn btn-sm btn-outline-secondary" *ngIf="this.selectedIndex>0" (click)="back()">Back</button>
+			<button class="btn btn-sm btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Next</button>
+		</div>
+	</div>
 </div>
+
 <app-loading [condition]="isLoading"></app-loading>
 
 <form [formGroup]="proposalForm" *ngIf="!isLoading">
@@ -194,10 +199,6 @@
 					<br>Select one, or as many as apply from the alternatives.</p>
 
 			</mat-card>
-			<mat-action-row>
-				<button mat-raised-button color="primary" (click)="save()">Save</button>
-				<button mat-button class="btn btn-primary" (click)="selectTab(1)">Next</button>
-			</mat-action-row>
 		</mat-tab>
 		<mat-tab label="2. Crystallization">
 
@@ -325,12 +326,6 @@
 					</mat-card>
 				</mat-card-content>
 			</mat-card>
-			<mat-action-row>
-				<button mat-button class="btn btn-danger" (click)="selectTab(2)">Skip</button>
-				<button mat-button class="btn btn-danger" (click)="selectTab(0)">Back</button>
-				<button mat-button class="btn btn-primary" (click)="selectTab(2)">Next</button>
-				<button mat-raised-button color="primary" (click)="save()">Save</button>
-			</mat-action-row>
 		</mat-tab>
 		<mat-tab label="3. Biological deuteration">
 
@@ -643,12 +638,6 @@
 					</mat-card-content>
 				</mat-card>
 			</div>
-			<mat-action-row>
-				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Skip</button>
-				<button mat-button class="btn btn-danger" (click)="selectTab(1)">Back</button>
-				<button mat-button class="btn btn-primary" (click)="selectTab(3)">Next</button>
-				<button mat-raised-button color="primary" (click)="save()">Save</button>
-			</mat-action-row>
 		</mat-tab>
 		<mat-tab label="4. Chemical deuteration">
 			<mat-card>
@@ -711,12 +700,6 @@
 					</fieldset>
 				</mat-card-content>
 			</mat-card>
-			<mat-action-row>
-				<button mat-button class="btn btn-danger" (click)="selectTab(4)">Skip</button>
-				<button mat-button class="btn btn-danger" (click)="selectTab(2)">Back</button>
-				<button mat-button class="btn btn-primary" (click)="selectTab(4)">Next</button>
-				<button mat-raised-button color="primary" (click)="save()">Save</button>
-			</mat-action-row>
 		</mat-tab>
 
 		<mat-tab label="5. Review & submit">
@@ -847,19 +830,20 @@
 					</table>
 				</mat-card-content>
 				<mat-card-actions style="text-align: center;">
-					<a class="btn btn-danger"
-					   href="{{url}}/api/generate/{{this.proposalForm.controls['proposalId'].value}}">
+					<button class="btn btn-danger" mat-raised-button (click)="generatePdf()">
 						Generate PDF for review
-					</a>
+					</button>
 					<button class="btn btn-primary mat-elevation-z5" (click)="submitProposal()">
 						Submit proposal
 					</button>
 				</mat-card-actions>
 			</mat-card>
-			<mat-action-row>
-				<button mat-button class="btn btn-danger" (click)="selectTab(3)">Back</button>
-				<button mat-raised-button color="primary" (click)="save()">Save</button>
-			</mat-action-row>
 		</mat-tab>
 	</mat-tab-group>
 </form>
+<mat-action-row>
+			<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Skip</button>
+			<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex>0" (click)="back()">Back</button>
+			<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Next</button>
+			<button mat-stroked-button class="btn btn-primary" (click)="save()">Save</button>
+</mat-action-row>

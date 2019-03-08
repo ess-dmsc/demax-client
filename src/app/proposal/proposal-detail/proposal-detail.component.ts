@@ -8,8 +8,9 @@ import { MessageComponent } from "../../shared/message/message.component";
 import { FileService } from "../../file/file.service";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 import { Observable } from "rxjs";
-import { HttpErrorResponse, HttpEventType, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-proposal-detail',
@@ -28,7 +29,7 @@ export class ProposalDetailComponent implements OnInit {
 	isEditing = false;
 	isCreating = false;
 	isUploading = false;
-
+	isGenerating = false;
 	currentProposalId: string;
 
 	attachmentType: string;
@@ -52,6 +53,22 @@ export class ProposalDetailComponent implements OnInit {
 		this.progress.percentage = 0;
 		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
 	}
+	back():void{
+		window.scrollTo(0, 0)
+		event.preventDefault();
+		this.save();
+		this.selectedIndex = this.selectedIndex-1;
+		this.progress.percentage = 0;
+		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+	}
+	forward():void{
+		window.scrollTo(0, 0)
+		event.preventDefault();
+		this.save();
+		this.selectedIndex = this.selectedIndex+1;
+		this.progress.percentage = 0;
+		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+	}
 
 
 	constructor(
@@ -63,7 +80,9 @@ export class ProposalDetailComponent implements OnInit {
 		public activatedRoute: ActivatedRoute,
 		public router: Router,
 		private message: MessageComponent,
-		private _snackbar: MatSnackBar
+		private _snackbar: MatSnackBar,
+		private sanitizer: DomSanitizer,
+		private http: HttpClient
 	) {
 	}
 
@@ -264,22 +283,41 @@ export class ProposalDetailComponent implements OnInit {
 		);
 	}
 
+	generatePdf(): void {
+		this.isGenerating = true;
+		this.http.get('/api/generate/' + this.proposal.proposalId, {responseType: 'blob' as 'json'}).subscribe(
+			(response: any) => {
+				let dataType = response.type;
+				let binaryData = [];
+				binaryData.push(response);
+				let downloadLink = document.createElement('a');
+				downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+
+				document.body.appendChild(downloadLink);
+				downloadLink.click();
+				window.open(downloadLink.href, '_blank');
+				this.isGenerating = false;
+			}, error => {
+				this.message.setMessage('Failed to generate PDF. Please upload all required files', 'danger');
+			}
+		)
+	}
+
 	submitProposal() {
 		if(window.confirm('Are you sure you want to submit?')) {
 			this.proposalService.submitProposal(this.proposal.proposalId)
 			.subscribe(
 				response => {
 					if(response === HttpErrorResponse) {
-						this.message.setMessage('Error - Please upload ' + response.message, 'danger');
+						this.message.setMessage('Error - Please upload all required files before submitting', 'danger');
 						console.log()
 
 					} else {
 						this.message.setMessage(response, 'success');
 						this.router.navigate([ '/proposals' ]);
 					}
-				},
-				error => {
-					this.message.setMessage('Error - missing ' + error.error, 'danger', 2);
+				}, error => {
+					this.message.setMessage('Error - Please upload all required files before submitting', 'danger');
 					console.log()
 				}
 			);

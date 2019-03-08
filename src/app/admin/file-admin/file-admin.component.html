@@ -1,24 +1,30 @@
-<h4>Uploaded files:</h4>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			Uploaded files
+		</mat-card-title>
+		<mat-card-subtitle>
 
-<section>
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<table mat-table [dataSource]="fileUploads">
 
-	<table mat-table [dataSource]="fileUploads">
+			<ng-container matColumnDef="filename">
+				<th mat-header-cell *matHeaderCellDef> Filename</th>
+				<td mat-cell *matCellDef="let file"> {{file}}</td>
+			</ng-container>
 
-		<ng-container matColumnDef="filename">
-			<th mat-header-cell *matHeaderCellDef> Filename</th>
-			<td mat-cell *matCellDef="let file"> {{file}}</td>
-		</ng-container>
+			<ng-container matColumnDef="options">
+				<th mat-header-cell *matHeaderCellDef>Actions</th>
+				<td mat-cell *matCellDef="let file">
+					<button mat-raised-button color="warn" (click)="delete(file)"> Delete</button>
+					<a mat-raised-button download class="btn btn-success" href="{{url}}/api/file/download/{{file}}"><mat-icon>get_app</mat-icon> Download</a>
+				</td>
+			</ng-container>
 
-		<ng-container matColumnDef="options">
-			<th mat-header-cell *matHeaderCellDef>Actions</th>
-			<td mat-cell *matCellDef="let file">
-				<button mat-raised-button color="warn" (click)="delete(file)"> Delete</button>
-				<a mat-raised-button download class="btn btn-success" href="{{url}}/api/file/download/{{file}}"><mat-icon>get_app</mat-icon> Download</a>
-			</td>
-		</ng-container>
-
-		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-	</table>
-
-</section>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+	</mat-card-content>
+</mat-card>

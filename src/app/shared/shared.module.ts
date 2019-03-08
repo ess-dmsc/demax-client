@@ -3,12 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from "../external/material.module";
-
 import { MessageComponent } from './message/message.component';
 import { LoadingComponent } from './loading/loading.component';
 import { RouterModule } from "@angular/router";
 import { MessageService } from "./message.service";
-import { HeaderComponent } from './header/header.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
 	imports: [
@@ -17,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 		ReactiveFormsModule,
 		HttpClientModule,
 		MaterialModule,
+		PdfViewerModule,
 		RouterModule
 	],
 	exports: [
@@ -24,16 +24,15 @@ import { HeaderComponent } from './header/header.component';
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		HeaderComponent,
 		MaterialModule,
+		PdfViewerModule,
 		RouterModule,
 		MessageComponent,
 		LoadingComponent
 	],
 	declarations: [
 		MessageComponent,
-		LoadingComponent,
-		HeaderComponent
+		LoadingComponent
 	],
 	providers: [
 		MessageComponent
