@@ -19,9 +19,12 @@ mat-form-field {
 	display: block;
 	max-width: 700px;
 }
+mat-tab{
+	padding: 1rem 2rem;
+}
 
 mat-checkbox {
-	margin: 2rem;
+	margin: 1rem;
 	display: block;
 }
 
@@ -30,7 +33,7 @@ mat-radio-group {
 }
 
 mat-radio-button {
-	margin: 2rem;
+	margin: 1rem;
 }
 
 .mainProposer mat-form-field {

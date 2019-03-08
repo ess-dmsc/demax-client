@@ -8,6 +8,7 @@ import { MessageComponent } from './message/message.component';
 import { LoadingComponent } from './loading/loading.component';
 import { RouterModule } from "@angular/router";
 import { MessageService } from "./message.service";
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
 	imports: [
@@ -23,6 +24,7 @@ import { MessageService } from "./message.service";
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
+		HeaderComponent,
 		MaterialModule,
 		RouterModule,
 		MessageComponent,
@@ -30,7 +32,8 @@ import { MessageService } from "./message.service";
 	],
 	declarations: [
 		MessageComponent,
-		LoadingComponent
+		LoadingComponent,
+		HeaderComponent
 	],
 	providers: [
 		MessageComponent

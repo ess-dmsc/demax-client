@@ -1,0 +1,9 @@
+.navbar {
+	background: #009EDD;
+}
+
+header a {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
