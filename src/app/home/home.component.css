@@ -21,3 +21,21 @@
 td{
 	margin: 0.5rem;
 }
+
+@media screen and (max-width: 700px) {
+	.jumbotron{
+		padding: 0;
+		margin: 0;
+	}
+	p{
+		margin: 0;
+		padding: 0;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.jumbotron{
+		padding: 0;
+		margin: 0;
+	}
+}

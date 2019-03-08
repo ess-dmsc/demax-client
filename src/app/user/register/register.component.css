@@ -1,3 +1,7 @@
+.long{
+	display: none;
+}
+
 mat-form-field{
 	width: 50%;
 	font-size: 12px;
@@ -17,6 +21,10 @@ mat-checkbox{
 	mat-form-field{
 		width: 90%;
 	}
+	.long{
+		display: block;
+		margin: 0 auto;
+	}
 }
 
 @media screen and (max-width: 400px) {
@@ -27,5 +35,9 @@ mat-checkbox{
 	}
 	mat-form-field{
 		width: 90%;
+	}
+	.long{
+		display: block;
+		margin: 0 auto;
 	}
 }

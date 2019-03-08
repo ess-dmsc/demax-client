@@ -52,3 +52,41 @@ mat-action-row{
 	display: flex;
 	justify-content: center;
 }
+
+
+@media screen and (max-width: 700px) {
+	mat-tab-group, mat-card{
+		padding: 0;
+		margin: 0;
+	}
+	td{
+		margin: 0 0.1rem;
+		padding: 0 0.1rem;
+	}
+	td.mat-cell{
+		margin: 0 0.1rem;
+		padding: 0 0.1rem;
+	}
+	button{
+		margin: 0 0.1rem;
+		padding: 0 0.1rem;
+	}
+}
+@media screen and (max-width: 700px) {
+	mat-tab-group, mat-card{
+		padding: 0;
+		margin: 0;
+	}
+	td{
+		margin: 0 0.1rem;
+		padding: 0 0.1rem;
+	}
+	td.mat-cell{
+		margin: 0 0.1rem;
+		padding: 0 0.1rem;
+	}
+	button{
+		margin: 0 0.1rem;
+		padding: 0 0.1rem;
+	}
+}

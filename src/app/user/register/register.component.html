@@ -66,17 +66,18 @@
 
 		</mat-form-field>
 		<mat-checkbox required formControlName="hasConsentedToEmails">
-			Receive updates about the submission process through email. You can change this setting whenever you want.
+			Receive updates about the submission process through email. <br class="long">You can change this setting whenever you want.
 		</mat-checkbox>
 		<mat-checkbox required formControlName="hasConsentedToGdpr">
-			I confirm that I have read, consent and agree to the DEMAX <a style="color: #009EDD" (click)="openPrivacyDialog()">Privacy
+			I confirm that I have read, consent and agree to the <br class="long">DEMAX <a style="color: #009EDD" (click)="openPrivacyDialog()">Privacy
 			Statement</a>
 		</mat-checkbox>
+		<br class="long">
 		<mat-checkbox required formControlName="hasConsentedToCookies">
 			I consent to the DEMAX <a style="color: #009EDD" (click)="openCookieDialog()">Cookie policy</a>
 		</mat-checkbox>
 		<mat-card-actions>
-			<button mat-raised-button [disabled]="!registerForm.valid" color="primary" class="btn btn-primary btn-block font-weight-bold mat-elevation-z5" type="submit">
+			<button mat-raised-button [disabled]="!registerForm.valid" color="primary" class="btn btn-primary btn-block font-weight-bold mat-elevation-z5 register" type="submit">
 				Register
 			</button>
 		</mat-card-actions>
