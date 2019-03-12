@@ -4,10 +4,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import 'rxjs/add/operator/map';
-import { Observable } from "rxjs";
 
 @Injectable({
-	providedIn: 'root',
+	providedIn: 'root'
 })
 export class AuthService {
 	loggedIn = false;
@@ -15,7 +14,10 @@ export class AuthService {
 
 	currentUser: User = new User();
 
-	constructor(private userService: UserService, private router: Router, private jwtHelper: JwtHelperService) {
+	constructor(
+		private userService: UserService,
+		private router: Router,
+		private jwtHelper: JwtHelperService) {
 		const token = localStorage.getItem('access_token');
 		if(token) {
 			const decodedUser = this.decodeUserFromToken(token);

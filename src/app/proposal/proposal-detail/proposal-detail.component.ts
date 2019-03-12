@@ -53,19 +53,21 @@ export class ProposalDetailComponent implements OnInit {
 		this.progress.percentage = 0;
 		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
 	}
-	back():void{
+
+	back(): void {
 		window.scrollTo(0, 0)
 		event.preventDefault();
 		this.save();
-		this.selectedIndex = this.selectedIndex-1;
+		this.selectedIndex = this.selectedIndex - 1;
 		this.progress.percentage = 0;
 		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
 	}
-	forward():void{
+
+	forward(): void {
 		window.scrollTo(0, 0)
 		event.preventDefault();
 		this.save();
-		this.selectedIndex = this.selectedIndex+1;
+		this.selectedIndex = this.selectedIndex + 1;
 		this.progress.percentage = 0;
 		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
 	}
@@ -173,6 +175,12 @@ export class ProposalDetailComponent implements OnInit {
 				deuterationLevelMotivation: [ '' ]
 			}),
 			bioSafety: this.formBuilder.group({
+				proteinIsRecombinant: [ '' ],
+				sampleIsToxin: [ '' ],
+				sampleIsVirulenceFactor: [ '' ],
+				sampleIsPrionProtein: [ '' ],
+				sampleHasHazardousLigand: [ '' ],
+				sampleActivity: [ '' ],
 				bioSafetyContainmentLevel: [ '' ],
 				organismRisk: [ '' ],
 				organismRiskDetails: [ '' ],

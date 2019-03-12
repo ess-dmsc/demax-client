@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FileAdminComponent } from './file-admin.component';
-import { MaterialModule } from "../../external/material.module";
+import { SharedModule } from "../../shared/shared.module";
+import { APP_CONFIG, APP_DI_CONFIG } from "../../app-config.module";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('FileAdminComponent', () => {
 	let component: FileAdminComponent;
@@ -9,8 +10,11 @@ describe('FileAdminComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			imports: [ MaterialModule ],
-			declarations: [ FileAdminComponent ]
+			imports: [ RouterTestingModule, SharedModule ],
+			declarations: [ FileAdminComponent ],
+			providers: [
+				{provide: APP_CONFIG, useValue: APP_DI_CONFIG}
+			]
 		})
 		.compileComponents();
 	}));
@@ -20,8 +24,8 @@ describe('FileAdminComponent', () => {
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
-	/*
-		it('should create', () => {
-			expect(component).toBeTruthy();
-		});*/
+
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

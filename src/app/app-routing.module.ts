@@ -15,11 +15,17 @@ import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.componen
 import { CookiePolicyComponent } from "./cookie-policy/cookie-policy.component";
 import { AuthGuardLogin } from "./user/auth-guard-login.service";
 import { PasswordComponent } from "./user/password/password.component";
+import { FileAdminComponent } from "./admin/file-admin/file-admin.component";
+import { ProposalAdminComponent } from "./admin/proposal-admin/proposal-admin.component";
+import { UserAdminComponent } from "./admin/user-admin/user-admin.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
 	{path: 'account', component: AccountComponent, canActivate: [ AuthGuardLogin ]},
 	{path: 'admin', component: AdminComponent, canActivate: [ AuthGuardAdmin ]},
+	{path: 'admin/files', component: FileAdminComponent, canActivate: [ AuthGuardAdmin ]},
+	{path: 'admin/proposals', component: ProposalAdminComponent, canActivate: [ AuthGuardAdmin ]},
+	{path: 'admin/users', component: UserAdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'contact', component: ContactComponent},
 	{path: 'home', component: HomeComponent},
 	{path: 'imprint', component: ImprintComponent},

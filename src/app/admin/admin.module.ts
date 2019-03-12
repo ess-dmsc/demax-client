@@ -18,12 +18,12 @@ import { FileModule } from "../file/file.module";
 		FileModule,
 		SharedModule
 	],
-  declarations: [
-  	AdminComponent,
-    FileAdminComponent,
-  	ProposalAdminComponent,
-  	UserAdminComponent
-  ],
+	declarations: [
+		AdminComponent,
+		FileAdminComponent,
+		ProposalAdminComponent,
+		UserAdminComponent
+	],
 	providers: [
 		AuthGuardAdmin,
 		AdminService,
@@ -32,7 +32,11 @@ import { FileModule } from "../file/file.module";
 		UserAdminService
 	],
 	exports: [
-		AdminComponent
+		AdminComponent,
+		FileAdminComponent,
+		ProposalAdminComponent,
+		UserAdminComponent
 	]
 })
-export class AdminModule { }
+export class AdminModule {
+}

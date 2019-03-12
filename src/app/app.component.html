@@ -100,35 +100,13 @@
 				<li class="nav-item">
 					<a class="nav-link disabled" routerLink="/logout">Logout</a>
 				</li>
-				<div *ngIf="expanded">
-					<li class="nav-item">
-						<a class="nav-link" routerLink="/home">
-							Home
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" routerLink="/proposals/new">Create new proposal</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" routerLink="/proposals">My proposals</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{url}}/api/word/attachment" download>Proposal template</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" routerLink="/contact">Contact</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" routerLink="/admin" *ngIf="auth.isAdmin">Admin</a>
-					</li>
-				</div>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="container-fluid">
 		<div class="row">
-			<nav class="col-md-2 d-none d-md-block sidebar"
+			<nav class="col-md-2 d-none d-md-block sidebar" id="sidebar"
 			     style="border-right: 1px solid lightgray; padding: 0; height: 100vh;">
 				<div class="sidebar-sticky">
 					<ul class="nav flex-column">

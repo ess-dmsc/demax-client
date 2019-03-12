@@ -610,6 +610,7 @@
 						</mat-card-title>
 					</mat-card-header>
 					<mat-card-content formGroupName="bioSafety">
+
 						<mat-radio-group formControlName="bioSafetyContainmentLevel">
 							<p>Which biosafety containment level is required to work with your sample?</p>
 							<mat-radio-button value="L1">L1</mat-radio-button>
@@ -629,11 +630,38 @@
 							<input matInput
 							       formControlName="organismRiskDetails">
 						</mat-form-field>
-
+						<mat-radio-group formControlName="proteinIsRecombinant">
+							<p>Is the protein recombinant?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+						<mat-radio-group formControlName="sampleIsToxin">
+							<p>Is the sample a toxin?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+						<mat-radio-group formControlName="sampleIsVirulenceFactor">
+							<p>Is the sample a virulence factor?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+						<mat-radio-group formControlName="sampleIsPrionProtein">
+							<p>Is the sample a prion protein?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+						<mat-radio-group formControlName="sampleHasHazardousLigand">
+							<p>Does the sample have a hazardous ligand (e.g. heavy metal, toxic molecule etc.)?</p>
+							<mat-radio-button value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
 						<mat-form-field>
-							<p>If there is anything else you would like us to know, please enter it below:</p>
-							<input matInput
-							       formControlName="other">
+							<p>If the sample is a a bacteria or virus, specificy whether it is inactive/active:</p>
+							<input matInput formControlName="sampleActivity">
+						</mat-form-field>
+						<mat-form-field>
+							<p>If you answered  "yes" to any of the above, please explan:</p>
+							<input matInput formControlName="other">
 						</mat-form-field>
 					</mat-card-content>
 				</mat-card>

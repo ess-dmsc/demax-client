@@ -6,26 +6,26 @@ import { MaterialModule } from "../external/material.module";
 import { MessageComponent } from './message/message.component';
 import { LoadingComponent } from './loading/loading.component';
 import { RouterModule } from "@angular/router";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MessageService } from "./message.service";
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
 		MaterialModule,
-		PdfViewerModule,
 		RouterModule
 	],
 	exports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
 		MaterialModule,
-		PdfViewerModule,
 		RouterModule,
 		MessageComponent,
 		LoadingComponent
@@ -38,4 +38,5 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 		MessageComponent
 	]
 })
-export class SharedModule { }
+export class SharedModule {
+}
