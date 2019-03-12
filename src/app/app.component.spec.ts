@@ -48,6 +48,7 @@ describe("AppComponent", () => {
 	});
 
 	it('should display the sidebar correctly for admin users', () => {
+		console.log('Admin navigation test start');
 		authService.loggedIn = true;
 		authService.isAdmin = true;
 		fixture.detectChanges();
@@ -57,6 +58,7 @@ describe("AppComponent", () => {
 		expect(a[4].attributes['routerLink']).toBe('/home');
 		expect(a[9].nativeElement.textContent).toContain('Admin');
 		expect(a[9].attributes['routerLink']).toBe('/admin');
+		console.log('Admin navigation test end');
 	});
 
 	it('should display the sidebar correctly for normal users', () => {
