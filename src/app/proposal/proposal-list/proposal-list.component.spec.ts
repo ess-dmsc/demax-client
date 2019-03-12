@@ -41,9 +41,4 @@ describe("ProposalListComponent", () => {
 			fixture.detectChanges();
 		});
 	}));
-
-	it("should create the component", async () => {
-		expect(component).toBeTruthy();
-	});
-
 });
