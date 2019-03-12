@@ -1,20 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AccountComponent } from './account.component';
-import { MaterialModule } from "../../external/material.module";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { UserService } from "../user.service";
+import { SharedModule } from "../../shared/shared.module";
+import { RouterTestingModule } from "@angular/router/testing";
 import { AuthService } from "../auth.service";
+import { AccountComponent } from "./account.component";
 
 describe('AccountComponent', () => {
 	let component: AccountComponent;
 	let fixture: ComponentFixture<AccountComponent>;
-
+	let authServiceStub: {
+		loggedIn: boolean;
+		isAdmin: boolean;
+		currentUser: any;
+	};
 	beforeEach(async(() => {
-
+		authServiceStub = {
+			loggedIn: false,
+			isAdmin: false,
+			currentUser: {email: 'test@test.com'}
+		};
 		TestBed.configureTestingModule({
 			declarations: [ AccountComponent ],
-			imports: [ MaterialModule, FormsModule, ReactiveFormsModule ],
-			providers: [ UserService, AuthService ]
+			imports: [ SharedModule, RouterTestingModule ],
+			providers: [
+				{provide: AuthService, useValue: authServiceStub}
+			],
 		})
 		.compileComponents();
 	}));

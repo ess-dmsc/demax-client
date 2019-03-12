@@ -6,9 +6,9 @@ import { FileUploadComponent } from "./file-upload/file-upload.component";
 import { FileListComponent } from "./file-list/file-list.component";
 import { FileDetailComponent } from "./file-detail/file-detail.component";
 import { FileService } from "./file.service";
-import {FileUploadModule} from "ng2-file-upload";
+import { FileUploadModule } from "ng2-file-upload";
 import { MessageComponent } from "../shared/message/message.component";
-import { FileUploadComponent2 } from "./file-upload2/file-upload.component";
+import { FileUploadSelectComponent } from './file-upload-select/file-upload-select.component';
 
 @NgModule({
 	imports: [
@@ -21,7 +21,7 @@ import { FileUploadComponent2 } from "./file-upload2/file-upload.component";
 		FileUploadComponent,
 		FileListComponent,
 		FileDetailComponent,
-		FileUploadComponent2
+		FileUploadSelectComponent
 	],
 	providers: [
 		FileService,
@@ -29,7 +29,7 @@ import { FileUploadComponent2 } from "./file-upload2/file-upload.component";
 	],
 	exports: [
 		FileUploadComponent,
-		FileUploadComponent2,
+		FileUploadSelectComponent,
 		FileDetailComponent,
 		FileListComponent
 	]

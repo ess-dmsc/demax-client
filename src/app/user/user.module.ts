@@ -10,6 +10,7 @@ import { AuthGuardLogin } from "./auth-guard-login.service";
 import { AuthGuardAdmin } from "../admin/auth-guard-admin.service";
 import { SharedModule } from "../shared/shared.module";
 import { PasswordComponent } from './password/password.component';
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @NgModule({
 	imports: [
@@ -29,6 +30,7 @@ import { PasswordComponent } from './password/password.component';
 		AuthService,
 		AuthGuardLogin,
 		AuthGuardAdmin,
+		JwtHelperService,
 		UserService,
 	],
 	entryComponents: [ PrivacyDialog, CookieDialog ],

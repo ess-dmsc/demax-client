@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Proposal } from '../models/proposal';
-import { APP_CONFIG, AppConfig } from "../app-config.module";
 import { AuthService } from "../user/auth.service";
 import { User } from "../models/user";
 
@@ -11,7 +10,7 @@ import { User } from "../models/user";
 })
 export class ProposalService {
 
-	constructor(@Inject(APP_CONFIG) private appConfig: AppConfig, private http: HttpClient,
+	constructor(private http: HttpClient,
 	            public auth: AuthService
 	) {
 	}

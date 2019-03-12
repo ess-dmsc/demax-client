@@ -1,20 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule} from '../../external/material.module';
-import { LoginComponent } from './login.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AuthService } from "../auth.service";
+import { LoginComponent } from "./login.component";
+import { SharedModule } from "../../shared/shared.module";
 import { RouterTestingModule } from "@angular/router/testing";
-import { HttpClientModule } from "@angular/common/http";
+import { AuthService } from "../auth.service";
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
 	let fixture: ComponentFixture<LoginComponent>;
-
+	let authServiceStub: {
+		loggedIn: boolean;
+		isAdmin: boolean;
+		currentUser: any;
+	};
 	beforeEach(async(() => {
+		authServiceStub = {
+			loggedIn: false,
+			isAdmin: false,
+			currentUser: {email: 'test@test.com'}
+		};
 		TestBed.configureTestingModule({
 			declarations: [ LoginComponent ],
-			imports: [MaterialModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterTestingModule],
-			providers: [AuthService]
+			imports: [ SharedModule, RouterTestingModule ],
+			providers: [
+				{provide: AuthService, useValue: authServiceStub}
+			],
 		})
 		.compileComponents();
 	}));
@@ -25,7 +34,7 @@ describe('LoginComponent', () => {
 		fixture.detectChanges();
 	});
 
-	/*it('should create', () => {
+	it('should create', () => {
 		expect(component).toBeTruthy();
-	});*/
+	});
 });

@@ -98,10 +98,16 @@ export class Proposal {
 		deuterationLevelMotivation?: string;
 	};
 	bioSafety?: {
-		bioSafetyContainmentLevel?: string;
-		organismRisk?: string;
-		organismRiskDetails?: string
-		other?: string;
+		proteinIsRecombinant: string;
+		sampleIsToxin: string;
+		sampleIsVirulenceFactor: string;
+		sampleIsPrionProtein: string;
+		sampleHasHazardousLigand: string;
+		sampleActivity: string;
+		bioSafetyContainmentLevel: string;
+		organismRisk: string,
+		organismRiskDetails: string,
+		other: string;
 	};
 	chemicalDeuteration?: {
 		moleculeName?: string;
