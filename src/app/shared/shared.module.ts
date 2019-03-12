@@ -7,6 +7,7 @@ import { MessageComponent } from './message/message.component';
 import { LoadingComponent } from './loading/loading.component';
 import { RouterModule } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
 import { MessageService } from "./message.service";
 
 @NgModule({
