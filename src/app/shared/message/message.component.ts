@@ -22,11 +22,12 @@ export class MessageComponent {
 	setMessage(body, type, time = 3000) {
 		this.message.body = body;
 		this.message.type = type;
+		setTimeout(() => this.message.body = '', time);
 		this.snackBar.open(body, '', {
 				duration: time,
 				horizontalPosition: 'center',
 				verticalPosition: 'bottom',
-				panelClass: [`${type}-snackbar`]
+				panelClass: [ `${type}-snackbar` ]
 			}
 		);
 	}
