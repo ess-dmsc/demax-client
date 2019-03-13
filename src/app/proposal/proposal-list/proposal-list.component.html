@@ -12,7 +12,7 @@
 		</div>
 	</div>
 </div>
-<p *ngIf="proposals.length === 0 && !isLoading">You haven't submitted any proposals yet. Create a <a routerLink="/proposal">new
+<p *ngIf="proposals.length === 0 && !isLoading">You haven't submitted any proposals yet. Create a <a routerLink="/proposals/new">new
 	proposal</a> to get started.</p>
 
 <app-loading [condition]="isLoading"></app-loading>
