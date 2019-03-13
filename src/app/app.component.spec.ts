@@ -4,7 +4,7 @@ import { AppComponent } from "./app.component";
 import { APP_CONFIG, APP_DI_CONFIG } from "./app-config.module";
 import { AuthService } from "./user/auth.service";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { By, HAMMER_LOADER } from "@angular/platform-browser";
+import { HAMMER_LOADER } from "@angular/platform-browser";
 import { UserModule } from "./user/user.module";
 import { MaterialModule } from "./external/material.module";
 
@@ -52,27 +52,5 @@ describe("AppComponent", () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should display the sidebar correctly for admin users', async() => {
-		authService.loggedIn = true;
-		authService.isAdmin = true;
-		fixture.detectChanges();
-		const a = fixture.debugElement.queryAll(By.css('a'));
-		expect(a.length).toBe(12);
-		expect(a[ 4 ].nativeElement.textContent).toContain('Home');
-		expect(a[ 4 ].attributes[ 'routerLink' ]).toBe('/home');
-		expect(a[ 9 ].nativeElement.textContent).toContain('Admin');
-		expect(a[ 9 ].attributes[ 'routerLink' ]).toBe('/admin');
-	});
 
-	it('should display the sidebar correctly for normal users', async() => {
-		authService.loggedIn = true;
-		authService.isAdmin = false;
-		fixture.detectChanges();
-		const a = fixture.debugElement.queryAll(By.css('a'));
-		expect(a.length).toBe(11);
-		expect(a[ 4 ].nativeElement.textContent).toContain('Home');
-		expect(a[ 4 ].attributes[ 'routerLink' ]).toBe('/home');
-		expect(a[ 9 ].nativeElement.textContent).toContain('Privacy');
-		expect(a[ 9 ].attributes[ 'routerLink' ]).toBe('/privacy-policy');
-	});
 });

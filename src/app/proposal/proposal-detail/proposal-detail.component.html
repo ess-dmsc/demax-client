@@ -4,7 +4,8 @@
 	<div class="btn-toolbar mb-2 mb-md-0">
 		<div class="btn-group mr-2">
 			<button class="btn btn-sm btn-outline-secondary" *ngIf="this.selectedIndex>0" (click)="back()">Back</button>
-			<button class="btn btn-sm btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Next</button>
+			<button class="btn btn-sm btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Next
+			</button>
 		</div>
 	</div>
 </div>
@@ -84,47 +85,75 @@
 				</mat-card-content>
 			</mat-card>
 
+
 			<mat-card>
 				<mat-card-header>
 					<mat-card-title>Co-proposers</mat-card-title>
 				</mat-card-header>
-				<mat-card-content formArrayName="coProposers" style="width: 800px;">
-					<mat-grid-list cols="3" rowHeight="6:1" class="coProposer"
-					               *ngFor="let coProposer of coProposerForms.controls; let i=index"
-					               [formGroupName]="i">
-						<mat-grid-tile>
-							<mat-form-field>
-								<input matInput required formControlName="firstName" placeholder="First name">
-							</mat-form-field>
-						</mat-grid-tile>
-						<mat-grid-tile>
-							<mat-form-field>
-								<input matInput required formControlName="lastName" placeholder="Last name">
-							</mat-form-field>
-						</mat-grid-tile>
-						<mat-grid-tile style="text-align: left;">
-							<button mat-raised-button class="btn btn-danger btn-sm" (click)="deleteCoProposer(i)">
-								Delete
-							</button>
-						</mat-grid-tile>
-						<mat-grid-tile>
-							<mat-form-field>
-								<input matInput required formControlName="affiliation" placeholder="Affiliation">
-							</mat-form-field>
-						</mat-grid-tile>
-						<mat-grid-tile>
-							<mat-form-field>
-								<input matInput required formControlName="email" placeholder="Email">
-							</mat-form-field>
-						</mat-grid-tile>
-					</mat-grid-list>
+				<mat-card-content class="table-responsive-sm">
+					<table class="table table-hover" formArrayName="coProposers" style="width: 700px;">
+						<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">First name</th>
+							<th scope="col">Last name</th>
+							<th scope="col">Affiliation</th>
+							<th scope="col">Email</th>
+							<th scope="col"></th>
+						</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let coProposer of coProposerForms.controls; let i=index" [formGroupName]="i">
+							<th scope="row">{{i + 1}}</th>
+							<td>
+								<mat-form-field>
+									<input matInput required formControlName="firstName" placeholder="First name">
+								</mat-form-field>
+							</td>
+							<td>
+								<mat-form-field>
+									<input matInput required formControlName="lastName" placeholder="Last name">
+								</mat-form-field>
+							</td>
+							<td>
+								<mat-form-field>
+									<input matInput required formControlName="affiliation" placeholder="Affiliation">
+								</mat-form-field>
+							</td>
+							<td>
+								<mat-form-field>
+									<input matInput required formControlName="email" placeholder="Email">
+								</mat-form-field>
+							</td>
+							<td>
+								<button mat-raised-button class="btn btn-danger btn-sm" (click)="deleteCoProposer(i)">
+									Delete
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+
+							</td>
+							<td>
+								<button mat-raised-button color="primary" (click)="createNewCoProposer()">
+									<mat-icon>person_add</mat-icon>
+									Click to add
+								</button>
+							</td>
+							<td>
+
+							</td>
+							<td>
+
+							</td>
+							<td>
+
+							</td>
+						</tr>
+						</tbody>
+					</table>
 				</mat-card-content>
-				<mat-card-actions>
-					<button mat-raised-button color="primary" (click)="addCoProposer()">
-						<mat-icon>person_add</mat-icon>
-						Click to add
-					</button>
-				</mat-card-actions>
 			</mat-card>
 			<mat-card>
 				<mat-card-header>
@@ -365,12 +394,15 @@
 
 						<fieldset class="fileUpload">
 
-							<p>Please attach a reference or protocol of culture conditions and media
-								composition:</p>
+							<label for="organismReferenceAttachment">Please attach a reference or protocol of culture
+								conditions and media
+								composition:
 
-							<app-file-upload attachmentType="organismReferenceAttachment"
-							                 (uploaded)='getFiles($event)'
-							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+								<app-file-upload attachmentType="organismReferenceAttachment"
+								                 id="organismReferenceAttachment"
+								                 (uploaded)='getFiles($event)'
+								                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+							</label>
 						</fieldset>
 
 						<mat-form-field>
@@ -660,7 +692,7 @@
 							<input matInput formControlName="sampleActivity">
 						</mat-form-field>
 						<mat-form-field>
-							<p>If you answered  "yes" to any of the above, please explan:</p>
+							<p>If you answered "yes" to any of the above, please explan:</p>
 							<input matInput formControlName="other">
 						</mat-form-field>
 					</mat-card-content>
@@ -870,8 +902,11 @@
 	</mat-tab-group>
 </form>
 <mat-action-row>
-			<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Skip</button>
-			<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex>0" (click)="back()">Back</button>
-			<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Next</button>
-			<button mat-stroked-button class="btn btn-primary" (click)="save()">Save</button>
+	<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Skip
+	</button>
+	<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex>0" (click)="back()">Back
+	</button>
+	<button mat-stroked-button class="btn btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Next
+	</button>
+	<button mat-stroked-button class="btn btn-primary" (click)="save()">Save</button>
 </mat-action-row>

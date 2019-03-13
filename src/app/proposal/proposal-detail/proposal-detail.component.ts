@@ -33,8 +33,6 @@ export class ProposalDetailComponent implements OnInit {
 	currentProposalId: string;
 
 	attachmentType: string;
-	selectedFiles: FileList;
-	currentFileUpload: File;
 	progress: { percentage: number } = {percentage: 0};
 
 	crystallization = false;
@@ -102,7 +100,7 @@ export class ProposalDetailComponent implements OnInit {
 				employer: this.auth.currentUser.employer,
 				industry: this.auth.currentUser.industry
 			}),
-			coProposers: this.formBuilder.array([ this.createCoProposer() ]),
+			coProposers: this.formBuilder.array([]),
 			needByDate: [ '', Validators.required ],
 			needByDateMotivation: [ '', Validators.required ],
 			lab: [ '', Validators.required ],
@@ -248,18 +246,27 @@ export class ProposalDetailComponent implements OnInit {
 
 	addCoProposer() {
 		event.preventDefault();
-		const coProposer = this.formBuilder.group({
+		const coProposer = this.proposalForm.controls.coProposers as FormArray;
+		coProposer.push(this.formBuilder.group({
 			firstName: [],
 			lastName: [],
 			affiliation: [],
 			email: []
-		});
-		this.coProposerForms.push(coProposer);
+		}));
 	}
 
-	createCoProposer()
-		:
-		FormGroup {
+	createNewCoProposer(){
+		const coProposer = this.coProposerForms;
+		coProposer.push(this.formBuilder.group({
+			firstName: '',
+			lastName: '',
+			affiliation: '',
+			email: ''
+		}))
+		console.log(coProposer);
+	}
+
+	createCoProposer(): FormGroup {
 		return this.formBuilder.group({
 			firstName: '',
 			lastName: '',
@@ -270,6 +277,7 @@ export class ProposalDetailComponent implements OnInit {
 
 	deleteCoProposer(i) {
 		this.coProposerForms.removeAt(i);
+		console.log(this.coProposerForms.length)
 	}
 
 	get coProposerForms() {

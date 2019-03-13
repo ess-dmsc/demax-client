@@ -5,7 +5,7 @@
 </div>
 <br>
 <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
-	<label class="mat-elevation-z5"> Choose file
+	<label class="mat-elevation-z5"> Choose file<br><small>(Accepted formats: PDF)</small>
 		<input formControlName="document"
 		       class="inputFile"
 		       type="file" ng2FileSelect
