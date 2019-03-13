@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-md ml-auto" style="background-color: #009EDD;">
+	<app-logo class="navbar-brand"
+	          [color]="'#ffffff'"
+	          [height]="'57'"
+	          [width]="'105'"
+	          [viewBox]="'0 0 105 57'"></app-logo>
+	<button class="navbar-toggler collapsed"
+	        id="nav-button"
+	        mat-stroked-button
+	        type="button"
+	        data-toggle="collapse"
+	        data-target="#topnav"
+	        aria-controls="topnav"
+	        aria-expanded="false"
+	        aria-label="Toggle navigation">
+		<mat-icon>menu</mat-icon>
+	</button>
+
+	<div class="collapse navbar-collapse" id="topnav" style="margin: 0;">
+		<app-message [message]="message.message"></app-message>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+				<a class="nav-link" routerLink="/account">Account settings <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="/change-password">Change password</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="/logout">Sign out</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+
