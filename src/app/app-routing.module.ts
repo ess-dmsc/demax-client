@@ -36,7 +36,7 @@ const routes: Routes = [
 	{path: 'change-password', component: PasswordComponent},
 	{path: 'privacy-policy', component: PrivacyPolicyComponent},
 	{path: 'proposals', component: ProposalListComponent, canActivate: [ AuthGuardLogin ]},
-	{path: 'proposals/:proposalId', component: ProposalDetailComponent, canActivate: [ AuthGuardLogin ]}
+	{path: 'proposals/:proposalId', component: ProposalDetailComponent, canActivate: [ AuthGuardLogin ]},
 ];
 
 @NgModule({

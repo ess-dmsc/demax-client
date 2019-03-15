@@ -1,16 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Proposal } from "../../models/proposal";
-import { ProposalService } from "../proposal.service";
-import { AuthService } from "../../user/auth.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MessageComponent } from "../../shared/message/message.component";
-import { FileService } from "../../file/file.service";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
+import { ProposalService } from "../proposal.service";
+import { FileService } from "../../file/file.service";
+import { AuthService } from "../../user/auth.service";
+import { MessageComponent } from "../../shared/message/message.component";
+
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { MatSnackBar } from "@angular/material";
-import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 @Component({
 	selector: 'app-proposal-detail',
@@ -19,75 +18,49 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProposalDetailComponent implements OnInit {
 
-	url = this.appConfig.demaxBaseUrl;
+	fileUploads: Observable<Object[]>;
+
 	proposal: Proposal;
 	proposalForm: FormGroup;
-	coProposers: FormArray;
-	selectedIndex = 0;
+	currentProposalId: string;
 
 	isLoading = true;
 	isEditing = false;
 	isCreating = false;
-	isUploading = false;
 	isGenerating = false;
-	currentProposalId: string;
 
-	attachmentType: string;
-	progress: { percentage: number } = {percentage: 0};
-
-	crystallization = false;
-	proteinDeuteration = false;
-
-	fileUploads: Observable<Object[]>;
+	selectedIndex = 0;
 
 	step = 0;
 
-
-	selectTab(index: number): void {
-		window.scrollTo(0, 0)
-		event.preventDefault();
-		this.save();
-		this.selectedIndex = index;
-		this.progress.percentage = 0;
-		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+	setStep(index: number) {
+		console.log(event.target)
+		this.step = index;
 	}
 
-	back(): void {
-		window.scrollTo(0, 0)
-		event.preventDefault();
-		this.save();
-		this.selectedIndex = this.selectedIndex - 1;
-		this.progress.percentage = 0;
-		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+	nextStep() {
+		this.step++;
 	}
 
-	forward(): void {
-		window.scrollTo(0, 0)
-		event.preventDefault();
-		this.save();
-		this.selectedIndex = this.selectedIndex + 1;
-		this.progress.percentage = 0;
-		this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+	prevStep() {
+		this.step--;
 	}
-
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,
-		private proposalService: ProposalService,
+		public activatedRoute: ActivatedRoute,
+		public auth: AuthService,
 		private fileService: FileService,
 		private formBuilder: FormBuilder,
-		public auth: AuthService,
-		public activatedRoute: ActivatedRoute,
-		public router: Router,
+		private http: HttpClient,
 		private message: MessageComponent,
-		private _snackbar: MatSnackBar,
-		private sanitizer: DomSanitizer,
-		private http: HttpClient
+		private proposalService: ProposalService,
+		public router: Router,
 	) {
 	}
 
-	ngOnInit() {
-		this.proposalForm = this.formBuilder.group({
+	createProposalForm() {
+		return this.proposalForm = this.formBuilder.group({
 			proposalId: [ '' ],
 			experimentTitle: [ '', Validators.required ],
 			briefSummary: [ '', Validators.required ],
@@ -100,7 +73,7 @@ export class ProposalDetailComponent implements OnInit {
 				employer: this.auth.currentUser.employer,
 				industry: this.auth.currentUser.industry
 			}),
-			coProposers: this.formBuilder.array([]),
+			coProposers: this.formBuilder.array([ this.initCoProposer() ]),
 			needByDate: [ '', Validators.required ],
 			needByDateMotivation: [ '', Validators.required ],
 			lab: [ '', Validators.required ],
@@ -108,13 +81,13 @@ export class ProposalDetailComponent implements OnInit {
 			linksWithIndustryDetails: [ '' ],
 			coProposerStudents: [ '', Validators.required ],
 			workTowardsStudentsDegree: [ '', Validators.required ],
-			wantsCrystallization: false,
-			wantsBiologicalDeuteration: false,
-			wantsBiomassDeuteration: false,
-			wantsYeastDeuteration: false,
-			wantsProteinDeuteration: false,
-			wantsOtherDeuteration: false,
-			wantsChemicalDeuteration: false,
+			wantsCrystallization: [ false ],
+			wantsBiologicalDeuteration: [ false ],
+			wantsBiomassDeuteration: [ false ],
+			wantsYeastDeuteration: [ false ],
+			wantsProteinDeuteration: [ false ],
+			wantsOtherDeuteration: [ false ],
+			wantsChemicalDeuteration: [ false ],
 			crystallization: this.formBuilder.group({
 				moleculeName: [ '' ],
 				moleculeIdentifier: [ '' ],
@@ -195,6 +168,10 @@ export class ProposalDetailComponent implements OnInit {
 			}),
 			other: [ '' ]
 		});
+	}
+
+	ngOnInit() {
+		this.proposalForm = this.createProposalForm();
 
 		this.currentProposalId = this.activatedRoute.snapshot.params.proposalId;
 
@@ -203,9 +180,9 @@ export class ProposalDetailComponent implements OnInit {
 			this.proposalService.addProposal(this.proposalForm.value)
 			.subscribe(
 				response => {
+					console.log(response);
 					this.proposal = response;
-					this.proposalForm.setValue(response);
-					this.message.setMessage('New proposal created!', 'success');
+					this.proposalForm.patchValue(this.proposal);
 					this.isLoading = false;
 				},
 				error => {
@@ -213,23 +190,35 @@ export class ProposalDetailComponent implements OnInit {
 				}
 			)
 		}
+
 		else {
-			this.getProposal();
-			this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
+			this.isEditing = true;
+			this.proposalService.getProposalByProposalId(this.currentProposalId)
+			.subscribe(
+				response => {
+					this.proposal = response;
+					this.proposalForm.patchValue(this.proposal);
+					this.getFiles();
+					let controlArray = <FormArray>this.proposalForm.controls[ 'coProposers' ];
+					for(let i = 1; i < this.proposal.coProposers.length; i++) {
+						controlArray.push(this.formBuilder.group({
+							firstName: this.proposal.coProposers[ i ].firstName,
+							lastName: this.proposal.coProposers[ i ].lastName,
+							email: this.proposal.coProposers[ i ].email,
+							affiliation: this.proposal.coProposers[ i ].affiliation
+						}))
+					}
+					this.isLoading = false;
+				},
+				error => {
+					console.log(error)
+				}
+			)
 		}
 	}
 
-	getProposal() {
-		this.proposalService.getProposalByProposalId(this.currentProposalId).subscribe(
-			response => {
-				this.proposal = response;
-				this.proposalForm.patchValue(this.proposal);
-				this.isEditing = true;
-				this.fileUploads = this.fileService.getFiles(this.proposalForm.controls[ 'proposalId' ].value);
-				this.message.setMessage('Editing proposal ' + this.proposal.proposalId, 'success');
-				this.isLoading = false;
-			}
-		)
+	getFiles() {
+		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
 	}
 
 	save() {
@@ -244,50 +233,54 @@ export class ProposalDetailComponent implements OnInit {
 		);
 	}
 
-	addCoProposer() {
-		event.preventDefault();
-		const coProposer = this.proposalForm.controls.coProposers as FormArray;
-		coProposer.push(this.formBuilder.group({
-			firstName: [],
-			lastName: [],
-			affiliation: [],
-			email: []
-		}));
-	}
-
-	createNewCoProposer(){
-		const coProposer = this.coProposerForms;
-		coProposer.push(this.formBuilder.group({
-			firstName: '',
-			lastName: '',
-			affiliation: '',
-			email: ''
-		}))
-		console.log(coProposer);
-	}
-
-	createCoProposer(): FormGroup {
-		return this.formBuilder.group({
-			firstName: '',
-			lastName: '',
-			affiliation: '',
-			email: ''
+	initCoProposer() {
+		return new FormGroup({
+			firstName: new FormControl('', [ Validators.required ]),
+			lastName: new FormControl('', [ Validators.required ]),
+			email: new FormControl('', [ Validators.required ]),
+			affiliation: new FormControl('', [ Validators.required ])
 		});
 	}
 
-	deleteCoProposer(i) {
-		this.coProposerForms.removeAt(i);
-		console.log(this.coProposerForms.length)
+	public addCoProposer() {
+		(<FormArray>this.proposalForm.get('coProposers')).controls.forEach((group: FormGroup) => {
+			(<any>Object).values(group.controls).forEach((control: FormControl) => {
+				control.markAsTouched();
+			})
+		});
+		const coProposerControl = <FormArray>this.proposalForm.get('coProposers');
+		coProposerControl.push(this.initCoProposer());
+		this.message.setSpecialMessage('Added', 'success');
 	}
 
-	get coProposerForms() {
-		return this.proposalForm.get('coProposers') as FormArray;
+	getCoProposers(proposalForm) {
+		return proposalForm.controls.coProposers.controls;
 	}
 
-	getFiles(uploaded) {
-		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
+	public deleteCoProposer(i) {
+		const control = <FormArray>this.proposalForm.get('coProposers');
+		control.removeAt(i);
 	}
 
+
+	getGroupControl(index, fieldName) {
+		return (<FormArray>this.proposalForm.get('coProposers')).at(index).get(fieldName);
+	}
+
+
+	back(): void {
+		event.preventDefault();
+		this.selectedIndex = this.selectedIndex - 1;
+		window.scrollTo(0, 0);
+		this.save();
+	}
+
+	forward(): void {
+		event.preventDefault();
+		this.selectedIndex = this.selectedIndex + 1;
+		window.scrollTo(0, 0);
+		this.save();
+	}
 
 	delete(filename: string, input: string) {
 		this.proposalService.deleteFile(filename, this.proposal, input).subscribe(
@@ -338,17 +331,5 @@ export class ProposalDetailComponent implements OnInit {
 				}
 			);
 		}
-	}
-
-	enableUploading() {
-		this.isUploading = true;
-	}
-
-	disableUploading() {
-		this.isUploading = false;
-	}
-
-	showSnackbar() {
-		this._snackbar.open('YUM SNACKS', 'CHEW');
 	}
 }

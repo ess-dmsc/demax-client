@@ -1,0 +1,129 @@
+<form [formGroup]="proposalForm">
+
+	<div formGroupName="proteinDeuteration">
+		<mat-form-field>
+			<p>Name of molecule to be deuterated: <br><em>
+				<small>(e.g. superoxide dismutase)</small>
+			</em></p>
+			<input matInput
+			       formControlName="moleculeName">
+		</mat-form-field>
+
+		<mat-form-field>
+			<p>FASTA sequence or Uniprot number:</p>
+			<input matInput
+			       formControlName="moleculeIdentifier">
+		</mat-form-field>
+
+		<mat-form-field>
+			<p>Molecular weight
+				<small>(kDA)</small>
+				:
+			</p>
+			<input matInput
+			       formControlName="molecularWeight">
+		</mat-form-field>
+
+		<mat-form-field>
+			<p>Oligomerization state:<br><em>
+				<small>(e.g. homodimer, tetramer etc.)</small>
+			</em></p>
+			<input matInput
+			       formControlName="oligomerizationState">
+		</mat-form-field>
+
+		<mat-form-field>
+			<p>Does the protein have any co-factors or ligands required for expression? Specify:</p>
+			<textarea matInput
+			          formControlName="expressionRequirements"
+			          rows="4" cols="40"></textarea>
+		</mat-form-field>
+
+		<mat-form-field>
+			<p>Origin of molecules:<br><em>
+				<small>(e.g. human, E. coli, S. cerevisiae)</small>
+			</em></p>
+			<input matInput
+			       formControlName="moleculeOrigin">
+		</mat-form-field>
+
+		<mat-radio-group formControlName="expressionPlasmidProvidedByUser">
+			<mat-label>Will you provide an expression plasmid?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+
+		<mat-form-field
+				*ngIf="proposalForm.controls['proteinDeuteration'].value.expressionPlasmidProvidedByUser==='yes'">
+			<p>If yes, please provide details:<br><em>
+				<small>(e.g. pET31b, C-terminal His-tag, Amp selection)</small>
+			</em></p>
+			<input matInput formControlName="expressionPlasmidProvidedByUserDetails">
+		</mat-form-field>
+
+		<p>If you choose no, we will design & order a plasmid commercially.</p>
+
+		<mat-form-field>
+			<p>How much material do you need?</p>
+			<input matInput formControlName="amountNeeded">
+		</mat-form-field>
+
+		<mat-form-field>
+			<p>Justify amount:</p>
+			<input matInput formControlName="deuterationLevelMotivation">
+		</mat-form-field>
+
+
+		<mat-radio-group formControlName="deuterationLevelRequired">
+			<mat-label>Level of deuteration required:</mat-label>
+			<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
+			<mat-radio-button value="partial65">Partial (65-80% with unlabeled carbon source)
+			</mat-radio-button>
+			<mat-radio-button value="partial25">Partial (25-30% H/D exchange)</mat-radio-button>
+		</mat-radio-group>
+
+		<mat-form-field>
+			<p>Justify level of D incorporation:</p>
+			<input matInput formControlName="deuterationLevelMotivation">
+		</mat-form-field>
+
+		<mat-radio-group formControlName="needsPurificationSupport">
+			<mat-label>Will you need DEMAX to purify the protein from deuterated biomass?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+
+		<app-file-upload attachmentType="needsPurificationSupportAttachment"
+		                 *ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'"
+		                 [textString]='"If “yes”, please attach a reference or protocol"'
+		                 (uploaded)='this.uploaded.emit(true);'
+		                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+
+
+		<mat-radio-group formControlName="hasDoneUnlabeledProteinExpression">
+			<mat-label>Has expression been done for the unlabeled protein?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-form-field>
+			<input matInput formControlName="typicalYield" placeholder="Typical yield:">
+		</mat-form-field>
+		<mat-radio-group formControlName="hasDoneProteinPurification">
+			<p>Have you been able to purify the unlabeled protein? </p>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-radio-group formControlName="hasProteinDeuterationExperience">
+			<mat-label>Have you tried to deuterate the protein yourself, even in small scale?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+
+		<mat-form-field
+				*ngIf="proposalForm.controls['proteinDeuteration'].value.hasProteinDeuterationExperience==='yes'">
+			<p>If yes, what were the results?</p>
+			<input matInput formControlName="proteinDeuterationResults">
+		</mat-form-field>
+	</div>
+
+</form>

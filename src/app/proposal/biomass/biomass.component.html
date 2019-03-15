@@ -1,0 +1,52 @@
+<form [formGroup]="proposalForm">
+
+	<div formGroupName="biomassDeuteration">
+		<mat-radio-group formControlName="organismProvidedByUser">
+			<mat-label> Will user provide the organism for us to grow under deuterated conditions?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+
+		<mat-form-field>
+						<textarea matInput
+						          formControlName="organismDetails"
+						          placeholder="What is the organism?"
+						          rows="4" cols="40"></textarea>
+		</mat-form-field>
+
+
+		<app-file-upload attachmentType="organismReferenceAttachment"
+		                 [textString]='"Please attach a reference or protocol of culture conditions and media composition:"'
+		                 id="organismReferenceAttachment"
+		                 (uploaded)='this.uploaded.emit(true);'
+		                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+
+		<mat-form-field>
+			<input matInput formControlName="amountNeeded"
+			       placeholder="How much material do you need?">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput formControlName="stateOfMaterial"
+			       placeholder="Indicate wet or dry mass:">
+		</mat-form-field>
+		<mat-form-field>
+						<textarea matInput
+						          formControlName="amountNeededMotivation"
+						          placeholder="Justify amount:"
+						          rows="4" cols="40"></textarea>
+		</mat-form-field>
+
+		<mat-radio-group formControlName="deuterationLevelRequired">
+			<mat-label> Level of deuteration required:</mat-label>
+			<mat-radio-button value="partial">Partial (65-80% with unlabeled carbon source)
+			</mat-radio-button>
+			<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
+		</mat-radio-group>
+
+		<mat-form-field>
+						<textarea matInput formControlName="deuterationLevelMotivation"
+						          placeholder="Justify level of D incorporation:"
+						          rows="4" cols="40"></textarea>
+		</mat-form-field>
+	</div>
+</form>

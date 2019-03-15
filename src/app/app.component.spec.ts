@@ -47,10 +47,4 @@ describe("AppComponent", () => {
 			fixture.detectChanges();
 		});
 	}));
-
-	it("should create the app", async() => {
-		expect(component).toBeTruthy();
-	});
-
-
 });

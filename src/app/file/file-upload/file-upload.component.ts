@@ -11,13 +11,15 @@ import { MessageComponent } from "../../shared/message/message.component";
 	styleUrls: [ './file-upload.component.css' ]
 })
 export class FileUploadComponent implements OnInit {
+
 	@Input() proposalId: string;
 	@Input() attachmentType: string;
 	@Input() textString: string;
 	@Output() uploaded = new EventEmitter();
 
 	uploadForm: FormGroup;
-
+	hasUploaded = false;
+	uploadMessage = '';
 	public uploader: FileUploader = new FileUploader({isHTML5: true});
 	progress: { percentage: number } = {percentage: 0};
 	constructor(private fb: FormBuilder, private http: HttpClient, private message: MessageComponent) {
@@ -50,8 +52,12 @@ export class FileUploadComponent implements OnInit {
 			if(event.type === HttpEventType.UploadProgress) {
 				this.progress.percentage = Math.round(100 * event.loaded / event.total);
 			} else if(event instanceof HttpResponse) {
+				this.hasUploaded = true;
 				this.uploaded.emit(true);
-				this.message.setMessage('Uploaded ' +fileItem.name,'success');
+				this.message.setMessage('Uploaded ' + fileItem.name,'success');
+				setTimeout(() => this.progress.percentage = 0, 3000);
+				setTimeout(() => this.uploadMessage = '', 3000);
+				setTimeout(() => this.hasUploaded = false, 3000);
 			}
 		});
 		this.uploader.clearQueue();

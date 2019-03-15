@@ -20,9 +20,6 @@ export class MessageComponent {
 	}
 
 	setMessage(body, type, time = 3000) {
-		this.message.body = body;
-		this.message.type = type;
-		setTimeout(() => this.message.body = '', time);
 		this.snackBar.open(body, '', {
 				duration: time,
 				horizontalPosition: 'center',
@@ -30,6 +27,12 @@ export class MessageComponent {
 				panelClass: [ `${type}-snackbar` ]
 			}
 		);
+	}
+
+	setSpecialMessage(body,type,time=3000){
+		this.message.body = body;
+		this.message.type = type;
+		setTimeout(() => this.message.body = '', time);
 	}
 
 

@@ -10,8 +10,9 @@ import { User } from "../models/user";
 })
 export class ProposalService {
 
-	constructor(private http: HttpClient,
-	            public auth: AuthService
+	constructor(
+		private http: HttpClient,
+		public auth: AuthService
 	) {
 	}
 
@@ -27,12 +28,12 @@ export class ProposalService {
 		return this.http.post<Proposal>('/api/proposals', proposal);
 	}
 
-	getProposal(proposal: Proposal): Observable<Proposal> {
-		return this.http.post<Proposal>('/api/proposals', proposal);
-	}
-
 	getProposalByProposalId(proposalId: string): Observable<Proposal> {
 		return this.http.get<Proposal>('/api/proposals/getById/' + proposalId);
+	}
+
+	syncProposal(proposal: Proposal): Observable<Proposal> {
+		return this.http.put<Proposal>('/api/proposals/sync/' + proposal.proposalId, proposal);
 	}
 
 	editProposal(proposal: Proposal): Observable<any> {

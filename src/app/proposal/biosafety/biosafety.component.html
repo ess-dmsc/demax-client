@@ -1,0 +1,52 @@
+<form [formGroup]="proposalForm">
+
+	<div formGroupName="bioSafety">
+		<mat-radio-group formControlName="bioSafetyContainmentLevel">
+			<mat-label>Which biosafety containment level is required to work with your sample?</mat-label>
+			<mat-radio-button value="L1">L1</mat-radio-button>
+			<mat-radio-button value="L2">L2</mat-radio-button>
+		</mat-radio-group>
+		<mat-radio-group formControlName="organismRisk">
+			<mat-label>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the environment?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-form-field *ngIf="proposalForm.controls['bioSafety'].value.organismRisk === 'yes'">
+			<textarea matInput
+			          formControlName="organismRiskDetails"></textarea>
+		</mat-form-field>
+		<mat-radio-group formControlName="proteinIsRecombinant">
+			<mat-label>Is the protein recombinant?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-radio-group formControlName="sampleIsToxin">
+			<mat-label>Is the sample a toxin?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-radio-group formControlName="sampleIsVirulenceFactor">
+			<mat-label>Is the sample a virulence factor?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-radio-group formControlName="sampleIsPrionProtein">
+			<mat-label>Is the sample a prion protein?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-radio-group formControlName="sampleHasHazardousLigand">
+			<mat-label>Does the sample have a hazardous ligand (e.g. heavy metal, toxic molecule etc.)?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+		<mat-form-field>
+			<mat-label>If the sample is a a bacteria or virus, specificy whether it is inactive/active:</mat-label>
+			<textarea matInput formControlName="sampleActivity"></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>If you answered "yes" to any of the above, please explan:</mat-label>
+			<textarea matInput formControlName="other"></textarea>
+		</mat-form-field>
+	</div>
+</form>
