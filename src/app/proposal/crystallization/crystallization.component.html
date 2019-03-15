@@ -1,0 +1,108 @@
+<form [formGroup]="proposalForm">
+	<div formGroupName="crystallization">
+		<mat-form-field>
+			<p>Name of molecule to be crystallized:<br><em>
+				<small>(e.g. superoxide dismutase)</small>
+			</em></p>
+			<input matInput required formControlName="moleculeName">
+		</mat-form-field>
+		<mat-form-field>
+			<p>FASTA sequence or Uniprot number:</p>
+			<input matInput required formControlName="moleculeIdentifier">
+		</mat-form-field>
+		<mat-form-field>
+			<p>Molecular weight
+				<small>(kDA)</small>
+				:
+			</p>
+			<input matInput required formControlName="molecularWeight">
+		</mat-form-field>
+		<mat-form-field>
+			<p>Oligomerization state:<br><em>
+				<small>(e.g. homodimer, tetramer etc.)</small>
+			</em></p>
+			<input matInput required formControlName="oligomerizationState">
+		</mat-form-field>
+		<mat-form-field>
+			<p>PDB ID of crystal structure:</p>
+			<input matInput required formControlName="pbdId">
+		</mat-form-field>
+		<mat-form-field>
+			<p>If the reference is publicly available, please provide the DOI or an accessible link:</p>
+			<input matInput formControlName="doi">
+		</mat-form-field>
+
+		<app-file-upload attachmentType="pbdIdReferenceAttachment"
+		                 [textString]='"If the reference isn&#39;t publicly available, please upload a copy."'
+		                 (uploaded)='this.uploaded.emit(true);'
+		                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+
+		<mat-form-field>
+			<p>Does the protein have any co-factors or ligands required for crystallization?
+				Specify:</p>
+			<textarea matInput required formControlName="crystallizationRequirements" rows="4"
+			          cols="40"></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<p>Known crystallization precipitant composition:<br><em>
+				<small>(incl. buffer, salt, additives, pH)</small>
+			</em></p>
+			<textarea matInput required formControlName="crystallizationPrecipitantComposition" rows="4"
+			          cols="40"></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<p>What crystallization method, volume, and temperature have you used in the past?<br><em>
+				<small>(e.g. vapour diffusion, 10 &#181;L drops, room temperature)</small>
+			</em></p>
+			<textarea matInput required formControlName="previousCrystallizationExperience" rows="4"
+			          cols="60"></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<p>How long do your crystals take to appear?</p>
+			<input matInput required formControlName="estimatedCrystallizationProductionTime">
+		</mat-form-field>
+		<mat-form-field>
+			<p>What is the typical size of your crystal?<br><em>
+				<small>( &#181;m x &#181;m x &#181;m )</small>
+			</em></p>
+			<input matInput required formControlName="typicalCrystalSize">
+		</mat-form-field>
+		<mat-card>
+			<mat-card-header>
+				<mat-card-title>
+					Details from protein preparation
+				</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-form-field>
+					<p>Typical yield:<br><em>
+						<small>(mg per liter of culture)</small>
+					</em></p>
+					<input matInput required formControlName="typicalYieldMgPerLiter">
+				</mat-form-field>
+				<mat-form-field>
+					<p>Storage conditions:<br><em>
+						<small>(e.g. stable at 4 &#176;C or frozen at -20 &#176;C)</small>
+					</em></p>
+					<input matInput required formControlName="storageConditions">
+				</mat-form-field>
+				<mat-form-field>
+					<p>Stability:</p>
+					<input matInput required formControlName="stability">
+				</mat-form-field>
+				<mat-form-field>
+					<p>What buffer is your protein in?</p>
+					<input matInput required formControlName="buffer">
+				</mat-form-field>
+				<mat-form-field>
+					<p>Is your protein partially or fully deuterated?</p>
+					<input matInput required formControlName="levelOfDeuteration">
+				</mat-form-field>
+				<mat-form-field>
+					<p>What protein concentration do you usually use for crystallization?</p>
+					<input matInput required formControlName="typicalProteinConcentrationUsed">
+				</mat-form-field>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</form>

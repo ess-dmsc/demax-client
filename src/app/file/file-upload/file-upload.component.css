@@ -1,10 +1,10 @@
 label {
 	cursor: pointer;
 	border: solid lightgray 0.5px;
+	border-radius: 5px;
 	display: block;
-	margin-bottom: 1rem;
 	padding: 0.5rem 2rem;
-	width: 200px;
+	width: 150px;
 }
 
 .inputFile {
@@ -17,4 +17,7 @@ label {
 	opacity: 0;
 	position: absolute;
 	z-index: -1;
+}
+.card{
+	max-width: 700px;
 }

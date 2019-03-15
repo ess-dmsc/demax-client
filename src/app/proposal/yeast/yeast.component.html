@@ -1,0 +1,27 @@
+<form [formGroup]="proposalForm">
+	<div formGroupName="yeastDeuteration">
+		<mat-form-field>
+			<p>How much material do you need?</p>
+			<input matInput formControlName="amountNeeded">
+		</mat-form-field>
+
+		<mat-form-field>
+			<p>Justify amount:</p>
+			<input matInput formControlName="deuterationLevelMotivation">
+		</mat-form-field>
+
+
+		<mat-radio-group formControlName="deuterationLevelRequired">
+			<mat-label>Level of deuteration required:</mat-label>
+			<mat-radio-button value="full">Full (~99% with labeled carbon source)</mat-radio-button>
+			<mat-radio-button value="partial65">Partial (65-80% with unlabeled carbon source)
+			</mat-radio-button>
+			<mat-radio-button value="partial25">Partial (25-30% H/D exchange)</mat-radio-button>
+		</mat-radio-group>
+
+		<mat-form-field>
+			<p>Justify level of D incorporation:</p>
+			<input matInput formControlName="deuterationLevelMotivation">
+		</mat-form-field>
+	</div>
+</form>

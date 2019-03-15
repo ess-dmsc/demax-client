@@ -1,53 +1,55 @@
-.fileUpload{
+mat-tab-group{
+	padding-left: 0.5rem;
+}
+
+mat-radio-group{
 	display: block;
-	max-width: 700px;
-}
-
-textarea {
-	display: block;
-}
-
-fieldset {
-	padding: 1rem;
-}
-
-mat-form-field {
-	display: block;
-	max-width: 700px;
-}
-mat-tab{
-	padding: 1rem 2rem;
-}
-
-mat-checkbox {
+	width: 700px;
 	margin: 1rem;
-	display: block;
 }
-
-mat-radio-group {
-	display: block;
-}
-
 mat-radio-button {
+	display: inline-block;
+	margin: 0 2rem;
+}
+mat-checkbox{
+	display: block;
 	margin: 1rem;
 }
-
-.mainProposer mat-form-field {
-	width: 300px;
-	display: inline-block;
+textarea{
+	width: 100%;
 }
 
-.coProposer mat-form-field {
-	width: 300px;
-	display: inline-block;
+mat-label{
+	display: block;
+	padding: 0.5rem 0;
+	width: 100%;
 }
-
-mat-action-row {
+mat-action-row{
 	display: flex;
-	justify-content: center;
-	padding: 2rem;
-	margin-bottom: 5rem;
+	justify-content: right;
 }
-mat-action-row button, a{
-	margin: 0 2rem;
+.mainProposer mat-form-field{
+	display: inline-block;;
+	width: 350px;
+	margin: 0 1rem;
+}
+
+mat-form-field{
+	display: block;
+	margin: 0;
+	padding: 0;
+	max-width: 700px;
+}
+
+#coProposers mat-form-field{
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+#coProposers td{
+	margin: 0;
+	padding: 0;
+}
+#coProposers table{
+	max-width: 700px;
 }

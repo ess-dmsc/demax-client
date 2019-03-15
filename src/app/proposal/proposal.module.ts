@@ -6,6 +6,12 @@ import { ProposalService } from "./proposal.service";
 import { MaterialModule } from "../external/material.module";
 import { SharedModule } from "../shared/shared.module";
 import { FileModule } from "../file/file.module";
+import { CrystallizationComponent } from './crystallization/crystallization.component';
+import { ProteinComponent } from './protein/protein.component';
+import { BiosafetyComponent } from './biosafety/biosafety.component';
+import { YeastComponent } from './yeast/yeast.component';
+import { BiomassComponent } from "./biomass/biomass.component";
+import { ChemicalComponent } from './chemical/chemical.component';
 
 @NgModule({
 	imports: [
@@ -16,12 +22,27 @@ import { FileModule } from "../file/file.module";
 	],
 	declarations: [
 		ProposalDetailComponent,
-		ProposalListComponent
+		ProposalListComponent,
+		BiomassComponent,
+		BiosafetyComponent,
+		CrystallizationComponent,
+		ProteinComponent,
+		YeastComponent,
+		ChemicalComponent
 	],
 	providers: [
 		ProposalService
 	],
-	exports: [ ProposalDetailComponent, ProposalListComponent ]
+	exports: [
+		BiomassComponent,
+		BiosafetyComponent,
+		CrystallizationComponent,
+		ChemicalComponent,
+		YeastComponent,
+		ProteinComponent,
+		ProposalDetailComponent,
+		ProposalListComponent
+	]
 
 })
 export class ProposalModule {

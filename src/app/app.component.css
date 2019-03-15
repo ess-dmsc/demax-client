@@ -10,3 +10,83 @@ div.content {
 
 @media screen and (max-width: 400px) {
 }
+
+h1 {
+	display: flex;
+	align-items: center;
+	padding: 1em;
+}
+
+h1 a {
+	color: #FFF;
+}
+
+h2 {
+	font-size: 2em;
+	font-weight: bolder;
+	margin-bottom: 0.5em;
+}
+
+p {
+	font-size: 1em;
+	line-height: 1.45;
+	margin-bottom: 1em;
+}
+
+header {
+	display: flex;
+	flex-direction: column;
+	background: #4EA7EA;
+}
+
+ul:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.nav-item {
+	display: inline-block;
+	text-align: center;
+}
+
+.nav-item a {
+	display: block;
+	padding: 1em;
+	color: #FFF;
+	text-decoration: none;
+	font-size: 1em;
+}
+
+.nav-item a:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+@media (min-width: 1000px) {
+	header {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+	header {
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 200px;
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	header h1 {
+		background: rgba(0, 0, 0, 0.22);
+		padding: 2em 1em;
+	}
+
+	.nav-item {
+		display: block;
+		text-align: left;
+	}
+}

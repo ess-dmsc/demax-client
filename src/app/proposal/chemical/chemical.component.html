@@ -1,0 +1,54 @@
+<form [formGroup]="proposalForm">
+	<div formGroupName="chemicalDeuteration">
+		<mat-form-field>
+			<input matInput
+			       required
+			       formControlName="moleculeName"
+			       placeholder="Molecule/s to be deuterated (name):">
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       required
+			       formControlName="amount"
+			       placeholder="Amount of material required (mass):">
+		</mat-form-field>
+		<mat-form-field>
+				<textarea matInput
+				          required
+				          formControlName="amountMotivation"
+				          placeholder="Justify amount:"
+				          rows="6" cols="40"></textarea>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+			       required
+			       formControlName="deuterationLocationAndPercentage"
+			       placeholder="Indicate percentage and location of deuteration:">
+		</mat-form-field>
+		<mat-form-field>
+				<textarea matInput
+				          required
+				          formControlName="deuterationLevelMotivation"
+				          placeholder="Justify level of deuteration"
+				          rows="5" cols="40"></textarea>
+		</mat-form-field>
+
+		<app-file-upload attachmentType="chemicalStructureAttachment"
+		                 [textString]="'Attach chemical structure.'"
+		                 (uploaded)='this.uploaded.emit(true);'
+		                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+
+		<mat-radio-group formControlName="hasPreparedMolecule">
+			<mat-label>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
+				others?</mat-label>
+			<mat-radio-button value="yes">Yes</mat-radio-button>
+			<mat-radio-button value="no">No</mat-radio-button>
+		</mat-radio-group>
+
+		<app-file-upload attachmentType="moleculePreparationReferenceArticle"
+		                 *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'"
+		                 [textString]="'If “yes”, please provide a protocol (attach a reference PDF if published)'"
+		                 (uploaded)='this.uploaded.emit(true);'
+		                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
+	</div>
+</form>
