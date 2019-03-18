@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from "../../user/auth.service";
-import { MessageComponent } from "../message/message.component";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 
 @Component({
@@ -14,8 +13,6 @@ export class SidebarComponent implements OnInit {
 
 	constructor(
 		public auth: AuthService,
-		private changeDetector: ChangeDetectorRef,
-		public message: MessageComponent,
 		@Inject(APP_CONFIG) private appConfig: AppConfig
 	) {
 	}

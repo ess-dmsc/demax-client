@@ -4,10 +4,8 @@ import { SidebarComponent } from './sidebar.component';
 import { By } from "@angular/platform-browser";
 import { AuthService } from "../../user/auth.service";
 import { RouterTestingModule } from "@angular/router/testing";
-import { MaterialModule } from "../../external/material.module";
 import { APP_CONFIG, APP_DI_CONFIG } from "../../app-config.module";
-import { MessageComponent } from "../message/message.component";
-import { UserModule } from "../../user/user.module";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 describe('SidebarComponent', () => {
 	let component: SidebarComponent;
@@ -29,9 +27,9 @@ describe('SidebarComponent', () => {
 			imports: [ RouterTestingModule ],
 			providers: [
 				{provide: APP_CONFIG, useValue: APP_DI_CONFIG},
-				{provide: AuthService, useValue: authServiceStub},
-				MessageComponent
-			]
+				{provide: AuthService, useValue: authServiceStub}
+			],
+			schemas: [ NO_ERRORS_SCHEMA ]
 		})
 		.compileComponents().then(() => {
 			fixture = TestBed.createComponent(SidebarComponent);
@@ -40,21 +38,9 @@ describe('SidebarComponent', () => {
 			fixture.detectChanges();
 		});
 	}));
-/*
-	it('should create', () => {
-		expect(component).toBeTruthy();
-	});
 
-	it('should display the sidebar correctly for admin users', async() => {
-		authService.loggedIn = true;
-		authService.isAdmin = true;
-		fixture.detectChanges();
-		const a = fixture.debugElement.queryAll(By.css('a'));
-		expect(a.length).toBe(5);
-		expect(a[ 4 ].nativeElement.textContent).toContain('Home');
-		expect(a[ 4 ].attributes[ 'routerLink' ]).toBe('/home');
-		expect(a[ 9 ].nativeElement.textContent).toContain('Admin');
-		expect(a[ 9 ].attributes[ 'routerLink' ]).toBe('/admin');
+	it('should create', async () => {
+		expect(component).toBeTruthy();
 	});
 
 	it('should display the sidebar correctly for normal users', async() => {
@@ -63,10 +49,15 @@ describe('SidebarComponent', () => {
 		fixture.detectChanges();
 		const a = fixture.debugElement.queryAll(By.css('a'));
 		expect(a.length).toBe(5);
-		expect(a[ 4 ].nativeElement.textContent).toContain('Contact');
 		expect(a[ 4 ].attributes[ 'routerLink' ]).toBe('/contact');
-		expect(a[ 9 ].nativeElement.textContent).toContain('Privacy');
-		expect(a[ 9 ].attributes[ 'routerLink' ]).toBe('/privacy-policy');
 	});
-	*/
+
+	it('should display the sidebar correctly for admin users', async() => {
+		authService.loggedIn = true;
+		authService.isAdmin = true;
+		fixture.detectChanges();
+		const a = fixture.debugElement.queryAll(By.css('a'));
+		expect(a.length).toBe(5);
+	});
+
 });
