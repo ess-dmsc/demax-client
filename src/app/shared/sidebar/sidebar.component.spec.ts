@@ -49,7 +49,6 @@ describe('SidebarComponent', () => {
 		fixture.detectChanges();
 		const a = fixture.debugElement.queryAll(By.css('a'));
 		expect(a.length).toBe(5);
-		expect(a[ 4 ].attributes[ 'routerLink' ]).toBe('/contact');
 	});
 
 	it('should display the sidebar correctly for admin users', async() => {
@@ -57,7 +56,8 @@ describe('SidebarComponent', () => {
 		authService.isAdmin = true;
 		fixture.detectChanges();
 		const a = fixture.debugElement.queryAll(By.css('a'));
-		expect(a.length).toBe(5);
+		expect(a.length).toBe(6);
+		expect(a[ 5 ].attributes[ 'routerLink' ]).toBe('/admin');
 	});
 
 });

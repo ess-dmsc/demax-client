@@ -12,6 +12,7 @@ import { BiosafetyComponent } from './biosafety/biosafety.component';
 import { YeastComponent } from './yeast/yeast.component';
 import { BiomassComponent } from "./biomass/biomass.component";
 import { ChemicalComponent } from './chemical/chemical.component';
+import { InputComponent } from '../input/input.component';
 
 @NgModule({
 	imports: [
@@ -28,7 +29,8 @@ import { ChemicalComponent } from './chemical/chemical.component';
 		CrystallizationComponent,
 		ProteinComponent,
 		YeastComponent,
-		ChemicalComponent
+		ChemicalComponent,
+		InputComponent
 	],
 	providers: [
 		ProposalService

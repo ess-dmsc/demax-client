@@ -4,5 +4,5 @@
 	<a routerLink="/proposals">My proposals</a>
 	<a href="{{url}}/api/word/attachment">Proposal template</a>
 	<a routerLink="/contact">Contact</a>
-	<a *ngIf="auth.currentUser.isAdmin" routerLink="/admin">Admin console</a>
+	<a *ngIf="auth.isAdmin" routerLink="/admin">Admin console</a>
 </div>
