@@ -12,6 +12,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { MessageComponent, SnackBarMessageComponent } from './message/message.component';
 import { LoadingComponent } from './loading/loading.component';
 import { LogoComponent } from './logo/logo.component';
+import { CustomValidators } from "./custom-validators";
 
 @NgModule({
 	declarations: [

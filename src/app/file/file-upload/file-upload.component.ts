@@ -15,6 +15,7 @@ export class FileUploadComponent implements OnInit {
 	@Input() proposalId: string;
 	@Input() attachmentType: string;
 	@Input() textString: string;
+	@Input() required: Boolean;
 	@Output() uploaded = new EventEmitter();
 
 	uploadForm: FormGroup;

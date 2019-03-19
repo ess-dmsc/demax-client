@@ -1,55 +1,58 @@
-mat-tab-group{
+mat-tab-group {
 	padding-left: 0.5rem;
 }
 
-mat-radio-group{
+mat-radio-group {
 	display: block;
 	width: 700px;
 	margin: 1rem;
 }
+
 mat-radio-button {
 	display: inline-block;
 	margin: 0 2rem;
 }
-mat-checkbox{
+
+mat-checkbox {
 	display: block;
 	margin: 1rem;
 }
-textarea{
+
+textarea {
 	width: 100%;
 }
 
-mat-label{
+mat-label {
 	display: block;
 	padding: 0.5rem 0;
 	width: 100%;
 }
-mat-action-row{
+
+mat-action-row {
 	display: flex;
 	justify-content: right;
 }
-.mainProposer mat-form-field{
+
+.mainProposer mat-form-field {
 	display: inline-block;;
 	width: 350px;
 	margin: 0 1rem;
 }
 
-mat-form-field{
+mat-form-field {
 	display: block;
 	margin: 0;
 	padding: 0;
 	max-width: 700px;
 }
-
-#coProposers mat-form-field{
-	display: inline-block;
-	margin: 0;
-	padding: 0;
-}
-#coProposers td{
-	margin: 0;
-	padding: 0;
-}
 #coProposers table{
 	max-width: 700px;
+	margin: 1rem;
+}
+#coProposers td, tr{
+	margin: 0;
+	padding: 0;
+}
+#coProposers mat-form-field{
+	margin: 2px;
 }

@@ -4,28 +4,42 @@
 			<p>Name of molecule to be crystallized:<br><em>
 				<small>(e.g. superoxide dismutase)</small>
 			</em></p>
-			<input matInput required formControlName="moleculeName">
+			<input matInput
+			       formControlName="moleculeName"
+			       [required]="required">
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','moleculeName' ]).touched &&
+			proposalForm.get(['crystallization','moleculeName']).hasError('required')">Please provide the molecule name.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<p>FASTA sequence or Uniprot number:</p>
-			<input matInput required formControlName="moleculeIdentifier">
+			<input matInput formControlName="moleculeIdentifier" [required]="required">
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','moleculeIdentifier' ]).touched &&
+			proposalForm.get(['crystallization','moleculeIdentifier']).hasError('required')">Please provide a molecule identifier.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
-			<p>Molecular weight
-				<small>(kDA)</small>
-				:
-			</p>
-			<input matInput required formControlName="molecularWeight">
+			<p>Molecular weight<small>(kDA)</small>:</p>
+			<input matInput formControlName="molecularWeight" [required]="required">
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','molecularWeight' ]).touched &&
+			proposalForm.get(['crystallization','molecularWeight']).hasError('required')">Please enter the molecular weight.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<p>Oligomerization state:<br><em>
 				<small>(e.g. homodimer, tetramer etc.)</small>
 			</em></p>
-			<input matInput required formControlName="oligomerizationState">
+			<input matInput formControlName="oligomerizationState" [required]="required">
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','oligomerizationState' ]).touched &&
+			proposalForm.get(['crystallization','oligomerizationState']).hasError('required')">Please enter the oligomerization state.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<p>PDB ID of crystal structure:</p>
-			<input matInput required formControlName="pbdId">
+			<input matInput formControlName="pbdId" [required]="required">
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','pbdId' ]).touched &&
+			proposalForm.get(['crystallization','pbdId']).hasError('required')">Please provide the PBD ID.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<p>If the reference is publicly available, please provide the DOI or an accessible link:</p>
@@ -40,32 +54,51 @@
 		<mat-form-field>
 			<p>Does the protein have any co-factors or ligands required for crystallization?
 				Specify:</p>
-			<textarea matInput required formControlName="crystallizationRequirements" rows="4"
+			<textarea matInput
+			          formControlName="crystallizationRequirements"
+			          [required]="required"
+			          rows="4"
 			          cols="40"></textarea>
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','crystallizationRequirements' ]).touched &&
+			proposalForm.get(['crystallization','crystallizationRequirements']).hasError('required')">Please specify.</mat-error>
+
 		</mat-form-field>
 		<mat-form-field>
 			<p>Known crystallization precipitant composition:<br><em>
 				<small>(incl. buffer, salt, additives, pH)</small>
 			</em></p>
-			<textarea matInput required formControlName="crystallizationPrecipitantComposition" rows="4"
+			<textarea matInput formControlName="crystallizationPrecipitantComposition" [required]="required" rows="4"
 			          cols="40"></textarea>
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','crystallizationPrecipitantComposition' ]).touched &&
+			proposalForm.get(['crystallization','crystallizationPrecipitantComposition']).hasError('required')">Please describe the known crystallization precipitant composition.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<p>What crystallization method, volume, and temperature have you used in the past?<br><em>
 				<small>(e.g. vapour diffusion, 10 &#181;L drops, room temperature)</small>
 			</em></p>
-			<textarea matInput required formControlName="previousCrystallizationExperience" rows="4"
+			<textarea matInput formControlName="previousCrystallizationExperience" [required]="required" rows="4"
 			          cols="60"></textarea>
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','previousCrystallizationExperience' ]).touched &&
+			proposalForm.get(['crystallization','previousCrystallizationExperience']).hasError('required')">Please provide more information.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<p>How long do your crystals take to appear?</p>
-			<input matInput required formControlName="estimatedCrystallizationProductionTime">
+			<input matInput formControlName="estimatedCrystallizationProductionTime" [required]="required">
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','estimatedCrystallizationProductionTime' ]).touched &&
+			proposalForm.get(['crystallization','estimatedCrystallizationProductionTime']).hasError('required')">Please provide more information.</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<p>What is the typical size of your crystal?<br><em>
 				<small>( &#181;m x &#181;m x &#181;m )</small>
 			</em></p>
-			<input matInput required formControlName="typicalCrystalSize">
+			<input matInput formControlName="typicalCrystalSize" [required]="required">
+			<mat-error *ngIf="
+			proposalForm.get(['crystallization','typicalCrystalSize' ]).touched &&
+			proposalForm.get(['crystallization','typicalCrystalSize']).hasError('required')">Please specify the typical size.</mat-error>
 		</mat-form-field>
 		<mat-card>
 			<mat-card-header>
@@ -78,29 +111,47 @@
 					<p>Typical yield:<br><em>
 						<small>(mg per liter of culture)</small>
 					</em></p>
-					<input matInput required formControlName="typicalYieldMgPerLiter">
+					<input matInput formControlName="typicalYieldMgPerLiter" [required]="required">
+					<mat-error *ngIf="
+					proposalForm.get(['crystallization','typicalYieldMgPerLiter' ]).touched &&
+					proposalForm.get(['crystallization','typicalYieldMgPerLiter']).hasError('required')">Required</mat-error>
 				</mat-form-field>
 				<mat-form-field>
 					<p>Storage conditions:<br><em>
 						<small>(e.g. stable at 4 &#176;C or frozen at -20 &#176;C)</small>
 					</em></p>
-					<input matInput required formControlName="storageConditions">
+					<input matInput formControlName="storageConditions" [required]="required">
+					<mat-error *ngIf="
+					proposalForm.get(['crystallization','storageConditions' ]).touched &&
+					proposalForm.get(['crystallization','storageConditions']).hasError('required')">Required</mat-error>
 				</mat-form-field>
 				<mat-form-field>
 					<p>Stability:</p>
-					<input matInput required formControlName="stability">
+					<input matInput formControlName="stability" [required]="required">
+					<mat-error *ngIf="
+					proposalForm.get(['crystallization','stability' ]).touched &&
+					proposalForm.get(['crystallization','stability']).hasError('required')">Required</mat-error>
 				</mat-form-field>
 				<mat-form-field>
 					<p>What buffer is your protein in?</p>
-					<input matInput required formControlName="buffer">
+					<input matInput formControlName="buffer" [required]="required">
+					<mat-error *ngIf="
+					proposalForm.get(['crystallization','buffer' ]).touched &&
+					proposalForm.get(['crystallization','buffer']).hasError('required')">Please describe the buffer.</mat-error>
 				</mat-form-field>
 				<mat-form-field>
 					<p>Is your protein partially or fully deuterated?</p>
-					<input matInput required formControlName="levelOfDeuteration">
+					<input matInput formControlName="levelOfDeuteration" [required]="required">
+					<mat-error *ngIf="
+					proposalForm.get(['crystallization','levelOfDeuteration' ]).touched &&
+					proposalForm.get(['crystallization','levelOfDeuteration']).hasError('required')">Please specify whether your protein is partially or fully deuterated.</mat-error>
 				</mat-form-field>
 				<mat-form-field>
 					<p>What protein concentration do you usually use for crystallization?</p>
-					<input matInput required formControlName="typicalProteinConcentrationUsed">
+					<input matInput formControlName="typicalProteinConcentrationUsed" [required]="required">
+					<mat-error *ngIf="
+					proposalForm.get(['crystallization','typicalProteinConcentrationUsed' ]).touched &&
+					proposalForm.get(['crystallization','typicalProteinConcentrationUsed']).hasError('required')">Required</mat-error>
 				</mat-form-field>
 			</mat-card-content>
 		</mat-card>

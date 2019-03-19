@@ -12,6 +12,7 @@
 			<label mat-raised-button class="btn-primary mat-elevation-z8" style="border-radius: 5px;">Choose file
 				<input formControlName="document"
 				       class="inputFile"
+				       [required]="required"
 				       type="file" ng2FileSelect
 				       accept="application/pdf,application/vnd.ms-excel"
 				       [uploader]="uploader">

@@ -8,6 +8,8 @@ import { FormGroup } from "@angular/forms";
 })
 export class CrystallizationComponent implements OnInit {
 	@Input() proposalForm: FormGroup;
+	@Input() required: Boolean;
+	@Input() disabled: Boolean;
 	@Output() uploaded = new EventEmitter();
 
 	constructor() {
