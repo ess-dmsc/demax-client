@@ -4,21 +4,5 @@
 	<a routerLink="/proposals">My proposals</a>
 	<a href="{{url}}/api/word/attachment">Proposal template</a>
 	<a routerLink="/contact">Contact</a>
-	<div class="dropdown">
-		<a class="dropdown-toggle"
-		   type="button"
-		   routerLink="/admin"
-		   id="dropdownMenuButton"
-		   data-toggle="dropdown"
-		   aria-haspopup="true"
-		   aria-expanded="false">
-			Admin console
-		</a>
-		<div class="dropdown-menu"
-		     aria-labelledby="dropdownMenuButton">
-			<a routerLink="/admin/files">Files</a>
-			<a routerLink="/admin/proposals">Proposals</a>
-			<a routerLink="/admin/users">Users</a>
-		</div>
-	</div>
+	<a *ngIf="auth.currentUser.isAdmin" routerLink="/admin">Admin console</a>
 </div>

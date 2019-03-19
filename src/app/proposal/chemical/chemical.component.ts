@@ -8,6 +8,7 @@ import { FormGroup } from "@angular/forms";
 })
 export class ChemicalComponent implements OnInit {
 	@Input() proposalForm: FormGroup;
+	@Input() required: Boolean;
 	@Output() uploaded = new EventEmitter();
 
 	constructor() {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
 import { Proposal } from "../../models/proposal";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 import { ProposalService } from "../proposal.service";
@@ -10,6 +10,17 @@ import { MessageComponent } from "../../shared/message/message.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { ErrorStateMatcher } from "@angular/material";
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+		const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+		const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+		return (invalidCtrl || invalidParent);
+	}
+}
 
 @Component({
 	selector: 'app-proposal-detail',
@@ -19,6 +30,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 export class ProposalDetailComponent implements OnInit {
 
 	fileUploads: Observable<Object[]>;
+	matcher = new MyErrorStateMatcher();
 
 	proposal: Proposal;
 	proposalForm: FormGroup;
@@ -59,11 +71,18 @@ export class ProposalDetailComponent implements OnInit {
 	) {
 	}
 
-	createProposalForm() {
-		return this.proposalForm = this.formBuilder.group({
+	ngOnInit() {
+
+		this.proposalForm = this.formBuilder.group({
 			proposalId: [ '' ],
-			experimentTitle: [ '', Validators.required ],
-			briefSummary: [ '', Validators.required ],
+			experimentTitle: [ '', [ Validators.required, Validators.maxLength(500) ] ],
+			briefSummary: [
+				'', [
+					Validators.required,
+					Validators.minLength(20),
+					Validators.maxLength(500)
+				]
+			],
 			mainProposer: this.formBuilder.group({
 				firstName: this.auth.currentUser.firstName,
 				lastName: this.auth.currentUser.lastName,
@@ -74,20 +93,20 @@ export class ProposalDetailComponent implements OnInit {
 				industry: this.auth.currentUser.industry
 			}),
 			coProposers: this.formBuilder.array([ this.initCoProposer() ]),
-			needByDate: [ '', Validators.required ],
+			needByDate: [ '', [ Validators.required ] ],
 			needByDateMotivation: [ '', Validators.required ],
 			lab: [ '', Validators.required ],
 			linksWithIndustry: [ '', Validators.required ],
 			linksWithIndustryDetails: [ '' ],
 			coProposerStudents: [ '', Validators.required ],
 			workTowardsStudentsDegree: [ '', Validators.required ],
-			wantsCrystallization: [ false ],
-			wantsBiologicalDeuteration: [ false ],
-			wantsBiomassDeuteration: [ false ],
-			wantsYeastDeuteration: [ false ],
-			wantsProteinDeuteration: [ false ],
-			wantsOtherDeuteration: [ false ],
-			wantsChemicalDeuteration: [ false ],
+			wantsCrystallization: [ null ],
+			wantsBiologicalDeuteration: [ null ],
+			wantsBiomassDeuteration: [ null ],
+			wantsYeastDeuteration: [ null ],
+			wantsProteinDeuteration: [ null ],
+			wantsOtherDeuteration: [ null ],
+			wantsChemicalDeuteration: [ null ],
 			crystallization: this.formBuilder.group({
 				moleculeName: [ '' ],
 				moleculeIdentifier: [ '' ],
@@ -160,18 +179,14 @@ export class ProposalDetailComponent implements OnInit {
 			chemicalDeuteration: this.formBuilder.group({
 				moleculeName: [ '' ],
 				amount: [ '' ],
-				amountMotivation: [ '' ],
-				deuterationLocationAndPercentage: [ '' ],
-				deuterationLevelMotivation: [ '' ],
-				hasPreparedMolecule: [ '' ],
+				amountMotivation: [ '', [ Validators.minLength(20), Validators.maxLength(500) ] ],
+				deuterationLocationAndPercentage: [ '', [ Validators.maxLength(500) ] ],
+				deuterationLevelMotivation: [ '', [ Validators.minLength(20), Validators.maxLength(500) ] ],
+				hasPreparedMolecule: [ '', ],
 				other: [ '' ]
 			}),
 			other: [ '' ]
 		});
-	}
-
-	ngOnInit() {
-		this.proposalForm = this.createProposalForm();
 
 		this.currentProposalId = this.activatedRoute.snapshot.params.proposalId;
 
@@ -216,6 +231,7 @@ export class ProposalDetailComponent implements OnInit {
 			)
 		}
 	}
+
 
 	getFiles() {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
@@ -332,4 +348,5 @@ export class ProposalDetailComponent implements OnInit {
 			);
 		}
 	}
+
 }

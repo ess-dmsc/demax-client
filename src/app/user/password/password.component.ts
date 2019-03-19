@@ -4,7 +4,7 @@ import { User } from "../../models/user";
 import { UserService } from "../user.service";
 import { AuthService } from "../auth.service";
 import { MessageComponent } from "../../shared/message/message.component";
-import { CustomValidators } from "../../custom-validators";
+import { CustomValidators } from "../../shared/custom-validators";
 
 @Component({
 	selector: 'app-password',

@@ -3,7 +3,7 @@ import { User } from "../../models/user";
 import { UserService } from "../../user/user.service";
 import { UserAdminService } from "./user-admin.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { CustomValidators } from "../../custom-validators";
+import { CustomValidators } from "../../shared/custom-validators";
 import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({

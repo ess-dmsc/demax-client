@@ -7,7 +7,6 @@
 	</nav>
 </div>
 
-
 <app-loading [condition]="isLoading"></app-loading>
 
 <form [formGroup]="proposalForm" *ngIf="!isLoading">
@@ -26,9 +25,14 @@
 						       required
 						       formControlName="experimentTitle"
 						       placeholder="Proposal title">
+
 						<mat-error
-								*ngIf="proposalForm.controls['experimentTitle'].invalid || proposalForm.controls['experimentTitle'].touched">
+								*ngIf="proposalForm.controls['experimentTitle'].touched && proposalForm.controls['experimentTitle'].hasError('required')">
 							A proposal title is required
+						</mat-error>
+						<mat-error
+								*ngIf="proposalForm.controls['experimentTitle'].touched && proposalForm.get('experimentTitle').hasError('maxlength')">
+							The title is too long.
 						</mat-error>
 					</mat-form-field>
 
@@ -40,11 +44,19 @@
 					          placeholder="Brief summary"
 					          rows="4" cols="40">
 					</textarea>
-						<mat-hint align="end">{{briefSummary.value?.length || 0}}/500</mat-hint>
 						<mat-error
-								*ngIf="proposalForm.controls['briefSummary'].invalid || proposalForm.controls['briefSummary'].touched">
+								*ngIf="proposalForm.controls['briefSummary'].touched && proposalForm.get('briefSummary').hasError('required')">
+							A brief summary is required.
+						</mat-error>
+						<mat-error
+								*ngIf="proposalForm.controls['briefSummary'].touched && proposalForm.get('briefSummary').hasError('minlength')">
+							The summary is too short.
+						</mat-error>
+						<mat-error
+								*ngIf="proposalForm.controls['briefSummary'].touched && proposalForm.get('briefSummary').hasError('maxlength')">
 							Please keep to the 500 character limit.
 						</mat-error>
+						<mat-hint align="end">{{briefSummary.value?.length || 0}}/500</mat-hint>
 					</mat-form-field>
 				</mat-card-content>
 			</mat-card>
@@ -89,50 +101,40 @@
 				<mat-card-header>
 					<mat-card-title>Co-proposers</mat-card-title>
 				</mat-card-header>
-				<mat-card-content class="table-responsive-sm">
-					<table class="table table-hover">
-						<thead>
-						<tr *ngIf="getCoProposers(proposalForm).length > 0">
-							<th scope="col">#</th>
-							<th scope="col">First name</th>
-							<th scope="col">Last name</th>
-							<th scope="col">Affiliation</th>
-							<th scope="col">Email</th>
-							<th scope="col"></th>
-						</tr>
-						</thead>
+				<mat-card-content>
+					<table class="table table-sm">
 						<tbody formArrayName="coProposers">
 						<tr *ngFor="let coProposer of getCoProposers(proposalForm); let i = index" [formGroupName]="i">
-
-							<th scope="row">{{i + 1}}</th>
 							<td>
-								<mat-form-field>
+								<mat-form-field appearance="outline">
 									<input matInput required formControlName="firstName" placeholder="First name">
 									<mat-error
-											*ngIf="getGroupControl(i, 'firstName').touched && getGroupControl(i, 'firstName').invalid"></mat-error>
-								</mat-form-field>
-							</td>
-							<td>
-								<mat-form-field>
-									<input matInput required formControlName="lastName" placeholder="Last name">
-									<mat-error
-											*ngIf="getGroupControl(i, 'lastName').touched && getGroupControl(i, 'lastName').invalid">
-										Please provide a valid email address
+											*ngIf="getGroupControl(i, 'firstName').touched && getGroupControl(i, 'firstName').invalid">
+										First name is required
 									</mat-error>
 								</mat-form-field>
 							</td>
 							<td>
-								<mat-form-field>
+								<mat-form-field appearance="outline">
+									<input matInput required formControlName="lastName" placeholder="Last name">
+									<mat-error
+											*ngIf="getGroupControl(i, 'lastName').touched && getGroupControl(i, 'lastName').invalid">
+										Last name is required
+									</mat-error>
+								</mat-form-field>
+							</td>
+							<td>
+								<mat-form-field appearance="outline">
 									<input matInput required formControlName="affiliation"
 									       placeholder="Affiliation">
 									<mat-error
 											*ngIf="getGroupControl(i, 'affiliation').touched && getGroupControl(i, 'affiliation').invalid">
-										Please provide a valid email address
+										Affiliation is required
 									</mat-error>
 								</mat-form-field>
 							</td>
 							<td>
-								<mat-form-field>
+								<mat-form-field appearance="outline">
 									<input matInput required formControlName="email" placeholder="Email">
 									<mat-error
 											*ngIf="getGroupControl(i, 'email').touched && getGroupControl(i, 'email').invalid">
@@ -140,45 +142,25 @@
 									</mat-error>
 								</mat-form-field>
 							</td>
-
-							<td>
-								<button *ngIf="getCoProposers(proposalForm).length > i && getCoProposers(proposalForm).length !=1"
-								        class="btn btn-danger"
-								        color="warn"
-								        (click)="deleteCoProposer(i)">
-									Remove
-								</button>
-								<button *ngIf="getCoProposers(proposalForm).length===1"
-								        class="btn btn-danger"
-								        (click)="deleteCoProposer(i)">
-									Cancel
-								</button>
+							<td class="align-middle" style="text-align: center;">
+								<div style="padding: 2px 1em;">
+									<button mat-raised-button
+									        *ngIf="getCoProposers(proposalForm).length > i + 1 && getCoProposers(proposalForm).length !=1"
+									        color="warn"
+									        class="mat-elevation-z5 btn btn-danger"
+									        (click)="deleteCoProposer(i)">
+										Delete
+									</button>
+									<button mat-raised-button *ngIf="getCoProposers(proposalForm).length === i + 1"
+									        class="mat-elevation-z5"
+									        color="primary"
+									        (click)="addCoProposer()"
+									        [disabled]="proposalForm.get('coProposers').invalid">
+										<mat-icon>person_add</mat-icon>
+										Add new
+									</button>
+								</div>
 							</td>
-						</tr>
-						<tr style="text-align: center">
-							<th scope="col">
-
-							</th>
-							<td>
-								<button mat-raised-button
-								        class="mat-elevation-z5"
-								        color="primary"
-								        (click)="addCoProposer()"
-								        [disabled]="proposalForm.get('coProposers').invalid">
-									<mat-icon>person_add</mat-icon>
-									Add co-proposer
-								</button>
-							</td>
-							<td>
-
-							</td>
-							<td>
-
-							</td>
-							<td>
-
-							</td>
-
 						</tr>
 						</tbody>
 					</table>
@@ -191,7 +173,8 @@
 					</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
-					<mat-radio-group formControlName="linksWithIndustry">
+					<mat-radio-group
+							formControlName="linksWithIndustry">
 						<mat-label>Links with industry?</mat-label>
 						<mat-radio-button value="yes">Yes</mat-radio-button>
 						<mat-radio-button value="no">No</mat-radio-button>
@@ -226,10 +209,15 @@
 					<mat-form-field>
 						<input matInput
 						       formControlName="needByDate"
+						       required
 						       [matDatepicker]="picker"
 						       placeholder="Choose a date">
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 						<mat-datepicker #picker></mat-datepicker>
+						<mat-error *ngIf="proposalForm.controls['needByDate'].hasError('required')">
+							Please pick a final delivery date.
+						</mat-error>
+
 					</mat-form-field>
 
 					<mat-form-field>
@@ -238,8 +226,12 @@
 						</em></p>
 
 						<textarea matInput
+						          required
 						          formControlName="needByDateMotivation"
 						          rows="4" cols="40"></textarea>
+						<mat-error *ngIf="proposalForm.controls['needByDateMotivation'].hasError('required')">A
+							motivation is required
+						</mat-error>
 
 					</mat-form-field>
 				</mat-card-content>
@@ -270,10 +262,17 @@
 						</ul>
 					</mat-card-subtitle>
 				</mat-card-header>
+				<mat-card-content>
+					<app-crystallization
+							[required]="wantsCrystallization"
+							[proposalForm]="proposalForm"
+							(uploaded)='getFiles($event)'
+					></app-crystallization>
+				</mat-card-content>
+				<mat-card-actions>
+
+				</mat-card-actions>
 			</mat-card>
-			<mat-expansion-panel [expanded]="wantsCrystallization" [disabled]="!wantsCrystallization">
-				<app-crystallization [proposalForm]="proposalForm" (uploaded)='getFiles($event)'></app-crystallization>
-			</mat-expansion-panel>
 		</mat-tab>
 		<mat-tab label="3. Biological deuteration" id="biological">
 			<mat-card>
@@ -408,10 +407,15 @@
 						</mat-checkbox>
 					</mat-card-title>
 				</mat-card-header>
+				<mat-card-content [attr.disabled]="!wantsChemicalDeuteration">
+					<app-chemical [proposalForm]="proposalForm"
+					              (uploaded)='getFiles($event)'
+					              [required]="wantsChemicalDeuteration"></app-chemical>
+				</mat-card-content>
+				<mat-card-actions>
+
+				</mat-card-actions>
 			</mat-card>
-			<mat-expansion-panel [expanded]="wantsChemicalDeuteration" [disabled]="!wantsChemicalDeuteration">
-				<app-chemical [proposalForm]="proposalForm" (uploaded)='getFiles($event)'></app-chemical>
-			</mat-expansion-panel>
 		</mat-tab>
 		<mat-tab label="5. Upload proposal & review" id="submit">
 			<mat-card>

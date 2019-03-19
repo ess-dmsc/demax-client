@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
 import { MessageComponent } from "../../shared/message/message.component";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material";
 import { ErrorStateMatcher } from '@angular/material/core';
-import { CustomValidators } from "../../custom-validators";
+import { CustomValidators } from "../../shared/custom-validators";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

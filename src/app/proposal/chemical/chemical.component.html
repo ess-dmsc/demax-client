@@ -2,50 +2,99 @@
 	<div formGroupName="chemicalDeuteration">
 		<mat-form-field>
 			<input matInput
-			       required
+			       [required]="required"
 			       formControlName="moleculeName"
 			       placeholder="Molecule/s to be deuterated (name):">
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration','moleculeName' ]).touched &&
+			proposalForm.get(['chemicalDeuteration','moleculeName' ]).hasError('required')">
+				Please specify the molecule name(s).
+			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 			<input matInput
-			       required
+			       [required]="required"
 			       formControlName="amount"
 			       placeholder="Amount of material required (mass):">
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration','amount' ]).touched &&
+			proposalForm.get(['chemicalDeuteration','amount' ]).hasError('required')">
+				Please specify the amount of material required.
+			</mat-error>
 		</mat-form-field>
+
 		<mat-form-field>
 				<textarea matInput
-				          required
+				          #amountMotivation
+				          [required]="required"
 				          formControlName="amountMotivation"
 				          placeholder="Justify amount:"
 				          rows="6" cols="40"></textarea>
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration','amountMotivation' ]).touched &&
+			proposalForm.get(['chemicalDeuteration','amountMotivation' ]).hasError('required')">
+				Please justify the amount.
+			</mat-error>
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration','amountMotivation' ]).touched &&
+			proposalForm.get(['chemicalDeuteration','amountMotivation' ]).hasError('maxlength')">
+				Please keep to the 500 character limit.
+			</mat-error>
+			<mat-hint align="end">{{amountMotivation.value?.length || 0}}/500</mat-hint>
 		</mat-form-field>
+
 		<mat-form-field>
 			<input matInput
-			       required
+			       #deuterationLocationAndPercentage
+			       [required]="required"
 			       formControlName="deuterationLocationAndPercentage"
 			       placeholder="Indicate percentage and location of deuteration:">
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration','deuterationLocationAndPercentage' ]).touched &&
+			proposalForm.get(['chemicalDeuteration','deuterationLocationAndPercentage' ]).hasError('required')">
+				Please indicate the deuteration percentage and location.
+			</mat-error>
 		</mat-form-field>
 		<mat-form-field>
 				<textarea matInput
-				          required
+				          #deuterationLevelMotivation
+				          [required]="required"
 				          formControlName="deuterationLevelMotivation"
 				          placeholder="Justify level of deuteration"
 				          rows="5" cols="40"></textarea>
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration','deuterationLevelMotivation' ]).touched &&
+			proposalForm.get(['chemicalDeuteration','deuterationLevelMotivation' ]).hasError('required')">
+				Please justify the deuteration level.
+			</mat-error>
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration','deuterationLevelMotivation' ]).touched &&
+			proposalForm.get(['chemicalDeuteration','deuterationLevelMotivation' ]).hasError('maxlength')">
+				Please keep to the 500 character limit.
+			</mat-error>
+			<mat-hint align="end">{{deuterationLevelMotivation.value?.length || 0}}/500</mat-hint>
 		</mat-form-field>
 
 		<app-file-upload attachmentType="chemicalStructureAttachment"
+		                 [required]="required"
 		                 [textString]="'Attach chemical structure.'"
 		                 (uploaded)='this.uploaded.emit(true);'
 		                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 
-		<mat-radio-group formControlName="hasPreparedMolecule">
-			<mat-label>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or
-				others?</mat-label>
+		<mat-radio-group
+				[required]="required"
+				formControlName="hasPreparedMolecule">
+			<mat-label>Has this molecule (or an unlabeled/isotopic analogue) been prepared by yourself or others?</mat-label>
 			<mat-radio-button value="yes">Yes</mat-radio-button>
 			<mat-radio-button value="no">No</mat-radio-button>
+			<mat-error *ngIf="
+			proposalForm.get(['chemicalDeuteration', 'hasPreparedMolecule']).hasError('required')">
+				Select yes or no.
+			</mat-error>
 		</mat-radio-group>
 
 		<app-file-upload attachmentType="moleculePreparationReferenceArticle"
+		                 [required]="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'"
 		                 *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'"
 		                 [textString]="'If “yes”, please provide a protocol (attach a reference PDF if published)'"
 		                 (uploaded)='this.uploaded.emit(true);'
