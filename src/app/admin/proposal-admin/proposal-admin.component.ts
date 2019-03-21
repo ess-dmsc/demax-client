@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ProposalService } from "../../proposal/proposal.service";
 import { Proposal } from "../../models/proposal";
+import { APP_CONFIG, AppConfig } from "../../app-config.module";
 
 @Component({
   selector: 'app-proposal-admin',
@@ -10,11 +11,13 @@ import { Proposal } from "../../models/proposal";
 export class ProposalAdminComponent implements OnInit {
 
 	proposals: Proposal[] = [];
+	url = this.appConfig.demaxBaseUrl;
 
 	isLoading = true;
 	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted','options' ]
 
-	constructor(private proposalService: ProposalService) { }
+	constructor(	@Inject(APP_CONFIG) private appConfig: AppConfig,
+	                private proposalService: ProposalService) { }
 
   ngOnInit() {
 	  this.getProposals();

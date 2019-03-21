@@ -28,7 +28,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 	styleUrls: [ './proposal-detail.component.css' ]
 })
 export class ProposalDetailComponent implements OnInit {
-
+	url = this.appConfig.demaxBaseUrl;
 	fileUploads: Observable<Object[]>;
 	matcher = new MyErrorStateMatcher();
 

@@ -63,7 +63,7 @@
 				<!--<button mat-raised-button color="primary" (click)="enableEditing(proposal)">Edit</button>-->
 				<button mat-raised-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
 				<a *ngIf="proposal.submitted" mat-raised-button download class="btn btn-success"
-				   href="demaxapi.esss.dk/api/proposals/download/{{proposal.proposalId}}">
+				   href="{{url}}/api/proposals/download/{{proposal.proposalId}}">
 					<mat-icon>get_app</mat-icon>
 					Download
 				</a>
