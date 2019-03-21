@@ -407,7 +407,8 @@
 						</mat-checkbox>
 					</mat-card-title>
 				</mat-card-header>
-				<mat-card-content [attr.disabled]="!wantsChemicalDeuteration">
+
+				<mat-card-content>
 					<app-chemical [proposalForm]="proposalForm"
 					              (uploaded)='getFiles($event)'
 					              [required]="wantsChemicalDeuteration"></app-chemical>
@@ -443,6 +444,7 @@
 								                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 							</div>
 						</mat-expansion-panel>
+
 						<mat-expansion-panel class="card small">
 							<mat-expansion-panel-header class="card-header">Beamtime proposal
 							</mat-expansion-panel-header>
@@ -451,7 +453,8 @@
 							                 (uploaded)='getFiles($event)'
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
-						<mat-expansion-panel *ngIf="proposalForm.controls['crystallization'].value.doi==='yes'"
+
+						<mat-expansion-panel *ngIf="wantsCrystallization"
 						                     class="card small">
 							<mat-expansion-panel-header class="card-header">Primary reference (crystallization)
 							</mat-expansion-panel-header>
@@ -460,7 +463,8 @@
 							                 (uploaded)='getFiles($event)'
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
-						<mat-expansion-panel *ngIf="proposalForm.controls['wantsBioMassDeuteration']"
+
+						<mat-expansion-panel *ngIf="wantsBiomassDeuteration"
 						                     class="card small">
 							<mat-expansion-panel-header class="card-header">Primary reference (biomass)
 							</mat-expansion-panel-header>
@@ -469,8 +473,8 @@
 							                 (uploaded)='getFiles($event)'
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
-						<mat-expansion-panel class="card small"
-						                     *ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'">
+
+						<mat-expansion-panel class="card small" *ngIf="proposalForm.controls['proteinDeuteration'].value.needsPurificationSupport==='yes'">
 							<mat-expansion-panel-header class="card-header">Primary reference (proteins)
 							</mat-expansion-panel-header>
 							<app-file-upload attachmentType="needsPurificationSupportAttachment"
@@ -478,7 +482,8 @@
 							                 (uploaded)='getFiles($event)'
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
-						<mat-expansion-panel *ngIf="proposalForm.controls['wantsChemicalDeuteration']"
+
+						<mat-expansion-panel *ngIf="wantsChemicalDeuteration"
 						                     class="card small">
 							<mat-expansion-panel-header class="card-header">Chemical structure
 							</mat-expansion-panel-header>
@@ -487,8 +492,8 @@
 							                 (uploaded)='getFiles($event)'
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
-						<mat-expansion-panel
-								*ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'"
+
+						<mat-expansion-panel *ngIf="proposalForm.controls['chemicalDeuteration'].value.hasPreparedMolecule==='yes'"
 								class="card small">
 							<mat-expansion-panel-header class="card-header">Primary reference (chemical deuteration)
 							</mat-expansion-panel-header>
@@ -497,6 +502,7 @@
 							                 (uploaded)='getFiles($event)'
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
+
 					</mat-accordion>
 				</mat-card-actions>
 				<mat-card-header>
