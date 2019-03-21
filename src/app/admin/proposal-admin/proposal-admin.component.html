@@ -58,7 +58,7 @@
 				<td mat-cell *matCellDef="let proposal">
 					<button mat-raised-button color="primary" [routerLink]="['/proposals/' + proposal.proposalId]">Edit</button>
 					<button mat-raised-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
-					<a *ngIf="proposal.submitted" mat-raised-button download class="btn btn-success" href="{{url}}/api/proposals/download/{{proposal.proposalId}}">
+					<a *ngIf="proposal.submitted" mat-raised-button download class="btn btn-success" href="demaxapi.esss.dk/api/proposals/download/{{proposal.proposalId}}">
 						<mat-icon>get_app</mat-icon>
 						Download
 					</a>
