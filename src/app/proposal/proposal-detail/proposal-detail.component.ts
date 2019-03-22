@@ -349,4 +349,25 @@ export class ProposalDetailComponent implements OnInit {
 		}
 	}
 
+	get wantsCrystallization() {
+		return this.proposalForm.get('wantsCrystallization') as FormControl;
+	}
+	get wantsBiologicalDeuteration() {
+		return this.proposalForm.get('wantsBiologicalDeuteration') as FormControl;
+	}
+	get wantsBiomassDeuteration() {
+		return this.proposalForm.get('wantsBiomassDeuteration') as FormControl;
+	}
+	get wantsProteinDeuteration() {
+		return this.proposalForm.get('wantsProteinDeuteration') as FormControl;
+	}
+	get wantsYeastDeuteration() {
+		return this.proposalForm.get('wantsYeastDeuteration') as FormControl;
+	}
+	get wantsOtherDeuteration() {
+		return this.proposalForm.get('wantsOtherDeuteration') as FormControl;
+	}
+	get wantsChemicalDeuteration() {
+		return this.proposalForm.get('wantsChemicalDeuteration') as FormControl;
+	}
 }
