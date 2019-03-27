@@ -445,7 +445,7 @@
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
 
-						<mat-expansion-panel *ngIf="wantsCrystallization"
+						<mat-expansion-panel *ngIf="proposalForm.get('wantsCrystallization').value"
 						                     class="card small">
 							<mat-expansion-panel-header class="card-header">Primary reference (crystallization)
 							</mat-expansion-panel-header>
@@ -455,7 +455,7 @@
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
 
-						<mat-expansion-panel *ngIf="wantsBiomassDeuteration"
+						<mat-expansion-panel *ngIf="proposalForm.get('wantsBiomassDeuteration').value"
 						                     class="card small">
 							<mat-expansion-panel-header class="card-header">Primary reference (biomass)
 							</mat-expansion-panel-header>
@@ -475,7 +475,7 @@
 							                 [proposalId]="proposalForm.controls['proposalId'].value"></app-file-upload>
 						</mat-expansion-panel>
 
-						<mat-expansion-panel *ngIf="wantsChemicalDeuteration"
+						<mat-expansion-panel *ngIf="proposalForm.get('wantsChemicalDeuteration').value"
 						                     class="card small">
 							<mat-expansion-panel-header class="card-header">Chemical structure
 							</mat-expansion-panel-header>
