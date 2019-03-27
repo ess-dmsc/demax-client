@@ -1,5 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
+import { Component, Directive, Inject, Input, OnInit } from '@angular/core';
+import {
+	FormArray,
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	FormGroupDirective,
+	NgControl,
+	NgForm,
+	Validators
+} from "@angular/forms";
 import { Proposal } from "../../models/proposal";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 import { ProposalService } from "../proposal.service";
@@ -20,6 +29,21 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 		return (invalidCtrl || invalidParent);
 	}
+}
+
+@Directive({
+	selector: '[disableControl]'
+})
+export class DisableControlDirective {
+
+	@Input() set disableControl( condition : boolean ) {
+		const action = condition ? 'disable' : 'enable';
+		this.ngControl.control[action]();
+	}
+
+	constructor( private ngControl : NgControl ) {
+	}
+
 }
 
 @Component({
@@ -100,13 +124,13 @@ export class ProposalDetailComponent implements OnInit {
 			linksWithIndustryDetails: [ '' ],
 			coProposerStudents: [ '', Validators.required ],
 			workTowardsStudentsDegree: [ '', Validators.required ],
-			wantsCrystallization: [ false ],
-			wantsBiologicalDeuteration: [ false ],
-			wantsBiomassDeuteration: [ false ],
-			wantsYeastDeuteration: [ false ],
-			wantsProteinDeuteration: [ false ],
-			wantsOtherDeuteration: [ false ],
-			wantsChemicalDeuteration: [ false ],
+			wantsCrystallization: [ null ],
+			wantsBiologicalDeuteration: [ null ],
+			wantsBiomassDeuteration: [ null ],
+			wantsYeastDeuteration: [ null ],
+			wantsProteinDeuteration: [ null ],
+			wantsOtherDeuteration: [ null ],
+			wantsChemicalDeuteration: [ null ],
 			crystallization: this.formBuilder.group({
 				moleculeName: [ '' ],
 				moleculeIdentifier: [ '' ],
@@ -213,6 +237,18 @@ export class ProposalDetailComponent implements OnInit {
 				response => {
 					this.proposal = response;
 					this.proposalForm.patchValue(this.proposal);
+					if(this.proposal.wantsCrystallization){
+						this.proposalForm.get('crystallization').enable();
+					}
+					if(!this.proposal.wantsCrystallization){
+						this.proposalForm.get('crystallization').disable();
+					}
+					if(this.proposal.wantsChemicalDeuteration){
+						this.proposalForm.get('chemicalDeuteration').enable();
+					}
+					if(!this.proposal.wantsChemicalDeuteration){
+						this.proposalForm.get('chemicalDeuteration').disable();
+					}
 					this.getFiles();
 					let controlArray = <FormArray>this.proposalForm.controls[ 'coProposers' ];
 					for(let i = 1; i < this.proposal.coProposers.length; i++) {
@@ -230,8 +266,48 @@ export class ProposalDetailComponent implements OnInit {
 				}
 			)
 		}
+
+		this.wantsCrystallization.valueChanges.subscribe(checked=>{
+			if(checked){
+				this.proposalForm.get('crystallization').enable();
+			}
+			else{
+				this.proposalForm.get('crystallization').disable();
+
+			}
+		});
+		this.wantsChemicalDeuteration.valueChanges.subscribe(checked=>{
+			if(checked){
+				this.proposalForm.get('chemicalDeuteration').enable();
+			}
+			else{
+				this.proposalForm.get('chemicalDeuteration').disable();
+
+			}
+		})
 	}
 
+	get wantsCrystallization() {
+		return this.proposalForm.get('wantsCrystallization') as FormControl;
+	}
+	get wantsBiologicalDeuteration() {
+		return this.proposalForm.get('wantsBiologicalDeuteration') as FormControl;
+	}
+	get wantsBiomassDeuteration() {
+		return this.proposalForm.get('wantsBiomassDeuteration') as FormControl;
+	}
+	get wantsProteinDeuteration() {
+		return this.proposalForm.get('wantsProteinDeuteration') as FormControl;
+	}
+	get wantsYeastDeuteration() {
+		return this.proposalForm.get('wantsYeastDeuteration') as FormControl;
+	}
+	get wantsOtherDeuteration() {
+		return this.proposalForm.get('wantsOtherDeuteration') as FormControl;
+	}
+	get wantsChemicalDeuteration() {
+		return this.proposalForm.get('wantsChemicalDeuteration') as FormControl;
+	}
 
 	getFiles() {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
@@ -349,25 +425,4 @@ export class ProposalDetailComponent implements OnInit {
 		}
 	}
 
-	get wantsCrystallization() {
-		return this.proposalForm.get('wantsCrystallization') as FormControl;
-	}
-	get wantsBiologicalDeuteration() {
-		return this.proposalForm.get('wantsBiologicalDeuteration') as FormControl;
-	}
-	get wantsBiomassDeuteration() {
-		return this.proposalForm.get('wantsBiomassDeuteration') as FormControl;
-	}
-	get wantsProteinDeuteration() {
-		return this.proposalForm.get('wantsProteinDeuteration') as FormControl;
-	}
-	get wantsYeastDeuteration() {
-		return this.proposalForm.get('wantsYeastDeuteration') as FormControl;
-	}
-	get wantsOtherDeuteration() {
-		return this.proposalForm.get('wantsOtherDeuteration') as FormControl;
-	}
-	get wantsChemicalDeuteration() {
-		return this.proposalForm.get('wantsChemicalDeuteration') as FormControl;
-	}
 }
