@@ -8,7 +8,7 @@
 		</mat-card-subtitle>
 	</mat-card-header>
 	<mat-card-content>
-		<table mat-table [dataSource]="proposals">
+		<table mat-table [dataSource]="proposals" class="table table-sm">
 
 			<ng-container matColumnDef="proposalId">
 				<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
@@ -28,6 +28,7 @@
 							<td *ngIf="proposal.wantsBiologicalDeuteration">B
 								<small *ngIf="proposal.wantsBiomassDeuteration">  -Biomass</small>
 								<small *ngIf="proposal.wantsProteinDeuteration">  -Proteins</small>
+								<small *ngIf="proposal.wantsYeastDeuteration">  -Yeast</small>
 							</td>
 							<td *ngIf="proposal.wantsChemicalDeuteration">C</td>
 							<td *ngIf="proposal.wantsOtherDeuteration">Other</td>
@@ -48,6 +49,9 @@
 					<button mat-stroked-button disabled *ngIf="proposal.submitted">
 						<mat-icon>done</mat-icon> Yes
 					</button>
+					<a *ngIf="proposal.submitted" download class="btn btn-success btn-sm" href="{{url}}/api/proposals/download/{{proposal.proposalId}}">
+						Download
+					</a>
 					<button mat-stroked-button disabled *ngIf="!proposal.submitted">
 						<mat-icon>clear</mat-icon> No
 					</button>
@@ -56,12 +60,9 @@
 			<ng-container matColumnDef="options">
 				<th mat-header-cell *matHeaderCellDef> Options</th>
 				<td mat-cell *matCellDef="let proposal">
-					<button mat-raised-button color="primary" [routerLink]="['/proposals/' + proposal.proposalId]">Edit</button>
-					<button mat-raised-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
-					<a *ngIf="proposal.submitted" mat-raised-button download class="btn btn-success" href="{{url}}/api/proposals/download/{{proposal.proposalId}}">
-						<mat-icon>get_app</mat-icon>
-						Download
-					</a>
+					<button class="btn btn-primary btn-sm" [routerLink]="['/proposals/' + proposal.proposalId]">Edit</button>
+					<button class="btn btn-danger btn-sm" (click)="deleteProposal(proposal)">Delete</button>
+
 				</td>
 			</ng-container>
 

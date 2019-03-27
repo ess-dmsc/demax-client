@@ -1,11 +1,17 @@
-button {
-	margin: 0 1rem;
-}
-
 table {
 	width: 100%;
 }
-.categories td{
-	padding: 0;
+button{
+	margin: 0 5px;
+}
+
+td{
+	width: 10%;
+	text-align: left;
 	margin: 0;
+	padding: 0;
+}
+tr{
+	margin: 0;
+	padding: 0;
 }

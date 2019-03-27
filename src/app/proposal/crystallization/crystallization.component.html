@@ -6,7 +6,9 @@
 			</em></p>
 			<input matInput
 			       formControlName="moleculeName"
-			       [required]="required">
+			       placeholder="Name"
+			       [required]="required"
+			       disabled="proposalForm.get('wantsCrystallization').value">
 			<mat-error *ngIf="
 			proposalForm.get(['crystallization','moleculeName' ]).touched &&
 			proposalForm.get(['crystallization','moleculeName']).hasError('required')">Please provide the molecule name.</mat-error>
