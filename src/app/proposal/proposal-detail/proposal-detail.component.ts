@@ -31,21 +31,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 	}
 }
 
-@Directive({
-	selector: '[disableControl]'
-})
-export class DisableControlDirective {
-
-	@Input() set disableControl( condition : boolean ) {
-		const action = condition ? 'disable' : 'enable';
-		this.ngControl.control[action]();
-	}
-
-	constructor( private ngControl : NgControl ) {
-	}
-
-}
-
 @Component({
 	selector: 'app-proposal-detail',
 	templateUrl: './proposal-detail.component.html',
