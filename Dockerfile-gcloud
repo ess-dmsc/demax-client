@@ -10,6 +10,7 @@ RUN npm config set strict-ssl false
 RUN npm config set unsafe-perm true
 
 RUN npm install -g @angular/cli
+RUN npm install nyc
 
 COPY package.json /usr/src/app/package.json
 WORKDIR /usr/src/app
