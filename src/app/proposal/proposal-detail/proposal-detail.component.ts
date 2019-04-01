@@ -312,7 +312,6 @@ export class ProposalDetailComponent implements OnInit {
 			}
 			else{
 				this.proposalForm.get('other').disable();
-
 			}
 		})
 	}
@@ -454,5 +453,4 @@ export class ProposalDetailComponent implements OnInit {
 			);
 		}
 	}
-
 }
