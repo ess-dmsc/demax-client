@@ -31,21 +31,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 	}
 }
 
-@Directive({
-	selector: '[disableControl]'
-})
-export class DisableControlDirective {
-
-	@Input() set disableControl( condition : boolean ) {
-		const action = condition ? 'disable' : 'enable';
-		this.ngControl.control[action]();
-	}
-
-	constructor( private ngControl : NgControl ) {
-	}
-
-}
-
 @Component({
 	selector: 'app-proposal-detail',
 	templateUrl: './proposal-detail.component.html',
@@ -282,6 +267,51 @@ export class ProposalDetailComponent implements OnInit {
 			}
 			else{
 				this.proposalForm.get('chemicalDeuteration').disable();
+
+			}
+		})
+		this.wantsBiologicalDeuteration.valueChanges.subscribe(checked=>{
+			if(checked){
+				this.proposalForm.get('bioSafety').enable();
+			}
+			else{
+				this.proposalForm.get('bioSafety').disable();
+
+			}
+		})
+		this.wantsBiomassDeuteration.valueChanges.subscribe(checked=>{
+			if(checked){
+				this.proposalForm.get('biomassDeuteration').enable();
+			}
+			else{
+				this.proposalForm.get('biomassDeuteration').disable();
+
+			}
+		})
+		this.wantsProteinDeuteration.valueChanges.subscribe(checked=>{
+			if(checked){
+				this.proposalForm.get('proteinDeuteration').enable();
+			}
+			else{
+				this.proposalForm.get('proteinDeuteration').disable();
+
+			}
+		});
+		this.wantsYeastDeuteration.valueChanges.subscribe(checked=>{
+			if(checked){
+				this.proposalForm.get('yeastDeuteration').enable();
+			}
+			else{
+				this.proposalForm.get('yeastDeuteration').disable();
+
+			}
+		})
+		this.wantsOtherDeuteration.valueChanges.subscribe(checked=>{
+			if(checked){
+				this.proposalForm.get('other').enable();
+			}
+			else{
+				this.proposalForm.get('other').disable();
 
 			}
 		})
