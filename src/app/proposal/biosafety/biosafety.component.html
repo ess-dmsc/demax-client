@@ -6,14 +6,12 @@
 			<mat-radio-button value="L2">L2</mat-radio-button>
 		</mat-radio-group>
 		<mat-radio-group formControlName="organismRisk">
-			<mat-label>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the environment?</mat-label>
+			<mat-label>Is your organism a live virus, toxin-producing, or pose ay risk to human health and/or the
+				environment?
+			</mat-label>
 			<mat-radio-button value="yes">Yes</mat-radio-button>
 			<mat-radio-button value="no">No</mat-radio-button>
 		</mat-radio-group>
-		<mat-form-field *ngIf="proposalForm.controls['bioSafety'].value.organismRisk === 'yes'">
-			<textarea matInput
-			          formControlName="organismRiskDetails"></textarea>
-		</mat-form-field>
 		<mat-radio-group formControlName="proteinIsRecombinant">
 			<mat-label>Is the protein recombinant?</mat-label>
 			<mat-radio-button value="yes">Yes</mat-radio-button>
