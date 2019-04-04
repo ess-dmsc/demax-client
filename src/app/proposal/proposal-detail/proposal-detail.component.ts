@@ -422,12 +422,11 @@ export class ProposalDetailComponent implements OnInit {
 				binaryData.push(response);
 				let downloadLink = document.createElement('a');
 				downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-
-				document.body.appendChild(downloadLink);
-				downloadLink.click();
 				window.open(downloadLink.href, '_blank');
+				console.log(response.type)
 				this.isGenerating = false;
 			}, error => {
+				this.isGenerating = false;
 				this.message.setMessage('Failed to generate PDF. Please upload all required files', 'danger');
 			}
 		)
