@@ -2,12 +2,9 @@
 	<h1 class="h2">My current proposals</h1>
 	<div class="btn-toolbar mb-2 mb-md-0">
 		<div class="btn-group mr-2">
-			<a routerLink="/proposals/new">
-				<button class="btn btn-sm btn-outline-secondary">Create new proposal</button>
-			</a>
+			<button mat-raised-button class="btn btn-sm btn-outline-secondary" disabled>Create new proposal</button>
 			<a href="{{url}}/api/word/attachment" download>
-
-			<button class="btn btn-sm btn-outline-secondary">Download proposal template</button>
+				<button class="btn btn-sm btn-outline-secondary">Download proposal template</button>
 			</a>
 		</div>
 	</div>
