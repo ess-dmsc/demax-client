@@ -5,7 +5,7 @@ This repository constitutes the frontend part of the DEMAX User Office website. 
 The DEMAX User Office will be used for submission and management of deuteration proposals.
 This system is built in TypeScript with Angular CLI.
 
-A live version of the system (irregularly updated) can be found at https://demax.esss.app
+A live version of the system can be found at https://demax.esss.se
 
 ## Getting started
 
@@ -35,15 +35,13 @@ To set up the backend, simply follow the instructions of the <a href="https://gi
 
 ng test starts the Angular karma test suite that runs all unit tests defined in all files ending with '.spec.ts'
 
-## Deployment
-
 ```ng build --prod```
 
-This command creates new folder, 'dist/', and builds a production version of the code in that folder. During compilation, all TypeScript files are compiled into JavaScript and all HTML-files merged into a single index.html.
+Before deploying, make sure to run this command to make sure that there are no type errors in the build version. This command creates new folder, 'dist/', and builds a production version of the code in that folder. During compilation, all TypeScript files are compiled into JavaScript and all HTML-files merged into a single index.html.
 
-```ng build --prod --aot```
-
-This command builds a production version using the Ahead-of-time compilation. Ahead-of-time compilation compiles all code (TypeScript, HTML and CSS/SCSS) into one single JavaScript file that is later downloaded and displayed by browser clients - no browser-side compilation needed.
+## Deployment
+To deploy with docker, use the file 'Dockerfile'. This file pulls the latest version of the repository from Github, builds and compiles a production version of the code, and starts a NGINX Webserver to serve the frontend at port 8080.
+To run demax-client together with the frontend, checkout the docker-compose-files in [demax-backend](https://github.com/ess-dmsc/demax-server).
 
 ## Contributing
 
