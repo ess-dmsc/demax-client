@@ -46,6 +46,12 @@
 					{{proposal.mainProposer.lastName}}
 				</td>
 			</ng-container>
+			<ng-container matColumnDef="scienceScore">
+				<th mat-header-cell *matHeaderCellDef> Science score</th>
+				<td mat-cell *matCellDef="let proposal"> {{proposal.scienceScore}}
+					{{proposal.scienceScore}}
+				</td>
+			</ng-container>
 			<ng-container matColumnDef="submitted">
 				<th mat-header-cell *matHeaderCellDef>Submitted</th>
 				<td mat-cell *matCellDef="let proposal">
