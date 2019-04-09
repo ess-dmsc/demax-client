@@ -15,7 +15,7 @@ export class ProposalAdminComponent implements OnInit {
 	isEditing = false;
 	isEditingMetaData = false;
 	isLoading = true;
-	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted', 'scienceScore', 'TSF-score', 'options' ]
+	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted', 'scienceScore', 'options' ]
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,
