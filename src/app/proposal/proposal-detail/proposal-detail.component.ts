@@ -84,6 +84,7 @@ export class ProposalDetailComponent implements OnInit {
 
 		this.proposalForm = this.formBuilder.group({
 			proposalId: [ '' ],
+			scienceScore: [ '' ],
 			experimentTitle: [ '', [ Validators.required, Validators.maxLength(500) ] ],
 			briefSummary: [
 				'', [
@@ -102,6 +103,7 @@ export class ProposalDetailComponent implements OnInit {
 				industry: this.auth.currentUser.industry
 			}),
 			coProposers: this.formBuilder.array([ this.initCoProposer() ]),
+			comments: this.formBuilder.array([ this.initComment() ]),
 			needByDate: [ '', [ Validators.required ] ],
 			needByDateMotivation: [ '', Validators.required ],
 			lab: [ '', Validators.required ],
@@ -222,19 +224,27 @@ export class ProposalDetailComponent implements OnInit {
 				response => {
 					this.proposal = response;
 					this.proposalForm.patchValue(this.proposal);
-					if(this.proposal.wantsCrystallization){
+					if(this.proposal.wantsCrystallization) {
 						this.proposalForm.get('crystallization').enable();
 					}
-					if(!this.proposal.wantsCrystallization){
+					if(!this.proposal.wantsCrystallization) {
 						this.proposalForm.get('crystallization').disable();
 					}
-					if(this.proposal.wantsChemicalDeuteration){
+					if(this.proposal.wantsChemicalDeuteration) {
 						this.proposalForm.get('chemicalDeuteration').enable();
 					}
-					if(!this.proposal.wantsChemicalDeuteration){
+					if(!this.proposal.wantsChemicalDeuteration) {
 						this.proposalForm.get('chemicalDeuteration').disable();
 					}
 					this.getFiles();
+					let commentControlArray = <FormArray>this.proposalForm.controls[ 'comments' ];
+					for(let i = 1; i < this.proposal.comments.length; i++) {
+						commentControlArray.push(this.formBuilder.group({
+							author: this.proposal.comments[ i ].author,
+							comment: this.proposal.comments[ i ].comment,
+							dateCreated: this.proposal.comments[ i ].dateCreated
+						}))
+					}
 					let controlArray = <FormArray>this.proposalForm.controls[ 'coProposers' ];
 					for(let i = 1; i < this.proposal.coProposers.length; i++) {
 						controlArray.push(this.formBuilder.group({
@@ -252,65 +262,65 @@ export class ProposalDetailComponent implements OnInit {
 			)
 		}
 
-		this.wantsCrystallization.valueChanges.subscribe(checked=>{
-			if(checked){
+		this.wantsCrystallization.valueChanges.subscribe(checked => {
+			if(checked) {
 				this.proposalForm.get('crystallization').enable();
 			}
-			else{
+			else {
 				this.proposalForm.get('crystallization').disable();
 
 			}
 		});
-		this.wantsChemicalDeuteration.valueChanges.subscribe(checked=>{
-			if(checked){
+		this.wantsChemicalDeuteration.valueChanges.subscribe(checked => {
+			if(checked) {
 				this.proposalForm.get('chemicalDeuteration').enable();
 			}
-			else{
+			else {
 				this.proposalForm.get('chemicalDeuteration').disable();
 
 			}
 		})
-		this.wantsBiologicalDeuteration.valueChanges.subscribe(checked=>{
-			if(checked){
+		this.wantsBiologicalDeuteration.valueChanges.subscribe(checked => {
+			if(checked) {
 				this.proposalForm.get('bioSafety').enable();
 			}
-			else{
+			else {
 				this.proposalForm.get('bioSafety').disable();
 
 			}
 		})
-		this.wantsBiomassDeuteration.valueChanges.subscribe(checked=>{
-			if(checked){
+		this.wantsBiomassDeuteration.valueChanges.subscribe(checked => {
+			if(checked) {
 				this.proposalForm.get('biomassDeuteration').enable();
 			}
-			else{
+			else {
 				this.proposalForm.get('biomassDeuteration').disable();
 
 			}
 		})
-		this.wantsProteinDeuteration.valueChanges.subscribe(checked=>{
-			if(checked){
+		this.wantsProteinDeuteration.valueChanges.subscribe(checked => {
+			if(checked) {
 				this.proposalForm.get('proteinDeuteration').enable();
 			}
-			else{
+			else {
 				this.proposalForm.get('proteinDeuteration').disable();
 
 			}
 		});
-		this.wantsYeastDeuteration.valueChanges.subscribe(checked=>{
-			if(checked){
+		this.wantsYeastDeuteration.valueChanges.subscribe(checked => {
+			if(checked) {
 				this.proposalForm.get('yeastDeuteration').enable();
 			}
-			else{
+			else {
 				this.proposalForm.get('yeastDeuteration').disable();
 
 			}
 		})
-		this.wantsOtherDeuteration.valueChanges.subscribe(checked=>{
-			if(checked){
+		this.wantsOtherDeuteration.valueChanges.subscribe(checked => {
+			if(checked) {
 				this.proposalForm.get('other').enable();
 			}
-			else{
+			else {
 				this.proposalForm.get('other').disable();
 			}
 		})
@@ -319,27 +329,38 @@ export class ProposalDetailComponent implements OnInit {
 	get wantsCrystallization() {
 		return this.proposalForm.get('wantsCrystallization') as FormControl;
 	}
+
 	get wantsBiologicalDeuteration() {
 		return this.proposalForm.get('wantsBiologicalDeuteration') as FormControl;
 	}
+
 	get wantsBiomassDeuteration() {
 		return this.proposalForm.get('wantsBiomassDeuteration') as FormControl;
 	}
+
 	get wantsProteinDeuteration() {
 		return this.proposalForm.get('wantsProteinDeuteration') as FormControl;
 	}
+
 	get wantsYeastDeuteration() {
 		return this.proposalForm.get('wantsYeastDeuteration') as FormControl;
 	}
+
 	get wantsOtherDeuteration() {
 		return this.proposalForm.get('wantsOtherDeuteration') as FormControl;
 	}
+
 	get wantsChemicalDeuteration() {
 		return this.proposalForm.get('wantsChemicalDeuteration') as FormControl;
 	}
 
 	getFiles() {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
+		this.proposalService.syncProposal(this.proposal.proposalId).subscribe(
+			response => {
+				console.log(response)
+			}
+		)
 	}
 
 	save() {
@@ -388,6 +409,42 @@ export class ProposalDetailComponent implements OnInit {
 		return (<FormArray>this.proposalForm.get('coProposers')).at(index).get(fieldName);
 	}
 
+	initComment() {
+		return new FormGroup({
+			author: new FormControl({
+				value: this.auth.currentUser.firstName + ' ' + this.auth.currentUser.lastName,
+				disabled: true
+			}, [ Validators.required ]),
+			comment: new FormControl('', [ Validators.required ]),
+			dateCreated: new FormControl({value: Date.now()})
+		});
+	}
+
+	public addComment() {
+		(<FormArray>this.proposalForm.get('comments')).controls.forEach((group: FormGroup) => {
+			(<any>Object).values(group.controls).forEach((control: FormControl) => {
+				control.markAsTouched();
+			})
+		});
+		const commentControl = <FormArray>this.proposalForm.get('comments');
+		commentControl.push(this.initComment());
+		this.message.setSpecialMessage('Added comment', 'success');
+	}
+
+	getComments(proposalForm) {
+		return proposalForm.controls.comments.controls;
+	}
+
+	public deleteComment(i) {
+		const control = <FormArray>this.proposalForm.get('comments');
+		control.removeAt(i);
+	}
+
+
+	getCommentGroupControl(index, fieldName) {
+		return (<FormArray>this.proposalForm.get('comments')).at(index).get(fieldName);
+	}
+
 
 	back(): void {
 		event.preventDefault();
@@ -426,7 +483,6 @@ export class ProposalDetailComponent implements OnInit {
 				console.log(response.type)
 				this.isGenerating = false;
 			}, error => {
-				this.isGenerating = false;
 				this.message.setMessage('Failed to generate PDF. Please upload all required files', 'danger');
 			}
 		)
