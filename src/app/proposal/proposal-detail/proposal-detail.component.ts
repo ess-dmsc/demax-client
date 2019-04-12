@@ -103,7 +103,6 @@ export class ProposalDetailComponent implements OnInit {
 				industry: this.auth.currentUser.industry
 			}),
 			coProposers: this.formBuilder.array([ this.initCoProposer() ]),
-			comments: this.formBuilder.array([ this.initComment() ]),
 			needByDate: [ '', [ Validators.required ] ],
 			needByDateMotivation: [ '', Validators.required ],
 			lab: [ '', Validators.required ],
@@ -237,7 +236,7 @@ export class ProposalDetailComponent implements OnInit {
 						this.proposalForm.get('chemicalDeuteration').disable();
 					}
 					this.getFiles();
-					
+
 					let controlArray = <FormArray>this.proposalForm.controls[ 'coProposers' ];
 					for(let i = 1; i < this.proposal.coProposers.length; i++) {
 						controlArray.push(this.formBuilder.group({
