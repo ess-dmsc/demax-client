@@ -237,14 +237,7 @@ export class ProposalDetailComponent implements OnInit {
 						this.proposalForm.get('chemicalDeuteration').disable();
 					}
 					this.getFiles();
-					let commentControlArray = <FormArray>this.proposalForm.controls[ 'comments' ];
-					for(let i = 1; i < this.proposal.comments.length; i++) {
-						commentControlArray.push(this.formBuilder.group({
-							author: this.proposal.comments[ i ].author,
-							comment: this.proposal.comments[ i ].comment,
-							dateCreated: this.proposal.comments[ i ].dateCreated
-						}))
-					}
+					
 					let controlArray = <FormArray>this.proposalForm.controls[ 'coProposers' ];
 					for(let i = 1; i < this.proposal.coProposers.length; i++) {
 						controlArray.push(this.formBuilder.group({
@@ -407,42 +400,6 @@ export class ProposalDetailComponent implements OnInit {
 
 	getGroupControl(index, fieldName) {
 		return (<FormArray>this.proposalForm.get('coProposers')).at(index).get(fieldName);
-	}
-
-	initComment() {
-		return new FormGroup({
-			author: new FormControl({
-				value: this.auth.currentUser.firstName + ' ' + this.auth.currentUser.lastName,
-				disabled: true
-			}, [ Validators.required ]),
-			comment: new FormControl('', [ Validators.required ]),
-			dateCreated: new FormControl({value: Date.now()})
-		});
-	}
-
-	public addComment() {
-		(<FormArray>this.proposalForm.get('comments')).controls.forEach((group: FormGroup) => {
-			(<any>Object).values(group.controls).forEach((control: FormControl) => {
-				control.markAsTouched();
-			})
-		});
-		const commentControl = <FormArray>this.proposalForm.get('comments');
-		commentControl.push(this.initComment());
-		this.message.setSpecialMessage('Added comment', 'success');
-	}
-
-	getComments(proposalForm) {
-		return proposalForm.controls.comments.controls;
-	}
-
-	public deleteComment(i) {
-		const control = <FormArray>this.proposalForm.get('comments');
-		control.removeAt(i);
-	}
-
-
-	getCommentGroupControl(index, fieldName) {
-		return (<FormArray>this.proposalForm.get('comments')).at(index).get(fieldName);
 	}
 
 
