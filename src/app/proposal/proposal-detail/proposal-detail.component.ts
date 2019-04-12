@@ -348,7 +348,7 @@ export class ProposalDetailComponent implements OnInit {
 
 	getFiles() {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
-		this.proposalService.syncProposal(this.proposal.proposalId).subscribe(
+		this.proposalService.syncProposal(this.proposal).subscribe(
 			response => {
 				console.log(response)
 			}
