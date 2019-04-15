@@ -13,6 +13,7 @@ import { YeastComponent } from './yeast/yeast.component';
 import { BiomassComponent } from "./biomass/biomass.component";
 import { ChemicalComponent } from './chemical/chemical.component';
 import { InputComponent } from '../input/input.component';
+import { ProposalReviewComponent } from '../proposal-review/proposal-review.component';
 
 @NgModule({
 	imports: [
@@ -30,7 +31,8 @@ import { InputComponent } from '../input/input.component';
 		ProteinComponent,
 		YeastComponent,
 		ChemicalComponent,
-		InputComponent
+		InputComponent,
+		ProposalReviewComponent
 	],
 	providers: [
 		ProposalService
