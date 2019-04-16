@@ -74,6 +74,7 @@
 				<td mat-cell *matCellDef="let proposal">
 					<button class="btn btn-primary btn-sm" [routerLink]="['/proposals/' + proposal.proposalId]">Edit
 					</button>
+					<button class="btn btn-info btn-sm" [routerLink]="['/proposals/review/' + proposal.proposalId]">Review</button>
 				</td>
 			</ng-container>
 

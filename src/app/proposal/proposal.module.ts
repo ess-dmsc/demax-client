@@ -45,7 +45,8 @@ import { ProposalReviewComponent } from '../proposal-review/proposal-review.comp
 		YeastComponent,
 		ProteinComponent,
 		ProposalDetailComponent,
-		ProposalListComponent
+		ProposalListComponent,
+		ProposalReviewComponent
 	]
 
 })
