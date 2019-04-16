@@ -1,0 +1,16 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			Reviewing proposal: {{proposalForm.controls['proposalId'].value}}
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content [formGroup]="proposalForm">
+		<mat-form-field>
+			<input matInput formControlName="scienceScore" placeholder="Science score">
+		</mat-form-field>
+	</mat-card-content>
+	<mat-card-actions>
+		<a mat-raised-button color="warn" routerLink="/admin/proposals">Cancel</a>
+		<button mat-raised-button color="primary" (click)="save()">Save</button>
+	</mat-card-actions>
+</mat-card>
