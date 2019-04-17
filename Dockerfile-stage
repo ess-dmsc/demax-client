@@ -3,6 +3,7 @@ LABEL maintainer="jeremias.hillerberg@esss.se"
 ENV no_proxy "localhost, 127.0.0.1"
 ENV NGINX_HOST scicat02.esss.lu.se
 ENV NGINX_PROXY no_proxy
+ENV PM2_LINK la017ts40x0ot1
 RUN npm config set registry http://registry.npmjs.org/
 RUN npm config set strict-ssl false
 RUN npm install -g @angular/cli
