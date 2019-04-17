@@ -1,7 +1,8 @@
 FROM node:alpine as builder
 LABEL maintainer="jeremias.hillerberg@esss.se"
 ENV no_proxy "localhost, 127.0.0.1"
-
+ENV NGINX_RUNTIME 172.217.21.179
+ENV NGINX_HOST ghs.googlehosted.com
 RUN npm config set proxy  $http_proxy
 RUN npm config set https-proxy  $http_proxy
 RUN npm config set registry http://registry.npmjs.org/
