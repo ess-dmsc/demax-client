@@ -35,6 +35,7 @@ export class ProposalReviewComponent implements OnInit {
 
 	proposal: Proposal;
 	proposalForm: FormGroup;
+	commentForm: FormGroup;
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,
@@ -57,6 +58,12 @@ export class ProposalReviewComponent implements OnInit {
 			comments: this.formBuilder.array([ this.initComment() ])
 		});
 
+		this.commentForm = this.formBuilder.group({
+			comment: [ '' ],
+			author: this.auth.currentUser.email,
+			dateCreated: [ '' ]
+		})
+
 		this.currentProposalId = this.activatedRoute.snapshot.params.proposalId;
 		this.proposalService.getProposalByProposalId(this.currentProposalId)
 		.subscribe(
@@ -64,15 +71,14 @@ export class ProposalReviewComponent implements OnInit {
 				console.log(response)
 				this.proposal = response;
 				this.proposalForm.patchValue(this.proposal);
-								let commentArray = <FormArray>this.proposalForm.controls[ 'comments' ];
-								for(let i = 1; i < this.proposal.comments.length; i++) {
-									commentArray.push(this.formBuilder.group({
-										author: this.proposal.comments[ i ].author,
-										dateCreated: this.proposal.comments[ i ].dateCreated,
-										comment: this.proposal.comments[ i ].comment
-									}))
-								}
-
+				let commentArray = <FormArray>this.proposalForm.controls[ 'comments' ];
+				for(let i = 1; i < this.proposal.comments.length; i++) {
+					commentArray.push(this.formBuilder.group({
+						comment: this.proposal.comments[ i ].comment,
+						author: this.proposal.comments[ i ].author,
+						dateCreated: this.proposal.comments[ i ].dateCreated,
+					}))
+				}
 			},
 			error => {
 				console.log(error)
@@ -80,7 +86,24 @@ export class ProposalReviewComponent implements OnInit {
 		)
 	}
 
+	saveComment() {
+		const commentControl = <FormArray>this.proposalForm.get('comments');
+		this.proposal.comments.push(this.commentForm.value);
+		console.log(this.proposal.comments)
+		this.proposalService.editProposal(this.proposal)
+		.subscribe(
+			data => {
+				this.message.setMessage('Saved!', 'success');
+			},
+			error => {
+				console.log(error)
+			}
+		);
+
+	}
+
 	save() {
+		console.log(this.proposalForm.value)
 		this.proposalService.editProposal(this.proposalForm.value)
 		.subscribe(
 			data => {
@@ -94,8 +117,8 @@ export class ProposalReviewComponent implements OnInit {
 
 	initComment() {
 		return new FormGroup({
-			author: new FormControl('', [ Validators.required ]),
-			dateCreated: new FormControl('', [ Validators.required ]),
+			author: new FormControl(this.auth.currentUser.email, [ Validators.required ]),
+			dateCreated: new FormControl(Date.now()),
 			comment: new FormControl('', [ Validators.required ]),
 		});
 	}
@@ -108,7 +131,16 @@ export class ProposalReviewComponent implements OnInit {
 		});
 		const commentControl = <FormArray>this.proposalForm.get('comments');
 		commentControl.push(this.initComment());
-		this.message.setSpecialMessage('Added', 'success');
+		this.proposalService.editProposal(this.proposalForm.value)
+		.subscribe(
+			data => {
+				this.message.setSpecialMessage('Saved!', 'success');
+				this.router.navigate(['/admin/proposals'])
+			},
+			error => {
+				console.log(error)
+			}
+		);
 	}
 
 	getComments(proposalForm) {
