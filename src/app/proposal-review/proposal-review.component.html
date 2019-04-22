@@ -8,6 +8,35 @@
 		<mat-form-field>
 			<input matInput formControlName="scienceScore" placeholder="Science score">
 		</mat-form-field>
+		<mat-card id="comments">
+			<mat-card-header>
+				<mat-card-title>Comments</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+
+				<table class="table table-sm">
+					<tbody formArrayName="comments">
+					<tr *ngFor="let comment of getComments(proposalForm); let i = index" [formGroupName]="i">
+						<td>
+							<mat-form-field appearance="outline">
+								<input matInput required formControlName="comment"
+								       placeholder="Comment">
+							</mat-form-field>
+
+							<mat-form-field appearance="outline">
+								<input matInput required formControlName="author" placeholder="Author">
+							</mat-form-field>
+						</td>
+						<td>
+							<mat-form-field appearance="outline">
+								<input matInput required formControlName="dateCreated" placeholder="Posted">
+							</mat-form-field>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</mat-card-content>
+		</mat-card>
 	</mat-card-content>
 	<mat-card-actions>
 		<a mat-raised-button color="warn" routerLink="/admin/proposals">Cancel</a>
