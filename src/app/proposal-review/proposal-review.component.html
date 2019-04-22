@@ -1,16 +1,52 @@
-<mat-card>
-	<mat-card-header>
-		<mat-card-title>
-			Reviewing proposal: {{proposalForm.controls['proposalId'].value}}
-		</mat-card-title>
-	</mat-card-header>
-	<mat-card-content [formGroup]="proposalForm">
-		<mat-form-field>
-			<input matInput formControlName="scienceScore" placeholder="Science score">
-		</mat-form-field>
-	</mat-card-content>
-	<mat-card-actions>
-		<a mat-raised-button color="warn" routerLink="/admin/proposals">Cancel</a>
-		<button mat-raised-button color="primary" (click)="save()">Save</button>
-	</mat-card-actions>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+	<h1 class="h2" *ngIf="proposal">Reviewing proposal {{proposal.proposalId}}</h1>
+</div>
+<div class="container" *ngIf="proposal">
+	<div class="row">
+		<div class="col-sm-12">
+			<h5>Comments</h5>
+		</div>
+	</div>
+	<div class="row" *ngFor="let comment of proposal.comments">
+		<div class="col-sm-1">
+			<div class="thumbnail">
+				<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+			</div>
+		</div>
+
+		<div class="col-sm-5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<strong>{{comment.author}}</strong><br><span class="text-muted">{{comment.dateCreated.slice(0,-14)}} {{comment.dateCreated.slice(11,-8)}}</span>
+				</div>
+				<div class="panel-body">
+					{{comment.comment}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<mat-card [formGroup]="proposalForm">
+	<table class="table table-sm">
+		<tbody formArrayName="comments">
+		<tr *ngFor="let comment of getComments(proposalForm); let i = index" [formGroupName]="i">
+			<div *ngIf="getComments(proposalForm).length === i+1">
+				<td style="width: 400px;">
+					<mat-form-field appearance="outline">
+						<textarea matInput required formControlName="comment" rows="5" cols="15"></textarea>
+					</mat-form-field>
+					<br>
+					<button class="mat-elevation-z5"
+					        color="primary"
+					        (click)="addComment()"
+					        [disabled]="proposalForm.get('comments').invalid">
+						<mat-icon>person_add</mat-icon>
+						Add comment
+					</button>
+				</td>
+			</div>
+		</tr>
+		</tbody>
+	</table>
 </mat-card>
