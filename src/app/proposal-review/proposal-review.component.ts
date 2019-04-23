@@ -122,7 +122,7 @@ export class ProposalReviewComponent implements OnInit {
 			comment: new FormControl('', [ Validators.required ]),
 		});
 	}
-
+/*test: is the build service down on jenkins?*/
 	public addComment() {
 		(<FormArray>this.proposalForm.get('comments')).controls.forEach((group: FormGroup) => {
 			(<any>Object).values(group.controls).forEach((control: FormControl) => {
