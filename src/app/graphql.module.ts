@@ -5,6 +5,8 @@ import {InMemoryCache} from 'apollo-cache-inmemory';
 
 const uri = 'https://demaxapi.esss.dk/graphql';
 
+const dev_url = 'https://localhost:3000/graphql';
+
 export function createApollo(httpLink: HttpLink) {
   return {
     link: httpLink.create({uri}),
