@@ -1,6 +1,8 @@
 # demax-client
 [![Build Status](https://travis-ci.org/ess-dmsc/demax-client.svg?branch=master)](https://travis-ci.org/ess-dmsc/demax-client)
 
+[![DeepScan grade](https://deepscan.io/api/teams/3527/projects/5200/branches/40430/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3527&pid=5200&bid=40430)
+
 This repository constitutes the frontend part of the DEMAX User Office website. The backend repository can be found <a href="https://github.com/ess-dmsc/demax-server">here.</a>
 The DEMAX User Office will be used for submission and management of deuteration proposals.
 This system is built in TypeScript with Angular CLI.
