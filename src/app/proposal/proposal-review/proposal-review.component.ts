@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { APP_CONFIG, AppConfig } from "../app-config.module";
-import { AuthService } from "../user/auth.service";
-import { FileService } from "../file/file.service";
-import { MessageComponent } from "../shared/message/message.component";
-import { ProposalService } from "../proposal/proposal.service";
+import { APP_CONFIG, AppConfig } from "../../app-config.module";
+import { AuthService } from "../../user/auth.service";
+import { FileService } from "../../file/file.service";
+import { MessageComponent } from "../../shared/message/message.component";
+import { ProposalService } from "../proposal.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MyErrorStateMatcher } from "../proposal/proposal-detail/proposal-detail.component";
+import { MyErrorStateMatcher } from "../proposal-detail/proposal-detail.component";
 import {
 	FormArray,
 	FormBuilder,
@@ -16,7 +16,7 @@ import {
 	NgForm,
 	Validators
 } from "@angular/forms";
-import { Proposal } from "../models/proposal";
+import { Proposal } from "../../models/proposal";
 import { Observable } from "rxjs";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 

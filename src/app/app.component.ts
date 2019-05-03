@@ -13,7 +13,6 @@ import { MessageComponent } from "./shared/message/message.component";
 export class AppComponent implements AfterViewChecked {
 
 	expanded = false;
-
 	url = this.appConfig.demaxBaseUrl;
 	title = 'demax-client';
 	opened: boolean;

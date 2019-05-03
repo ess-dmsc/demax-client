@@ -13,7 +13,8 @@ import { YeastComponent } from './yeast/yeast.component';
 import { BiomassComponent } from "./biomass/biomass.component";
 import { ChemicalComponent } from './chemical/chemical.component';
 import { InputComponent } from '../input/input.component';
-import { ProposalReviewComponent } from '../proposal-review/proposal-review.component';
+import { ProposalReviewComponent } from './proposal-review/proposal-review.component';
+import { ProposalCommentComponent } from './proposal-comment/proposal-comment.component';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { ProposalReviewComponent } from '../proposal-review/proposal-review.comp
 		YeastComponent,
 		ChemicalComponent,
 		InputComponent,
-		ProposalReviewComponent
+		ProposalReviewComponent,
+		ProposalCommentComponent
 	],
 	providers: [
 		ProposalService
@@ -46,7 +48,8 @@ import { ProposalReviewComponent } from '../proposal-review/proposal-review.comp
 		ProteinComponent,
 		ProposalDetailComponent,
 		ProposalListComponent,
-		ProposalReviewComponent
+		ProposalReviewComponent,
+		ProposalCommentComponent
 	]
 
 })

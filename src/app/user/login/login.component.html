@@ -11,7 +11,7 @@
 			<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 		</mat-form-field>
 
-		<mat-card-actions>
+		<mat-card-actions *ngIf="!isLoggingIn">
 			<button mat-raised-button
 			        class="btn btn-primary btn-block font-weight-bold mat-elevation-z5"
 			        color="primary" style="width: 80%; margin-top: 1rem;"
@@ -21,6 +21,9 @@
 			<button mat-button color="primary" (click)="forgot()" style="margin-top: 15px;">
 				<small>Forgot password?</small>
 			</button>
+		</mat-card-actions>
+		<mat-card-actions *ngIf="isLoggingIn">
+			<div class="loader" *ngIf="isLoggingIn"><span style="color: #009EDD">Signing in...</span></div>
 		</mat-card-actions>
 	</mat-card>
 	<mat-card *ngIf="hasForgottenPassword">
@@ -43,7 +46,8 @@
 			</small>
 		</mat-card-content>
 		<mat-card-actions style="padding: 0 1rem;">
-			<button mat-raised-button class="btn btn-danger btn-block font-weight-bold mat-elevation-z5" color="primary" style="width: 50%; margin-top: 10px; margin-right: 2rem;"
+			<button mat-raised-button class="btn btn-danger btn-block font-weight-bold mat-elevation-z5" color="primary"
+			        style="width: 50%; margin-top: 10px; margin-right: 2rem;"
 			        (click)="reset(loginForm.controls['email'].value)">Reset password
 			</button>
 			<button mat-stroked-button color="warn" (click)="hasForgottenPassword = false" style="margin-top: 10px;">

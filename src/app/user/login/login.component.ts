@@ -13,7 +13,7 @@ import { HttpClient } from "@angular/common/http";
 export class LoginComponent implements OnInit {
 
 	hasForgottenPassword = false;
-
+	isLoggingIn = false;
 	hide = true;
 	loginForm: FormGroup;
 	email = new FormControl('', [ Validators.required, Validators.minLength(3), Validators.maxLength(100), Validators.email ]);
@@ -45,11 +45,14 @@ export class LoginComponent implements OnInit {
 	}
 
 	reset(email: string) {
+		this.isLoggingIn = true;
 		return this.http.get('/api/users/forgot-pw/' + email).subscribe(
 			response => {
+				this.isLoggingIn = false;
 				this.message.setMessage(response, 'success');
 			},
 			error => {
+				this.isLoggingIn = false;
 				this.message.setMessage(error.error, 'danger');
 			}
 		);
@@ -60,12 +63,15 @@ export class LoginComponent implements OnInit {
 	}
 
 	login() {
+		this.isLoggingIn = true;
 		this.auth.login(this.loginForm.value).subscribe(
 			response => {
 				this.router.navigate([ '/' ])
+				this.isLoggingIn = false;
 			},
 			error => {
 				console.log(error);
+				this.isLoggingIn = false;
 				this.message.setMessage(error.error, 'danger')
 			}
 		)

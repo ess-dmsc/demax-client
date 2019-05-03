@@ -15,7 +15,19 @@ export class ProposalService {
 		public auth: AuthService
 	) {
 	}
+	getComments(proposalId: string): Observable<any> {
+		return this.http.get('/api/admin/proposals/comments/' + proposalId);
+	}
+	/*
 
+		addComment(comment: Object, proposalId: string): Observable<object> {
+			return this.http.post('/api/admin/proposals/comment/' + proposalId);
+		}
+
+		deleteComment(proposalId: string, commentId: string): Observable<any> {
+			return this.http.delete('/api/admin/proposals/comments/' + proposalId + '/' + commentId);
+		}
+	*/
 	adminGetProposals(): Observable<Proposal[]> {
 		return this.http.get<Proposal[]>('/api/admin/proposals');
 	}
