@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './external/material.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { ImprintComponent } from './imprint/imprint.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { HttpErrorHandler } from './shared/http-error-handler.service';
@@ -29,7 +28,6 @@ export function tokenGetter() {
 @NgModule({
 	declarations: [
 		AppComponent,
-		ImprintComponent,
 		HomeComponent,
 		ContactComponent,
 		PrivacyPolicyComponent,
