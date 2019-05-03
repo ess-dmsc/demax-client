@@ -31,21 +31,22 @@
 	<table class="table table-sm">
 		<tbody formArrayName="comments">
 		<tr *ngFor="let comment of getComments(proposalForm); let i = index" [formGroupName]="i">
-			<div *ngIf="getComments(proposalForm).length === i+1">
-				<td style="width: 400px;">
-					<mat-form-field appearance="outline">
-						<textarea matInput required formControlName="comment" rows="5" cols="15"></textarea>
-					</mat-form-field>
-					<br>
-					<button class="mat-elevation-z5"
-					        color="primary"
-					        (click)="addComment()"
-					        [disabled]="proposalForm.get('comments').invalid">
-						<mat-icon>person_add</mat-icon>
-						Add comment
-					</button>
-				</td>
-			</div>
+			<td *ngIf="getComments(proposalForm).length === i+1" style="width: 400px;">
+				<mat-form-field appearance="outline">
+					<textarea matInput required formControlName="comment" rows="5" cols="15"></textarea>
+				</mat-form-field>
+				<br>
+
+			</td>
+			<td *ngIf="getComments(proposalForm).length === i+1" style="width: 400px;">
+				<button class="mat-elevation-z5"
+				        color="primary"
+				        (click)="addComment()"
+				        [disabled]="proposalForm.get('comments').invalid">
+					<mat-icon>person_add</mat-icon>
+					Add comment
+				</button>
+			</td>
 		</tr>
 		</tbody>
 	</table>
