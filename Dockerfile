@@ -1,4 +1,4 @@
-FROM node:11-alpine as builder
+FROM node:11.14.0-alpine as builder
 LABEL maintainer="jeremias.hillerberg@esss.se"
 
 ENV http_proxy "http://172.18.12.30:8123"
