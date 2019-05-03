@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     
     @NgModule({
  bootstrap: [AppComponent],
@@ -16,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
  GraphQLModule,
  
  HttpClientModule,
+ 
+ BrowserAnimationsModule,
  
         ]
     })
