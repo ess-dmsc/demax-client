@@ -72,7 +72,7 @@ export class ProposalReviewComponent implements OnInit {
 				this.proposal = response;
 				this.proposalForm.patchValue(this.proposal);
 				let commentArray = <FormArray>this.proposalForm.controls[ 'comments' ];
-				for(let i = 1; i < this.proposal.comments.length; i++) {
+				for(let i = 0; i < this.proposal.comments.length; i++) {
 					commentArray.push(this.formBuilder.group({
 						comment: this.proposal.comments[ i ].comment,
 						author: this.proposal.comments[ i ].author,
@@ -122,7 +122,7 @@ export class ProposalReviewComponent implements OnInit {
 			comment: new FormControl('', [ Validators.required ]),
 		});
 	}
-/*test: is the build service down on jenkins?*/
+
 	public addComment() {
 		(<FormArray>this.proposalForm.get('comments')).controls.forEach((group: FormGroup) => {
 			(<any>Object).values(group.controls).forEach((control: FormControl) => {
