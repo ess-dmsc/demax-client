@@ -14,7 +14,6 @@ RUN npm install -g @angular/cli
 COPY package.json /usr/src/app/package.json
 WORKDIR /usr/src/app
 RUN npm install typescript@">=3.1.1 <3.3"
-RUN npm install -g node-sass
 RUN npm install
 COPY . /usr/src/app
 RUN ng build --configuration=esss
