@@ -1,4 +1,4 @@
-<mat-card *ngIf="!isEditing && !isEditingPassword">
+<mat-card *ngIf="!isEditing && !isEditingPassword && !isLoading">
 	<mat-card-header>
 		<mat-card-title>
 			Registered users
@@ -157,4 +157,21 @@
 		</mat-card-actions>
 	</form>
 
+</mat-card>
+
+
+<mat-card *ngIf="isLoading">
+	<mat-card-header>
+		<mat-card-subtitle>Loading users...</mat-card-subtitle>
+	</mat-card-header>
+	<div class="lds-roller">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
 </mat-card>

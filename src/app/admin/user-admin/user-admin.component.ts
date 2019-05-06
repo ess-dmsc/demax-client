@@ -64,13 +64,22 @@ export class UserAdminComponent implements OnInit {
 
 	getUsers() {
 		this.userAdminService.getUsers().subscribe(
-			data => this.users = data,
-			error => console.log(error),
-			() => this.isLoading = false
-		);
+			data => {
+				this.users = data;
+				this.isLoading = false;
+			},
+			error => {
+				console.log(error);
+				this.isLoading = false;
+			}
+		)
 	}
 
-	editUser(user: User) {
+
+	editUser(user
+		         :
+		         User
+	) {
 		this.userAdminService.editUser(user).subscribe(
 			data => {
 				this.message.setMessage('Saved!', 'success');
@@ -85,7 +94,10 @@ export class UserAdminComponent implements OnInit {
 		)
 	}
 
-	editPassword(user: User) {
+	editPassword(user
+		             :
+		             User
+	) {
 		this.userAdminService.editPassword(user).subscribe(
 			data => {
 				this.message.setMessage('Successfully changed password', 'success');
@@ -100,7 +112,10 @@ export class UserAdminComponent implements OnInit {
 		)
 	}
 
-	enablePasswordEditing(user: User) {
+	enablePasswordEditing(user
+		                      :
+		                      User
+	) {
 		this.isEditingPassword = true;
 		this.user = user;
 	}
@@ -111,7 +126,10 @@ export class UserAdminComponent implements OnInit {
 		this.getUsers();
 	}
 
-	enableEditing(user: User) {
+	enableEditing(user
+		              :
+		              User
+	) {
 		this.isEditing = true;
 		this.user = user;
 	}
@@ -122,7 +140,10 @@ export class UserAdminComponent implements OnInit {
 		this.getUsers();
 	}
 
-	deleteUser(email: string) {
+	deleteUser(email
+		           :
+		           string
+	) {
 		if(window.confirm('Are you sure you want to delete ' + email + '?')) {
 			this.userAdminService.deleteUser(email).subscribe(
 				() => this.getUsers()

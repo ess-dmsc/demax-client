@@ -125,4 +125,6 @@ export class ProposalCommentComponent implements OnInit {
 			}
 		)
 	}
+	removeComments(){
+	}
 }

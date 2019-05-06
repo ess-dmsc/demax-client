@@ -15,7 +15,7 @@ export class FileAdminComponent implements OnInit {
 	url = this.appConfig.demaxBaseUrl;
 	displayedColumns: string[] = [ 'filename', 'options' ];
 
-	isLoading = false;
+	isLoading = true;
 	fileUploads: Observable<string[]>;
 
 	files: string[] = [];
@@ -30,11 +30,20 @@ export class FileAdminComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.fileUploads = this.fileAdminService.getFiles();
+		this.getFiles();
 	}
 
 	getFiles() {
-		this.fileUploads = this.fileAdminService.getFiles();
+		this.fileAdminService.getFiles().subscribe(
+			data => {
+				this.fileUploads = data;
+				this.isLoading = false
+			},
+			error => {
+				console.log(error);
+				this.isLoading = false
+			}
+		)
 	}
 
 	delete(filename: string) {
@@ -42,11 +51,12 @@ export class FileAdminComponent implements OnInit {
 		this.fileAdminService.deleteFile(filename).subscribe(
 			() => {
 				this.fileUploads = this.fileAdminService.getFiles();
+				this.isLoading = false;
 			}, error => {
-				console.log(error)
+				console.log(error);
+				this.isLoading = false;
 			}
 		);
-		this.isLoading = false;
 	}
 }
 

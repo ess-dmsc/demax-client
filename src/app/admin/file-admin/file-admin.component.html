@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="!isLoading">
 	<mat-card-header>
 		<mat-card-title>
 			Uploaded files
@@ -26,4 +26,19 @@
 			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 		</table>
 	</mat-card-content>
+</mat-card>
+<mat-card *ngIf="isLoading">
+	<mat-card-header>
+		<mat-card-subtitle>Loading files...</mat-card-subtitle>
+	</mat-card-header>
+	<div class="lds-roller">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
 </mat-card>
