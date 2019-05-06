@@ -41,7 +41,6 @@ export class AppComponent implements AfterViewChecked {
 
 	ngAfterViewChecked() {
 		this.changeDetector.detectChanges();
-		console.log(this.selectedIndex);
 	}
 
 	toggle(){

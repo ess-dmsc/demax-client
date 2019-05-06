@@ -23,7 +23,8 @@
 			</button>
 		</mat-card-actions>
 		<mat-card-actions *ngIf="isLoggingIn">
-			<div class="loader" *ngIf="isLoggingIn"><span style="color: #009EDD">Signing in...</span></div>
+			<div class="loader" *ngIf="isLoggingIn"><span style="color: #009EDD">...</span></div>
+			<h5>Signing in...</h5>
 		</mat-card-actions>
 	</mat-card>
 	<mat-card *ngIf="hasForgottenPassword">

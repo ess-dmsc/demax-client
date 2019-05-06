@@ -1,3 +1,38 @@
-<p>
-  proposal-comment works!
-</p>
+<div class="container" *ngIf="!isLoading">
+	<div class="row">
+		<div class="col-sm-12">
+			<h5>Comments</h5>
+		</div>
+	</div>
+	<div class="row" *ngFor="let comment of comments | async">
+		<div class="col-sm-1">
+			<div class="thumbnail">
+				<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+			</div>
+		</div>
+
+		<div class="col-sm-5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<strong>{{comment.author}}</strong><br><span class="text-muted">{{comment.dateCreated.slice(0,-14)}} {{comment.dateCreated.slice(11,-5)}}</span>
+				</div>
+				<div class="panel-body">
+					{{comment.comment}}
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-1">
+			<button mat-raised-button color="warn" *ngIf="comment.author === auth.currentUser.email" (click)="deleteComment(comment._id)">Delete</button>
+		</div>
+	</div>
+</div>
+<br>
+<br>
+<form [formGroup]="commentForm" class="form-inline comment" role="form">
+	<div class="form-group" style="width: 80%;">
+		<input class="form-control" type="text" placeholder="Your comment" formControlName="comment"/>
+	</div>
+	<div class="form-group">
+		<button mat-raised-button color="primary" class="btn btn-default" (click)="postComment()">Add comment</button>
+	</div>
+</form>
