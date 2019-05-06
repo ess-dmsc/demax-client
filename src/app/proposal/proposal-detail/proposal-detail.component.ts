@@ -211,7 +211,8 @@ export class ProposalDetailComponent implements OnInit {
 					this.isLoading = false;
 				},
 				error => {
-					console.log(error)
+					console.log(error);
+					this.isLoading = false;
 				}
 			)
 		}
@@ -249,7 +250,8 @@ export class ProposalDetailComponent implements OnInit {
 					this.isLoading = false;
 				},
 				error => {
-					console.log(error)
+					console.log(error);
+					this.isLoading = false;
 				}
 			)
 		}

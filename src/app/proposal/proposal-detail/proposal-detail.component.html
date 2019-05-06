@@ -7,8 +7,16 @@
 	</nav>
 </div>
 
-<app-loading [condition]="isLoading"></app-loading>
-
+<mat-card *ngIf="isLoading" style="text-align: center;">
+	<mat-card-header>
+		<mat-card-title>
+			<p class="lead">Loading proposal...</p>
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content style="padding: 4rem;">
+		<div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</mat-card-content>
+</mat-card>
 <form [formGroup]="proposalForm" *ngIf="!isLoading">
 	<mat-tab-group [(selectedIndex)]="selectedIndex">
 		<mat-tab label="1. General information" id="general">
