@@ -28,6 +28,16 @@ export class ProposalService {
 		return this.http.delete('/api/admin/proposals/comments/' + proposalId + '/' + commentId);
 	}
 
+	getTsf(proposalId: string): Observable<any>{
+		return this.http.get('/api/admin/proposals/tsf/' + proposalId);
+	}
+	addTsf(tsf: any): Observable<any>{
+		return this.http.post('/api/admin/proposals/tsf/' + tsf.proposal, tsf);
+	}
+	deleteTsf(proposalId: string, tsfId: string): Observable<any> {
+		return this.http.delete('/api/admin/proposals/tsf/' + proposalId + '/' + tsfId);
+	}
+
 	adminGetProposals(): Observable<Proposal[]> {
 		return this.http.get<Proposal[]>('/api/admin/proposals');
 	}

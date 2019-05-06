@@ -1,38 +1,102 @@
-<div class="container" *ngIf="!isLoading">
-	<div class="row">
-		<div class="col-sm-12">
-			<h5>Comments</h5>
-		</div>
-	</div>
-	<div class="row" *ngFor="let comment of comments | async">
-		<div class="col-sm-1">
-			<div class="thumbnail">
-				<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-			</div>
-		</div>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			Technical safety/feasibility
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
 
-		<div class="col-sm-5">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<strong>{{comment.author}}</strong><br><span class="text-muted">{{comment.dateCreated.slice(0,-14)}} {{comment.dateCreated.slice(11,-5)}}</span>
+		<table class="table table-hover table-light thead-dark">
+			<thead>
+			<tr>
+				<th scope="col">Score</th>
+				<th scope="col">Recommendation</th>
+				<th scope="col">Author</th>
+				<th scope="col"></th>
+			</tr>
+			</thead>
+			<tr *ngFor="let ts of tsf | async">
+				<td>
+					{{ts.score}}
+				</td>
+				<td>
+					{{ts.recommendation}}
+				</td>
+				<td>
+					{{ts.author}}
+				</td>
+				<td>
+					<button mat-raised-button color="warn" *ngIf="ts.author === auth.currentUser.email"
+					        (click)="deleteTsf(ts._id)">Delete
+					</button>
+				</td>
+			</tr>
+		</table>
+	</mat-card-content>
+	<mat-card-actions [formGroup]="tsfForm">
+		<mat-form-field appearance="outline" style="width: 300px; margin-right: 1rem;">
+			<input matInput formControlName="recommendation" type="text"
+			       placeholder="Your recommendation">
+		</mat-form-field>
+		<mat-form-field style="width: 100px; margin-right: 1rem;" appearance="outline">
+			<mat-label>Score</mat-label>
+			<mat-select #score value="1" formControlName="score">
+				<mat-option value="1">1 point</mat-option>
+				<mat-option value="2">2 points</mat-option>
+				<mat-option value="3">3 points</mat-option>
+				<mat-option value="4">4 points</mat-option>
+				<mat-option value="5">5 points</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<button mat-raised-button color="primary" class="btn btn-default" (click)="postTsf()">Save recommendation
+		</button>
+	</mat-card-actions>
+</mat-card>
+
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			Comments
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<div class="container" *ngIf="!isLoading">
+
+			<div class="row" *ngFor="let comment of comments | async">
+				<div class="col-sm-1">
+					<div class="thumbnail">
+						<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+					</div>
 				</div>
-				<div class="panel-body">
-					{{comment.comment}}
+
+				<div class="col-sm-5">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<strong>{{comment.author}}</strong><br><span class="text-muted">{{comment.dateCreated.slice(0,-14)}} {{comment.dateCreated.slice(11,-5)}}</span>
+						</div>
+						<div class="panel-body">
+							{{comment.comment}}
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<button mat-raised-button color="warn" *ngIf="comment.author === auth.currentUser.email"
+					        (click)="deleteComment(comment._id)">Delete
+					</button>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-1">
-			<button mat-raised-button color="warn" *ngIf="comment.author === auth.currentUser.email" (click)="deleteComment(comment._id)">Delete</button>
-		</div>
-	</div>
-</div>
-<br>
-<br>
-<form [formGroup]="commentForm" class="form-inline comment" role="form">
-	<div class="form-group" style="width: 80%;">
-		<input class="form-control" type="text" placeholder="Your comment" formControlName="comment"/>
-	</div>
-	<div class="form-group">
-		<button mat-raised-button color="primary" class="btn btn-default" (click)="postComment()">Add comment</button>
-	</div>
-</form>
+	</mat-card-content>
+	<mat-card-actions>
+
+		<form [formGroup]="commentForm" class="form-inline comment" role="form">
+			<div class="form-group" style="width: 80%;">
+				<input class="form-control" type="text" placeholder="Your comment" formControlName="comment"/>
+			</div>
+			<div class="form-group">
+				<button mat-raised-button color="primary" class="btn btn-default" (click)="postComment()">Add comment
+				</button>
+			</div>
+		</form>
+	</mat-card-actions>
+</mat-card>
