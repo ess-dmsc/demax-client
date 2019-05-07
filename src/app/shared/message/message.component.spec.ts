@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessageComponent } from './message.component';
 import { MaterialModule } from "../../external/material.module";
-import { MatSnackBarModule } from "@angular/material";
 
 describe('MessageComponent', () => {
 	let component: MessageComponent;

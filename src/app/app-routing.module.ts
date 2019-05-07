@@ -6,7 +6,6 @@ import { RegisterComponent } from './user/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuardAdmin } from "./admin/auth-guard-admin.service";
 import { LogoutComponent } from "./user/logout/logout.component";
-import { AdminComponent } from "./admin/admin/admin.component";
 import { AccountComponent } from "./user/account/account.component";
 import { ProposalDetailComponent } from "./proposal/proposal-detail/proposal-detail.component";
 import { ProposalListComponent } from "./proposal/proposal-list/proposal-list.component";
@@ -23,7 +22,6 @@ import { ProposalCommentComponent } from "./proposal/proposal-comment/proposal-c
 const routes: Routes = [
 	{path: '', component: HomeComponent},
 	{path: 'account', component: AccountComponent, canActivate: [ AuthGuardLogin ]},
-	{path: 'admin', component: AdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/files', component: FileAdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/proposals', component: ProposalAdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/users', component: UserAdminComponent, canActivate: [ AuthGuardAdmin ]},

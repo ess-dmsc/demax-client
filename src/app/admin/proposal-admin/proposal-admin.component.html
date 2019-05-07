@@ -47,29 +47,41 @@
 				</td>
 			</ng-container>
 			<ng-container matColumnDef="submitted">
-				<th mat-header-cell *matHeaderCellDef>Submitted</th>
+				<th mat-header-cell *matHeaderCellDef></th>
 				<td mat-cell *matCellDef="let proposal">
 					<button mat-stroked-button disabled *ngIf="proposal.submitted">
 						<mat-icon>done</mat-icon>
-						Yes
+						Submitted
 					</button>
+					<button mat-stroked-button disabled *ngIf="!proposal.submitted">
+						<mat-icon>clear</mat-icon>
+						Not submitted
+					</button>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="download">
+				<th mat-header-cell *matHeaderCellDef></th>
+				<td mat-cell *matCellDef="let proposal">
 					<a *ngIf="proposal.submitted" download class="btn btn-success btn-sm"
 					   href="{{url}}/api/proposals/download/{{proposal.proposalId}}">
 						Download
 					</a>
-					<button mat-stroked-button disabled *ngIf="!proposal.submitted">
-						<mat-icon>clear</mat-icon>
-						No
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="edit">
+				<th mat-header-cell *matHeaderCellDef></th>
+				<td mat-cell *matCellDef="let proposal">
+					<button class="btn btn-primary btn-sm" [routerLink]="['/proposals/' + proposal.proposalId]">Edit
 					</button>
 				</td>
 			</ng-container>
-			<ng-container matColumnDef="options">
-				<th mat-header-cell *matHeaderCellDef> Options</th>
+
+			<ng-container matColumnDef="review">
+				<th mat-header-cell *matHeaderCellDef></th>
 				<td mat-cell *matCellDef="let proposal">
 					<button class="btn btn-warning btn-sm"
 					        [routerLink]="['/proposals/comments/' + proposal.proposalId]">Review
 					</button>
-					<button class="btn btn-primary btn-sm" [routerLink]="['/proposals/' + proposal.proposalId]">Edit</button>
 				</td>
 			</ng-container>
 

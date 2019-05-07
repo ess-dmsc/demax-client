@@ -12,5 +12,4 @@ export class AuthGuardAdmin implements CanActivate {
 	canActivate() {
 		return this.auth.isAdmin;
 	}
-
 }
