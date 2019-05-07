@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Proposal } from "../models/proposal";
-import { Attachment } from "../models/attachment";
 
 @Injectable({
 	providedIn: 'root'

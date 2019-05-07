@@ -25,8 +25,9 @@ describe('ProposalAdminComponent', () => {
 			declarations: [ ProposalAdminComponent ],
 			imports: [ SharedModule, RouterTestingModule ],
 			providers: [
-				{provide: AuthService, useValue: authServiceStub}
-			],
+				{provide: APP_CONFIG, useValue: APP_DI_CONFIG},
+				{provide: AuthService, useValue: authServiceStub},
+			]
 		})
 		.compileComponents();
 	}));
@@ -36,4 +37,9 @@ describe('ProposalAdminComponent', () => {
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
+
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+
 });
