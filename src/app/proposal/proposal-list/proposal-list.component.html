@@ -11,8 +11,21 @@
 </div>
 <p *ngIf="proposals.length === 0 && !isLoading">Proposal submission is now closed.</p>
 
-<app-loading [condition]="isLoading"></app-loading>
-
+<mat-card *ngIf="isLoading">
+	<mat-card-header>
+		<mat-card-subtitle>Loading...</mat-card-subtitle>
+	</mat-card-header>
+	<div class="lds-roller">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+</mat-card>
 <section *ngIf="!isLoading">
 
 	<table mat-table [dataSource]="proposals">

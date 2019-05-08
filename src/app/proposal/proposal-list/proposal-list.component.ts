@@ -38,15 +38,20 @@ export class ProposalListComponent implements OnInit {
 	}
 
 	getProposals() {
+		this.isLoading = true;
 		window.scrollTo(0, 0)
 		this.proposalService.getProposals(this.auth.currentUser).subscribe(
-			data => {this.proposals = data; this.isLoading = false},
+			data => {
+				this.proposals = data;
+				this.isLoading = false;
+			},
 			error => console.log(error),
 		);
 
 	}
 
 	deleteProposal(proposal: Proposal) {
+		this.isLoading = true;
 		this.proposal = proposal;
 		window.scrollTo(0, 0)
 		console.log(this.proposal.proposalId)
@@ -54,7 +59,7 @@ export class ProposalListComponent implements OnInit {
 			this.proposalService.deleteProposal(proposal).subscribe(
 				() => {
 					this.getProposals();
-					this.message.setMessage('Deleted proposal ' + this.proposal.proposalId,'danger')
+					this.message.setMessage('Deleted proposal ' + this.proposal.proposalId, 'danger')
 
 				},
 				error => console.log(error)
