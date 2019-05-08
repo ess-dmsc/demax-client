@@ -49,4 +49,8 @@ export class ProposalAdminComponent implements OnInit {
 		}
 	}
 
+	getProposalsByDate(){
+		this.proposalService.adminGetProposals()
+	}
+
 }
