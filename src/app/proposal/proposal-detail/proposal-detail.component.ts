@@ -55,7 +55,6 @@ export class ProposalDetailComponent implements OnInit {
 	step = 0;
 
 	setStep(index: number) {
-		console.log(event.target)
 		this.step = index;
 	}
 
@@ -205,13 +204,14 @@ export class ProposalDetailComponent implements OnInit {
 			this.proposalService.addProposal(this.proposalForm.value)
 			.subscribe(
 				response => {
-					console.log(response);
 					this.proposal = response;
 					this.proposalForm.patchValue(this.proposal);
+					this.isCreating = false;
 					this.isLoading = false;
 				},
 				error => {
 					console.log(error);
+					this.isCreating = false;
 					this.isLoading = false;
 				}
 			)
@@ -352,7 +352,6 @@ export class ProposalDetailComponent implements OnInit {
 		this.fileUploads = this.fileService.getFiles(this.proposal.proposalId);
 		this.proposalService.syncProposal(this.proposal).subscribe(
 			response => {
-				console.log(response)
 			}
 		)
 	}
@@ -438,7 +437,6 @@ export class ProposalDetailComponent implements OnInit {
 				let downloadLink = document.createElement('a');
 				downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
 				window.open(downloadLink.href, '_blank');
-				console.log(response.type)
 				this.isGenerating = false;
 			}, error => {
 				this.message.setMessage('Failed to generate PDF. Please upload all required files', 'danger');
@@ -453,7 +451,6 @@ export class ProposalDetailComponent implements OnInit {
 				response => {
 					if(response === HttpErrorResponse) {
 						this.message.setMessage('Error - Please upload all required files before submitting', 'danger');
-						console.log()
 
 					} else {
 						this.message.setMessage(response, 'success');
@@ -461,7 +458,6 @@ export class ProposalDetailComponent implements OnInit {
 					}
 				}, error => {
 					this.message.setMessage('Error - Please upload all required files before submitting', 'danger');
-					console.log()
 				}
 			);
 		}

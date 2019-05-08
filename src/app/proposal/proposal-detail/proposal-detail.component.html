@@ -1,22 +1,35 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow"
-     *ngIf="isCreating">
-	<h5 class="my-0 mr-md-auto font-weight-normal">Create a new proposal</h5>
-	<nav class="my-2 my-md-0 mr-md-3">
-		<button class="btn btn-sm btn-outline-secondary" *ngIf="this.selectedIndex>0" (click)="back()">Back</button>
-		<button class="btn btn-sm btn-outline-secondary" *ngIf="this.selectedIndex<4" (click)="forward()">Next</button>
-	</nav>
-</div>
-
-<mat-card *ngIf="isLoading" style="text-align: center;">
+<mat-card *ngIf="isLoading && !isCreating">
 	<mat-card-header>
-		<mat-card-title>
-			<p class="lead">Loading proposal...</p>
-		</mat-card-title>
+		<mat-card-subtitle>Loading proposal...</mat-card-subtitle>
 	</mat-card-header>
-	<mat-card-content style="padding: 4rem;">
-		<div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-	</mat-card-content>
+	<div class="lds-roller">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
 </mat-card>
+<mat-card *ngIf="isCreating">
+	<mat-card-header>
+		<mat-card-subtitle>Creating new proposal...</mat-card-subtitle>
+	</mat-card-header>
+	<div class="lds-roller">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+</mat-card>
+
+
 <form [formGroup]="proposalForm" *ngIf="!isLoading">
 	<mat-tab-group [(selectedIndex)]="selectedIndex">
 		<mat-tab label="1. General information" id="general">
