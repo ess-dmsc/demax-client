@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ProposalService } from "../../proposal/proposal.service";
 import { Proposal } from "../../models/proposal";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
+import { MessageComponent } from "../../shared/message/message.component";
 
 @Component({
 	selector: 'app-proposal-admin',
@@ -19,7 +20,8 @@ export class ProposalAdminComponent implements OnInit {
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,
-		private proposalService: ProposalService
+		private proposalService: ProposalService,
+		private message: MessageComponent
 	) {
 	}
 
@@ -35,7 +37,8 @@ export class ProposalAdminComponent implements OnInit {
 			},
 			error => {
 				console.log(error);
-				this.isLoading = false
+				this.isLoading = false;
+				this.message.setMessage('Error fetching proposals. ' + error.message, 'danger')
 			}
 		)
 	}
@@ -44,13 +47,25 @@ export class ProposalAdminComponent implements OnInit {
 	deleteProposal(proposal: Proposal) {
 		if(window.confirm('Are you sure you want to delete ' + proposal.mainProposer.email + '?')) {
 			this.proposalService.deleteProposal(proposal).subscribe(
-				() => this.getProposals()
+				() => this.getProposals(),
+				error => {
+					console.log(error);
+					this.message.setMessage('Error deleting proposal. ' + error.message, 'danger')
+				}
 			);
 		}
 	}
 
 	getProposalsByDate(){
-		this.proposalService.adminGetProposals()
+		this.proposalService.adminGetProposals().subscribe(
+			response =>{
+				this.proposals = response;
+				this.isLoading = false;
+			},
+			error => {
+				console.log(error);
+				this.message.setMessage('Error fetching proposals. ' + error.message, 'danger')			}
+		)
 	}
 
 }

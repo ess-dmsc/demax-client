@@ -45,7 +45,10 @@ export class ProposalListComponent implements OnInit {
 				this.proposals = data;
 				this.isLoading = false;
 			},
-			error => console.log(error),
+			error => {
+				console.log(error);
+				this.message.setMessage(error.message, 'danger')
+			}
 		);
 
 	}
@@ -54,7 +57,6 @@ export class ProposalListComponent implements OnInit {
 		this.isLoading = true;
 		this.proposal = proposal;
 		window.scrollTo(0, 0)
-		console.log(this.proposal.proposalId)
 		if(window.confirm('Are you sure you want to permanently delete this proposal?')) {
 			this.proposalService.deleteProposal(proposal).subscribe(
 				() => {
@@ -62,7 +64,10 @@ export class ProposalListComponent implements OnInit {
 					this.message.setMessage('Deleted proposal ' + this.proposal.proposalId, 'danger')
 
 				},
-				error => console.log(error)
+				error => {
+					console.log(error);
+					this.message.setMessage(error.message, 'danger')
+				}
 			);
 		}
 	}

@@ -41,7 +41,8 @@ export class FileAdminComponent implements OnInit {
 			},
 			error => {
 				console.log(error);
-				this.isLoading = false
+				this.isLoading = false;
+				this.message.setMessage(error.message, 'danger')
 			}
 		)
 	}
@@ -55,6 +56,7 @@ export class FileAdminComponent implements OnInit {
 			}, error => {
 				console.log(error);
 				this.isLoading = false;
+				this.message.setMessage(error.message, 'danger');
 			}
 		);
 	}
