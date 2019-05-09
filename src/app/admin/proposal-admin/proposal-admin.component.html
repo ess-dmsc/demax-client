@@ -1,3 +1,32 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+	<h1 class="h2">Current proposals: {{proposals.length}}</h1>
+	<div class="btn-toolbar mb-2 mb-md-0">
+		<div class="btn-group mr-2">
+			<form [formGroup]="dateQuery">
+				<mat-form-field>
+					<input matInput
+					       formControlName="startDate"
+					       required
+					       [matDatepicker]="picker"
+					       placeholder="From">
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput
+					       formControlName="endDate"
+					       required
+					       [matDatepicker]="picker2"
+					       placeholder="To">
+					<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+					<mat-datepicker #picker2></mat-datepicker>
+				</mat-form-field>
+				<button mat-raised-button (click)="getProposalsByDate()" [disabled]="dateQuery.invalid">Update</button>
+			</form>
+		</div>
+	</div>
+</div>
+
 <mat-card *ngIf="!isLoading">
 	<mat-card-header>
 		<mat-card-title>
@@ -25,8 +54,10 @@
 					<div *ngIf="proposal.wantsCrystallization">Crystallization<br></div>
 					<div *ngIf="proposal.wantsBiologicalDeuteration">
 						Biological deuteration<br>
-						<span class="badge badge-primary" *ngIf="proposal.wantsBiomassDeuteration"> for biomass<br></span>
-						<span class="badge badge-primary" *ngIf="proposal.wantsProteinDeuteration"> for proteins<br></span>
+						<span class="badge badge-primary"
+						      *ngIf="proposal.wantsBiomassDeuteration"> for biomass<br></span>
+						<span class="badge badge-primary"
+						      *ngIf="proposal.wantsProteinDeuteration"> for proteins<br></span>
 						<span class="badge badge-primary" *ngIf="proposal.wantsYeastDeuteration"> for yeast<br></span>
 						<span class="badge badge-primary" *ngIf="proposal.wantsOtherDeuteration"> (other)<br></span>
 					</div>

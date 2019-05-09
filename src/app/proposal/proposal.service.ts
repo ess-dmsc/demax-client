@@ -42,7 +42,7 @@ export class ProposalService {
 		return this.http.get<Proposal[]>('/api/admin/proposals');
 	}
 	adminGetProposalsByDate(startdate: string, enddate: string){
-		return this.http.get<Proposal[]>('/api/admin/proposals/' + startdate + '/' + enddate)
+		return this.http.get<Proposal[]>('/api/admin/proposals/' + new Date(startdate) + '/' + new Date(enddate))
 	}
 
 	getProposals(user: User): Observable<Proposal[]> {
