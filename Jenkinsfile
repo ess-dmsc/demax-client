@@ -1,12 +1,12 @@
 node('docker') {
-    stage('Checkout'){
-        checkout scm
-        }
-    stage('Unit test'){
-        sh "docker build -f Dockerfile-test  -t uo ."
-        sh 'docker run  -t uo npm test'
-        }
-    stage('Production build'){
+  stage('Checkout'){
+    checkout scm
+  }
+  stage('Unit test'){
+    sh "docker build -f Dockerfile-test  -t uo ."
+    sh 'docker run  -t uo npm test'
+  }
+  stage('Production build'){
     withCredentials([ usernamePassword(credentialsId: 'dockerhubess',usernameVariable: 'docker_user',passwordVariable: 'docker_password' )]) {
           sh 'docker login -u essdmscdm -p $docker_password '
           def IMAGE_ID = sh ( script: 'git rev-parse HEAD',returnStdout: true).trim()
