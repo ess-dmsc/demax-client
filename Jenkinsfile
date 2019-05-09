@@ -17,3 +17,4 @@ node('docker') {
           sh "docker rmi essdmscdm/demax-client:${IMAGE_ID}"
     }
 }
+}
