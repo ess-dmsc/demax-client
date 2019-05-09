@@ -1,5 +1,4 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-	<h1 class="h2">Current proposals: {{proposals.length}}</h1>
 	<div class="btn-toolbar mb-2 mb-md-0">
 		<div class="btn-group mr-2">
 			<form [formGroup]="dateQuery" style="margin: 1rem;">
@@ -30,7 +29,7 @@
 <mat-card *ngIf="!isLoading">
 	<mat-card-header>
 		<mat-card-title>
-			Current proposals
+			Proposals
 		</mat-card-title>
 		<mat-card-subtitle>
 			Total: {{proposals.length}}
