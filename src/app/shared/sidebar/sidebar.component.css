@@ -33,6 +33,26 @@
 		background-color: #009EDD;
 		color: white;
 	}
+	mat-expansion-panel-header{
+		text-align: center;
+		color: white;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+	}
+	mat-expansion-panel{
+		background-color: #009EDD;
+		text-align: center;
+		color: white;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+	}
+	mat-expansion-panel a{
+		background-color: #009EDD;
+		color: white;
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 400px) {

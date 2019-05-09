@@ -29,7 +29,7 @@
 </mat-card>
 <section *ngIf="!isLoading">
 
-	<table mat-table [dataSource]="proposals">
+	<table mat-table [dataSource]="proposals" class="table table-sm">
 
 		<ng-container matColumnDef="proposalId">
 			<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
@@ -68,11 +68,11 @@
 		<ng-container matColumnDef="options">
 			<th mat-header-cell *matHeaderCellDef>Actions</th>
 			<td mat-cell *matCellDef="let proposal">
-				<button mat-raised-button color="primary" [routerLink]="['/proposals/' + proposal.proposalId]">Edit
+				<button class="btn btn-sm btn-primary" [routerLink]="['/proposals/' + proposal.proposalId]">Edit
 				</button>
 				<!--<button mat-raised-button color="primary" (click)="enableEditing(proposal)">Edit</button>-->
-				<button mat-raised-button color="warn" (click)="deleteProposal(proposal)">Delete</button>
-				<a *ngIf="proposal.submitted" mat-raised-button download class="btn btn-success"
+				<button class="btn btn-sm btn-danger" (click)="deleteProposal(proposal)">Delete</button>
+				<a *ngIf="proposal.submitted" download class="btn btn-sm btn-success"
 				   href="{{url}}/api/proposals/download/{{proposal.proposalId}}">
 					<mat-icon>get_app</mat-icon>
 					Download

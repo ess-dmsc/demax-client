@@ -10,7 +10,7 @@ node('docker') {
     withCredentials([ usernamePassword(credentialsId: 'dockerhubess',usernameVariable: 'docker_user',passwordVariable: 'docker_password' )]) {
           sh 'docker login -u essdmscdm -p $docker_password '
           def IMAGE_ID = sh ( script: 'git rev-parse HEAD',returnStdout: true).trim()
-          sh "docker build . --tag essdmscdm/demax-client:latest -t essdmscdm/demax-client:${IMAGE_ID}"
+          sh "docker build -t essdmscdm/demax-client:latest -t essdmscdm/demax-client:${IMAGE_ID} ."
           echo "Git image id : ${IMAGE_ID}"
           sh "docker push essdmscdm/demax-client:${IMAGE_ID}"
           sh "docker push essdmscdm/demax-client:latest"

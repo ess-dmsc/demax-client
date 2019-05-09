@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card-sm mat-elevation-z8">
 	<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
 		<div class="card-header">
 			<div class="progress-bar progress-bar-info mat-progress-bar-fill" role="progressbar"
@@ -17,6 +17,7 @@
 				       accept="application/pdf,application/vnd.ms-excel"
 				       [uploader]="uploader">
 			</label>
+
 			<button mat-flat-button
 			        color="primary"
 			        class="btn btn-primary mat-elevation-z5"

@@ -30,7 +30,6 @@ mat-radio-button{
 	padding: 1rem;
 }
 .tab-4 td{
-	padding: 1rem;
 	margin: 0 auto;
 }
 mat-form-field{
@@ -38,7 +37,7 @@ mat-form-field{
 	margin: 1rem auto;
 }
 button{
-	margin: 1em;
+	margin: 0 1em;
 }
 .smallFormField{
 	width: 300px;
@@ -174,3 +173,20 @@ mat-action-row{
 		transform: rotate(360deg);
 	}
 }
+table {
+	width: 100%;
+}
+button{
+	margin: 0 5px;
+}
+
+td{
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+tr{
+	margin: 0;
+	padding: 0;
+}
+
