@@ -67,6 +67,7 @@ export class ProposalAdminComponent implements OnInit {
 	}
 
 	getProposalsByDate() {
+		this.isLoading = true;
 		this.proposalService.adminGetProposalsByDate(this.dateQuery.controls['startDate'].value, this.dateQuery.controls['endDate'].value).subscribe(
 			response => {
 				this.proposals = response;
@@ -74,7 +75,8 @@ export class ProposalAdminComponent implements OnInit {
 			},
 			error => {
 				console.log(error);
-				this.message.setMessage('Error fetching proposals. ' + error.message, 'danger')
+				this.message.setMessage('Error fetching proposals. ' + error.message, 'danger');
+				this.isLoading = false;
 			}
 		)
 	}
