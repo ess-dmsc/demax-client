@@ -22,6 +22,10 @@ COPY . /usr/src/app
 RUN ng build --configuration=esss
 
 FROM nginx:alpine
+
+ # make sure root login is disabled
+RUN sed -i -e 's/^root::/root:!:/' /etc/shadow
+
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
