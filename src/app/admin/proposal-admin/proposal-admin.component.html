@@ -1,30 +1,51 @@
-<mat-toolbar>
-	<span>Proposals</span>
-	<form [formGroup]="dateQuery" style="margin: 1rem;">
-		<mat-form-field>
-			<input matInput
-			       formControlName="startDate"
-			       required
-			       [matDatepicker]="picker"
-			       placeholder="From">
-			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-			<mat-datepicker #picker></mat-datepicker>
-		</mat-form-field>
-		<mat-form-field>
-			<input matInput
-			       formControlName="endDate"
-			       required
-			       [matDatepicker]="picker2"
-			       placeholder="To">
-			<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-			<mat-datepicker #picker2></mat-datepicker>
-		</mat-form-field>
-		<button mat-raised-button (click)="getProposalsByDate()" [disabled]="dateQuery.invalid">Update</button>
-	</form>
-</mat-toolbar>
+<nav class="navbar navbar-expand-md navbar-light bg-white">
+	<a class="navbar-brand" href="#">Displaying {{proposals.length}} proposals</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+	        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarsExample04">
+		<ul class="navbar-nav mr-auto">
+			<!--<li class="nav-item">
+				<a class="nav-link" href="#">Statistics</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown"
+				   aria-haspopup="true" aria-expanded="false">Archive</a>
+				<div class="dropdown-menu" aria-labelledby="dropdown04">
+					<a class="dropdown-item" href="#">2019 I</a>
+					<a class="dropdown-item" href="#">2019 II</a>
+						<a class="dropdown-item" href="#">2020 III</a>
+				</div>
+			</li>-->
+		</ul>
+		<form class="form-inline my-2 my-md-0" [formGroup]="dateQuery">
+			<mat-form-field>
+				<input matInput
+				       formControlName="startDate"
+				       required
+				       [matDatepicker]="picker"
+				       placeholder="From">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput
+				       formControlName="endDate"
+				       required
+				       [matDatepicker]="picker2"
+				       placeholder="To">
+				<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+				<mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+			<button mat-raised-button color="primary" (click)="getProposalsByDate()" [disabled]="dateQuery.invalid">Update</button>
+			<!--<input class="form-control" type="text" placeholder="Search" disabled>-->
+		</form>
+	</div>
+</nav>
 
 <table mat-table [dataSource]="proposals" class="table table-sm" *ngIf="!isLoading">
-
 	<ng-container matColumnDef="proposalId">
 		<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
 		<td mat-cell *matCellDef="let proposal"> {{proposal.proposalId}}</td>

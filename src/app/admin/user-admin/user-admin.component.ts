@@ -62,6 +62,7 @@ export class UserAdminComponent implements OnInit {
 	}
 
 	getUsers() {
+		this.isLoading = true;
 		this.userAdminService.getUsers().subscribe(
 			data => {
 				this.users = data;

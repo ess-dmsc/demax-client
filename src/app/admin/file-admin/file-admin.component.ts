@@ -34,6 +34,7 @@ export class FileAdminComponent implements OnInit {
 	}
 
 	getFiles() {
+		this.isLoading = true;
 		this.fileAdminService.getFiles().subscribe(
 			data => {
 				this.fileUploads = data;

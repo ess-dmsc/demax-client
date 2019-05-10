@@ -1,3 +1,32 @@
+<nav class="navbar navbar-expand-md navbar-light bg-white">
+	<a class="navbar-brand" href="#">Total number of users: {{users.length}}</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+	        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarsExample04">
+		<ul class="navbar-nav mr-auto">
+			<!--<li class="nav-item">
+				<a class="nav-link" href="#">Statistics</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown"
+				   aria-haspopup="true" aria-expanded="false">Archive</a>
+				<div class="dropdown-menu" aria-labelledby="dropdown04">
+					<a class="dropdown-item" href="#">2019 I</a>
+					<a class="dropdown-item" href="#">2019 II</a>
+						<a class="dropdown-item" href="#">2020 III</a>
+				</div>
+			</li>-->
+		</ul>
+		<form class="form-inline my-2 my-md-0">
+			<button mat-raised-button color="primary" (click)="getUsers()">Update</button>
+			<input class="form-control" type="text" placeholder="Search" disabled>
+		</form>
+	</div>
+</nav>
+
 <table mat-table [dataSource]="users" *ngIf="!isEditing && !isEditingPassword && !isLoading">
 	<ng-container matColumnDef="firstName">
 		<th mat-header-cell *matHeaderCellDef>First name</th>

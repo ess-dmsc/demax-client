@@ -81,4 +81,18 @@ export class ProposalAdminComponent implements OnInit {
 		)
 	}
 
+	getProposalsByQuery(query: string){
+		this.isLoading = true;
+		this.proposalService.admingGetProposalsByQuery(query).subscribe(
+			response =>{
+				this.proposals = response;
+				this.isLoading = false;
+			}, error =>{
+				this.isLoading = false;
+				this.message.setMessage('Search error. ' + error.message, 'danger');
+			}
+		)
+
+	}
+
 }

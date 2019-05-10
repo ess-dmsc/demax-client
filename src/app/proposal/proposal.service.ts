@@ -44,6 +44,9 @@ export class ProposalService {
 	adminGetProposalsByDate(startdate: string, enddate: string){
 		return this.http.get<Proposal[]>('/api/admin/proposals/' + new Date(startdate) + '/' + new Date(enddate))
 	}
+	admingGetProposalsByQuery(query: string){
+		return this.http.get<Proposal[]>('/api/admin/proposals/search/' + query)
+	}
 
 	getProposals(user: User): Observable<Proposal[]> {
 		return this.http.get<Proposal[]>(`/api/proposals/${this.auth.currentUser.email}`);
