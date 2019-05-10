@@ -1,14 +1,36 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-	<h1 class="h2">My current proposals</h1>
-	<div class="btn-toolbar mb-2 mb-md-0">
-		<div class="btn-group mr-2">
-			<button mat-raised-button class="btn btn-sm btn-outline-secondary" disabled>Create new proposal</button>
-			<a href="{{url}}/api/word/attachment" download>
-				<button class="btn btn-sm btn-outline-secondary">Download proposal template</button>
-			</a>
-		</div>
+<nav class="navbar navbar-expand-md navbar-light bg-white">
+	<a class="navbar-brand" href="#">My proposals</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+	        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="btn-group mr-2">
+		<button mat-raised-button class="btn btn-sm btn-outline-secondary" disabled>Create new proposal</button>
+		<a href="{{url}}/api/word/attachment" download>
+			<button class="btn btn-sm btn-outline-secondary">Download proposal template</button>
+		</a>
 	</div>
-</div>
+	<div class="collapse navbar-collapse" id="navbarsExample04">
+		<ul class="navbar-nav mr-auto">
+			<!--<li class="nav-item">
+				<a class="nav-link" href="#">Statistics</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown"
+				   aria-haspopup="true" aria-expanded="false">Archive</a>
+				<div class="dropdown-menu" aria-labelledby="dropdown04">
+					<a class="dropdown-item" href="#">2019 I</a>
+					<a class="dropdown-item" href="#">2019 II</a>
+						<a class="dropdown-item" href="#">2020 III</a>
+				</div>
+			</li>-->
+		</ul>
+		<form class="form-inline my-2 my-md-0">
+			<button mat-raised-button color="primary" (click)="getProposals()">Update</button>
+			<input class="form-control" type="text" placeholder="Search" disabled>
+		</form>
+	</div>
+</nav>
 
 <p *ngIf="proposals.length === 0 && !isLoading">Proposal submission is now closed.</p>
 
