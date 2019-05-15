@@ -21,7 +21,7 @@
 			</li>-->
 		</ul>
 		<form class="form-inline my-2 my-md-0" [formGroup]="dateQuery">
-			<mat-form-field>
+			<mat-form-field style="padding: 0;">
 				<input matInput
 				       formControlName="startDate"
 				       required
@@ -30,7 +30,7 @@
 				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field>
-			<mat-form-field>
+			<mat-form-field style="padding: 0;">
 				<input matInput
 				       formControlName="endDate"
 				       required

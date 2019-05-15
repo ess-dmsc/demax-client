@@ -440,6 +440,7 @@ export class ProposalDetailComponent implements OnInit {
 				this.isGenerating = false;
 			}, error => {
 				this.message.setMessage('Failed to generate PDF. Please upload all required files', 'danger');
+				this.isGenerating = false;
 			}
 		)
 	}

@@ -15,7 +15,9 @@ tr{
 	padding: 0;
 }
 
-
+mat-form-field{
+	margin: 0;
+}
 .lds-roller {
 	display: inline-block;
 	position: relative;
