@@ -39,7 +39,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class ProposalDetailComponent implements OnInit {
 	url = this.appConfig.demaxBaseUrl;
 	fileUploads: Observable<Object[]>;
-	matcher = new MyErrorStateMatcher();
 
 	proposal: Proposal;
 	proposalForm: FormGroup;
@@ -56,14 +55,6 @@ export class ProposalDetailComponent implements OnInit {
 
 	setStep(index: number) {
 		this.step = index;
-	}
-
-	nextStep() {
-		this.step++;
-	}
-
-	prevStep() {
-		this.step--;
 	}
 
 	constructor(
