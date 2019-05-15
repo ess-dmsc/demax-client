@@ -417,7 +417,7 @@ export class ProposalDetailComponent implements OnInit {
 			}
 		);
 	}
-
+	
 	generatePdf(): void {
 		this.isGenerating = true;
 		this.http.get('/api/generate/' + this.proposal.proposalId, {responseType: 'blob' as 'json'}).subscribe(
