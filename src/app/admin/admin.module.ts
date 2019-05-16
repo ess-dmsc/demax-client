@@ -8,6 +8,8 @@ import { FileAdminComponent } from "./file-admin/file-admin.component";
 import { FileAdminService } from "./file-admin/file-admin.service";
 import { UserAdminService } from "./user-admin/user-admin.service";
 import { FileModule } from "../file/file.module";
+import { ProposalRoundComponent } from './proposal-round/proposal-round.component';
+import { ProposalArchiveComponent } from './proposal-archive/proposal-archive.component';
 
 @NgModule({
 	imports: [
@@ -18,7 +20,9 @@ import { FileModule } from "../file/file.module";
 	declarations: [
 		FileAdminComponent,
 		ProposalAdminComponent,
-		UserAdminComponent
+		UserAdminComponent,
+		ProposalRoundComponent,
+		ProposalArchiveComponent
 	],
 	providers: [
 		AuthGuardAdmin,
@@ -28,6 +32,8 @@ import { FileModule } from "../file/file.module";
 	exports: [
 		FileAdminComponent,
 		ProposalAdminComponent,
+		ProposalArchiveComponent,
+		ProposalRoundComponent,
 		UserAdminComponent
 	]
 })

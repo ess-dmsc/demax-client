@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Proposal } from '../models/proposal';
 import { AuthService } from "../user/auth.service";
 import { User } from "../models/user";
+import { ProposalRound } from "../models/proposal-round";
 
 @Injectable({
 	providedIn: 'root'
@@ -36,6 +37,20 @@ export class ProposalService {
 	}
 	deleteTsf(proposalId: string, tsfId: string): Observable<any> {
 		return this.http.delete('/api/admin/proposals/tsf/' + proposalId + '/' + tsfId);
+	}
+
+	adminGetProposalRounds(): Observable<ProposalRound[]> {
+		return this.http.get<ProposalRound[]>('/api/admin/proposal-round');
+	}
+	adminAddProposalRound(proposalRound: ProposalRound): Observable<ProposalRound> {
+		return this.http.post<ProposalRound>('/api/admin/proposal-round', proposalRound);
+	}
+
+	adminEditProposalRound(proposalRound: ProposalRound): Observable<any> {
+		return this.http.put(`/api/admin/proposals/${proposalRound.proposalRoundId}`, proposalRound, {responseType: 'text'});
+	}
+	adminDeleteProposalRound(proposalRound: ProposalRound): Observable<any> {
+		return this.http.delete(`/api/admin/proposals/${proposalRound.proposalRoundId}`, {responseType: 'text'});
 	}
 
 	adminGetProposals(): Observable<Proposal[]> {

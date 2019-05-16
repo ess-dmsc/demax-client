@@ -4,14 +4,10 @@
 	<a routerLink="/proposals">My proposals</a>
 	<a href="{{url}}/api/word/attachment">Proposal template</a>
 	<a routerLink="/contact">Contact</a>
-	<mat-expansion-panel *ngIf="auth.isAdmin" hideToggle>
-		<mat-expansion-panel-header>
-			<mat-panel-title>
-				Admin console
-			</mat-panel-title>
-		</mat-expansion-panel-header>
-		<a routerLink="/admin/files">Files</a>
-		<a routerLink="/admin/proposals">Proposals</a>
-		<a routerLink="/admin/users">Users</a>
-	</mat-expansion-panel>
+	<mat-divider></mat-divider>
+	<a *ngIf="auth.isAdmin" routerLink="/admin/files">Files</a>
+	<a *ngIf="auth.isAdmin" routerLink="/admin/proposals">Proposals</a>
+	<a *ngIf="auth.isAdmin" routerLink="/admin/proposal-round">Proposal rounds</a>
+	<a *ngIf="auth.isAdmin" routerLink="/admin/proposal-archive">Proposal archive</a>
+	<a *ngIf="auth.isAdmin" routerLink="/admin/users">Users</a>
 </div>

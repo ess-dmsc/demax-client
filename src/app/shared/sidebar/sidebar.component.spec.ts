@@ -56,8 +56,8 @@ describe('SidebarComponent', () => {
 		authService.isAdmin = true;
 		fixture.detectChanges();
 		const a = fixture.debugElement.queryAll(By.css('a'));
-		expect(a.length).toBe(8);
-		expect(a[ 7 ].attributes[ 'routerLink' ]).toBe('/admin/users');
+		expect(a.length).toBe(10);
+		expect(a[ 7 ].attributes[ 'routerLink' ]).toBe('/admin/proposal-round');
 	});
 
 });

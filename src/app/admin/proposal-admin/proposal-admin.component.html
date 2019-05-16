@@ -39,8 +39,7 @@
 				<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 				<mat-datepicker #picker2></mat-datepicker>
 			</mat-form-field>
-			<button mat-raised-button color="primary" (click)="getProposalsByDate()" [disabled]="dateQuery.invalid">Update</button>
-			<input class="form-control" type="text" placeholder="Search" disabled>
+			<button mat-raised-button color="primary" (click)="getProposalsByDate()" [disabled]="dateQuery.invalid"><mat-icon>refresh</mat-icon> Refresh</button>
 		</form>
 	</div>
 </nav>

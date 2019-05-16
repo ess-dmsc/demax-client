@@ -16,7 +16,7 @@ import { Router } from "@angular/router";
 })
 export class ProposalListComponent implements OnInit {
 	url = this.appConfig.demaxBaseUrl;
-	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'mainProposer', 'submitted', 'options' ];
+	displayedColumns: string[] = [ 'proposalId', 'experimentTitle', 'mainProposer', 'submitted', 'edit', 'delete', 'download' ];
 
 	proposal = new Proposal();
 	proposals: Proposal[] = [];
