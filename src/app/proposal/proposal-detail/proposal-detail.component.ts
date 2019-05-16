@@ -39,7 +39,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class ProposalDetailComponent implements OnInit {
 	url = this.appConfig.demaxBaseUrl;
 	fileUploads: Observable<Object[]>;
-	matcher = new MyErrorStateMatcher();
 
 	proposal: Proposal;
 	proposalForm: FormGroup;
@@ -56,14 +55,6 @@ export class ProposalDetailComponent implements OnInit {
 
 	setStep(index: number) {
 		this.step = index;
-	}
-
-	nextStep() {
-		this.step++;
-	}
-
-	prevStep() {
-		this.step--;
 	}
 
 	constructor(
@@ -426,7 +417,7 @@ export class ProposalDetailComponent implements OnInit {
 			}
 		);
 	}
-
+	
 	generatePdf(): void {
 		this.isGenerating = true;
 		this.http.get('/api/generate/' + this.proposal.proposalId, {responseType: 'blob' as 'json'}).subscribe(
@@ -440,6 +431,7 @@ export class ProposalDetailComponent implements OnInit {
 				this.isGenerating = false;
 			}, error => {
 				this.message.setMessage('Failed to generate PDF. Please upload all required files', 'danger');
+				this.isGenerating = false;
 			}
 		)
 	}

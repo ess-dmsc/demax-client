@@ -1,0 +1,26 @@
+.non-dates mat-form-field{
+	display: block;
+}
+.mat-card{
+	margin: 2rem auto;
+}
+table {
+	width: 100%;
+}
+button{
+	margin: 0 5px;
+}
+
+td{
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+tr{
+	margin: 0;
+	padding: 0;
+}
+.container{
+	display: flex;
+	justify-content: space-around;
+}

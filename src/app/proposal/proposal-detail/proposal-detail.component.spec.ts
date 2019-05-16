@@ -42,4 +42,8 @@ describe("ProposalDetailComponent", () => {
 		});
 	}));
 
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+
 });
