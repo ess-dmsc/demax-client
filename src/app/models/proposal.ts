@@ -175,7 +175,7 @@ export class Proposal {
 		{
 			author: string;
 			comment: string;
-			dateCreated: string;
+			created: string;
 		}
 		];
 }
