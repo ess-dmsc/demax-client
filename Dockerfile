@@ -12,7 +12,7 @@ RUN npm config set proxy  $http_proxy
 RUN npm config set https-proxy  $http_proxy
 RUN npm config set registry http://registry.npmjs.org/
 RUN npm config set strict-ssl false
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@7.3.8
 
 COPY package.json /usr/src/app/package.json
 WORKDIR /usr/src/app
