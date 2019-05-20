@@ -1,4 +1,4 @@
-export class ProposalRound {
+export class Cycle {
 	submission: {
 		startDate: string;
 		endDate: string;
@@ -12,8 +12,8 @@ export class ProposalRound {
 		endDate: string;
 	};
 	runCycle: string;
-	wrapUpAndUserSurvey: string;
-	proposalRoundId: string;
-	year: number;
+	wrapUp: string;
 	cycleId: string;
+	other: string;
+	isActive: boolean;
 }

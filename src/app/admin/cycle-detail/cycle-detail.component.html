@@ -1,0 +1,188 @@
+<div class="container">
+	<mat-card>
+		<form [formGroup]="cycleForm">
+			<mat-card-header>
+				<mat-card-title *ngIf="isCreating">
+					Create a new proposal cycle
+				</mat-card-title>
+				<mat-card-subtitle *ngIf="isCreating">
+					Set the important dates and deadlines for the cycle
+				</mat-card-subtitle>
+				<mat-card-title *ngIf="isEditing">
+					Editing cycle {{cycleForm.controls['cycleId'].value}}
+				</mat-card-title>
+				<mat-card-subtitle *ngIf="isEditing">
+					Change the dates or deadlines for cycle {{cycleForm.controls['cycleId'].value}}
+				</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-form-field>
+					<input matInput formControlName="cycleId" placeholder="Cycle ID">
+					<mat-hint>Give the cycle a unique ID that makes it easily searchable and memorable, such as "2019-A"
+						or "2020-special-cycle"
+					</mat-hint>
+				</mat-form-field>
+				<div formGroupName="submission">
+					<mat-form-field>
+						<input matInput
+						       formControlName="startDate"
+						       required
+						       [matDatepicker]="submissionStartDate"
+						       placeholder="Submission start date">
+						<mat-datepicker-toggle matSuffix [for]="submissionStartDate"></mat-datepicker-toggle>
+						<mat-datepicker #submissionStartDate></mat-datepicker>
+						<mat-hint>Set the date for when users can start submitting proposals in the system</mat-hint>
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput
+						       formControlName="endDate"
+						       required
+						       [matDatepicker]="submissionEndDate"
+						       placeholder="Submission deadline">
+						<mat-datepicker-toggle matSuffix [for]="submissionEndDate"></mat-datepicker-toggle>
+						<mat-datepicker #submissionEndDate></mat-datepicker>
+						<mat-hint>Set the deadline for proposal submission</mat-hint>
+					</mat-form-field>
+				</div>
+				<div formGroupName="review">
+					<mat-form-field>
+						<input matInput
+						       formControlName="startDate"
+						       required
+						       [matDatepicker]="reviewStartDate"
+						       placeholder="Review start date">
+						<mat-datepicker-toggle matSuffix [for]="reviewStartDate"></mat-datepicker-toggle>
+						<mat-datepicker #reviewStartDate></mat-datepicker>
+						<mat-hint>Set the start date for the review process</mat-hint>
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput
+						       formControlName="endDate"
+						       required
+						       [matDatepicker]="reviewEndDate"
+						       placeholder="Review end date">
+						<mat-datepicker-toggle matSuffix [for]="reviewEndDate"></mat-datepicker-toggle>
+						<mat-datepicker #reviewEndDate></mat-datepicker>
+						<mat-hint>Set the end date for the review process</mat-hint>
+					</mat-form-field>
+				</div>
+				<div formGroupName="notifyUsers">
+					<mat-form-field>
+						<input matInput
+						       formControlName="startDate"
+						       required
+						       [matDatepicker]="notifyUsersStartDate"
+						       placeholder="Notify users start date">
+						<mat-datepicker-toggle matSuffix [for]="notifyUsersStartDate"></mat-datepicker-toggle>
+						<mat-datepicker #notifyUsersStartDate></mat-datepicker>
+						<mat-hint>Set the start date for the notification process</mat-hint>
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput
+						       formControlName="endDate"
+						       required
+						       [matDatepicker]="notifyUsersEndDate"
+						       placeholder="Notify users end date">
+						<mat-datepicker-toggle matSuffix [for]="notifyUsersEndDate"></mat-datepicker-toggle>
+						<mat-datepicker #notifyUsersEndDate></mat-datepicker>
+						<mat-hint>Set the end date for the notification process</mat-hint>
+					</mat-form-field>
+				</div>
+				<mat-form-field>
+					<input matInput formControlName="runCycle" placeholder="Run cycle">
+					<mat-hint>Specify when the cycle will run (e.g. June - November)</mat-hint>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput formControlName="wrapUp" placeholder="Wrap-up & user survey">
+					<mat-hint>Specify when the cycle is wrapped up and a user survey is sent out</mat-hint>
+				</mat-form-field>
+				<mat-form-field>
+					<input matInput formControlName="other" placeholder="Other">
+					<mat-hint>Provide some additional information that could be useful for users to know (optional)
+					</mat-hint>
+				</mat-form-field>
+			</mat-card-content>
+			<mat-card-actions>
+				<button *ngIf="isCreating" mat-raised-button color="primary" (click)="createNewCycle()" [disabled]="!cycleForm.valid">Create new
+					cycle
+				</button>
+				<button *ngIf="isEditing" mat-raised-button color="primary" (click)="save()" [disabled]="!cycleForm.valid">Save</button>
+				<button mat-raised-button color="warn" routerLink="/admin/cycles">Cancel</button>
+			</mat-card-actions>
+		</form>
+	</mat-card>
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>
+				<mat-icon>event</mat-icon>
+				<strong *ngIf="cycleForm.controls['cycleId'].valid">{{cycleForm.controls['cycleId'].value}}:</strong>
+				important dates <em>(preview)</em>
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<table>
+				<tr>
+					<td>
+						Proposal submission:
+					</td>
+					<td>
+						<div *ngIf="cycleForm.controls['submission'].valid">
+							{{cycleForm.controls['submission'].value.startDate.toString() | slice:0:10}} -
+							{{cycleForm.controls['submission'].value.endDate.toString() | slice:0:10}}
+						</div>
+					</td>
+				</tr>
+				<mat-divider></mat-divider>
+				<tr>
+					<td>
+						Review:
+					</td>
+					<td>
+						<div *ngIf="cycleForm.controls['review'].valid">
+							{{cycleForm.controls['review'].value.startDate.toString() | slice:0:10}} -
+							{{cycleForm.controls['review'].value.endDate.toString() | slice:0:10}}
+						</div>
+					</td>
+				</tr>
+				<mat-divider></mat-divider>
+
+				<tr>
+					<td>
+						Notify users:
+					</td>
+					<td>
+						<div *ngIf="cycleForm.controls['notifyUsers'].valid">
+							{{cycleForm.controls['notifyUsers'].value.startDate.toString() | slice:0:10}} -
+							{{cycleForm.controls['notifyUsers'].value.endDate.toString() | slice:0:10}}
+						</div>
+					</td>
+				</tr>
+				<mat-divider></mat-divider>
+				<tr>
+					<td>Run cycle:</td>
+					<td>
+						<div *ngIf="cycleForm.controls['runCycle'].valid">
+							{{cycleForm.controls['runCycle'].value}}
+						</div>
+					</td>
+
+				</tr>
+				<mat-divider></mat-divider>
+				<tr>
+					<td>Wrap-up & user survey:</td>
+					<td>
+						<div *ngIf="cycleForm.controls['wrapUp'].valid">
+							{{cycleForm.controls['wrapUp'].value}}
+						</div>
+					</td>
+				</tr>
+			</table>
+		</mat-card-content>
+		<mat-card-actions>
+			<div *ngIf="cycleForm.controls['other'].valid">
+				{{cycleForm.controls['other'].value}}
+			</div>
+		</mat-card-actions>
+
+	</mat-card>
+</div>
