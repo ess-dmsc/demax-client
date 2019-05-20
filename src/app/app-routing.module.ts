@@ -19,7 +19,9 @@ import { UserAdminComponent } from "./admin/user-admin/user-admin.component";
 import { ProposalReviewComponent } from "./admin/proposal-review/proposal-review.component";
 import { ProposalCommentComponent } from "./proposal/proposal-comment/proposal-comment.component";
 import { ProposalArchiveComponent } from "./admin/proposal-archive/proposal-archive.component";
-import { ProposalRoundComponent } from "./admin/proposal-round/proposal-round.component";
+import { CycleListComponent } from "./admin/cycle-list/cycle-list.component";
+import { CycleDetailComponent } from "./admin/cycle-detail/cycle-detail.component";
+import { HelpComponent } from "./help/help.component";
 
 const routes: Routes = [
 	{path: '', component: HomeComponent},
@@ -27,9 +29,11 @@ const routes: Routes = [
 	{path: 'admin/files', component: FileAdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/proposals', component: ProposalAdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/proposal-archive', component: ProposalArchiveComponent, canActivate: [ AuthGuardAdmin ]},
-	{path: 'admin/proposal-round', component: ProposalRoundComponent, canActivate: [ AuthGuardAdmin ]},
+	{path: 'admin/cycles', component: CycleListComponent, canActivate: [ AuthGuardAdmin ]},
+	{path: 'admin/cycles/:cycleId', component: CycleDetailComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/users', component: UserAdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'contact', component: ContactComponent},
+	{path: 'help', component: HelpComponent},
 	{path: 'home', component: HomeComponent},
 	{path: 'login', component: LoginComponent},
 	{path: 'logout', component: LogoutComponent},

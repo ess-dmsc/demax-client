@@ -1,0 +1,15 @@
+mat-form-field{
+	display: block;
+	width: 100%;
+}
+input{
+	min-width: 400px;
+}
+.container{
+	display: flex;
+	justify-content: space-around;
+}
+mat-card{
+	margin: 2rem;
+	min-width: 600px;
+}

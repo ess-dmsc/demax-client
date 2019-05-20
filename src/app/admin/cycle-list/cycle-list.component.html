@@ -1,0 +1,58 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>
+			Listing all cycles
+		</mat-card-title>
+		<mat-card-subtitle>
+			Total: {{cycles.length}}
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<table mat-table [dataSource]="cycles" class="table table-sm">
+			<ng-container matColumnDef="active">
+				<th mat-header-cell *matHeaderCellDef>Active</th>
+				<td mat-cell *matCellDef="let cycle"><p *ngIf="cycle.active">Yes</p>
+					<p *ngIf="!cycle.active">No</p></td>
+			</ng-container>
+			<ng-container matColumnDef="cycleId">
+				<th mat-header-cell *matHeaderCellDef>ID</th>
+				<td mat-cell *matCellDef="let cycle"> {{cycle.cycleId}}</td>
+			</ng-container>
+			<ng-container matColumnDef="submission">
+				<th mat-header-cell *matHeaderCellDef>Submission</th>
+				<td mat-cell *matCellDef="let cycle"> {{cycle.submission.startDate | slice:0:10}} -
+					{{cycle.submission.endDate | slice:0:10}}
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="review">
+				<th mat-header-cell *matHeaderCellDef>Review</th>
+				<td mat-cell *matCellDef="let cycle"> {{cycle.review.startDate | slice:0:10}} -
+					{{cycle.review.endDate | slice:0:10}}
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="notifyUsers">
+				<th mat-header-cell *matHeaderCellDef>Notify users</th>
+				<td mat-cell *matCellDef="let cycle"> {{cycle.notifyUsers.startDate | slice:0:10}} -
+					{{cycle.notifyUsers.endDate | slice:0:10}}
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="edit">
+				<th mat-header-cell *matHeaderCellDef>Options</th>
+				<td mat-cell *matCellDef="let cycle">
+					<button class="btn btn-sm btn-success" routerLink="/admin/cycles/{{cycle.cycleId}}">Edit</button>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="delete">
+				<th mat-header-cell *matHeaderCellDef>Options</th>
+				<td mat-cell *matCellDef="let cycle">
+					<button class="btn btn-sm btn-danger" (click)="deleteCycle(cycle)">Delete</button>
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button color="primary" routerLink="/admin/cycles/new"> Create new cycle</button>
+	</mat-card-actions>
+</mat-card>

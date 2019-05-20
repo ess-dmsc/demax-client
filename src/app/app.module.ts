@@ -20,6 +20,7 @@ import { FileModule } from "./file/file.module";
 import { AdminModule } from "./admin/admin.module";
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CookiePolicyComponent } from './cookie-policy/cookie-policy.component';
+import { HelpComponent } from './help/help.component';
 
 export function tokenGetter() {
 	return localStorage.getItem('access_token');
@@ -31,7 +32,8 @@ export function tokenGetter() {
 		HomeComponent,
 		ContactComponent,
 		PrivacyPolicyComponent,
-		CookiePolicyComponent
+		CookiePolicyComponent,
+		HelpComponent
 	],
 	imports: [
 		AdminModule,
