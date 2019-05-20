@@ -12,7 +12,6 @@ import { BiosafetyComponent } from './biosafety/biosafety.component';
 import { YeastComponent } from './yeast/yeast.component';
 import { BiomassComponent } from "./biomass/biomass.component";
 import { ChemicalComponent } from './chemical/chemical.component';
-import { ProposalReviewComponent } from '../admin/proposal-review/proposal-review.component';
 import { ProposalCommentComponent } from './proposal-comment/proposal-comment.component';
 
 @NgModule({
@@ -31,7 +30,6 @@ import { ProposalCommentComponent } from './proposal-comment/proposal-comment.co
 		ProteinComponent,
 		YeastComponent,
 		ChemicalComponent,
-		ProposalReviewComponent,
 		ProposalCommentComponent
 	],
 	providers: [
@@ -46,7 +44,6 @@ import { ProposalCommentComponent } from './proposal-comment/proposal-comment.co
 		ProteinComponent,
 		ProposalDetailComponent,
 		ProposalListComponent,
-		ProposalReviewComponent,
 		ProposalCommentComponent
 	]
 

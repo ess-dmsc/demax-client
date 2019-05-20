@@ -16,7 +16,6 @@ import { PasswordComponent } from "./user/password/password.component";
 import { FileAdminComponent } from "./admin/file-admin/file-admin.component";
 import { ProposalAdminComponent } from "./admin/proposal-admin/proposal-admin.component";
 import { UserAdminComponent } from "./admin/user-admin/user-admin.component";
-import { ProposalReviewComponent } from "./admin/proposal-review/proposal-review.component";
 import { ProposalCommentComponent } from "./proposal/proposal-comment/proposal-comment.component";
 import { ProposalArchiveComponent } from "./admin/proposal-archive/proposal-archive.component";
 import { CycleListComponent } from "./admin/cycle-list/cycle-list.component";
@@ -42,7 +41,6 @@ const routes: Routes = [
 	{path: 'change-password', component: PasswordComponent},
 	{path: 'privacy-policy', component: PrivacyPolicyComponent},
 	{path: 'proposals/comments/:proposalId', component: ProposalCommentComponent},
-	{path: 'proposals/review/:proposalId', component: ProposalReviewComponent},
 	{path: 'proposals', component: ProposalListComponent, canActivate: [ AuthGuardLogin ]},
 	{path: 'proposals/:proposalId', component: ProposalDetailComponent, canActivate: [ AuthGuardLogin ]},
 ];
