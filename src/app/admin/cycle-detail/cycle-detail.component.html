@@ -1,5 +1,5 @@
 <div class="container">
-	<mat-card>
+	<mat-card *ngIf="!isLoading">
 		<form [formGroup]="cycleForm">
 			<mat-card-header>
 				<mat-card-title *ngIf="isCreating">
@@ -186,3 +186,4 @@
 
 	</mat-card>
 </div>
+{{cycle | json}}

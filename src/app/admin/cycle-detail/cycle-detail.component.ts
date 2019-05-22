@@ -35,7 +35,7 @@ export class CycleDetailComponent implements OnInit {
 	ngOnInit() {
 		this.cycleForm = this.formBuilder.group({
 			cycleId: [ '' ],
-			active: [ '' ],
+			isActive: [ '' ],
 			submission: this.formBuilder.group({
 				startDate: [ '' ],
 				endDate: [ '' ]
@@ -54,6 +54,7 @@ export class CycleDetailComponent implements OnInit {
 		})
 
 		this.currentCycleId = this.activatedRoute.snapshot.params.cycleId;
+		console.log(this.currentCycleId)
 
 
 		if(this.currentCycleId === 'new') {

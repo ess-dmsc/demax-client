@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cycle } from '../models/cycle';
+import { Proposal } from "../models/proposal";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class AdminService {
 		return this.http.get<Cycle[]>('/api/admin/cycles');
 	}
 
-	getCycleById(cycleId: string): Observable<any> {
-		return this.http.get('/api/admin/cycles/' + cycleId);
+	getCycleById(cycleId: string): Observable<Cycle> {
+		return this.http.get<Cycle>('/api/admin/cycles/' + cycleId);
 	}
 
 	postCycle(cycle: Cycle): Observable<Cycle> {
