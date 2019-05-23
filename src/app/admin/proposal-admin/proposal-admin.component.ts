@@ -20,6 +20,7 @@ export class ProposalAdminComponent implements OnInit {
 	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted', 'download', 'edit', 'review' ]
 
 	dateQuery: FormGroup;
+	cycleQuery: FormGroup;
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,
@@ -34,8 +35,10 @@ export class ProposalAdminComponent implements OnInit {
 		this.dateQuery = this.formBuilder.group({
 			startDate: [ '', Validators.required ],
 			endDate: [ '', Validators.required ]
+		});
+		this.cycleQuery = this.formBuilder.group({
+			cycle: ['',Validators.required]
 		})
-
 	}
 
 	getProposals() {

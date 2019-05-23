@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Proposal } from '../models/proposal';
 import { AuthService } from "../user/auth.service";
 import { User } from "../models/user";
+import { Cycle } from "../models/cycle";
 
 @Injectable({
 	providedIn: 'root'
@@ -14,6 +15,10 @@ export class ProposalService {
 		private http: HttpClient,
 		public auth: AuthService
 	) {
+	}
+
+	getActiveCycle():Observable<Cycle>{
+		return this.http.get<Cycle>('/api/getActiveCycle');
 	}
 
 	getComments(proposalId: string): Observable<any> {
@@ -43,6 +48,9 @@ export class ProposalService {
 	}
 	adminGetProposalsByDate(startdate: string, enddate: string){
 		return this.http.get<Proposal[]>('/api/admin/proposals/' + new Date(startdate) + '/' + new Date(enddate))
+	}
+	admingGetProposalsByCycleId(cycleId: string): Observable<Proposal>{
+		return this.http.get<Proposal>('/api/proposals/' + cycleId)
 	}
 	admingGetProposalsByQuery(query: string){
 		return this.http.get<Proposal[]>('/api/admin/proposals/search/' + query)

@@ -3,8 +3,6 @@ import { ProposalAdminComponent } from './proposal-admin.component';
 import { APP_CONFIG, APP_DI_CONFIG } from "../../app-config.module";
 import { SharedModule } from "../../shared/shared.module";
 import { RouterTestingModule } from "@angular/router/testing";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { UserAdminComponent } from "../user-admin/user-admin.component";
 import { AuthService } from "../../user/auth.service";
 
 describe('ProposalAdminComponent', () => {
@@ -33,13 +31,14 @@ describe('ProposalAdminComponent', () => {
 	}));
 
 	beforeEach(() => {
+		authServiceStub.loggedIn = false;
 		fixture = TestBed.createComponent(ProposalAdminComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
 
-	/*it('should create', () => {
-	expect(component).toBeTruthy();
-});*/
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 
 });

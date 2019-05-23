@@ -17,6 +17,7 @@ export class CycleDetailComponent implements OnInit {
 	cycleForm: FormGroup;
 
 	currentCycleId: string;
+	currentCycleObjectId: string;
 
 	isLoading = true;
 	isEditing = false;
@@ -51,7 +52,7 @@ export class CycleDetailComponent implements OnInit {
 			runCycle: [ '' ],
 			wrapUp: [ '' ],
 			other: [ '' ]
-		})
+		});
 
 		this.currentCycleId = this.activatedRoute.snapshot.params.cycleId;
 		console.log(this.currentCycleId)
@@ -79,6 +80,8 @@ export class CycleDetailComponent implements OnInit {
 	}
 
 	save() {
+		console.log(this.cycleForm.value)
+		this.cycle = this.cycleForm.value;
 		this.adminService.editCycle(this.cycleForm.value).subscribe(
 			response => {
 				this.message.setMessage('Saved!', 'success');
