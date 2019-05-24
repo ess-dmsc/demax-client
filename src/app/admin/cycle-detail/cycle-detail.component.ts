@@ -36,7 +36,7 @@ export class CycleDetailComponent implements OnInit {
 	ngOnInit() {
 		this.cycleForm = this.formBuilder.group({
 			cycleId: [ '' ],
-			isActive: [ '' ],
+			isActive: null,
 			submission: this.formBuilder.group({
 				startDate: [ '' ],
 				endDate: [ '' ]
@@ -60,6 +60,7 @@ export class CycleDetailComponent implements OnInit {
 
 		if(this.currentCycleId === 'new') {
 			this.isCreating = true;
+			this.isLoading = false;
 		}
 
 		else {

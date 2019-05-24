@@ -4,6 +4,8 @@ import { Proposal } from "../../models/proposal";
 import { APP_CONFIG, AppConfig } from "../../app-config.module";
 import { MessageComponent } from "../../shared/message/message.component";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AdminService } from "../admin.service";
+import { Cycle } from "../../models/cycle";
 
 @Component({
 	selector: 'app-proposal-admin',
@@ -17,27 +19,32 @@ export class ProposalAdminComponent implements OnInit {
 	isEditing = false;
 	isEditingMetaData = false;
 	isLoading = true;
-	displayedProposalColumns: string[] = [ 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted', 'download', 'edit', 'review' ]
+	displayedProposalColumns: string[] = [ 'cycle', 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted', 'download', 'edit', 'review' ]
 
 	dateQuery: FormGroup;
 	cycleQuery: FormGroup;
+	query: FormGroup;
+
+	cycles: Cycle[] = [];
 
 	constructor(
 		@Inject(APP_CONFIG) private appConfig: AppConfig,
 		private proposalService: ProposalService,
 		private message: MessageComponent,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private adminService: AdminService
 	) {
 	}
 
 	ngOnInit() {
 		this.getProposals();
+		this.getCycles();
 		this.dateQuery = this.formBuilder.group({
 			startDate: [ '', Validators.required ],
 			endDate: [ '', Validators.required ]
 		});
 		this.cycleQuery = this.formBuilder.group({
-			cycle: ['',Validators.required]
+			cycle: [ '', Validators.required ]
 		})
 	}
 
@@ -69,9 +76,19 @@ export class ProposalAdminComponent implements OnInit {
 		}
 	}
 
+	getCycles() {
+		this.adminService.getCycles().subscribe(
+			response => {
+				this.cycles = response;
+			}, error => {
+				console.log(error)
+			}
+		)
+	}
+
 	getProposalsByDate() {
 		this.isLoading = true;
-		this.proposalService.adminGetProposalsByDate(this.dateQuery.controls['startDate'].value, this.dateQuery.controls['endDate'].value).subscribe(
+		this.proposalService.adminGetProposalsByDate(this.dateQuery.controls[ 'startDate' ].value, this.dateQuery.controls[ 'endDate' ].value).subscribe(
 			response => {
 				this.proposals = response;
 				this.isLoading = false;
@@ -84,13 +101,13 @@ export class ProposalAdminComponent implements OnInit {
 		)
 	}
 
-	getProposalsByQuery(query: string){
+	getProposalsByQuery(query: string) {
 		this.isLoading = true;
 		this.proposalService.admingGetProposalsByQuery(query).subscribe(
-			response =>{
+			response => {
 				this.proposals = response;
 				this.isLoading = false;
-			}, error =>{
+			}, error => {
 				this.isLoading = false;
 				this.message.setMessage('Search error. ' + error.message, 'danger');
 			}

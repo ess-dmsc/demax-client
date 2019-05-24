@@ -74,6 +74,7 @@ export class ProposalDetailComponent implements OnInit {
 
 		this.proposalForm = this.formBuilder.group({
 			proposalId: [ '' ],
+			cycle: [''],
 			scienceScore: [ '' ],
 			experimentTitle: [ '', [ Validators.required, Validators.maxLength(500) ] ],
 			briefSummary: [

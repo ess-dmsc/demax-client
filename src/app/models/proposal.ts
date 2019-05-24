@@ -11,7 +11,6 @@ export class Proposal {
 		email?: string;
 		phone?: string;
 		employer?: string;
-		industry?: string;
 		jobTitle?: string;
 	};
 	coProposers: [

@@ -20,6 +20,16 @@
 				</div>
 			</li>-->
 		</ul>
+		<form class="form-inline my-2 my-md-0" *ngIf="!isLoading">
+			<mat-form-field>
+				<mat-label>Select cycle</mat-label>
+				<mat-select>
+					<mat-option *ngFor="let cycle of cycles" [value]="cycle.cycleId">
+						{{cycle.cycleId}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</form>
 		<form class="form-inline my-2 my-md-0" [formGroup]="dateQuery">
 			<mat-form-field style="padding: 0;">
 				<input matInput
@@ -45,6 +55,10 @@
 </nav>
 
 <table mat-table [dataSource]="proposals" class="table table-sm" *ngIf="!isLoading">
+	<ng-container matColumnDef="cycle">
+		<th mat-header-cell *matHeaderCellDef>Cycle ID</th>
+		<td mat-cell *matCellDef="let proposal"> {{proposal.cycle}}</td>
+	</ng-container>
 	<ng-container matColumnDef="proposalId">
 		<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
 		<td mat-cell *matCellDef="let proposal"> {{proposal.proposalId}}</td>
