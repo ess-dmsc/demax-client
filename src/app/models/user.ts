@@ -7,7 +7,6 @@ export class User {
 	password?:  string;
 	role?:  string;
 	employer?:  string;
-	industry?:  string;
 	jobTitle?:  string;
 	hasConsentedToGdpr?: boolean;
 	hasConsentedToEmails?: boolean;

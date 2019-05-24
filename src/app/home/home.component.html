@@ -50,11 +50,13 @@
 		</a>
 	</div>
 	<div class="deadlines">
-		<mat-card>
-			<mat-card-title>
-				<mat-icon>event</mat-icon>
-				Important dates
-			</mat-card-title>
+		<mat-card *ngIf="activeCycle">
+			<mat-card-header>
+				<mat-card-title>
+					<mat-icon>event</mat-icon>
+					{{activeCycle.cycleId}}: Important dates
+				</mat-card-title>
+			</mat-card-header>
 			<mat-card-content>
 				<table>
 					<tr>
@@ -62,7 +64,8 @@
 							Proposal submission:
 						</td>
 						<td>
-							25 February - 5 April
+							{{activeCycle.submission.startDate | slice:0:10}} - {{activeCycle.submission.endDate |
+							slice:0:10}}
 						</td>
 					</tr>
 					<mat-divider></mat-divider>
@@ -71,7 +74,7 @@
 							Review:
 						</td>
 						<td>
-							5 April - 6 May
+							{{activeCycle.review.startDate | slice:0:10}} - {{activeCycle.review.endDate | slice:0:10}}
 						</td>
 					</tr>
 					<mat-divider></mat-divider>
@@ -81,23 +84,30 @@
 							Notify users:
 						</td>
 						<td>
-							6 - 31 May
+							{{activeCycle.notifyUsers.startDate | slice:0:10}} - {{activeCycle.notifyUsers.endDate |
+							slice:0:10}}
 						</td>
 					</tr>
 					<mat-divider></mat-divider>
 					<tr>
 						<td>Run cycle:</td>
-						<td>June - November</td>
+						<td>
+							{{activeCycle.runCycle}}
+						</td>
 
 					</tr>
 					<mat-divider></mat-divider>
 					<tr>
 						<td>Wrap-up & user survey:</td>
-						<td>December</td>
+						<td>
+							{{activeCycle.wrapUp}}
+						</td>
 					</tr>
 				</table>
 			</mat-card-content>
-
+			<mat-card-actions>
+				<div style="max-width: 200px;">{{activeCycle.other}}</div>
+			</mat-card-actions>
 		</mat-card>
 
 	</div>

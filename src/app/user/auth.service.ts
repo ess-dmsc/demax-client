@@ -60,7 +60,6 @@ export class AuthService {
 		this.currentUser.lastName = decodedUser.lastName;
 		this.currentUser.phone = decodedUser.phone;
 		this.currentUser.employer = decodedUser.employer;
-		this.currentUser.industry = decodedUser.industry;
 		this.currentUser.jobTitle = decodedUser.jobTitle;
 		this.currentUser.hasConsentedToGdpr = decodedUser.hasConsentedToGdpr;
 		this.currentUser.hasConsentedToEmails = decodedUser.hasConsentedToEmails;

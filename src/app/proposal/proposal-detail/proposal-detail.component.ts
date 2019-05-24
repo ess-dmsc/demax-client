@@ -74,6 +74,7 @@ export class ProposalDetailComponent implements OnInit {
 
 		this.proposalForm = this.formBuilder.group({
 			proposalId: [ '' ],
+			cycle: [''],
 			scienceScore: [ '' ],
 			experimentTitle: [ '', [ Validators.required, Validators.maxLength(500) ] ],
 			briefSummary: [
@@ -89,8 +90,7 @@ export class ProposalDetailComponent implements OnInit {
 				email: this.auth.currentUser.email,
 				phone: this.auth.currentUser.phone,
 				jobTitle: this.auth.currentUser.jobTitle,
-				employer: this.auth.currentUser.employer,
-				industry: this.auth.currentUser.industry
+				employer: this.auth.currentUser.employer
 			}),
 			coProposers: this.formBuilder.array([ this.initCoProposer() ]),
 			needByDate: [ '', [ Validators.required ] ],

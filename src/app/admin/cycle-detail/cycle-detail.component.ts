@@ -17,6 +17,7 @@ export class CycleDetailComponent implements OnInit {
 	cycleForm: FormGroup;
 
 	currentCycleId: string;
+	currentCycleObjectId: string;
 
 	isLoading = true;
 	isEditing = false;
@@ -35,7 +36,7 @@ export class CycleDetailComponent implements OnInit {
 	ngOnInit() {
 		this.cycleForm = this.formBuilder.group({
 			cycleId: [ '' ],
-			isActive: [ '' ],
+			isActive: null,
 			submission: this.formBuilder.group({
 				startDate: [ '' ],
 				endDate: [ '' ]
@@ -51,7 +52,7 @@ export class CycleDetailComponent implements OnInit {
 			runCycle: [ '' ],
 			wrapUp: [ '' ],
 			other: [ '' ]
-		})
+		});
 
 		this.currentCycleId = this.activatedRoute.snapshot.params.cycleId;
 		console.log(this.currentCycleId)
@@ -59,6 +60,7 @@ export class CycleDetailComponent implements OnInit {
 
 		if(this.currentCycleId === 'new') {
 			this.isCreating = true;
+			this.isLoading = false;
 		}
 
 		else {
@@ -79,6 +81,8 @@ export class CycleDetailComponent implements OnInit {
 	}
 
 	save() {
+		console.log(this.cycleForm.value)
+		this.cycle = this.cycleForm.value;
 		this.adminService.editCycle(this.cycleForm.value).subscribe(
 			response => {
 				this.message.setMessage('Saved!', 'success');

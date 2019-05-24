@@ -52,6 +52,10 @@
 
 	<table mat-table [dataSource]="proposals" class="table table-sm">
 
+		<ng-container matColumnDef="cycle">
+			<th mat-header-cell *matHeaderCellDef> Cycle ID</th>
+			<td mat-cell *matCellDef="let proposal"> {{proposal.cycle}}</td>
+		</ng-container>
 		<ng-container matColumnDef="proposalId">
 			<th mat-header-cell *matHeaderCellDef> Proposal ID</th>
 			<td mat-cell *matCellDef="let proposal"> {{proposal.proposalId}}</td>

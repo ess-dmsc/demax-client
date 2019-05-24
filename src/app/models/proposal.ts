@@ -1,5 +1,6 @@
 export class Proposal {
 	proposalId: string;
+	cycle?: string;
 	dateCreated?: string;
 	submitted?: boolean;
 	experimentTitle?: string;
@@ -10,7 +11,6 @@ export class Proposal {
 		email?: string;
 		phone?: string;
 		employer?: string;
-		industry?: string;
 		jobTitle?: string;
 	};
 	coProposers: [
