@@ -19,5 +19,4 @@ describe('CycleDetailComponent', () => {
     fixture.detectChanges();
   });
 
-
 });

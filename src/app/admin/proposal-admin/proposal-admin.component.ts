@@ -44,7 +44,7 @@ export class ProposalAdminComponent implements OnInit {
 			endDate: [ '', Validators.required ]
 		});
 		this.cycleQuery = this.formBuilder.group({
-			cycle: [ '', Validators.required ]
+			cycleId: [ '', Validators.required ]
 		})
 	}
 
@@ -76,6 +76,7 @@ export class ProposalAdminComponent implements OnInit {
 		}
 	}
 
+
 	getCycles() {
 		this.adminService.getCycles().subscribe(
 			response => {
@@ -101,9 +102,10 @@ export class ProposalAdminComponent implements OnInit {
 		)
 	}
 
-	getProposalsByQuery(query: string) {
+	getProposalsByQuery() {
+		console.log(this.cycleQuery.value)
 		this.isLoading = true;
-		this.proposalService.admingGetProposalsByQuery(query).subscribe(
+		this.proposalService.admingGetProposalsByQuery(this.cycleQuery.controls['cycle'].value, this.dateQuery.controls[ 'startDate' ].value, this.dateQuery.controls[ 'endDate' ].value).subscribe(
 			response => {
 				this.proposals = response;
 				this.isLoading = false;
