@@ -17,7 +17,6 @@ import { FileAdminComponent } from "./admin/file-admin/file-admin.component";
 import { ProposalAdminComponent } from "./admin/proposal-admin/proposal-admin.component";
 import { UserAdminComponent } from "./admin/user-admin/user-admin.component";
 import { ProposalCommentComponent } from "./proposal/proposal-comment/proposal-comment.component";
-import { ProposalArchiveComponent } from "./admin/proposal-archive/proposal-archive.component";
 import { CycleListComponent } from "./admin/cycle-list/cycle-list.component";
 import { CycleDetailComponent } from "./admin/cycle-detail/cycle-detail.component";
 import { HelpComponent } from "./help/help.component";
@@ -27,7 +26,6 @@ const routes: Routes = [
 	{path: 'account', component: AccountComponent, canActivate: [ AuthGuardLogin ]},
 	{path: 'admin/files', component: FileAdminComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/proposals', component: ProposalAdminComponent, canActivate: [ AuthGuardAdmin ]},
-	{path: 'admin/proposal-archive', component: ProposalArchiveComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/cycles', component: CycleListComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/cycles/:cycleId', component: CycleDetailComponent, canActivate: [ AuthGuardAdmin ]},
 	{path: 'admin/users', component: UserAdminComponent, canActivate: [ AuthGuardAdmin ]},
