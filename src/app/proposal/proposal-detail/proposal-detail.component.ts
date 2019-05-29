@@ -231,6 +231,7 @@ export class ProposalDetailComponent implements OnInit {
 
 					let controlArray = <FormArray>this.proposalForm.controls[ 'coProposers' ];
 					for(let i = 1; i < this.proposal.coProposers.length; i++) {
+						console.log(controlArray)
 						controlArray.push(this.formBuilder.group({
 							firstName: this.proposal.coProposers[ i ].firstName,
 							lastName: this.proposal.coProposers[ i ].lastName,

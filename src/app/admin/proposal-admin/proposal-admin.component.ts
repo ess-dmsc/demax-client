@@ -21,10 +21,12 @@ export class ProposalAdminComponent implements OnInit {
 	isLoading = true;
 	displayedProposalColumns: string[] = [ 'cycle', 'proposalId', 'experimentTitle', 'categories', 'dateCreated', 'mainProposer', 'submitted', 'download', 'edit', 'review' ]
 
+	selectedOption: string;
+	activeCycle: string;
+
 	dateQuery: FormGroup;
 	cycleQuery: FormGroup;
 	query: FormGroup;
-
 	cycles: Cycle[] = [];
 
 	constructor(
@@ -40,12 +42,12 @@ export class ProposalAdminComponent implements OnInit {
 		this.getProposals();
 		this.getCycles();
 		this.dateQuery = this.formBuilder.group({
-			startDate: [ '', Validators.required ],
-			endDate: [ '', Validators.required ]
+			startDate: [ 'Fri May 31 2010 00:00:00 GMT 0200 (Central European Summer Time)', Validators.required ],
+			endDate: [ 'Fri May 31 20e0 00:00:00 GMT 0200 (Central European Summer Time)', Validators.required ],
 		});
-		this.cycleQuery = this.formBuilder.group({
-			cycleId: [ '', Validators.required ]
-		})
+
+
+
 	}
 
 	getProposals() {
@@ -54,6 +56,7 @@ export class ProposalAdminComponent implements OnInit {
 				this.proposals = data;
 				console.log(this.proposals);
 				this.isLoading = false
+
 			},
 			error => {
 				console.log(error);
@@ -62,7 +65,6 @@ export class ProposalAdminComponent implements OnInit {
 			}
 		)
 	}
-
 
 	deleteProposal(proposal: Proposal) {
 		if(window.confirm('Are you sure you want to delete ' + proposal.mainProposer.email + '?')) {
@@ -75,7 +77,6 @@ export class ProposalAdminComponent implements OnInit {
 			);
 		}
 	}
-
 
 	getCycles() {
 		this.adminService.getCycles().subscribe(
@@ -103,9 +104,11 @@ export class ProposalAdminComponent implements OnInit {
 	}
 
 	getProposalsByQuery() {
-		console.log(this.cycleQuery.value)
+		this.activeCycle = this.selectedOption;
+		console.log(this.selectedOption)
+
 		this.isLoading = true;
-		this.proposalService.admingGetProposalsByQuery(this.cycleQuery.controls['cycle'].value, this.dateQuery.controls[ 'startDate' ].value, this.dateQuery.controls[ 'endDate' ].value).subscribe(
+		this.proposalService.admingGetProposalsByQuery(this.activeCycle, this.dateQuery.controls[ 'startDate' ].value, this.dateQuery.controls[ 'endDate' ].value).subscribe(
 			response => {
 				this.proposals = response;
 				this.isLoading = false;

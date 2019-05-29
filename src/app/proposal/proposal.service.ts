@@ -53,7 +53,7 @@ export class ProposalService {
 		return this.http.get<Proposal>('/api/proposals/' + cycleId)
 	}
 	admingGetProposalsByQuery(cycle: string, startDate: string, endDate: string){
-		return this.http.get<Proposal[]>('/api/admin/proposals/query/' + cycle + '/' + startDate + '/' + endDate)
+		return this.http.get<Proposal[]>('/api/admin/search?cycleId=' + cycle + '&startDate=' + startDate + '&endDate=' + endDate)
 	}
 
 	getProposals(user: User): Observable<Proposal[]> {

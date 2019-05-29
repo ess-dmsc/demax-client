@@ -36,6 +36,6 @@ describe('ProposalAdminComponent', () => {
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
-	
+
 
 });
