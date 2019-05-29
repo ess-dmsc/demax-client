@@ -8,7 +8,6 @@ import { FileAdminComponent } from "./file-admin/file-admin.component";
 import { FileAdminService } from "./file-admin/file-admin.service";
 import { UserAdminService } from "./user-admin/user-admin.service";
 import { FileModule } from "../file/file.module";
-import { ProposalArchiveComponent } from './proposal-archive/proposal-archive.component';
 import { CycleListComponent } from './cycle-list/cycle-list.component';
 import { CycleDetailComponent } from './cycle-detail/cycle-detail.component';
 
@@ -22,7 +21,6 @@ import { CycleDetailComponent } from './cycle-detail/cycle-detail.component';
 		FileAdminComponent,
 		ProposalAdminComponent,
 		UserAdminComponent,
-		ProposalArchiveComponent,
 		CycleListComponent,
 		CycleDetailComponent
 	],
@@ -36,7 +34,6 @@ import { CycleDetailComponent } from './cycle-detail/cycle-detail.component';
 		CycleDetailComponent,
 		FileAdminComponent,
 		ProposalAdminComponent,
-		ProposalArchiveComponent,
 		UserAdminComponent
 	]
 })
