@@ -28,8 +28,7 @@ export class ProposalListComponent implements OnInit {
 		private proposalService: ProposalService,
 		public auth: AuthService,
 		public router: Router,
-		public message: MessageComponent
-	) {
+		public message: MessageComponent) {
 	}
 
 	ngOnInit() {
